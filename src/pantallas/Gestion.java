@@ -1,5 +1,5 @@
 package pantallas;
-
+//Prueba de git by nico
 import java.awt.Image;
 import java.awt.Toolkit;
 
