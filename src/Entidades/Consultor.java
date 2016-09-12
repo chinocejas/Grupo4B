@@ -1,5 +1,5 @@
 package Entidades;
-// Generated 05-sep-2016 13:10:58 by Hibernate Tools 4.3.1
+// Generated 11/09/2016 22:33:21 by Hibernate Tools 4.3.1
 
 
 
@@ -9,7 +9,7 @@ package Entidades;
 public class Consultor  implements java.io.Serializable {
 
 
-     private int idConsultor;
+     private long idConsultor;
      private String username;
      private String clave;
      private String nombre;
@@ -18,23 +18,23 @@ public class Consultor  implements java.io.Serializable {
     }
 
 	
-    public Consultor(int idConsultor, String username, String clave) {
+    public Consultor(long idConsultor, String username, String clave) {
         this.idConsultor = idConsultor;
         this.username = username;
         this.clave = clave;
     }
-    public Consultor(int idConsultor, String username, String clave, String nombre) {
+    public Consultor(long idConsultor, String username, String clave, String nombre) {
        this.idConsultor = idConsultor;
        this.username = username;
        this.clave = clave;
        this.nombre = nombre;
     }
    
-    public int getIdConsultor() {
+    public long getIdConsultor() {
         return this.idConsultor;
     }
     
-    public void setIdConsultor(int idConsultor) {
+    public void setIdConsultor(long idConsultor) {
         this.idConsultor = idConsultor;
     }
     public String getUsername() {

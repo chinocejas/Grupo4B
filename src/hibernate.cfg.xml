@@ -9,5 +9,6 @@
     <property name="hibernate.connection.password">chinocejas</property>
     <mapping resource="Entidades/Puesto.hbm.xml"/>
     <mapping resource="Entidades/Consultor.hbm.xml"/>
+    <mapping resource="Entidades/Competencia.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

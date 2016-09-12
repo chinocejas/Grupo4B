@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 11/09/2016 22:33:22 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Entidades.Competencia" table="competencia" schema="public" optimistic-lock="version">
+        <id name="idCompetencia" type="int">
+            <column name="id_competencia" />
+            <generator class="assigned" />
+        </id>
+        <property name="nombreCompetencia" type="string">
+            <column name="nombre_competencia" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="descripcion" />
+        </property>
+    </class>
+</hibernate-mapping>

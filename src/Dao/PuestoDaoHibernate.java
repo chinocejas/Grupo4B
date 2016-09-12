@@ -54,16 +54,56 @@ public class PuestoDaoHibernate extends AbstractDao {
     }
     
     //agregado por el negro
-    public List findPorCodigoAndPuestoAndEmpresa(int codigo, String puesto, String empresa) throws DataAccessLayerException {
+    public List findPorCodigoAndPuestoAndEmpresa(String codigo, String puesto, String empresa) throws DataAccessLayerException {
         List objects = null;
+
+        codigo = "%" + codigo + "%";     //al usar el criterio contiene busco todas las cadenas que contengan codigo
+        puesto = "%" + puesto + "%";
+        empresa = "%" + empresa + "%";
         try {
             startOperation();
-            
-          Query query = session.createQuery("from Consultor where codigo= :codigo AND puesto= :puesto AND empresa= :empresa");
-          query.setParameter("codigo", codigo);
-          query.setParameter("puesto", puesto);
-          query.setParameter("empresa", empresa);
-          objects = query.list();
+            Query query = null;
+
+           if (codigo!=null && puesto!=null && empresa!=null)  { //busqueda por los tres parametros
+               query = session.createQuery("from Puesto WHERE TRIM(TO_CHAR(id_puesto, '9999999999')) LIKE :codigo AND nombre_puesto LIKE :puesto AND nombre_empresa LIKE :empresa");     
+                query.setParameter("codigo", codigo);
+                query.setParameter("puesto", puesto);
+                query.setParameter("empresa", empresa);
+                objects = query.list();
+           }
+           else if("".equals(empresa)){ //busqueda solo por codigo y puesto
+               query = session.createQuery("from Puesto WHERE TRIM(TO_CHAR(id_puesto, '9999999999')) LIKE :codigo AND nombre_puesto LIKE :puesto");    
+                query.setParameter("codigo", codigo);
+                query.setParameter("puesto", puesto);
+                objects = query.list();
+           }
+            else if("".equals(puesto)){ //busqueda solo por codigo y empresa
+               query = session.createQuery("from Puesto WHERE TRIM(TO_CHAR(id_puesto, '9999999999')) LIKE :codigo AND nombre_empresa LIKE :empresa");     
+                query.setParameter("codigo", codigo);
+                query.setParameter("empresa", empresa);
+                objects = query.list();
+           }
+            else if ("".equals(codigo)) { //busqueda solo por puesto y empresa
+                query = session.createQuery("from Puesto WHERE nombre_puesto LIKE :puesto AND nombre_empresa LIKE :empresa");
+                query.setParameter("puesto", puesto);
+                query.setParameter("empresa", empresa);
+                objects = query.list();
+            } else if ("".equals(puesto) && "".equals(empresa)) //busqueda solo por codigo
+            {
+
+                query = session.createQuery("from Puesto WHERE TRIM(TO_CHAR(id_puesto, '9999999999')) LIKE :codigo");      //el operador like funciona solo con cadenas por eso uso esto para id_puesto
+                query.setParameter("codigo", codigo);
+                objects = query.list();
+            } else if ("".equals(codigo) && "".equals(empresa)) { //busqueda solo por puesto
+                query = session.createQuery("from Puesto WHERE nombre_puesto LIKE :puesto");
+                query.setParameter("puesto", puesto);
+                objects = query.list();
+            } else if ("".equals(codigo) && "".equals(puesto)) { //busqueda solo por empresa
+                query = session.createQuery("from Puesto WHERE nombre_empresa LIKE :empresa");
+                query.setParameter("empresa", empresa);
+                objects = query.list();
+            }
+
             tx.commit();
         } catch (HibernateException e) {
             handleException(e);

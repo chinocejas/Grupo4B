@@ -5,12 +5,10 @@
  */
 package pantallas;
 
-import Gestores.GestorConsultor;
 import Gestores.GestorPuesto;
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -20,30 +18,26 @@ import javax.swing.table.DefaultTableModel;
 public class GestionDePuestos extends javax.swing.JFrame {
 
     /**
-     * Creates new form GestionDePuestos
+     * Creates new form NewJFrame
      */
     public GestionDePuestos() {
         initComponents();
-        initComponents();
-        setTitle("Inicio");
         setSize(1024, 768);
-        setLocationRelativeTo(null);  
-        setResizable(false);
-        
-        //no quieren funcar lpm
-        tabla.getTableHeader().setFont(new Font("Arial", 1, 36));
-        tabla.getTableHeader().setBackground(Color.cyan);
-        tabla.getTableHeader().setForeground(Color.white);
-        
-        //
-        
-        
+        setLocationRelativeTo(null);
     }
-
-    public Image getIconImage() {
+    
+     public Image getIconImage() {
         Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Imagenes/BS_ultimate2.png"));
         return retValue;
     }
+    
+    private void limpiarTabla(JTable tabla, DefaultTableModel modeloTabla){
+       for (int i = 0; i < tabla.getRowCount(); i++) {
+           modeloTabla.removeRow(i);
+           i-=1;
+       }
+   }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -70,6 +64,7 @@ public class GestionDePuestos extends javax.swing.JFrame {
         eliminar = new javax.swing.JButton();
         modificar = new javax.swing.JButton();
         codigo = new javax.swing.JTextField();
+        mensajeError = new javax.swing.JLabel();
         arriba = new javax.swing.JPanel();
         Ingreso = new javax.swing.JLabel();
         abajo = new javax.swing.JPanel();
@@ -78,6 +73,7 @@ public class GestionDePuestos extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setIconImage(getIconImage());
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         fondo.setOpaque(false);
@@ -123,7 +119,7 @@ public class GestionDePuestos extends javax.swing.JFrame {
         jLabel2.setText("Código:");
 
         empresa.setBackground(new java.awt.Color(0, 51, 102));
-        empresa.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        empresa.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
         empresa.setForeground(new java.awt.Color(255, 255, 255));
         empresa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -155,7 +151,7 @@ public class GestionDePuestos extends javax.swing.JFrame {
         });
 
         puesto.setBackground(new java.awt.Color(0, 51, 102));
-        puesto.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        puesto.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
         puesto.setForeground(new java.awt.Color(255, 255, 255));
         puesto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -229,11 +225,17 @@ public class GestionDePuestos extends javax.swing.JFrame {
             }
         });
 
+        codigo.setBackground(new java.awt.Color(0, 51, 102));
+        codigo.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
+        codigo.setForeground(new java.awt.Color(255, 255, 255));
         codigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 codigoActionPerformed(evt);
             }
         });
+
+        mensajeError.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
+        mensajeError.setForeground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout trabajarAcaLayout = new javax.swing.GroupLayout(trabajarAca);
         trabajarAca.setLayout(trabajarAcaLayout);
@@ -252,10 +254,16 @@ public class GestionDePuestos extends javax.swing.JFrame {
                             .addComponent(jLabel3)
                             .addComponent(jLabel2)
                             .addComponent(buscar))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(trabajarAcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(puesto, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
-                            .addComponent(codigo)))
+                            .addGroup(trabajarAcaLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(trabajarAcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(puesto, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
+                                    .addComponent(codigo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)))
+                            .addGroup(trabajarAcaLayout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(mensajeError, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, trabajarAcaLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(trabajarAcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -269,10 +277,10 @@ public class GestionDePuestos extends javax.swing.JFrame {
         trabajarAcaLayout.setVerticalGroup(
             trabajarAcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(trabajarAcaLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addGap(27, 27, 27)
                 .addGroup(trabajarAcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2)
-                    .addComponent(codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(trabajarAcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(puesto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -282,7 +290,9 @@ public class GestionDePuestos extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(empresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buscar)
+                .addGroup(trabajarAcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buscar)
+                    .addComponent(mensajeError, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(nuevo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -360,26 +370,12 @@ public class GestionDePuestos extends javax.swing.JFrame {
         fondo.add(abajo, java.awt.BorderLayout.PAGE_END);
 
         getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1024, 768));
-        fondo.getAccessibleContext().setAccessibleDescription("");
 
         ImagenFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Abstracto Azul_1024.jpg"))); // NOI18N
         getContentPane().add(ImagenFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1024, 768));
-        ImagenFondo.getAccessibleContext().setAccessibleDescription("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void volverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_volverMouseClicked
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_volverMouseClicked
-
-    private void volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverActionPerformed
-        // TODO add your handling code here:
-        Gestion obj= new Gestion();
-        obj.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_volverActionPerformed
 
     private void empresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_empresaActionPerformed
         // TODO add your handling code here:
@@ -390,21 +386,31 @@ public class GestionDePuestos extends javax.swing.JFrame {
     }//GEN-LAST:event_buscarMouseClicked
 
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
-       
-        String codigoTemp = new String (codigo.getText());
-        System.out.println("aca: " + codigo.getText());
+
         
-        //int codigo2= Integer.parseInt(codigoTemp);
-        String puesto2 = new String (puesto.getText());
         
+        DefaultTableModel modeloTabla =(DefaultTableModel) tabla.getModel(); 
+        limpiarTabla(tabla,modeloTabla);    //se limpia la tabla para que al hacer busquedas consecutivas se borren los resultados anteriores
+        
+        //obtengo los datos de pantalla
+        String codigo2 = codigo.getText();    
+        String puesto2 = puesto.getText();
         String empresa2 = empresa.getText();
         
-        //GestorPuesto gestorPuesto = GestorPuesto.getInstance();
+        //si se muestra el mensaje de error y vuelvo a buscar con un campo completado el mensaje se quita
+        mensajeError.setText(""); 
         
-        //gestorPuesto.buscarPuesto(tabla, codigo2, puesto2, empresa2);
+       
         
-        
-        
+        if("".equals(codigo2) && "".equals(puesto2) && "".equals(empresa2)){ //no completo al menos un criterio de busqueda
+            mensajeError.setText("Complete al menos uno de los criterios de búsqueda");
+        }
+        else{
+        GestorPuesto gestorPuesto = GestorPuesto.getInstance();     //se pide la instancia de GestorPuesto
+
+        gestorPuesto.buscarPuesto(modeloTabla, codigo2, puesto2, empresa2);  //busca en la BS y completa la tabla que es pasada por parametro con los resultados
+        }
+
     }//GEN-LAST:event_buscarActionPerformed
 
     private void puestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_puestoActionPerformed
@@ -416,7 +422,9 @@ public class GestionDePuestos extends javax.swing.JFrame {
     }//GEN-LAST:event_nuevoMouseClicked
 
     private void nuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoActionPerformed
-        // TODO add your handling code here:
+         AltaPuesto obj= new AltaPuesto();
+        obj.setVisible(true);
+        dispose();
     }//GEN-LAST:event_nuevoActionPerformed
 
     private void eliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eliminarMouseClicked
@@ -434,6 +442,17 @@ public class GestionDePuestos extends javax.swing.JFrame {
     private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_modificarActionPerformed
+
+    private void volverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_volverMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_volverMouseClicked
+
+    private void volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverActionPerformed
+        // TODO add your handling code here:
+        Gestion obj= new Gestion();
+        obj.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_volverActionPerformed
 
     private void codigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codigoActionPerformed
         // TODO add your handling code here:
@@ -465,6 +484,9 @@ public class GestionDePuestos extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(GestionDePuestos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -491,6 +513,7 @@ public class GestionDePuestos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel mensajeError;
     private javax.swing.JButton modificar;
     private javax.swing.JButton nuevo;
     private javax.swing.JTextField puesto;

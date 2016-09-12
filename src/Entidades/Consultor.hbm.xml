@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 05-sep-2016 13:10:59 by Hibernate Tools 4.3.1 -->
+<!-- Generated 11/09/2016 22:33:22 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="Entidades.Consultor" table="consultor" schema="public" optimistic-lock="version">
-        <id name="idConsultor" type="int">
+        <id name="idConsultor" type="long">
             <column name="id_consultor" />
             <generator class="assigned" />
         </id>

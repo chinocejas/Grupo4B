@@ -1,11 +1,10 @@
 package pantallas;
-//Prueba de git by nico 2
+
 import java.awt.Image;
 import java.awt.Toolkit;
 
 import Gestores.*;
-// HOLA QUE TAL QUE TAL 
-//a ver si puedo hacer un puto pull
+
 /**
  *
  * @author John
@@ -75,9 +74,11 @@ public class Gestion extends javax.swing.JFrame {
 
         userConsultor.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         userConsultor.setForeground(new java.awt.Color(204, 204, 204));
+        userConsultor.setToolTipText("");
 
         nombreConsultor.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         nombreConsultor.setForeground(new java.awt.Color(204, 204, 204));
+        nombreConsultor.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
         javax.swing.GroupLayout arribaLayout = new javax.swing.GroupLayout(arriba);
         arriba.setLayout(arribaLayout);
@@ -88,12 +89,12 @@ public class Gestion extends javax.swing.JFrame {
                 .addGroup(arribaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(arribaLayout.createSequentialGroup()
                         .addComponent(Ingreso)
-                        .addGap(140, 140, 140)
-                        .addGroup(arribaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nombreConsultor, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(userConsultor, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(50, 50, 50)
+                        .addGroup(arribaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(nombreConsultor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(userConsultor, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel4))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(85, Short.MAX_VALUE))
         );
         arribaLayout.setVerticalGroup(
             arribaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -117,7 +118,7 @@ public class Gestion extends javax.swing.JFrame {
 
         volver.setBackground(new java.awt.Color(0, 51, 102));
         volver.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
-        volver.setForeground(new java.awt.Color(204, 204, 204));
+        volver.setForeground(new java.awt.Color(255, 255, 255));
         volver.setText("Volver");
         volver.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -151,9 +152,9 @@ public class Gestion extends javax.swing.JFrame {
         abajo.setLayout(abajoLayout);
         abajoLayout.setHorizontalGroup(
             abajoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, abajoLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(abajoLayout.createSequentialGroup()
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 28, Short.MAX_VALUE))
         );
         abajoLayout.setVerticalGroup(
             abajoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -204,7 +205,7 @@ public class Gestion extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1040, Short.MAX_VALUE)
+            .addGap(0, 1066, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -365,6 +366,7 @@ public class Gestion extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Gestion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
        
 
