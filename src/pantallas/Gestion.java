@@ -4,7 +4,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 
 import Gestores.*;
-
+// HOLA QUE TAL QUE TAL 
 /**
  *
  * @author John
