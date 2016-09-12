@@ -130,11 +130,11 @@ public class IngresoConsultor extends javax.swing.JFrame {
         abajoLayout.setHorizontalGroup(
             abajoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(abajoLayout.createSequentialGroup()
-                .addGap(240, 240, 240)
+                .addGap(245, 245, 245)
                 .addComponent(aceptar)
                 .addGap(236, 236, 236)
                 .addComponent(cancelar)
-                .addContainerGap(258, Short.MAX_VALUE))
+                .addContainerGap(253, Short.MAX_VALUE))
         );
         abajoLayout.setVerticalGroup(
             abajoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
