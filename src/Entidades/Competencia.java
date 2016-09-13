@@ -53,4 +53,3 @@ public class Competencia  implements java.io.Serializable {
 
 }
 
-

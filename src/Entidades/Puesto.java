@@ -78,4 +78,3 @@ public class Puesto  implements java.io.Serializable {
 
 }
 
-

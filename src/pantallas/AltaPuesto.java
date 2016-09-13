@@ -6,9 +6,12 @@
 package pantallas;
 
 
+import Gestores.GestorCompetencia;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.util.List;
 import javax.swing.DefaultListModel;
+import Entidades.Competencia;
 
 /**
  *
@@ -26,7 +29,14 @@ public class AltaPuesto extends javax.swing.JFrame {
         l1.setModel(modelol1);
         l2.setModel(modelol2);
         
-      
+        GestorCompetencia gestorCompetencia= GestorCompetencia.getInstance();
+        List allCompetencias= gestorCompetencia.allCompetencias();
+        
+        for(int i=0; i<allCompetencias.size(); i++){
+            Competencia competencia= (Competencia) allCompetencias.get(i);
+            String nombreCompetencia= competencia.getNombreCompetencia();
+            modelol1.addElement(nombreCompetencia);
+        }
     }
      public Image getIconImage() {
         Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Imagenes/BS_ultimate2.png"));
@@ -61,7 +71,7 @@ public class AltaPuesto extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         txtEmpresa = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
+        txtCodigo = new javax.swing.JLabel();
         cancelar = new javax.swing.JButton();
         aceptar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -180,9 +190,9 @@ public class AltaPuesto extends javax.swing.JFrame {
         txtEmpresa.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
         txtEmpresa.setForeground(new java.awt.Color(255, 255, 255));
 
-        jLabel8.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("XXXXX");
+        txtCodigo.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
+        txtCodigo.setForeground(new java.awt.Color(255, 255, 255));
+        txtCodigo.setText("XXXXX");
 
         cancelar.setBackground(new java.awt.Color(0, 51, 102));
         cancelar.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
@@ -207,6 +217,8 @@ public class AltaPuesto extends javax.swing.JFrame {
 
         jTextArea1.setBackground(new java.awt.Color(0, 51, 102));
         jTextArea1.setColumns(20);
+        jTextArea1.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
+        jTextArea1.setForeground(new java.awt.Color(255, 255, 255));
         jTextArea1.setRows(3);
         jScrollPane1.setViewportView(jTextArea1);
 
@@ -226,11 +238,19 @@ public class AltaPuesto extends javax.swing.JFrame {
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(90, 90, 90)
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(txtCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(10, 10, 10)
                                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 690, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(70, 70, 70)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtEmpresa)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 690, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -258,34 +278,27 @@ public class AltaPuesto extends javax.swing.JFrame {
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(btnRemoveAll)
                                                 .addGap(18, 18, 18)))
-                                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(70, 70, 70)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtEmpresa)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 690, Short.MAX_VALUE)))))
+                                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(177, 177, 177)
-                        .addComponent(campoTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 664, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(239, 239, 239)
+                        .addGap(246, 246, 246)
                         .addComponent(aceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(237, 237, 237)
                         .addComponent(cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(35, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(campoTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 664, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(175, 175, 175))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addComponent(jLabel1)
-                .addGap(43, 43, 43)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
-                    .addComponent(jLabel8))
+                    .addComponent(txtCodigo))
                 .addGap(16, 16, 16)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
@@ -301,15 +314,15 @@ public class AltaPuesto extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(50, 50, 50)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
-                            .addComponent(jScrollPane4)))
+                            .addComponent(jScrollPane3)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(77, 77, 77)
                         .addComponent(btnAdd)
@@ -319,13 +332,13 @@ public class AltaPuesto extends javax.swing.JFrame {
                         .addComponent(btnAddAll)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnRemoveAll)))
+                .addGap(18, 18, 18)
+                .addComponent(campoTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(campoTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(aceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addContainerGap(100, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -375,14 +388,6 @@ public class AltaPuesto extends javax.swing.JFrame {
         modelol2.removeAllElements();
     }//GEN-LAST:event_btnRemoveAllActionPerformed
 
-    private void l1ComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_l1ComponentAdded
-        // TODO add your handling code here:
-    }//GEN-LAST:event_l1ComponentAdded
-
-    private void l1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_l1FocusGained
-        // TODO add your handling code here:
-    }//GEN-LAST:event_l1FocusGained
-
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
         // TODO add your handling code here:
         GestionDePuestos obj= new GestionDePuestos();
@@ -394,6 +399,14 @@ public class AltaPuesto extends javax.swing.JFrame {
 
         
     }//GEN-LAST:event_aceptarActionPerformed
+
+    private void l1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_l1FocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_l1FocusGained
+
+    private void l1ComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_l1ComponentAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_l1ComponentAdded
 
     /**
      * @param args the command line arguments
@@ -453,7 +466,6 @@ public class AltaPuesto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
@@ -461,6 +473,7 @@ public class AltaPuesto extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JList<String> l1;
     private javax.swing.JList<String> l2;
+    private javax.swing.JLabel txtCodigo;
     private javax.swing.JTextField txtEmpresa;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables

@@ -4,7 +4,7 @@
  */
 package Dao;
 
-import Entidades.Puesto;
+import Entidades.Competencia;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -24,24 +24,24 @@ public class CompetenciaDaoHibernate extends AbstractDao {
      * Insert a new Usuario into the database.
      * @param usuario
      */
-    public void save(Puesto puesto) throws DataAccessLayerException {
-        super.save(puesto);
+    public void save(Competencia competencia) throws DataAccessLayerException {
+        super.save(competencia);
     }
 
     /**
      * Updates a new Usuario into the database.
      * @param usuario
      */
-    public void update(Puesto puesto) throws DataAccessLayerException {
-        super.update(puesto);
+    public void update(Competencia competencia) throws DataAccessLayerException {
+        super.update(competencia);
     }
 
     /**
      * Delete a detached Usuario from the database.
      * @param usuario
      */
-    public void delete(Puesto puesto) throws DataAccessLayerException {
-        super.delete(puesto);
+    public void delete(Competencia competencia) throws DataAccessLayerException {
+        super.delete(competencia);
     }
 
     /**
@@ -49,8 +49,8 @@ public class CompetenciaDaoHibernate extends AbstractDao {
      * @param id
      * @return
      */
-    public Puesto find(Long id) throws DataAccessLayerException {
-        return (Puesto) super.find(Puesto.class, id);
+    public Competencia find(Long id) throws DataAccessLayerException {
+        return (Competencia) super.find(Competencia.class, id);
     }
     
     
@@ -59,6 +59,6 @@ public class CompetenciaDaoHibernate extends AbstractDao {
      * @return
      */
     public List findAll() throws DataAccessLayerException {
-        return super.findAll(Puesto.class);
+        return super.findAll(Competencia.class);
     }
 }

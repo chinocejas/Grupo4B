@@ -3,7 +3,7 @@
   <persistence-unit name="pantallaPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>Entidades.Puesto</class>
-    <class>Entidades.Consultor_1</class>
+    <class>Entidades.Consultor</class>
     <class>Entidades.Competencia</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/postgres"/>
