@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 11/09/2016 22:33:22 by Hibernate Tools 4.3.1 -->
+<!-- Generated 16/09/2016 18:42:17 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="Entidades.Puesto" table="puesto" schema="public" optimistic-lock="version">
         <id name="idPuesto" type="int">
@@ -17,14 +17,11 @@
         <property name="fechaUltMod" type="date">
             <column name="fecha_ult_mod" length="13" />
         </property>
-        
-        <list name="competencias" table="puesto_competencia" cascade="none" lazy="false">
-            <!-- cascade=none me dice que no se modifica la tabla competencia si actualizo la tabla puesto.
-           cascade puede tomar diferentes valores (all-delete-orphan,etc) que modifican competencia al actualizar puesto -->
-            <key column="id_puesto" />
-            <list-index column="ORDEN" />
-            <many-to-many class="Entidades.Competencia" column="id_competencia" />
-        </list>
-        
+        <set name="puestoCompetencias" table="puesto_competencia" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_puesto" not-null="true" />
+            </key>
+            <one-to-many class="Entidades.PuestoCompetencia" />
+        </set>
     </class>
 </hibernate-mapping>
