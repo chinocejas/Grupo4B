@@ -61,4 +61,19 @@ public class CompetenciaDaoHibernate extends AbstractDao {
     public List findAll() throws DataAccessLayerException {
         return super.findAll(Competencia.class);
     }
+    
+    public List findAllOrdenadoPorNombre() throws DataAccessLayerException {
+        List objects = null;
+        try {
+            startOperation();
+            Query query = session.createQuery("from Competencia ORDER BY nombre_competencia");
+            objects = query.list();
+            tx.commit();
+        } catch (HibernateException e) {
+            handleException(e);
+        } finally {
+            HibernateFactory.close(session);
+        }
+        return objects;
+    }
 }

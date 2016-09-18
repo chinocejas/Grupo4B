@@ -29,13 +29,23 @@ public class AltaPuesto extends javax.swing.JFrame {
         l1.setModel(modelol1);
         l2.setModel(modelol2);
         
+        List competenciasElegidas;  //se guardan las competencias que fueron seleccionadas y pasadas a la lista de la derecha
+        
         GestorCompetencia gestorCompetencia= GestorCompetencia.getInstance();
-        List allCompetencias= gestorCompetencia.allCompetencias();
+        List allCompetencias= gestorCompetencia.allCompetenciasOrdenadasPorNombre();
+        
+        Competencia listaCompetencias[]= new Competencia[allCompetencias.size()];
+        for(int i=0; i<allCompetencias.size(); i++){
+            listaCompetencias[i]=(Competencia) allCompetencias.get(i);
+        }
+        System.out.println(listaCompetencias[0]);
         
         for(int i=0; i<allCompetencias.size(); i++){
             Competencia competencia= (Competencia) allCompetencias.get(i);
             String nombreCompetencia= competencia.getNombreCompetencia();
+            
             modelol1.addElement(nombreCompetencia);
+          
         }
     }
      public Image getIconImage() {

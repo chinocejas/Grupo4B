@@ -28,13 +28,13 @@ public class GestorCompetencia {
         private static final GestorCompetencia INSTANCE = new GestorCompetencia();
     }
     
-    public List allCompetencias(){
+    public List allCompetenciasOrdenadasPorNombre(){
         
         List listaCompetencias=null;
         
         
         CompetenciaDaoHibernate competenciaDAO = new CompetenciaDaoHibernate();
-        listaCompetencias=competenciaDAO.findAll();
+        listaCompetencias=competenciaDAO.findAllOrdenadoPorNombre();
         
         return listaCompetencias;
         
