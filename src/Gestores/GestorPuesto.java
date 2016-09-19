@@ -7,6 +7,7 @@ package Gestores;
 
 import java.util.List;
 import Dao.PuestoDaoHibernate;
+import Entidades.Competencia;
 import Entidades.Puesto;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
