@@ -24,8 +24,8 @@ import javax.swing.table.DefaultTableModel;
 public class AltaPuesto extends javax.swing.JFrame {
 
     CustomListModel modeloLista = new CustomListModel();
-   //DefaultTableModel modeloTabla; 
     CustomTableModel modeloTabla= new CustomTableModel();
+    private int filaSeleccionada = -1;
     
 
     public AltaPuesto() {
@@ -34,8 +34,8 @@ public class AltaPuesto extends javax.swing.JFrame {
         setSize(1024, 768);
         setLocationRelativeTo(null);
         lista.setModel(modeloLista);
-        //this.modeloTabla = (DefaultTableModel) tabla.getModel();
         tabla.setModel(modeloTabla);
+        tabla.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
 
         GestorCompetencia gestorCompetencia= GestorCompetencia.getInstance();
@@ -226,29 +226,19 @@ public class AltaPuesto extends javax.swing.JFrame {
 
         tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {"no se muestran los cambios hechos aca"}
             },
             new String [] {
-                "Competencia", "Ponderación"
+                "no se usa este diseño"
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Integer.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, true
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
         tabla.setColumnSelectionAllowed(true);
         tabla.getTableHeader().setReorderingAllowed(false);
+        tabla.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaMouseClicked(evt);
+            }
+        });
         jScrollPane4.setViewportView(tabla);
         tabla.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         if (tabla.getColumnModel().getColumnCount() > 0) {
@@ -396,34 +386,37 @@ public class AltaPuesto extends javax.swing.JFrame {
 
     private void btnRemoveAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveAllActionPerformed
 
-       int cantFilas=modeloTabla.getRowCount(); //por terminar, hay que apretar el boton varias veces para que 
-       //borre todo, debe tener mugre o algo
-       for(int i=0; i<cantFilas;i++){
-       modeloLista.addCompetencia((Competencia) modeloTabla.getCompetencia(i));
-       modeloTabla.deleteRow(0);
-       }
-        
-        
-        
+        while (modeloTabla.getRowCount() != 0) { //se va a ejecutar mientras haya alguna fila en la tabla
+            modeloLista.addCompetencia((Competencia) modeloTabla.getCompetencia(0));
+            modeloTabla.deleteRow(0);
+        }    
     }//GEN-LAST:event_btnRemoveAllActionPerformed
 
     private void btnAddAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddAllActionPerformed
-        /*for(int i=0; i<modelol1.getSize();i++){
-            modelol2.addCompetencia((Competencia) modelol1.getElementAt(i));
+        while(modeloLista.getSize()!=0){
+            Competencia competencia=modeloLista.getCompetencia(0);
+            modeloTabla.addCompetencia(competencia);
+            modeloLista.eliminarCompetencia(0);
         }
-        // modelol1.removeAllElements();*/
+       
     }//GEN-LAST:event_btnAddAllActionPerformed
 
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
-        /*if ((tabla.getSelectedValue() == null) || (tabla.getSelectedValue().equals("-1")) || lista.getComponentCount()==0) {
-            campoTexto.setText("Seleccione un elemento antes de presionar el boton");
+        //original para lista: if ((l2.getSelectedValue() == null) || (l2.getSelectedValue().equals("-1")) || l1.getComponentCount()==0) 
+            if ((tabla.getSelectedRow()==-1)) {
+        campoTexto.setText("Seleccione un elemento antes de presionar el boton");
         } else {
             campoTexto.setText("");
-            String aux = tabla.getSelectedValue();
+            /* original para lista 
+            String aux = ModeloTabla.getSelectedValue();
             modelol1.addCompetencia(aux);
-            modelol2.remove(tabla.getSelectedIndex());
+            modelol2.remove(tabla.getSelectedIndex());*/
+            int row= tabla.getSelectedRow();
+            Competencia competencia= modeloTabla.getCompetencia(row);
+            modeloLista.addCompetencia(competencia);
+            modeloTabla.deleteRow(row);
 
-        }*/
+        }
     }//GEN-LAST:event_btnRemoveActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
@@ -432,10 +425,24 @@ public class AltaPuesto extends javax.swing.JFrame {
             campoTexto.setText("");
             // String aux = lista.getSelectedValue();
             Competencia competencia=modeloLista.getCompetencia(lista.getSelectedIndex());
-            modeloTabla.addFila(new Object []{competencia,null});
+            modeloTabla.addCompetencia(competencia);
             modeloLista.eliminarCompetencia(lista.getSelectedIndex());
         }else campoTexto.setText("Seleccione un elemento antes de presionar el boton");
+        modeloTabla.mostrar();
+        System.out.print("\n\n");
     }//GEN-LAST:event_btnAddActionPerformed
+
+    private void tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMouseClicked
+        
+//no se sabe todavia para que sirve
+        
+        int fila = tabla.rowAtPoint(evt.getPoint());
+    int columna = tabla.columnAtPoint(evt.getPoint());
+    if ((fila > -1) && (columna > -1)) {
+        filaSeleccionada = fila;
+    }
+        
+    }//GEN-LAST:event_tablaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -512,11 +519,12 @@ public class AltaPuesto extends javax.swing.JFrame {
     //http://docs.oracle.com/javase/tutorial/uiswing/components/table.html#data
      public class CustomTableModel extends AbstractTableModel{
 
-        private ArrayList<Object[]> data=  new ArrayList<Object[]>();
+        private ArrayList<Competencia> data=  new ArrayList<Competencia>();
+        private ArrayList<Integer> ponderacion=  new ArrayList<Integer>();
         private int numColumns=2; //cant de columnas con la que se crea la tabla
     private String columnNames[]={"Competencia","Ponderación"};
-    private Class classes[]={Competencia.class ,int.class}; //tipo de las columnas
-    private boolean editable[]={true, true};
+    // private Class classes[]={String.class ,String.class}; //tipo de las columnas
+    private boolean editable[]={false, true};
           
         @Override
         public int getRowCount() {
@@ -536,47 +544,58 @@ public class AltaPuesto extends javax.swing.JFrame {
          
          @Override
          public Class getColumnClass(int col) {
-             return classes[col];
+            //return classes[col];
+            return String.class; //no cambiar a int u otra cosa porque pierde la propiedad de editable
          }
          
-         @Override
-         public boolean isCellEditable(int row, int col) {
-             return true;
-         }
+        @Override
+    public boolean isCellEditable(int rowIndex, int columnIndex) {
+        return columnIndex==0 ? false : true;
+    }
 
          @Override
          // Cambia el valor que contiene una determinada casilla de
          // la tabla
          public void setValueAt(Object value, int row, int col) {
-             data.get(row)[col] = value;
+             Integer valorNumerico= Integer.parseInt((String) value);
+             ponderacion.set(row, valorNumerico);
              
              fireTableCellUpdated(row, col);
              // Indica que se ha cambiado
-             fireTableDataChanged();
+             //fireTableDataChanged();
          }
 
          public Competencia getCompetencia(int fila){
-             return (Competencia) data.get(fila)[0];
+             return (Competencia) data.get(fila);
          }
+         
         @Override
         //este metodo muestra por pantalla los nombres pero en realidad se esta manejando una lista con Competencias por detras
         public Object getValueAt(int row, int col) {
-            Competencia c = (Competencia) data.get(row)[0];
+            Competencia c = (Competencia) data.get(row);
            //Si la columa es la 0 muestra el nombre de la competencia
-           // sino (es la columna 1) muestro una cadena vacia
-            return col == 0 ? c.getNombreCompetencia() : data.get(row)[col] ;  //cosas locas sacadas de internet
+           // sino (es la columna 1) muestro la ponderacion
+            return col == 0 ? c.getNombreCompetencia() : ponderacion.get(row) ;  //cosas locas sacadas de internet
              //return data.get(row)[col];
         }
 
-         public void addFila(Object[] fila) {
-             int numFilas = data.size();
-             data.add(fila);
-             this.fireTableRowsInserted(numFilas, numFilas + 1);
+         public void addCompetencia(Competencia competencia) {
+             data.add(competencia);
+             ponderacion.add(null);
+            fireTableDataChanged();
          }
 
         private void deleteRow(int row) {
             data.remove(row);
+            ponderacion.remove(row);
         fireTableDataChanged();
+        }
+        
+        public void mostrar(){
+            for(int i=0; i<ponderacion.size(); i++){
+               
+            System.out.print(i+1 + " -> " + ponderacion.get(i) + "\n");
+            }
         }
     }
 
