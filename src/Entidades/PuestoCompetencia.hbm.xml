@@ -18,8 +18,8 @@
         <many-to-one name="puesto" class="Entidades.Puesto" update="false" insert="false" fetch="select">
             <column name="id_puesto" not-null="true" />
         </many-to-one>
-        <property name="orden" type="int">
-            <column name="orden" not-null="true" />
+        <property name="puntajeRequerido" type="int">
+            <column name="puntaje_requerido"/>
         </property>
     </class>
 </hibernate-mapping>

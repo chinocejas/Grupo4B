@@ -1,7 +1,8 @@
-package Entidades;
+package backups;
 // Generated 16/09/2016 18:42:16 by Hibernate Tools 4.3.1
 
 
+import Entidades.*;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -26,11 +27,11 @@ public class Puesto  implements java.io.Serializable {
     public Puesto(int idPuesto) {
         this.idPuesto = idPuesto;
     }
-    public Puesto(int idPuesto, String nombrePuesto, String nombreEmpresa, String descripcion, Date fechaUltMod, Set puestoCompetencias) {
+    public Puesto(int idPuesto, String nombrePuesto, String nombreEmpresa,String descripcion, Date fechaUltMod, Set puestoCompetencias) {
        this.idPuesto = idPuesto;
        this.nombrePuesto = nombrePuesto;
        this.nombreEmpresa = nombreEmpresa;
-       this.descripcion = descripcion;
+       this.descripcion= descripcion;
        this.fechaUltMod = fechaUltMod;
        this.puestoCompetencias = puestoCompetencias;
     }
@@ -60,7 +61,7 @@ public class Puesto  implements java.io.Serializable {
         return this.descripcion;
     }
     
-    public void setDescripcion(String descripcion) {
+    public void setDecripcion(String descripcion) {
         this.descripcion = descripcion;
     }
     public Date getFechaUltMod() {

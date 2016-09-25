@@ -12,16 +12,16 @@ public class PuestoCompetencia  implements java.io.Serializable {
      private PuestoCompetenciaId id;
      private Competencia competencia;
      private Puesto puesto;
-     private int orden;
+     private int puntajeRequerido;
 
     public PuestoCompetencia() {
     }
 
-    public PuestoCompetencia(PuestoCompetenciaId id, Competencia competencia, Puesto puesto, int orden) {
+    public PuestoCompetencia(PuestoCompetenciaId id, Competencia competencia, Puesto puesto, int puntajeRequerido) {
        this.id = id;
        this.competencia = competencia;
        this.puesto = puesto;
-       this.orden = orden;
+       this.puntajeRequerido = puntajeRequerido;
     }
    
     public PuestoCompetenciaId getId() {
@@ -45,12 +45,12 @@ public class PuestoCompetencia  implements java.io.Serializable {
     public void setPuesto(Puesto puesto) {
         this.puesto = puesto;
     }
-    public int getOrden() {
-        return this.orden;
+    public int getPuntajeRequerido() {
+        return this.puntajeRequerido;
     }
     
-    public void setOrden(int orden) {
-        this.orden = orden;
+    public void setPuntajeRequerido(int puntajeRequerido) {
+        this.puntajeRequerido = puntajeRequerido;
     }
 
 

@@ -8,11 +8,16 @@ import Dao.CompetenciaDaoHibernate;
 import Entidades.Consultor;
 import Dao.ConsultorDaoHibernate;
 import Dao.PuestoDaoHibernate;
+
 import Entidades.Competencia;
 import Entidades.Puesto;
+
 import Gestores.GestorCompetencia;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import net.sf.ehcache.hibernate.HibernateUtil;
 import org.hibernate.Session;
 
@@ -51,25 +56,27 @@ public class Main {
     //y subo los puestos a la bs o los borro
     //se carga la tabla intermedia automaticamente
     //si guardo o borro un puesto no se toca la tabla competencia por la conf del .hbm
-    /*Puesto puesto = new Puesto();
+    Puesto puesto = new Puesto();
     
-    puesto.setNombrePuesto("puesto6");
-    puesto.setNombreEmpresa("empresa6");
+    puesto.setNombrePuesto("puestjhvjho2");
+    puesto.setNombreEmpresa("empresa2jhhjkjgjg");
 
-    Competencia competencia1 = new Competencia();
+    /*Competencia competencia1 = new Competencia();
     competencia1.setIdCompetencia(1222);
     competencia1.setNombreCompetencia("comp2");
+     Set<Competencia> competencias = new HashSet<Competencia>();
+     competencias.add(competencia1);
+
+    puesto.setPuestoCompetencias(competencias);*/
+   
+   
+  PuestoDaoHibernate puestoDao= new PuestoDaoHibernate();
+   puestoDao.save(puesto);
+   
+  
     
 
-    puesto.addCompetencia(competencia1);
-   
-   
-   PuestoDaoHibernate puestoDao= new PuestoDaoHibernate();
-    puestoDao.save(puesto);
-    */
-
-  
-   /* GestorCompetencia gestor = GestorCompetencia.getInstance();
+    /* GestorCompetencia gestor = GestorCompetencia.getInstance();
     List allCompetencias= gestor.allCompetencias();
         System.out.println(allCompetencias.getClass());
         Competencia competencia= (Competencia) allCompetencias.get(0);

@@ -12,8 +12,13 @@ import java.awt.Toolkit;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import Entidades.Competencia;
+import Entidades.Puesto;
+import Gestores.GestorPuesto;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 import javax.swing.AbstractListModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 
@@ -24,9 +29,14 @@ import javax.swing.table.DefaultTableModel;
 public class AltaPuesto extends javax.swing.JFrame {
 
     CustomListModel modeloLista = new CustomListModel();
-    CustomTableModel modeloTabla= new CustomTableModel();
-    private int filaSeleccionada = -1;
+    CustomTableModel modeloTabla = new CustomTableModel();
+
+    //pido la instancia de gestor de puestos
+    GestorPuesto gestorPuesto = GestorPuesto.getInstance();
+    //creo un nuevo puesto vacio
+    Puesto puesto = new Puesto();
     
+
 
     public AltaPuesto() {
         
@@ -37,7 +47,16 @@ public class AltaPuesto extends javax.swing.JFrame {
         tabla.setModel(modeloTabla);
         tabla.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
-
+        //guardo el puesto vacio en la bs y se le asigna un id secuencial
+        gestorPuesto.guardarPuesto(puesto);
+        //pido el id del puesto asignado por hibernate y lo guardo en idPuesto
+        int idPuesto= puesto.getIdPuesto();
+        //muestro por pantalla el codigo no editable pasandolo a string previamente
+        txtCodigo.setText(String.valueOf(idPuesto));
+       
+         
+        
+        
         GestorCompetencia gestorCompetencia= GestorCompetencia.getInstance();
         List allCompetencias= gestorCompetencia.allCompetenciasOrdenadasPorNombre();
       
@@ -81,7 +100,7 @@ public class AltaPuesto extends javax.swing.JFrame {
         cancelar = new javax.swing.JButton();
         aceptar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtDescripcion = new javax.swing.JTextArea();
         jScrollPane4 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
         fondoImagen = new javax.swing.JLabel();
@@ -194,7 +213,6 @@ public class AltaPuesto extends javax.swing.JFrame {
 
         txtCodigo.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
         txtCodigo.setForeground(new java.awt.Color(255, 255, 255));
-        txtCodigo.setText("XXXXX");
 
         cancelar.setBackground(new java.awt.Color(0, 51, 102));
         cancelar.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
@@ -217,12 +235,12 @@ public class AltaPuesto extends javax.swing.JFrame {
             }
         });
 
-        jTextArea1.setBackground(new java.awt.Color(0, 51, 102));
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
-        jTextArea1.setForeground(new java.awt.Color(255, 255, 255));
-        jTextArea1.setRows(3);
-        jScrollPane1.setViewportView(jTextArea1);
+        txtDescripcion.setBackground(new java.awt.Color(0, 51, 102));
+        txtDescripcion.setColumns(20);
+        txtDescripcion.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
+        txtDescripcion.setForeground(new java.awt.Color(255, 255, 255));
+        txtDescripcion.setRows(3);
+        jScrollPane1.setViewportView(txtDescripcion);
 
         tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -367,10 +385,24 @@ public class AltaPuesto extends javax.swing.JFrame {
 
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarActionPerformed
 
+        
+        puesto.setNombrePuesto(txtNombre.getText());
+        puesto.setNombreEmpresa(txtEmpresa.getText());
+        puesto.setDescripcion(txtDescripcion.getText());
+        //convierto a set la lista guardada en modeloTabla con las competencias seleccionadas para persistirlas en la bs 
+        Set<Competencia> setCompetencias = new HashSet<Competencia>(modeloTabla.getListaCompetencias());
+        puesto.setPuestoCompetencias(setCompetencias);
+        gestorPuesto.actualizarPuesto(puesto);
+        JOptionPane.showMessageDialog(null, "El puesto <" + puesto.getNombrePuesto() + "> se ha creado correctamente");
+        GestionDePuestos obj = new GestionDePuestos();
+        obj.setVisible(true);
+        dispose();
     }//GEN-LAST:event_aceptarActionPerformed
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
-        // TODO add your handling code here:
+        
+        //si el usuario cancela, borro el puesto creado para no tener puestos vacios en la bs
+        gestorPuesto.borrarPuesto(puesto);
         GestionDePuestos obj= new GestionDePuestos();
         obj.setVisible(true);
         dispose();
@@ -428,19 +460,17 @@ public class AltaPuesto extends javax.swing.JFrame {
             modeloTabla.addCompetencia(competencia);
             modeloLista.eliminarCompetencia(lista.getSelectedIndex());
         }else campoTexto.setText("Seleccione un elemento antes de presionar el boton");
-        modeloTabla.mostrar();
-        System.out.print("\n\n");
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMouseClicked
         
 //no se sabe todavia para que sirve
-        
+     /*   
         int fila = tabla.rowAtPoint(evt.getPoint());
     int columna = tabla.columnAtPoint(evt.getPoint());
     if ((fila > -1) && (columna > -1)) {
         filaSeleccionada = fila;
-    }
+    }*/
         
     }//GEN-LAST:event_tablaMouseClicked
 
@@ -569,6 +599,10 @@ public class AltaPuesto extends javax.swing.JFrame {
              return (Competencia) data.get(fila);
          }
          
+         public List<Competencia> getListaCompetencias(){
+             return data;
+         }
+         
         @Override
         //este metodo muestra por pantalla los nombres pero en realidad se esta manejando una lista con Competencias por detras
         public Object getValueAt(int row, int col) {
@@ -619,10 +653,10 @@ public class AltaPuesto extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JList<String> lista;
     private javax.swing.JTable tabla;
     private javax.swing.JLabel txtCodigo;
+    private javax.swing.JTextArea txtDescripcion;
     private javax.swing.JTextField txtEmpresa;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables

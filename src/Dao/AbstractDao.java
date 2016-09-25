@@ -72,7 +72,7 @@ public abstract class AbstractDao {
         }
         return obj;
     }
-    
+
     protected List findAll(Class clazz) {
         List objects = null;
         try {

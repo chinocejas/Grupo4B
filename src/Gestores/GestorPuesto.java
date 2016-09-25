@@ -41,9 +41,22 @@ public class GestorPuesto {
         for(int a=0;a<listaPuestos.size();a++){
             Puesto puesto2= (Puesto)listaPuestos.get(a);
             modeloTabla.addRow(new Object []{puesto2.getIdPuesto(),puesto2.getNombrePuesto(),puesto2.getNombreEmpresa()});
-        }
-        
-        
+        } 
+    }
+
+    public void guardarPuesto(Puesto puesto) {
+        PuestoDaoHibernate puestoDao = new PuestoDaoHibernate();
+        puestoDao.save(puesto);
     }
     
+    public void borrarPuesto(Puesto puesto){
+        PuestoDaoHibernate puestoDao = new PuestoDaoHibernate();
+        puestoDao.delete(puesto);
+    }
+    
+    public void actualizarPuesto(Puesto puesto){
+        PuestoDaoHibernate puestoDao = new PuestoDaoHibernate();
+        puestoDao.update(puesto);
+    }
+
 }
