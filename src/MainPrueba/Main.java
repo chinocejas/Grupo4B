@@ -56,23 +56,23 @@ public class Main {
     //y subo los puestos a la bs o los borro
     //se carga la tabla intermedia automaticamente
     //si guardo o borro un puesto no se toca la tabla competencia por la conf del .hbm
-    Puesto puesto = new Puesto();
+    /*Puesto puesto = new Puesto();
     
-    puesto.setNombrePuesto("puestjhvjho2");
-    puesto.setNombreEmpresa("empresa2jhhjkjgjg");
+    puesto.setNombrePuesto("puestoooo");
+    puesto.setNombreEmpresa("empresaaaaa");
 
-    /*Competencia competencia1 = new Competencia();
-    competencia1.setIdCompetencia(1222);
+    Competencia competencia1 = new Competencia();
+    competencia1.setIdCompetencia(11);
     competencia1.setNombreCompetencia("comp2");
      Set<Competencia> competencias = new HashSet<Competencia>();
      competencias.add(competencia1);
 
-    puesto.setPuestoCompetencias(competencias);*/
+    puesto.setPuestoCompetencias(competencias);
    
    
   PuestoDaoHibernate puestoDao= new PuestoDaoHibernate();
    puestoDao.save(puesto);
-   
+   */
   
     
 
@@ -83,5 +83,9 @@ public class Main {
         System.out.println(competencia.getClass());
         System.out.println(competencia.getNombreCompetencia());
 */
+    
+    
+    
+    Integer num=null;
     }
 }

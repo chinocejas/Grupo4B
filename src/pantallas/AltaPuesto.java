@@ -6,6 +6,7 @@
 package pantallas;
 
 
+import Dao.PuestoCompetenciaDaoHibernate;
 import Gestores.GestorCompetencia;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -393,6 +394,11 @@ public class AltaPuesto extends javax.swing.JFrame {
         Set<Competencia> setCompetencias = new HashSet<Competencia>(modeloTabla.getListaCompetencias());
         puesto.setPuestoCompetencias(setCompetencias);
         gestorPuesto.actualizarPuesto(puesto);
+        
+        PuestoCompetenciaDaoHibernate puestoCompetenciaDao= new PuestoCompetenciaDaoHibernate();
+        
+        puestoCompetenciaDao.actualizarPuntajesCompetencias(puesto.getIdPuesto(),modeloTabla.getListaCompetencias(), modeloTabla.getListaPonderacion());
+        
         JOptionPane.showMessageDialog(null, "El puesto <" + puesto.getNombrePuesto() + "> se ha creado correctamente");
         GestionDePuestos obj = new GestionDePuestos();
         obj.setVisible(true);
@@ -601,6 +607,10 @@ public class AltaPuesto extends javax.swing.JFrame {
          
          public List<Competencia> getListaCompetencias(){
              return data;
+         }
+         
+         public List<Integer> getListaPonderacion(){
+             return ponderacion;
          }
          
         @Override

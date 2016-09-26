@@ -22,7 +22,6 @@ public class Inicio extends javax.swing.JFrame {
         setTitle("Inicio");
         setSize(1024, 768);
         setLocationRelativeTo(null);
-        
     }
     
      public Image getIconImage() {

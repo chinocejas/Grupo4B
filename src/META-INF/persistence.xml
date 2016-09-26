@@ -5,7 +5,7 @@
     <class>Entidades.Competencia</class>
     <class>Entidades.Consultor</class>
     <class>Entidades.Puesto</class>
-    <class>Entidades.PuestoCompetencia</class>
+    <class>backups.PuestoCompetencia</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/postgres"/>
       <property name="javax.persistence.jdbc.password" value="popi"/>

@@ -22,11 +22,11 @@
         <property name="fechaUltMod" type="date">
             <column name="fecha_ult_mod" length="13" />
         </property>
-        <set name="puestoCompetencias" table="puesto_competencia" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="id_puesto" not-null="true" />
-            </key>
-            <one-to-many class="Entidades.PuestoCompetencia" />
+        <set name="puestoCompetencias" table="puesto_competencia" cascade="none" lazy="false">
+            <!-- cascade=none me dice que no se modifica la tabla competencia si actualizo la tabla puesto.
+           cascade puede tomar diferentes valores (all-delete-orphan,etc) que modifican competencia al actualizar puesto -->
+            <key column="id_puesto" />
+          <many-to-many class="Entidades.Competencia" column="id_competencia" />
         </set>
     </class>
 </hibernate-mapping>
