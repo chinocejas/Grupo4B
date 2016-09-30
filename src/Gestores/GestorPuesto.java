@@ -30,7 +30,7 @@ public class GestorPuesto {
         private static final GestorPuesto INSTANCE = new GestorPuesto();
     }
     
-    public void buscarPuesto(DefaultTableModel modeloTabla, String codigo, String puesto, String empresa){
+    public void buscarPuestos(DefaultTableModel modeloTabla, String codigo, String puesto, String empresa){
         
         List listaPuestos=null;
         
@@ -57,6 +57,12 @@ public class GestorPuesto {
     public void actualizarPuesto(Puesto puesto){
         PuestoDaoHibernate puestoDao = new PuestoDaoHibernate();
         puestoDao.update(puesto);
+    }
+    
+    public Puesto buscarPuesto(int codigo){
+        PuestoDaoHibernate puestoDao = new PuestoDaoHibernate();
+        //al metodo find hay que pasarle un long como parametro de busqueda
+        return puestoDao.find(codigo);
     }
 
 }

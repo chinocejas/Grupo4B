@@ -426,7 +426,7 @@ public class GestionDePuestos extends javax.swing.JFrame {
         else{
         GestorPuesto gestorPuesto = GestorPuesto.getInstance();     //se pide la instancia de GestorPuesto
 
-        gestorPuesto.buscarPuesto(modeloTabla, codigo2, puesto2, empresa2);  //busca en la BS y completa la tabla que es pasada por parametro con los resultados
+        gestorPuesto.buscarPuestos(modeloTabla, codigo2, puesto2, empresa2);  //busca en la BS y completa la tabla que es pasada por parametro con los resultados
         }
 
     }//GEN-LAST:event_buscarActionPerformed
@@ -458,7 +458,16 @@ public class GestionDePuestos extends javax.swing.JFrame {
     }//GEN-LAST:event_modificarMouseClicked
 
     private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
-        // TODO add your handling code here:
+
+       DefaultTableModel modeloTabla =(DefaultTableModel) tabla.getModel(); //creo esta variable de nuevo porq no andaba en modo global
+       //http://www.lawebdelprogramador.com/foros/Java/719076-Obtener-el-valor-de-una-celda-el-JTABLE.html
+       //aca capturo el primer dato de la celda seleccionada en la columna cero (tiene el codigo)
+       String dato=String.valueOf(modeloTabla.getValueAt(tabla.getSelectedRow(),0));
+       //lo paso a int
+       int codigo= Integer.parseInt(dato);
+       ModificarPuesto obj= new ModificarPuesto(codigo);
+        obj.setVisible(true);
+        dispose();
     }//GEN-LAST:event_modificarActionPerformed
 
     private void volverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_volverMouseClicked

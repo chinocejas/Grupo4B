@@ -49,8 +49,22 @@ public class PuestoDaoHibernate extends AbstractDao {
      * @param id
      * @return
      */
-    public Puesto find(Long id) throws DataAccessLayerException {
-        return (Puesto) super.find(Puesto.class, id);
+    public Puesto find(int id) throws DataAccessLayerException {
+        Puesto obj= new Puesto();
+        try {
+            startOperation();
+            Query query = null;
+         query = session.createQuery("from Puesto WHERE id_puesto= :id");     
+                query.setParameter("id", id);
+                obj= (Puesto) query.uniqueResult();
+          tx.commit();
+        }
+        catch (HibernateException e) {
+            handleException(e);
+        } finally {
+            HibernateFactory.close(session);
+        }
+        return obj;
     }
     
     //agregado por el negro

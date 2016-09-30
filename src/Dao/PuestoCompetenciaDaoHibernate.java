@@ -32,7 +32,7 @@ public class PuestoCompetenciaDaoHibernate extends AbstractDao {
             try {
                 startOperation();
                 //busco el registro
-                puestoCompetencia = this.find(Long.valueOf(idPuesto), Long.valueOf(competencias.get(i).getIdCompetencia()));
+                puestoCompetencia = this.findParaPantalla(Long.valueOf(idPuesto), Long.valueOf(competencias.get(i).getIdCompetencia()));
                 //le agrego el puntaje sacado de la lista de puntajes
                 puestoCompetencia.setPuntajeRequerido(puntajes.get(i));
                 //actualizo el registro en la bs
@@ -47,7 +47,7 @@ public class PuestoCompetenciaDaoHibernate extends AbstractDao {
         }
     }
 
-    public PuestoCompetencia find(Long idPuesto, Long idCompetencia) throws DataAccessLayerException {
+    public PuestoCompetencia findParaPantalla(Long idPuesto, Long idCompetencia) throws DataAccessLayerException {
         PuestoCompetencia obj = null;
         try {
             startOperation();
@@ -60,6 +60,26 @@ public class PuestoCompetenciaDaoHibernate extends AbstractDao {
           
           obj.setPuntajeRequerido(-1); //necesario para evitar problemas con punteros a null
          
+            tx.commit();
+             
+        } catch (HibernateException e) {
+            handleException(e);
+        } finally {
+            HibernateFactory.close(session);
+        }
+        return obj;
+    }
+      public PuestoCompetencia find(Long idPuesto, Long idCompetencia) throws DataAccessLayerException {
+        PuestoCompetencia obj = null;
+        try {
+            startOperation();
+            
+          Query query = session.createQuery("from PuestoCompetencia where id_puesto= :idPuesto and id_competencia= :idCompetencia");
+          query.setParameter("idPuesto", idPuesto);
+          query.setParameter("idCompetencia", idCompetencia);
+         
+          obj = (PuestoCompetencia)query.uniqueResult();
+       
             tx.commit();
              
         } catch (HibernateException e) {
