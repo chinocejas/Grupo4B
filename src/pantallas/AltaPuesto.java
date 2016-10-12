@@ -22,7 +22,6 @@ import javax.swing.AbstractListModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
-
 /**
  *
  * @author pc
