@@ -140,6 +140,7 @@ public class GestionDePuestos extends javax.swing.JFrame {
         buscar.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
         buscar.setForeground(new java.awt.Color(255, 255, 255));
         buscar.setText("Buscar");
+        buscar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         buscar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 buscarMouseClicked(evt);
@@ -405,7 +406,8 @@ public class GestionDePuestos extends javax.swing.JFrame {
 
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
 
-        
+        //setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
+       // setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         
         DefaultTableModel modeloTabla =(DefaultTableModel) tabla.getModel(); 
         limpiarTabla(tabla,modeloTabla);    //se limpia la tabla para que al hacer busquedas consecutivas se borren los resultados anteriores

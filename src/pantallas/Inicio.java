@@ -7,6 +7,7 @@ package pantallas;
 
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 
 /**
  *
@@ -51,8 +52,8 @@ public class Inicio extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        botonConsultor = new javax.swing.JButton();
+        botonCandidato = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -183,27 +184,42 @@ public class Inicio extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(219, 219, 219));
         jLabel2.setText("Consultor");
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+        });
         jPanel5.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 120, 170, 50));
 
-        jButton1.setBackground(new java.awt.Color(0, 51, 102));
-        jButton1.setFont(new java.awt.Font("Arial", 0, 28)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        botonConsultor.setBackground(new java.awt.Color(0, 51, 102));
+        botonConsultor.setFont(new java.awt.Font("Arial", 0, 28)); // NOI18N
+        botonConsultor.setForeground(new java.awt.Color(255, 255, 255));
+        botonConsultor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                botonConsultorActionPerformed(evt);
             }
         });
-        jPanel5.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 120, 350, 54));
+        botonConsultor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                botonConsultorKeyPressed(evt);
+            }
+        });
+        jPanel5.add(botonConsultor, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 120, 350, 54));
 
-        jButton2.setBackground(new java.awt.Color(0, 51, 102));
-        jButton2.setFont(new java.awt.Font("Arial", 0, 28)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        botonCandidato.setBackground(new java.awt.Color(0, 51, 102));
+        botonCandidato.setFont(new java.awt.Font("Arial", 0, 28)); // NOI18N
+        botonCandidato.setForeground(new java.awt.Color(255, 255, 255));
+        botonCandidato.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                botonCandidatoActionPerformed(evt);
             }
         });
-        jPanel5.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 239, 350, 54));
+        botonCandidato.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                botonCandidatoKeyPressed(evt);
+            }
+        });
+        jPanel5.add(botonCandidato, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 239, 350, 54));
 
         centro.add(jPanel5, java.awt.BorderLayout.CENTER);
 
@@ -219,17 +235,35 @@ public class Inicio extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void botonConsultorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConsultorActionPerformed
         // TODO add your handling code here:
        
         IngresoConsultor obj= new IngresoConsultor();
         obj.setVisible(true);
         dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_botonConsultorActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void botonCandidatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCandidatoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_botonCandidatoActionPerformed
+
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel2MouseClicked
+
+    private void botonConsultorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_botonConsultorKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            botonConsultorActionPerformed(null);
+        }
+    }//GEN-LAST:event_botonConsultorKeyPressed
+
+    private void botonCandidatoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_botonCandidatoKeyPressed
+        
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            botonCandidatoActionPerformed(null);
+        }
+        
+    }//GEN-LAST:event_botonCandidatoKeyPressed
 
     /**
      * @param args the command line arguments
@@ -285,10 +319,10 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JLabel Ingreso;
     private javax.swing.JPanel abajo;
     private javax.swing.JPanel arriba;
+    private javax.swing.JButton botonCandidato;
+    private javax.swing.JButton botonConsultor;
     private javax.swing.JPanel centro;
     private javax.swing.JPanel fondo;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

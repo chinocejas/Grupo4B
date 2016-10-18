@@ -10,6 +10,7 @@ import Bases.*;
 import Entidades.Consultor;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.util.logging.Level;
 
 
@@ -109,9 +110,15 @@ public class IngresoConsultor extends javax.swing.JFrame {
         aceptar.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
         aceptar.setForeground(new java.awt.Color(204, 204, 204));
         aceptar.setText("Aceptar");
+        aceptar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         aceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 aceptarActionPerformed(evt);
+            }
+        });
+        aceptar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                aceptarKeyPressed(evt);
             }
         });
 
@@ -122,6 +129,11 @@ public class IngresoConsultor extends javax.swing.JFrame {
         cancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelarActionPerformed(evt);
+            }
+        });
+        cancelar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cancelarKeyPressed(evt);
             }
         });
 
@@ -234,6 +246,11 @@ public class IngresoConsultor extends javax.swing.JFrame {
                 userActionPerformed(evt);
             }
         });
+        user.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                userKeyPressed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -245,6 +262,11 @@ public class IngresoConsultor extends javax.swing.JFrame {
         pass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 passActionPerformed(evt);
+            }
+        });
+        pass.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                passKeyPressed(evt);
             }
         });
 
@@ -323,6 +345,36 @@ public class IngresoConsultor extends javax.swing.JFrame {
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_cancelarActionPerformed
+
+    private void userKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_userKeyPressed
+      
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            aceptarActionPerformed(null);
+        }
+        
+    }//GEN-LAST:event_userKeyPressed
+
+    private void passKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passKeyPressed
+        
+         if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            aceptarActionPerformed(null);
+        }
+    }//GEN-LAST:event_passKeyPressed
+
+    private void aceptarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_aceptarKeyPressed
+        
+         if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            aceptarActionPerformed(null);
+        }
+        
+    }//GEN-LAST:event_aceptarKeyPressed
+
+    private void cancelarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cancelarKeyPressed
+       
+         if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            cancelarActionPerformed(null);
+        }
+    }//GEN-LAST:event_cancelarKeyPressed
 
     /**
      * @param args the command line arguments
