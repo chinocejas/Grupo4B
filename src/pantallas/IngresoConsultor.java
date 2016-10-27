@@ -116,11 +116,6 @@ public class IngresoConsultor extends javax.swing.JFrame {
                 aceptarActionPerformed(evt);
             }
         });
-        aceptar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                aceptarKeyPressed(evt);
-            }
-        });
 
         cancelar.setBackground(new java.awt.Color(0, 51, 102));
         cancelar.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
@@ -360,14 +355,6 @@ public class IngresoConsultor extends javax.swing.JFrame {
             aceptarActionPerformed(null);
         }
     }//GEN-LAST:event_passKeyPressed
-
-    private void aceptarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_aceptarKeyPressed
-        
-         if (evt.getKeyCode() == KeyEvent.VK_ENTER){
-            aceptarActionPerformed(null);
-        }
-        
-    }//GEN-LAST:event_aceptarKeyPressed
 
     private void cancelarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cancelarKeyPressed
        
