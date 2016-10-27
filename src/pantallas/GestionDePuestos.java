@@ -6,6 +6,7 @@
 package pantallas;
 
 import Gestores.GestorPuesto;
+import VentanasEmergentes.PopUps;
 import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.JTable;
@@ -47,6 +48,7 @@ public class GestionDePuestos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        nuevoFrame = new javax.swing.JFrame();
         fondo = new javax.swing.JPanel();
         centro = new javax.swing.JPanel();
         izquierda = new javax.swing.JPanel();
@@ -71,6 +73,19 @@ public class GestionDePuestos extends javax.swing.JFrame {
         abajo = new javax.swing.JPanel();
         volver = new javax.swing.JButton();
         ImagenFondo = new javax.swing.JLabel();
+
+        setLocation(1000,768);
+
+        javax.swing.GroupLayout nuevoFrameLayout = new javax.swing.GroupLayout(nuevoFrame.getContentPane());
+        nuevoFrame.getContentPane().setLayout(nuevoFrameLayout);
+        nuevoFrameLayout.setHorizontalGroup(
+            nuevoFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        nuevoFrameLayout.setVerticalGroup(
+            nuevoFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setIconImage(getIconImage());
@@ -424,6 +439,8 @@ public class GestionDePuestos extends javax.swing.JFrame {
         
         if("".equals(codigo2) && "".equals(puesto2) && "".equals(empresa2)){ //no completo al menos un criterio de busqueda
             mensajeError.setText("Complete al menos uno de los criterios de búsqueda");
+            PopUps obj= new PopUps();
+        obj.setVisible(true);
         }
         else{
         GestorPuesto gestorPuesto = GestorPuesto.getInstance();     //se pide la instancia de GestorPuesto
@@ -550,6 +567,7 @@ public class GestionDePuestos extends javax.swing.JFrame {
     private javax.swing.JLabel mensajeError;
     private javax.swing.JButton modificar;
     private javax.swing.JButton nuevo;
+    private javax.swing.JFrame nuevoFrame;
     private javax.swing.JTextField puesto;
     private javax.swing.JTable tabla;
     private javax.swing.JPanel trabajarAca;

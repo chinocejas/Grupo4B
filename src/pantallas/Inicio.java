@@ -50,8 +50,6 @@ public class Inicio extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         botonConsultor = new javax.swing.JButton();
         botonCandidato = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -176,24 +174,10 @@ public class Inicio extends javax.swing.JFrame {
         jPanel5.setOpaque(false);
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel3.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(219, 219, 219));
-        jLabel3.setText("Candidato");
-        jPanel5.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 240, 180, 50));
-
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(219, 219, 219));
-        jLabel2.setText("Consultor");
-        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel2MouseClicked(evt);
-            }
-        });
-        jPanel5.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 120, 170, 50));
-
         botonConsultor.setBackground(new java.awt.Color(0, 51, 102));
-        botonConsultor.setFont(new java.awt.Font("Arial", 0, 28)); // NOI18N
-        botonConsultor.setForeground(new java.awt.Color(255, 255, 255));
+        botonConsultor.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
+        botonConsultor.setForeground(new java.awt.Color(219, 219, 219));
+        botonConsultor.setText("Consultor");
         botonConsultor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonConsultorActionPerformed(evt);
@@ -207,8 +191,9 @@ public class Inicio extends javax.swing.JFrame {
         jPanel5.add(botonConsultor, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 120, 350, 54));
 
         botonCandidato.setBackground(new java.awt.Color(0, 51, 102));
-        botonCandidato.setFont(new java.awt.Font("Arial", 0, 28)); // NOI18N
-        botonCandidato.setForeground(new java.awt.Color(255, 255, 255));
+        botonCandidato.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
+        botonCandidato.setForeground(new java.awt.Color(219, 219, 219));
+        botonCandidato.setText("Candidato");
         botonCandidato.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonCandidatoActionPerformed(evt);
@@ -246,10 +231,6 @@ public class Inicio extends javax.swing.JFrame {
     private void botonCandidatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCandidatoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_botonCandidatoActionPerformed
-
-    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel2MouseClicked
 
     private void botonConsultorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_botonConsultorKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER){
@@ -324,8 +305,6 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JPanel centro;
     private javax.swing.JPanel fondo;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

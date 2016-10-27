@@ -6,6 +6,8 @@
 package VentanasEmergentes;
 
 import com.sun.awt.AWTUtilities;
+import java.awt.MouseInfo;
+import java.awt.Point;
 import java.awt.Shape;
 import java.awt.geom.RoundRectangle2D;
 
@@ -15,14 +17,13 @@ import java.awt.geom.RoundRectangle2D;
  */
 public class PopUps extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ErrorInicioSesionConsultor
-     */
+    int x,y;
+    
     public PopUps() {
         setUndecorated(true);
         initComponents();
         //setTitle("Inicio");
-        setSize(400,200);
+        setSize(300,100);
         setLocation(1000,768);
         setOpacity(0.8f);//con la f aclaramos que es float 
        Shape forma = new RoundRectangle2D.Double(0, 0, this.getBounds().width, this.getBounds().height, 15, 15); 
@@ -46,11 +47,29 @@ public class PopUps extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 255));
+        jPanel1.setFocusable(false);
+        jPanel1.setInheritsPopupMenu(true);
+        jPanel1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jPanel1MouseDragged(evt);
+            }
+        });
+        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jPanel1MousePressed(evt);
+            }
+        });
 
         jButton1.setBackground(new java.awt.Color(0, 153, 255));
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("X");
+        jButton1.setFocusable(false);
         jButton1.setOpaque(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -80,6 +99,22 @@ public class PopUps extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+            dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
+
+        x = evt.getX();
+        y = evt.getY();
+    }//GEN-LAST:event_jPanel1MousePressed
+
+    private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
+        
+        Point point = MouseInfo.getPointerInfo().getLocation() ; 
+        setLocation(point.x - x, point.y - y)  ; 
+    }//GEN-LAST:event_jPanel1MouseDragged
 
     /**
      * @param args the command line arguments

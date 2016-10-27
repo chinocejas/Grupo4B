@@ -33,8 +33,8 @@ public class AltaPuesto extends javax.swing.JFrame {
 
     //pido la instancia de gestor de puestos
     GestorPuesto gestorPuesto = GestorPuesto.getInstance();
-    //creo un nuevo puesto vacio
-    Puesto puesto = new Puesto();
+   
+    
     
 
 
@@ -47,10 +47,8 @@ public class AltaPuesto extends javax.swing.JFrame {
         tabla.setModel(modeloTabla);
         tabla.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
-        //guardo el puesto vacio en la bs y se le asigna un id secuencial
-        gestorPuesto.guardarPuesto(puesto);
-        //pido el id del puesto asignado por hibernate y lo guardo en idPuesto
-        int idPuesto= puesto.getIdPuesto();
+        
+        int idPuesto=gestorPuesto.buscarIdNuevoPuesto();
         //muestro por pantalla el codigo no editable pasandolo a string previamente
         txtCodigo.setText(String.valueOf(idPuesto));
        
@@ -268,7 +266,35 @@ public class AltaPuesto extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(357, 357, 357)
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(58, 58, 58)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(90, 90, 90)
+                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 690, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(58, 58, 58)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 690, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(58, 58, 58)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(80, 80, 80)
+                        .addComponent(txtEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 690, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(58, 58, 58)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(70, 70, 70)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 690, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(190, 190, 190)
+                        .addComponent(jLabel2)
+                        .addGap(370, 370, 370)
+                        .addComponent(jLabel3))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(58, 58, 58)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -284,46 +310,17 @@ public class AltaPuesto extends javax.swing.JFrame {
                                 .addGap(11, 11, 11)
                                 .addComponent(btnAddAll, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(btnRemoveAll))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(9, 9, 9)
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(357, 357, 357)
-                            .addComponent(jLabel1))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(58, 58, 58)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(90, 90, 90)
-                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 690, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(58, 58, 58)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(10, 10, 10)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 690, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(58, 58, 58)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(80, 80, 80)
-                            .addComponent(txtEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 690, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(58, 58, 58)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(70, 70, 70)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 690, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(190, 190, 190)
-                            .addComponent(jLabel2)
-                            .addGap(370, 370, 370)
-                            .addComponent(jLabel3))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(185, 185, 185)
-                            .addComponent(campoTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 664, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(246, 246, 246)
-                            .addComponent(aceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(237, 237, 237)
-                            .addComponent(cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(247, 247, 247)
+                        .addComponent(aceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(226, 226, 226)
+                        .addComponent(cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(76, 76, 76))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addComponent(campoTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 664, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(170, 170, 170))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -354,7 +351,6 @@ public class AltaPuesto extends javax.swing.JFrame {
                     .addComponent(jLabel3))
                 .addGap(9, 9, 9)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(44, 44, 44)
                         .addComponent(btnAdd)
@@ -364,13 +360,15 @@ public class AltaPuesto extends javax.swing.JFrame {
                         .addComponent(btnAddAll)
                         .addGap(9, 9, 9)
                         .addComponent(btnRemoveAll))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(campoTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(9, 9, 9)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(1, 1, 1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(aceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -385,18 +383,15 @@ public class AltaPuesto extends javax.swing.JFrame {
 
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarActionPerformed
 
+        Puesto puesto = new Puesto();
         
-        puesto.setNombrePuesto(txtNombre.getText());
-        puesto.setNombreEmpresa(txtEmpresa.getText());
-        puesto.setDescripcion(txtDescripcion.getText());
         //convierto a set la lista guardada en modeloTabla con las competencias seleccionadas para persistirlas en la bs 
-        Set<Competencia> setCompetencias = new HashSet<Competencia>(modeloTabla.getListaCompetencias());
-        puesto.setPuestoCompetencias(setCompetencias);
-        gestorPuesto.actualizarPuesto(puesto);
+        Set<Competencia> competencias = new HashSet<Competencia>(modeloTabla.getListaCompetencias());
+       
+        gestorPuesto.setPuesto(puesto, txtNombre.getText(),txtEmpresa.getText(), txtDescripcion.getText(), competencias);
+        gestorPuesto.guardarPuesto(puesto);
         
-        PuestoCompetenciaDaoHibernate puestoCompetenciaDao= new PuestoCompetenciaDaoHibernate();
-        
-        puestoCompetenciaDao.actualizarPuntajesCompetencias(puesto.getIdPuesto(),modeloTabla.getListaCompetencias(), modeloTabla.getListaPonderacion());
+        gestorPuesto.actualizarPuntajesCompetencias(puesto.getIdPuesto(),modeloTabla.getListaCompetencias(), modeloTabla.getListaPonderacion());
         
         JOptionPane.showMessageDialog(null, "El puesto <" + puesto.getNombrePuesto() + "> se ha creado correctamente");
         GestionDePuestos obj = new GestionDePuestos();
@@ -405,9 +400,7 @@ public class AltaPuesto extends javax.swing.JFrame {
     }//GEN-LAST:event_aceptarActionPerformed
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
-        
-        //si el usuario cancela, borro el puesto creado para no tener puestos vacios en la bs
-        gestorPuesto.borrarPuesto(puesto);
+
         GestionDePuestos obj= new GestionDePuestos();
         obj.setVisible(true);
         dispose();

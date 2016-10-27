@@ -20,7 +20,7 @@
             <column name="descripcion" />
         </property>
         <property name="fechaUltMod" type="date">
-            <column name="fecha_ult_mod" length="13" />
+            <column name="fecha_ultima_modificacion" length="13" />
         </property>
         <set name="puestoCompetencias" table="puesto_competencia" cascade="none" lazy="false">
             <!-- cascade=none me dice que no se modifica la tabla competencia si actualizo la tabla puesto.

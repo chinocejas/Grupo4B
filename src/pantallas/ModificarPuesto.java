@@ -69,11 +69,7 @@ public class ModificarPuesto extends javax.swing.JFrame {
         List allCompetencias = gestorCompetencia.allCompetenciasOrdenadasPorNombre();
         
         
-        
-        
-
-        PuestoCompetenciaDaoHibernate puestoCompetenciaDao = new PuestoCompetenciaDaoHibernate();
-
+      
         int ponderacion;
         int idCompetencia;
         Competencia competencia;
@@ -87,7 +83,7 @@ public class ModificarPuesto extends javax.swing.JFrame {
             //guardo el id de competencia para buscar las ponderaciones en la tabla de union
             idCompetencia = competencia.getIdCompetencia();
             //recupero una instancia de PuestoCompetencia pasando los id del puesto y la competencia
-            puestoCompetencia = puestoCompetenciaDao.find(Long.valueOf(codigo), Long.valueOf(idCompetencia));
+            puestoCompetencia = gestorPuesto.find(Long.valueOf(codigo), Long.valueOf(idCompetencia));
             //pido la ponderacion guardada en esa instancia
             ponderacion = puestoCompetencia.getPuntajeRequerido();
             //muestro por pantalla la ponderacion al lado de la competencia
@@ -452,9 +448,8 @@ public class ModificarPuesto extends javax.swing.JFrame {
         puesto.setPuestoCompetencias(setCompetencias);
         gestorPuesto.actualizarPuesto(puesto);
 
-        PuestoCompetenciaDaoHibernate puestoCompetenciaDao = new PuestoCompetenciaDaoHibernate();
-
-        puestoCompetenciaDao.actualizarPuntajesCompetencias(puesto.getIdPuesto(), modeloTabla.getListaCompetencias(), modeloTabla.getListaPonderacion());
+        
+        gestorPuesto.actualizarPuntajesCompetencias(puesto.getIdPuesto(), modeloTabla.getListaCompetencias(), modeloTabla.getListaPonderacion());
 
         JOptionPane.showMessageDialog(null, "La operación ha culminado con éxito");
         GestionDePuestos obj = new GestionDePuestos();
