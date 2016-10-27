@@ -5,7 +5,6 @@
  */
 package pantallas;
 
-
 import Dao.PuestoCompetenciaDaoHibernate;
 import Gestores.GestorCompetencia;
 import java.awt.Image;
@@ -22,6 +21,7 @@ import javax.swing.AbstractListModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author pc
@@ -33,13 +33,9 @@ public class AltaPuesto extends javax.swing.JFrame {
 
     //pido la instancia de gestor de puestos
     GestorPuesto gestorPuesto = GestorPuesto.getInstance();
-   
-    
-    
-
 
     public AltaPuesto() {
-        
+
         initComponents();
         setSize(1024, 768);
         setLocationRelativeTo(null);
@@ -47,23 +43,20 @@ public class AltaPuesto extends javax.swing.JFrame {
         tabla.setModel(modeloTabla);
         tabla.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
-        
-        int idPuesto=gestorPuesto.buscarIdNuevoPuesto();
+        int idPuesto = gestorPuesto.buscarIdNuevoPuesto();
         //muestro por pantalla el codigo no editable pasandolo a string previamente
         txtCodigo.setText(String.valueOf(idPuesto));
-       
-         
-        
-        
-        GestorCompetencia gestorCompetencia= GestorCompetencia.getInstance();
-        List allCompetencias= gestorCompetencia.allCompetenciasOrdenadasPorNombre();
-      
-        for(int i=0; i<allCompetencias.size(); i++){
-           Competencia competencia=(Competencia)allCompetencias.get(i);
+
+        GestorCompetencia gestorCompetencia = GestorCompetencia.getInstance();
+        List allCompetencias = gestorCompetencia.allCompetenciasOrdenadasPorNombre();
+
+        for (int i = 0; i < allCompetencias.size(); i++) {
+            Competencia competencia = (Competencia) allCompetencias.get(i);
             modeloLista.addCompetencia(competencia);
         }
     }
-     public Image getIconImage() {
+
+    public Image getIconImage() {
         Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Imagenes/BS_ultimate2.png"));
         return retValue;
     }
@@ -204,6 +197,14 @@ public class AltaPuesto extends javax.swing.JFrame {
         txtNombre.setBackground(new java.awt.Color(0, 51, 102));
         txtNombre.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
         txtNombre.setForeground(new java.awt.Color(255, 255, 255));
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNombreKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
 
         txtEmpresa.setBackground(new java.awt.Color(0, 51, 102));
         txtEmpresa.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
@@ -384,15 +385,15 @@ public class AltaPuesto extends javax.swing.JFrame {
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarActionPerformed
 
         Puesto puesto = new Puesto();
-        
+
         //convierto a set la lista guardada en modeloTabla con las competencias seleccionadas para persistirlas en la bs 
         Set<Competencia> competencias = new HashSet<Competencia>(modeloTabla.getListaCompetencias());
-       
-        gestorPuesto.setPuesto(puesto, txtNombre.getText(),txtEmpresa.getText(), txtDescripcion.getText(), competencias);
+
+        gestorPuesto.setPuesto(puesto, txtNombre.getText(), txtEmpresa.getText(), txtDescripcion.getText(), competencias);
         gestorPuesto.guardarPuesto(puesto);
-        
-        gestorPuesto.actualizarPuntajesCompetencias(puesto.getIdPuesto(),modeloTabla.getListaCompetencias(), modeloTabla.getListaPonderacion());
-        
+
+        gestorPuesto.actualizarPuntajesCompetencias(puesto.getIdPuesto(), modeloTabla.getListaCompetencias(), modeloTabla.getListaPonderacion());
+
         JOptionPane.showMessageDialog(null, "El puesto <" + puesto.getNombrePuesto() + "> se ha creado correctamente");
         GestionDePuestos obj = new GestionDePuestos();
         obj.setVisible(true);
@@ -401,7 +402,7 @@ public class AltaPuesto extends javax.swing.JFrame {
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
 
-        GestionDePuestos obj= new GestionDePuestos();
+        GestionDePuestos obj = new GestionDePuestos();
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_cancelarActionPerformed
@@ -419,30 +420,30 @@ public class AltaPuesto extends javax.swing.JFrame {
         while (modeloTabla.getRowCount() != 0) { //se va a ejecutar mientras haya alguna fila en la tabla
             modeloLista.addCompetencia((Competencia) modeloTabla.getCompetencia(0));
             modeloTabla.deleteRow(0);
-        }    
+        }
     }//GEN-LAST:event_btnRemoveAllActionPerformed
 
     private void btnAddAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddAllActionPerformed
-        while(modeloLista.getSize()!=0){
-            Competencia competencia=modeloLista.getCompetencia(0);
+        while (modeloLista.getSize() != 0) {
+            Competencia competencia = modeloLista.getCompetencia(0);
             modeloTabla.addCompetencia(competencia);
             modeloLista.eliminarCompetencia(0);
         }
-       
+
     }//GEN-LAST:event_btnAddAllActionPerformed
 
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
         //original para lista: if ((l2.getSelectedValue() == null) || (l2.getSelectedValue().equals("-1")) || l1.getComponentCount()==0) 
-            if ((tabla.getSelectedRow()==-1)) {
-        campoTexto.setText("Seleccione un elemento antes de presionar el boton");
+        if ((tabla.getSelectedRow() == -1)) {
+            campoTexto.setText("Seleccione un elemento antes de presionar el boton");
         } else {
             campoTexto.setText("");
             /* original para lista 
             String aux = ModeloTabla.getSelectedValue();
             modelol1.addCompetencia(aux);
             modelol2.remove(tabla.getSelectedIndex());*/
-            int row= tabla.getSelectedRow();
-            Competencia competencia= modeloTabla.getCompetencia(row);
+            int row = tabla.getSelectedRow();
+            Competencia competencia = modeloTabla.getCompetencia(row);
             modeloLista.addCompetencia(competencia);
             modeloTabla.deleteRow(row);
 
@@ -451,26 +452,53 @@ public class AltaPuesto extends javax.swing.JFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
 
-        if (lista.getSelectedValue()!=null || lista.getComponentCount()==0) {
+        if (lista.getSelectedValue() != null || lista.getComponentCount() == 0) {
             campoTexto.setText("");
             // String aux = lista.getSelectedValue();
-            Competencia competencia=modeloLista.getCompetencia(lista.getSelectedIndex());
+            Competencia competencia = modeloLista.getCompetencia(lista.getSelectedIndex());
             modeloTabla.addCompetencia(competencia);
             modeloLista.eliminarCompetencia(lista.getSelectedIndex());
-        }else campoTexto.setText("Seleccione un elemento antes de presionar el boton");
+        } else {
+            campoTexto.setText("Seleccione un elemento antes de presionar el boton");
+        }
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMouseClicked
-        
+
 //no se sabe todavia para que sirve
-     /*   
+        /*   
         int fila = tabla.rowAtPoint(evt.getPoint());
     int columna = tabla.columnAtPoint(evt.getPoint());
     if ((fila > -1) && (columna > -1)) {
         filaSeleccionada = fila;
     }*/
-        
+
     }//GEN-LAST:event_tablaMouseClicked
+
+    private void txtNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyReleased
+            //Convierte el texto ingresado a mayusculas
+            int pos = txtNombre.getCaretPosition();
+            convertiraMayusculasEnJtextfield(txtNombre, pos);
+    }//GEN-LAST:event_txtNombreKeyReleased
+
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+        char c = evt.getKeyChar();
+        //Solo permite letras y espacios
+        if ( c<32 || (c>32 &&c<65) || (c >90&& c<97) || c>122) {
+            evt.consume();
+        } else {
+            //Convierte el texto ingresado a mayusculas
+            int pos = txtNombre.getCaretPosition();
+            convertiraMayusculasEnJtextfield(txtNombre, pos);
+        }
+    }//GEN-LAST:event_txtNombreKeyTyped
+    
+    //METODO USADO ARRIBA
+    public void convertiraMayusculasEnJtextfield(javax.swing.JTextField jTextfieldS, int pos) {
+        String cadena = (jTextfieldS.getText()).toUpperCase();
+        jTextfieldS.setText(cadena);
+        jTextfieldS.setCaretPosition(pos);
+    }
 
     /**
      * @param args the command line arguments
@@ -513,10 +541,12 @@ public class AltaPuesto extends javax.swing.JFrame {
             }
         });
     }
+
     // http://serprogramador.es/usando-un-jlist-para-almacenar-objetos-java-swing/
-    public class CustomListModel extends AbstractListModel{
+    public class CustomListModel extends AbstractListModel {
 
         private ArrayList<Competencia> lista = new ArrayList<>();
+
         @Override
         public int getSize() {
             return lista.size();
@@ -527,10 +557,10 @@ public class AltaPuesto extends javax.swing.JFrame {
             Competencia c = lista.get(index);
             return c.getNombreCompetencia();
         }
-        
-        public void addCompetencia(Competencia c){
-        lista.add(c);
-        this.fireIntervalAdded(this, getSize(), getSize()+1);
+
+        public void addCompetencia(Competencia c) {
+            lista.add(c);
+            this.fireIntervalAdded(this, getSize(), getSize() + 1);
         }
 
         public void eliminarCompetencia(int index0) {
@@ -541,19 +571,20 @@ public class AltaPuesto extends javax.swing.JFrame {
         public Competencia getCompetencia(int index) {
             return lista.get(index);
         }
-        
+
     }
+
     //http://jcaballero-progravan1.blogspot.com.ar/2011/03/jtable.html
     //http://docs.oracle.com/javase/tutorial/uiswing/components/table.html#data
-     public class CustomTableModel extends AbstractTableModel{
+    public class CustomTableModel extends AbstractTableModel {
 
-        private ArrayList<Competencia> data=  new ArrayList<Competencia>();
-        private ArrayList<Integer> ponderacion=  new ArrayList<Integer>();
-        private int numColumns=2; //cant de columnas con la que se crea la tabla
-    private String columnNames[]={"Competencia","Ponderación"};
-    // private Class classes[]={String.class ,String.class}; //tipo de las columnas
-    private boolean editable[]={false, true};
-          
+        private ArrayList<Competencia> data = new ArrayList<Competencia>();
+        private ArrayList<Integer> ponderacion = new ArrayList<Integer>();
+        private int numColumns = 2; //cant de columnas con la que se crea la tabla
+        private String columnNames[] = {"Competencia", "Ponderación"};
+        // private Class classes[]={String.class ,String.class}; //tipo de las columnas
+        private boolean editable[] = {false, true};
+
         @Override
         public int getRowCount() {
             return data.size();
@@ -561,76 +592,76 @@ public class AltaPuesto extends javax.swing.JFrame {
 
         @Override
         public int getColumnCount() { //construye la cantidad de columnas que se retorna
-            
-             return numColumns;
-         }
 
-         @Override
-         public String getColumnName(int col) {
-             return columnNames[col];
-         }
-         
-         @Override
-         public Class getColumnClass(int col) {
+            return numColumns;
+        }
+
+        @Override
+        public String getColumnName(int col) {
+            return columnNames[col];
+        }
+
+        @Override
+        public Class getColumnClass(int col) {
             //return classes[col];
             return String.class; //no cambiar a int u otra cosa porque pierde la propiedad de editable
-         }
-         
+        }
+
         @Override
-    public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return columnIndex==0 ? false : true;
-    }
+        public boolean isCellEditable(int rowIndex, int columnIndex) {
+            return columnIndex == 0 ? false : true;
+        }
 
-         @Override
-         // Cambia el valor que contiene una determinada casilla de
-         // la tabla
-         public void setValueAt(Object value, int row, int col) {
-             Integer valorNumerico= Integer.parseInt((String) value);
-             ponderacion.set(row, valorNumerico);
-             
-             fireTableCellUpdated(row, col);
-             // Indica que se ha cambiado
-             //fireTableDataChanged();
-         }
+        @Override
+        // Cambia el valor que contiene una determinada casilla de
+        // la tabla
+        public void setValueAt(Object value, int row, int col) {
+            Integer valorNumerico = Integer.parseInt((String) value);
+            ponderacion.set(row, valorNumerico);
 
-         public Competencia getCompetencia(int fila){
-             return (Competencia) data.get(fila);
-         }
-         
-         public List<Competencia> getListaCompetencias(){
-             return data;
-         }
-         
-         public List<Integer> getListaPonderacion(){
-             return ponderacion;
-         }
-         
+            fireTableCellUpdated(row, col);
+            // Indica que se ha cambiado
+            //fireTableDataChanged();
+        }
+
+        public Competencia getCompetencia(int fila) {
+            return (Competencia) data.get(fila);
+        }
+
+        public List<Competencia> getListaCompetencias() {
+            return data;
+        }
+
+        public List<Integer> getListaPonderacion() {
+            return ponderacion;
+        }
+
         @Override
         //este metodo muestra por pantalla los nombres pero en realidad se esta manejando una lista con Competencias por detras
         public Object getValueAt(int row, int col) {
             Competencia c = (Competencia) data.get(row);
-           //Si la columa es la 0 muestra el nombre de la competencia
-           // sino (es la columna 1) muestro la ponderacion
-            return col == 0 ? c.getNombreCompetencia() : ponderacion.get(row) ;  //cosas locas sacadas de internet
-             //return data.get(row)[col];
+            //Si la columa es la 0 muestra el nombre de la competencia
+            // sino (es la columna 1) muestro la ponderacion
+            return col == 0 ? c.getNombreCompetencia() : ponderacion.get(row);  //cosas locas sacadas de internet
+            //return data.get(row)[col];
         }
 
-         public void addCompetencia(Competencia competencia) {
-             data.add(competencia);
-             ponderacion.add(null);
+        public void addCompetencia(Competencia competencia) {
+            data.add(competencia);
+            ponderacion.add(null);
             fireTableDataChanged();
-         }
+        }
 
         private void deleteRow(int row) {
             data.remove(row);
             ponderacion.remove(row);
-        fireTableDataChanged();
+            fireTableDataChanged();
         }
-        
-        public void mostrar(){
-            for(int i=0; i<ponderacion.size(); i++){
-               
-            System.out.print(i+1 + " -> " + ponderacion.get(i) + "\n");
+
+        public void mostrar() {
+            for (int i = 0; i < ponderacion.size(); i++) {
+
+                System.out.print(i + 1 + " -> " + ponderacion.get(i) + "\n");
             }
         }
     }
