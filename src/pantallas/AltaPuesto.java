@@ -14,6 +14,7 @@ import javax.swing.DefaultListModel;
 import Entidades.Competencia;
 import Entidades.Puesto;
 import Gestores.GestorPuesto;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;

@@ -55,7 +55,7 @@ public class ConsultorDaoHibernate extends AbstractDao {
     
     //agregado por el negro
     public Consultor findPorUsernameYClave(String username, String password) throws DataAccessLayerException {
-        Consultor obj = null;
+        Consultor obj= null;
         try {
             startOperation();
             

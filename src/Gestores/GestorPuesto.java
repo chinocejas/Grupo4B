@@ -10,6 +10,7 @@ import Dao.PuestoDaoHibernate;
 import Entidades.Competencia;
 import Entidades.Puesto;
 import Entidades.PuestoCompetencia;
+import java.math.BigInteger;
 import java.util.Set;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -77,7 +78,7 @@ public class GestorPuesto {
     }
     
     public int buscarIdNuevoPuesto (){
-        return 999999999;
+        return puestoDao.buscarSecuencia();
     }
     
     

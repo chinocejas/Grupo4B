@@ -7,9 +7,13 @@ package Dao;
 import Entidades.Competencia;
 import Entidades.Puesto;
 import Entidades.PuestoCompetencia;
+import java.math.BigInteger;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
+import org.hibernate.ejb.*;
+import javax.persistence.EntityManager;
+
 
 
 /**
@@ -30,6 +34,7 @@ public class PuestoDaoHibernate extends AbstractDao {
         super.save(puesto);
     }
 
+    
     /**
      * Updates a new Usuario into the database.
      * @param usuario
@@ -138,6 +143,47 @@ public class PuestoDaoHibernate extends AbstractDao {
     }
     
     
+    
+    
+    public int buscarSecuencia() throws DataAccessLayerException {
+        BigInteger seq = BigInteger.ONE;
+        try {
+            startOperation();
+            
+            Query query = session.createSQLQuery("SELECT nextval('public.puesto_id_seq')");
+
+            List result = query.list();
+            seq = (BigInteger) result.get(0);
+                       
+            tx.commit();
+        }
+        catch (HibernateException e) {
+            handleException(e);
+        } finally {
+            HibernateFactory.close(session);
+        }
+        return seq.intValue();
+    }
+    
+    //Traer Secuencia del la BD
+    /*
+  public int buscarSecuencia(){
+  int valor = 0;
+
+  final StringBuilder sql = new StringBuilder();
+  sql.append("SELECT nextval('public.puesto_id_seq')");
+  
+  final HibernateEntityManager hem = getJpaTemplate().getEntityManagerFactory().createEntityManager().unwrap(HibernateEntityManager.class);
+
+  final List<BigInteger> ids = hem.getSession().createSQLQuery(sql.toString()).list();
+
+  if (null != ids && !ids.isEmpty()) {
+    valor = ids.get(0).intValue();
+  }
+
+  return valor;
+}*/
+    
     //metodos para actualizar la ponderacion en la tabla union entre puesto y competencia
     
      public void actualizarPuntajesCompetencias(int idPuesto, List<Competencia> competencias, List<Integer> puntajes){
@@ -210,5 +256,9 @@ public class PuestoDaoHibernate extends AbstractDao {
     
     public void update(PuestoCompetencia puestoCompetencia) throws DataAccessLayerException {
         super.update(puestoCompetencia);
+    }
+
+    private Object getJpaTemplate() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
