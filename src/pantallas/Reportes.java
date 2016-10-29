@@ -118,6 +118,7 @@ public class Reportes extends javax.swing.JFrame {
         volver.setFont(new java.awt.Font("Arial", 0, 22)); // NOI18N
         volver.setForeground(new java.awt.Color(204, 204, 204));
         volver.setText("Volver");
+        volver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         volver.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 volverMouseClicked(evt);
@@ -218,6 +219,7 @@ public class Reportes extends javax.swing.JFrame {
         jButton8.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
         jButton8.setForeground(new java.awt.Color(255, 255, 255));
         jButton8.setText("Reporte Comparativo");
+        jButton8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton8ActionPerformed(evt);
@@ -228,6 +230,7 @@ public class Reportes extends javax.swing.JFrame {
         jButton9.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
         jButton9.setForeground(new java.awt.Color(255, 255, 255));
         jButton9.setText("Exportar Resultados");
+        jButton9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton9ActionPerformed(evt);
@@ -238,6 +241,7 @@ public class Reportes extends javax.swing.JFrame {
         jButton10.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
         jButton10.setForeground(new java.awt.Color(255, 255, 255));
         jButton10.setText("Orden de Mérito");
+        jButton10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton10ActionPerformed(evt);

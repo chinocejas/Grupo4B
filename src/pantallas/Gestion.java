@@ -120,6 +120,7 @@ public class Gestion extends javax.swing.JFrame {
         volver.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
         volver.setForeground(new java.awt.Color(255, 255, 255));
         volver.setText("Volver");
+        volver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         volver.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 volverMouseClicked(evt);
@@ -220,6 +221,7 @@ public class Gestion extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Candidatos");
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -230,6 +232,7 @@ public class Gestion extends javax.swing.JFrame {
         puestos.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
         puestos.setForeground(new java.awt.Color(255, 255, 255));
         puestos.setText("Puestos");
+        puestos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         puestos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 puestosActionPerformed(evt);
@@ -240,6 +243,7 @@ public class Gestion extends javax.swing.JFrame {
         jButton8.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
         jButton8.setForeground(new java.awt.Color(255, 255, 255));
         jButton8.setText("Factores");
+        jButton8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton8ActionPerformed(evt);
@@ -250,6 +254,7 @@ public class Gestion extends javax.swing.JFrame {
         jButton9.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
         jButton9.setForeground(new java.awt.Color(255, 255, 255));
         jButton9.setText("Competencias");
+        jButton9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton9ActionPerformed(evt);
@@ -260,6 +265,7 @@ public class Gestion extends javax.swing.JFrame {
         jButton10.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
         jButton10.setForeground(new java.awt.Color(255, 255, 255));
         jButton10.setText("Preguntas");
+        jButton10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton10ActionPerformed(evt);

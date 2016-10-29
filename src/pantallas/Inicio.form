@@ -254,6 +254,9 @@
                       <Color blue="db" green="db" red="db" type="rgb"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Consultor"/>
+                    <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                      <Color id="Cursor de Mano"/>
+                    </Property>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonConsultorActionPerformed"/>
@@ -277,6 +280,9 @@
                       <Color blue="db" green="db" red="db" type="rgb"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Candidato"/>
+                    <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                      <Color id="Cursor de Mano"/>
+                    </Property>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonCandidatoActionPerformed"/>

@@ -178,6 +178,7 @@ public class Inicio extends javax.swing.JFrame {
         botonConsultor.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         botonConsultor.setForeground(new java.awt.Color(219, 219, 219));
         botonConsultor.setText("Consultor");
+        botonConsultor.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         botonConsultor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonConsultorActionPerformed(evt);
@@ -194,6 +195,7 @@ public class Inicio extends javax.swing.JFrame {
         botonCandidato.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         botonCandidato.setForeground(new java.awt.Color(219, 219, 219));
         botonCandidato.setText("Candidato");
+        botonCandidato.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         botonCandidato.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonCandidatoActionPerformed(evt);

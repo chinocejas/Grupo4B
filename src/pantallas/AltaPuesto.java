@@ -123,6 +123,7 @@ public class AltaPuesto extends javax.swing.JFrame {
         btnAdd.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         btnAdd.setForeground(new java.awt.Color(204, 204, 204));
         btnAdd.setText(">>");
+        btnAdd.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddActionPerformed(evt);
@@ -137,6 +138,7 @@ public class AltaPuesto extends javax.swing.JFrame {
         btnRemove.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         btnRemove.setForeground(new java.awt.Color(204, 204, 204));
         btnRemove.setText("<<");
+        btnRemove.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnRemove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRemoveActionPerformed(evt);
@@ -147,6 +149,7 @@ public class AltaPuesto extends javax.swing.JFrame {
         btnAddAll.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         btnAddAll.setForeground(new java.awt.Color(204, 204, 204));
         btnAddAll.setText("Add All");
+        btnAddAll.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAddAll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddAllActionPerformed(evt);
@@ -157,6 +160,7 @@ public class AltaPuesto extends javax.swing.JFrame {
         btnRemoveAll.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         btnRemoveAll.setForeground(new java.awt.Color(204, 204, 204));
         btnRemoveAll.setText("Remove All");
+        btnRemoveAll.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnRemoveAll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRemoveAllActionPerformed(evt);
@@ -218,6 +222,7 @@ public class AltaPuesto extends javax.swing.JFrame {
         cancelar.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
         cancelar.setForeground(new java.awt.Color(255, 255, 255));
         cancelar.setText("Cancelar");
+        cancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cancelar.setPreferredSize(new java.awt.Dimension(137, 41));
         cancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -229,6 +234,7 @@ public class AltaPuesto extends javax.swing.JFrame {
         aceptar.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
         aceptar.setForeground(new java.awt.Color(255, 255, 255));
         aceptar.setText("Aceptar");
+        aceptar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         aceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 aceptarActionPerformed(evt);

@@ -155,7 +155,7 @@ public class GestionDePuestos extends javax.swing.JFrame {
         buscar.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
         buscar.setForeground(new java.awt.Color(255, 255, 255));
         buscar.setText("Buscar");
-        buscar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        buscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         buscar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 buscarMouseClicked(evt);
@@ -203,6 +203,7 @@ public class GestionDePuestos extends javax.swing.JFrame {
         nuevo.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
         nuevo.setForeground(new java.awt.Color(255, 255, 255));
         nuevo.setText("Nuevo");
+        nuevo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         nuevo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 nuevoMouseClicked(evt);
@@ -218,6 +219,7 @@ public class GestionDePuestos extends javax.swing.JFrame {
         eliminar.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
         eliminar.setForeground(new java.awt.Color(255, 255, 255));
         eliminar.setText("Eliminar");
+        eliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         eliminar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 eliminarMouseClicked(evt);
@@ -233,6 +235,7 @@ public class GestionDePuestos extends javax.swing.JFrame {
         modificar.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
         modificar.setForeground(new java.awt.Color(255, 255, 255));
         modificar.setText("Modificar");
+        modificar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         modificar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 modificarMouseClicked(evt);
@@ -373,6 +376,7 @@ public class GestionDePuestos extends javax.swing.JFrame {
         volver.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
         volver.setForeground(new java.awt.Color(255, 255, 255));
         volver.setText("Volver");
+        volver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         volver.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 volverMouseClicked(evt);

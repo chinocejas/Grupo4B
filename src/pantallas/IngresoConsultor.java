@@ -110,7 +110,7 @@ public class IngresoConsultor extends javax.swing.JFrame {
         aceptar.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
         aceptar.setForeground(new java.awt.Color(204, 204, 204));
         aceptar.setText("Aceptar");
-        aceptar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        aceptar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         aceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 aceptarActionPerformed(evt);
@@ -121,6 +121,7 @@ public class IngresoConsultor extends javax.swing.JFrame {
         cancelar.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
         cancelar.setForeground(new java.awt.Color(204, 204, 204));
         cancelar.setText("Cancelar");
+        cancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelarActionPerformed(evt);
