@@ -69,18 +69,31 @@ public class GestorPuesto {
         return puestoDao.find(codigo);
     }
     
-    public void setPuesto(Puesto puesto, String nombre, String empresa, String descripcion, Set<Competencia> competencias){
+    public void setPuesto(String nombre, String empresa, String descripcion, Set<Competencia> competencias){
+        
+        //daoPuesto.verificarNombrePuestoUnico();
+        Puesto puesto = new Puesto();
         puesto.setNombrePuesto(nombre);
         puesto.setNombreEmpresa(empresa);
         puesto.setDescripcion(descripcion);
         puesto.setPuestoCompetencias(competencias);
-       
+        guardarPuesto(puesto);
     }
     
     public int buscarIdNuevoPuesto (){
         return puestoDao.buscarSecuencia();
     }
     
+    public int verificarSumaPonderacion(List<Integer> pond){
+       //si la lista tiene algunas posiciones vacias
+        if(pond.contains(null)){
+           return 2;
+       }
+        //TERMINAR 
+            
+        
+    return 0;
+}
     
     //metodos para actualizar la ponderacion en la tabla union entre puesto y competencia //////////////
     public void actualizarPuntajesCompetencias(int idPuesto, List<Competencia> competencias, List<Integer> puntajes){

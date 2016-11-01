@@ -150,7 +150,7 @@ public class PuestoDaoHibernate extends AbstractDao {
         try {
             startOperation();
             
-            Query query = session.createSQLQuery("SELECT nextval('public.puesto_id_seq')");
+            Query query = session.createSQLQuery("select last_value from public.puesto_id_seq");
 
             List result = query.list();
             seq = (BigInteger) result.get(0);

@@ -34,6 +34,8 @@ public class AltaPuesto extends javax.swing.JFrame {
 
     //pido la instancia de gestor de puestos
     GestorPuesto gestorPuesto = GestorPuesto.getInstance();
+    
+    int idPuesto;
 
     public AltaPuesto() {
 
@@ -44,13 +46,15 @@ public class AltaPuesto extends javax.swing.JFrame {
         tabla.setModel(modeloTabla);
         tabla.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
-        int idPuesto = gestorPuesto.buscarIdNuevoPuesto();
+        //suma 1 al idPuesto porque buscarIdNuevoPuesto busca el actual de la bd
+        int idPuesto = gestorPuesto.buscarIdNuevoPuesto() + 1;
         //muestro por pantalla el codigo no editable pasandolo a string previamente
         txtCodigo.setText(String.valueOf(idPuesto));
 
         GestorCompetencia gestorCompetencia = GestorCompetencia.getInstance();
         List allCompetencias = gestorCompetencia.allCompetenciasOrdenadasPorNombre();
 
+        //agrego las competencias traidas de la bd a modelo.Lista
         for (int i = 0; i < allCompetencias.size(); i++) {
             Competencia competencia = (Competencia) allCompetencias.get(i);
             modeloLista.addCompetencia(competencia);
@@ -113,7 +117,7 @@ public class AltaPuesto extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Lista original");
+        jLabel2.setText("Todas las competencias");
 
         campoTexto.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
         campoTexto.setForeground(new java.awt.Color(255, 255, 255));
@@ -132,7 +136,7 @@ public class AltaPuesto extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Lista a rellenar");
+        jLabel3.setText("Competencias seleccionadas");
 
         btnRemove.setBackground(new java.awt.Color(0, 51, 102));
         btnRemove.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
@@ -214,6 +218,14 @@ public class AltaPuesto extends javax.swing.JFrame {
         txtEmpresa.setBackground(new java.awt.Color(0, 51, 102));
         txtEmpresa.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
         txtEmpresa.setForeground(new java.awt.Color(255, 255, 255));
+        txtEmpresa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtEmpresaKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtEmpresaKeyTyped(evt);
+            }
+        });
 
         txtCodigo.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
         txtCodigo.setForeground(new java.awt.Color(255, 255, 255));
@@ -299,11 +311,6 @@ public class AltaPuesto extends javax.swing.JFrame {
                         .addGap(70, 70, 70)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 690, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(190, 190, 190)
-                        .addComponent(jLabel2)
-                        .addGap(370, 370, 370)
-                        .addComponent(jLabel3))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(58, 58, 58)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(7, 7, 7)
@@ -325,10 +332,17 @@ public class AltaPuesto extends javax.swing.JFrame {
                         .addComponent(aceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(226, 226, 226)
                         .addComponent(cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(76, 76, 76))
+                .addGap(76, 76, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(campoTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 664, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(170, 170, 170))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(140, 140, 140)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(122, 122, 122))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -354,9 +368,9 @@ public class AltaPuesto extends javax.swing.JFrame {
                         .addComponent(jLabel7))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(16, 16, 16)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2))
                 .addGap(9, 9, 9)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -391,17 +405,19 @@ public class AltaPuesto extends javax.swing.JFrame {
 
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarActionPerformed
 
-        Puesto puesto = new Puesto();
-
+        //verifica que las ponderaciones sumen 10 y que no haya ponderaciones vacias
+        int bandera = gestorPuesto.verificarSumaPonderacion(modeloTabla.getListaPonderacion()); 
+        //if(bandera){
+ 
         //convierto a set la lista guardada en modeloTabla con las competencias seleccionadas para persistirlas en la bs 
         Set<Competencia> competencias = new HashSet<Competencia>(modeloTabla.getListaCompetencias());
 
-        gestorPuesto.setPuesto(puesto, txtNombre.getText(), txtEmpresa.getText(), txtDescripcion.getText(), competencias);
-        gestorPuesto.guardarPuesto(puesto);
+        gestorPuesto.setPuesto(txtNombre.getText(), txtEmpresa.getText(), txtDescripcion.getText(), competencias);
+        
 
-        gestorPuesto.actualizarPuntajesCompetencias(puesto.getIdPuesto(), modeloTabla.getListaCompetencias(), modeloTabla.getListaPonderacion());
+        gestorPuesto.actualizarPuntajesCompetencias(idPuesto, modeloTabla.getListaCompetencias(), modeloTabla.getListaPonderacion());
 
-        JOptionPane.showMessageDialog(null, "El puesto <" + puesto.getNombrePuesto() + "> se ha creado correctamente");
+        JOptionPane.showMessageDialog(null, "El puesto <" + txtNombre.getText() + "> se ha creado correctamente");
         GestionDePuestos obj = new GestionDePuestos();
         obj.setVisible(true);
         dispose();
@@ -499,6 +515,24 @@ public class AltaPuesto extends javax.swing.JFrame {
             convertiraMayusculasEnJtextfield(txtNombre, pos);
         }
     }//GEN-LAST:event_txtNombreKeyTyped
+
+    private void txtEmpresaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmpresaKeyTyped
+        char c = evt.getKeyChar();
+        //Solo permite letras y espacios
+        if (c < 32 || (c > 32 && c < 65) || (c > 90 && c < 97) || c > 122) {
+            evt.consume();
+        } else {
+            //Convierte el texto ingresado a mayusculas
+            int pos = txtEmpresa.getCaretPosition();
+            convertiraMayusculasEnJtextfield(txtEmpresa, pos);
+        }
+    }//GEN-LAST:event_txtEmpresaKeyTyped
+
+    private void txtEmpresaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmpresaKeyReleased
+            //Convierte el texto ingresado a mayusculas
+            int pos = txtEmpresa.getCaretPosition();
+            convertiraMayusculasEnJtextfield(txtEmpresa, pos);
+    }//GEN-LAST:event_txtEmpresaKeyReleased
     
     //METODO USADO ARRIBA
     public void convertiraMayusculasEnJtextfield(javax.swing.JTextField jTextfieldS, int pos) {
@@ -591,9 +625,10 @@ public class AltaPuesto extends javax.swing.JFrame {
         private String columnNames[] = {"Competencia", "Ponderación"};
         // private Class classes[]={String.class ,String.class}; //tipo de las columnas
         private boolean editable[] = {false, true};
-
+        
         @Override
-        public int getRowCount() {
+        public int getRowCount() {  
+            
             return data.size();
         }
 
