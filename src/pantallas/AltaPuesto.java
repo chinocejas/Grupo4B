@@ -34,8 +34,8 @@ public class AltaPuesto extends javax.swing.JFrame {
 
     //pido la instancia de gestor de puestos
     GestorPuesto gestorPuesto = GestorPuesto.getInstance();
-    
-    int idPuesto;
+    //suma 1 al idPuesto porque buscarIdNuevoPuesto busca el actual de la bd
+    int idPuesto = gestorPuesto.buscarIdNuevoPuesto() + 1;
 
     public AltaPuesto() {
 
@@ -46,8 +46,9 @@ public class AltaPuesto extends javax.swing.JFrame {
         tabla.setModel(modeloTabla);
         tabla.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
-        //suma 1 al idPuesto porque buscarIdNuevoPuesto busca el actual de la bd
-        int idPuesto = gestorPuesto.buscarIdNuevoPuesto() + 1;
+        
+        
+         
         //muestro por pantalla el codigo no editable pasandolo a string previamente
         txtCodigo.setText(String.valueOf(idPuesto));
 
@@ -405,22 +406,33 @@ public class AltaPuesto extends javax.swing.JFrame {
 
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarActionPerformed
 
-        //verifica que las ponderaciones sumen 10 y que no haya ponderaciones vacias
-        int bandera = gestorPuesto.verificarSumaPonderacion(modeloTabla.getListaPonderacion()); 
-        //if(bandera){
- 
-        //convierto a set la lista guardada en modeloTabla con las competencias seleccionadas para persistirlas en la bs 
-        Set<Competencia> competencias = new HashSet<Competencia>(modeloTabla.getListaCompetencias());
+        int resultado = gestorPuesto.setPuesto(idPuesto, txtNombre.getText(), txtEmpresa.getText(), txtDescripcion.getText(), modeloTabla.getListaCompetencias(), modeloTabla.getListaPonderacion());
 
-        gestorPuesto.setPuesto(txtNombre.getText(), txtEmpresa.getText(), txtDescripcion.getText(), competencias);
-        
+        switch (resultado) {
+            //todo correcto
+            case 1:
+                JOptionPane.showMessageDialog(null, "El puesto <" + txtNombre.getText() + "> se ha creado correctamente");
+                GestionDePuestos obj = new GestionDePuestos();
+                obj.setVisible(true);
+                dispose();
+                break;
 
-        gestorPuesto.actualizarPuntajesCompetencias(idPuesto, modeloTabla.getListaCompetencias(), modeloTabla.getListaPonderacion());
+            //hay ponderaciones sin completar
+            case 2:
+                campoTexto.setText("Algunas competencias no tienen una ponderación definida");
+                break;
 
-        JOptionPane.showMessageDialog(null, "El puesto <" + txtNombre.getText() + "> se ha creado correctamente");
-        GestionDePuestos obj = new GestionDePuestos();
-        obj.setVisible(true);
-        dispose();
+            //hay ponderaciones que no estan entre 0 y 10
+            case 3:
+                campoTexto.setText("Las ponderaciones deben ser valores entre 0 y 10");
+                break;
+                
+           //nombre o empresa estan vacios
+            case 4:
+                campoTexto.setText("Algunos campos se encuentran en blanco");
+                break;
+        }
+
     }//GEN-LAST:event_aceptarActionPerformed
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed

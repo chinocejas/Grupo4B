@@ -196,9 +196,12 @@ public class PuestoDaoHibernate extends AbstractDao {
             try {
                 startOperation();
                 //busco el registro
+               
                 puestoCompetencia = this.findParaPantalla(Long.valueOf(idPuesto), Long.valueOf(competencias.get(i).getIdCompetencia()));
                 //le agrego el puntaje sacado de la lista de puntajes
+                
                 puestoCompetencia.setPuntajeRequerido(puntajes.get(i));
+                
                 //actualizo el registro en la bs
                 this.update(puestoCompetencia);
                 
@@ -221,9 +224,7 @@ public class PuestoDaoHibernate extends AbstractDao {
           query.setParameter("idCompetencia", idCompetencia);
          
           obj = (PuestoCompetencia)query.uniqueResult();
-          
           obj.setPuntajeRequerido(-1); //necesario para evitar problemas con punteros a null
-         
             tx.commit();
              
         } catch (HibernateException e) {
