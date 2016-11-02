@@ -442,9 +442,10 @@ public class GestionDePuestos extends javax.swing.JFrame {
        
         
         if("".equals(codigo2) && "".equals(puesto2) && "".equals(empresa2)){ //no completo al menos un criterio de busqueda
-            mensajeError.setText("Complete al menos uno de los criterios de búsqueda");
-            PopUps obj= new PopUps();
-        obj.setVisible(true);
+            
+            GestorPuesto gestorPuesto = GestorPuesto.getInstance();     //se pide la instancia de GestorPuesto
+            gestorPuesto.buscarPuestos(modeloTabla);  //busca en la BS y completa la tabla que es pasada por parametro con los resultados
+            
         }
         else{
         GestorPuesto gestorPuesto = GestorPuesto.getInstance();     //se pide la instancia de GestorPuesto

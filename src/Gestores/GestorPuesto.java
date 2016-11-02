@@ -48,6 +48,19 @@ public class GestorPuesto {
         }
     }
     
+    // Busca todos los puestos
+    public void buscarPuestos(DefaultTableModel modeloTabla) {
+
+        List listaPuestos = null;
+
+        listaPuestos = puestoDao.findPorCodigoAndPuestoAndEmpresa();
+
+        for (int a = 0; a < listaPuestos.size(); a++) {
+            Puesto puesto2 = (Puesto) listaPuestos.get(a);
+            modeloTabla.addRow(new Object[]{puesto2.getIdPuesto(), puesto2.getNombrePuesto(), puesto2.getNombreEmpresa()});
+        }
+    }
+    
     public void guardarPuesto (Puesto puesto){
         puestoDao.save(puesto);
     }

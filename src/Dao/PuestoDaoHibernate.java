@@ -74,6 +74,22 @@ public class PuestoDaoHibernate extends AbstractDao {
         return obj;
     }
     
+    public List findPorCodigoAndPuestoAndEmpresa() throws DataAccessLayerException{
+        List objects = null;
+        try {
+            startOperation();
+            Query query = null;
+            query = session.createQuery("from Puesto");     
+            objects = query.list();
+            tx.commit();
+        } catch (HibernateException e) {
+            handleException(e);
+        } finally {
+            HibernateFactory.close(session);
+        }
+        return objects;
+    }
+    
     //agregado por el negro
     public List findPorCodigoAndPuestoAndEmpresa(String codigo, String puesto, String empresa) throws DataAccessLayerException {
         List objects = null;
@@ -165,25 +181,7 @@ public class PuestoDaoHibernate extends AbstractDao {
         return seq.intValue();
     }
     
-    //Traer Secuencia del la BD
-    /*
-  public int buscarSecuencia(){
-  int valor = 0;
 
-  final StringBuilder sql = new StringBuilder();
-  sql.append("SELECT nextval('public.puesto_id_seq')");
-  
-  final HibernateEntityManager hem = getJpaTemplate().getEntityManagerFactory().createEntityManager().unwrap(HibernateEntityManager.class);
-
-  final List<BigInteger> ids = hem.getSession().createSQLQuery(sql.toString()).list();
-
-  if (null != ids && !ids.isEmpty()) {
-    valor = ids.get(0).intValue();
-  }
-
-  return valor;
-}*/
-    
     //metodos para actualizar la ponderacion en la tabla union entre puesto y competencia
     
      public void actualizarPuntajesCompetencias(int idPuesto, List<Competencia> competencias, List<Integer> puntajes){
