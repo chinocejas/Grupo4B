@@ -575,18 +575,6 @@ public class AltaPuesto extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAddActionPerformed
 
-    private void tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMouseClicked
-
-//no se sabe todavia para que sirve
-        /*   
-        int fila = tabla.rowAtPoint(evt.getPoint());
-    int columna = tabla.columnAtPoint(evt.getPoint());
-    if ((fila > -1) && (columna > -1)) {
-        filaSeleccionada = fila;
-    }*/
-
-    }//GEN-LAST:event_tablaMouseClicked
-
     private void txtNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyReleased
             //Convierte el texto ingresado a mayusculas
             int pos = txtNombre.getCaretPosition();
@@ -594,25 +582,30 @@ public class AltaPuesto extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNombreKeyReleased
 
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+        txtNombre.setBackground(new java.awt.Color(0, 51, 102));
         char c = evt.getKeyChar();
-        //Solo permite letras y espacios
-        if ( c<32 || (c>32 &&c<65) || (c >90&& c<97) || c>122) {
+        int pos = txtNombre.getCaretPosition();
+        //Solo permite letras, espacios, numeros y caracteres comunes
+        if (c < 32 || (c > 32 && c < 40) || (c > 57 && c < 65) || (c>90 && c<97) || c > 122 ||(pos>101)) {
             evt.consume();
         } else {
             //Convierte el texto ingresado a mayusculas
-            int pos = txtNombre.getCaretPosition();
+            pos = txtNombre.getCaretPosition();
             convertiraMayusculasEnJtextfield(txtNombre, pos);
+            
         }
     }//GEN-LAST:event_txtNombreKeyTyped
 
     private void txtEmpresaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmpresaKeyTyped
+        txtEmpresa.setBackground(new java.awt.Color(0, 51, 102));
         char c = evt.getKeyChar();
-        //Solo permite letras y espacios
-        if (c < 32 || (c > 32 && c < 65) || (c > 90 && c < 97) || c > 122) {
+         int pos = txtNombre.getCaretPosition();
+        //Solo permite letras, espacios, numeros y caracteres comunes
+        if (c < 32 || (c > 32 && c < 40) || (c > 57 && c < 65) || (c>90 && c<97) || c > 122||(pos>101)) {
             evt.consume();
         } else {
             //Convierte el texto ingresado a mayusculas
-            int pos = txtEmpresa.getCaretPosition();
+            pos = txtEmpresa.getCaretPosition();
             convertiraMayusculasEnJtextfield(txtEmpresa, pos);
         }
     }//GEN-LAST:event_txtEmpresaKeyTyped
@@ -632,17 +625,22 @@ public class AltaPuesto extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDescripcionKeyReleased
 
     private void txtDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionKeyTyped
-       
-        txtDescripcion.setBackground(java.awt.Color.BLUE);
-        char c = evt.getKeyChar();
+         
         
-        //Solo permite letras y espacios
-        if (c < 32 || (c > 32 && c < 65) || (c > 90 && c < 97) || c > 122) {
+        txtDescripcion.setBackground(new java.awt.Color(0, 51, 102));
+        char c = evt.getKeyChar();
+        int pos = txtDescripcion.getCaretPosition();
+        //Solo permite letras, espacios, numeros y caracteres comunes
+        if (c < 32 || (c > 32 && c < 40) || (c > 57 && c < 65) || (c>90 && c<97) || (c > 122)||(pos>1601)) {
             evt.consume();
-        } else {
+        }
+        
+        else {
             //Convierte el texto ingresado a mayusculas
-            int pos = txtDescripcion.getCaretPosition();
+            pos = txtDescripcion.getCaretPosition();
+            
             convertiraMayusculasEnJtextArea(txtDescripcion, pos);
+            
         }
     }//GEN-LAST:event_txtDescripcionKeyTyped
 
@@ -665,6 +663,17 @@ public class AltaPuesto extends javax.swing.JFrame {
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreActionPerformed
+
+    private void tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMouseClicked
+
+        //no se sabe todavia para que sirve
+        /*
+        int fila = tabla.rowAtPoint(evt.getPoint());
+        int columna = tabla.columnAtPoint(evt.getPoint());
+        if ((fila > -1) && (columna > -1)) {
+            filaSeleccionada = fila;
+        }*/
+    }//GEN-LAST:event_tablaMouseClicked
     
     //METODO USADO ARRIBA
     public void convertiraMayusculasEnJtextfield(javax.swing.JTextField jTextfieldS, int pos) {
@@ -795,13 +804,25 @@ public class AltaPuesto extends javax.swing.JFrame {
         // Cambia el valor que contiene una determinada casilla de
         // la tabla
         public void setValueAt(Object value, int row, int col) {
-            Integer valorNumerico = Integer.parseInt((String) value);
-            ponderacion.set(row, valorNumerico);
+            String c = (String)value;
+            Integer valorNumerico = null;
+            if (c.matches("[0-9]*")) {
+                valorNumerico = Integer.parseInt(c);
+                if (valorNumerico >= 0 && valorNumerico <= 10) {
+                    ponderacion.set(row, valorNumerico);
+                }
+                 else {campoTexto.setText("La ponderacion debe estar entre 0 y 10");}
+                       
+            }
+            else {campoTexto.setText("El campo ponderacion debe ser numerico entre 0 y 10");}
+            
+                  
 
             fireTableCellUpdated(row, col);
             // Indica que se ha cambiado
             //fireTableDataChanged();
         }
+        
 
         public Competencia getCompetencia(int fila) {
             return (Competencia) data.get(fila);
@@ -844,6 +865,8 @@ public class AltaPuesto extends javax.swing.JFrame {
             }
         }
     }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton aceptar;
