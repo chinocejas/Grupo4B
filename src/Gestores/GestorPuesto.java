@@ -109,6 +109,11 @@ public class GestorPuesto {
             case 5:
                 retorno=5;
                 break;
+                 
+            //el nombre ya esta en uso
+            case 6:
+                retorno=6;
+                break;
         }
         return retorno;
     }
@@ -135,18 +140,27 @@ public class GestorPuesto {
 
     public int verificaciones(String nombre, String empresa, String descripcion, List<Integer> pond) {
 
-        //daoPuesto.verificarNombrePuestoUnico(); HACER!!
+        
         
         /* 1: todo correcto
            2: ponderaciones vacias
            3: ponderaciones fuera de rango (0-10)
            4: campos en blanco
            5: sin al menos una competencia seleccionada
+           6: el nombre ya esta en uso
         */
         //retorna 1 si todo esta correcto
         Integer retorno=1;
+        
+        //nombreUnico=0 -> nombre en uso
+        //nombreUnico= 1 ->el nombre esta libre
+        int nombreUnico=puestoDao.verificarNombrePuestoUnico(nombre);
+        
+        if(nombreUnico==0)
+            retorno=6;
+        
         //verifico que nombre o empresa no esten vacios
-        if("".equals(nombre) || "".equals(empresa) ||  "".equals(descripcion))
+        else if("".equals(nombre) || "".equals(empresa) ||  "".equals(descripcion))
             retorno = 4; 
         else if(pond.isEmpty())
             retorno= 5;

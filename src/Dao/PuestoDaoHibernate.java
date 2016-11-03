@@ -181,6 +181,34 @@ public class PuestoDaoHibernate extends AbstractDao {
         return seq.intValue();
     }
     
+    public int verificarNombrePuestoUnico(String nombre){
+        Integer retorno=null;
+           Puesto puesto = null;
+        try {
+            startOperation();
+            Query query = null;
+            query = session.createQuery("from Puesto WHERE nombre_puesto= :nombre"); 
+            query.setParameter("nombre", nombre);
+            puesto = (Puesto) query.uniqueResult();
+            tx.commit();
+        } catch (HibernateException e) {
+            handleException(e);
+        } finally {
+            HibernateFactory.close(session);
+        }
+        
+        //si no se retorna ningun puesto de la bd con ese nombre significa que no esta en uso
+        if (puesto == null)
+            //el nombre no esta en uso
+            retorno = 1;
+        else 
+            //el nombre esta en uso
+            retorno = 0;
+
+        return retorno;
+
+    }
+    
 
     //metodos para actualizar la ponderacion en la tabla union entre puesto y competencia
     

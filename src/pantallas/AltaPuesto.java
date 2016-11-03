@@ -19,8 +19,10 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+import javafx.scene.paint.Color;
 import javax.swing.AbstractListModel;
 import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.YES_NO_OPTION;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 
@@ -205,6 +207,11 @@ public class AltaPuesto extends javax.swing.JFrame {
         txtNombre.setBackground(new java.awt.Color(0, 51, 102));
         txtNombre.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
         txtNombre.setForeground(new java.awt.Color(255, 255, 255));
+        txtNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombreActionPerformed(evt);
+            }
+        });
         txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtNombreKeyReleased(evt);
@@ -427,22 +434,41 @@ public class AltaPuesto extends javax.swing.JFrame {
 
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarActionPerformed
 
-        int resultado = gestorPuesto.setPuesto(idPuesto, txtNombre.getText(), txtEmpresa.getText(), txtDescripcion.getText(), modeloTabla.getListaCompetencias(), modeloTabla.getListaPonderacion());
+        /* EVITAR ESPACIOS EN BLANCOS AL FINAL DEL NOMBRE DEL PUESTO
+        String nombre =  txtNombre.getText();
+        if( txtNombre.getText().isEmpty()){
+        String ultimoCaracter =  txtNombre.getText().substring( txtNombre.getText().length()-1);
+        
+        if (ultimoCaracter.equals(" ")){
+        nombre= txtNombre.getText().substring(0, txtNombre.getText().length()-1); 
+        }
+        }
+        */
+        int resultado = gestorPuesto.setPuesto(idPuesto,  txtNombre.getText(), txtEmpresa.getText(), txtDescripcion.getText(), modeloTabla.getListaCompetencias(), modeloTabla.getListaPonderacion());
 
-        /* 1: todo correcto
+         /* 1: todo correcto
            2: ponderaciones vacias
            3: ponderaciones fuera de rango (0-10)
            4: campos en blanco
            5: sin al menos una competencia seleccionada
+           6: el nombre ya esta en uso
         */
         
         switch (resultado) {
             //todo correcto
             case 1:
-                JOptionPane.showMessageDialog(null, "El puesto <" + txtNombre.getText() + "> se ha creado correctamente");
+                int reply = JOptionPane.showConfirmDialog(null, "El puesto <" + txtNombre.getText() + "> se ha creado correctamente. ¿Desea cargar otro?", "HOLA", YES_NO_OPTION);
+               if (reply == JOptionPane.YES_OPTION)
+                {
+                    AltaPuesto obj = new AltaPuesto();
+                    obj.setVisible(true);
+                    dispose();
+                 }
+               else {
                 GestionDePuestos obj = new GestionDePuestos();
                 obj.setVisible(true);
                 dispose();
+                }
                 break;
 
             //hay ponderaciones sin completar
@@ -458,12 +484,30 @@ public class AltaPuesto extends javax.swing.JFrame {
            //nombre o empresa estan vacios
             case 4:
                 campoTexto.setText("Algunos campos se encuentran en blanco");
+                if (txtEmpresa.getText().equals("")){
+                    txtEmpresa.requestFocus();
+                    txtEmpresa.setBackground(java.awt.Color.RED);
+                }
+                if (txtDescripcion.getText().equals("")){
+                    txtDescripcion.requestFocus();
+                    txtDescripcion.setBackground(java.awt.Color.RED);
+                }
+                if (txtNombre.getText().equals("")){
+                    txtNombre.requestFocus();
+                    txtNombre.setBackground(java.awt.Color.red);
+                }
                 break;
                 
             //sin al menos una competencia seleccionada
             case 5:
                 campoTexto.setText("Seleccione al menos una competencia");
+                lista.setForeground(java.awt.Color.red);
                 break;
+            
+             //sin al menos una competencia seleccionada
+            case 6:
+                campoTexto.setText("El nombre del puesto ya esta en uso");
+                break; 
         }
 
     }//GEN-LAST:event_aceptarActionPerformed
@@ -519,7 +563,7 @@ public class AltaPuesto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRemoveActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-
+        lista.setForeground(java.awt.Color.WHITE);
         if (lista.getSelectedValue() != null || lista.getComponentCount() == 0) {
             campoTexto.setText("");
             // String aux = lista.getSelectedValue();
@@ -589,7 +633,9 @@ public class AltaPuesto extends javax.swing.JFrame {
 
     private void txtDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionKeyTyped
        
+        txtDescripcion.setBackground(java.awt.Color.BLUE);
         char c = evt.getKeyChar();
+        
         //Solo permite letras y espacios
         if (c < 32 || (c > 32 && c < 65) || (c > 90 && c < 97) || c > 122) {
             evt.consume();
@@ -615,6 +661,10 @@ public class AltaPuesto extends javax.swing.JFrame {
             cancelarActionPerformed(null);
         }
     }//GEN-LAST:event_cancelarKeyPressed
+
+    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreActionPerformed
     
     //METODO USADO ARRIBA
     public void convertiraMayusculasEnJtextfield(javax.swing.JTextField jTextfieldS, int pos) {
