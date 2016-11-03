@@ -67,7 +67,6 @@ public class GestionDePuestos extends javax.swing.JFrame {
         modificar = new javax.swing.JButton();
         codigo = new javax.swing.JTextField();
         mensajeError = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         arriba = new javax.swing.JPanel();
         Ingreso = new javax.swing.JLabel();
         abajo = new javax.swing.JPanel();
@@ -259,13 +258,6 @@ public class GestionDePuestos extends javax.swing.JFrame {
         mensajeError.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
         mensajeError.setForeground(new java.awt.Color(255, 255, 255));
 
-        jButton1.setText("Buscar todo?");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout trabajarAcaLayout = new javax.swing.GroupLayout(trabajarAca);
         trabajarAca.setLayout(trabajarAcaLayout);
         trabajarAcaLayout.setHorizontalGroup(
@@ -292,9 +284,7 @@ public class GestionDePuestos extends javax.swing.JFrame {
                             .addGroup(trabajarAcaLayout.createSequentialGroup()
                                 .addGap(6, 6, 6)
                                 .addComponent(mensajeError, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1)
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                                .addGap(0, 114, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, trabajarAcaLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(trabajarAcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -320,17 +310,11 @@ public class GestionDePuestos extends javax.swing.JFrame {
                 .addGroup(trabajarAcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(empresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(trabajarAcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(trabajarAcaLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(trabajarAcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(buscar)
-                            .addComponent(mensajeError, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, trabajarAcaLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(trabajarAcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buscar)
+                    .addComponent(mensajeError, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(nuevo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -509,10 +493,6 @@ public class GestionDePuestos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_codigoActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -564,7 +544,6 @@ public class GestionDePuestos extends javax.swing.JFrame {
     private javax.swing.JTextField empresa;
     private javax.swing.JPanel fondo;
     private javax.swing.JPanel izquierda;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

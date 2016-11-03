@@ -69,11 +69,8 @@ public class GestorPuesto {
 
         
         int retorno=1; //si esta todo correcto se mantiene en 1
-        
-        //daoPuesto.verificarNombrePuestoUnico();
-        
-        
-        Integer bandera = verificaciones(nombre, empresa, ponderaciones); 
+     
+        Integer bandera = verificaciones(nombre, empresa, descripcion, ponderaciones); 
         
         
         
@@ -107,6 +104,11 @@ public class GestorPuesto {
             case 4:
                 retorno=4;
                 break;
+            
+            //sin al menos una competencia seleccionada
+            case 5:
+                retorno=5;
+                break;
         }
         return retorno;
     }
@@ -131,13 +133,23 @@ public class GestorPuesto {
         return puestoDao.buscarSecuencia();
     }
 
-    public int verificaciones(String nombre, String empresa, List<Integer> pond) {
+    public int verificaciones(String nombre, String empresa, String descripcion, List<Integer> pond) {
 
+        //daoPuesto.verificarNombrePuestoUnico(); HACER!!
+        
+        /* 1: todo correcto
+           2: ponderaciones vacias
+           3: ponderaciones fuera de rango (0-10)
+           4: campos en blanco
+           5: sin al menos una competencia seleccionada
+        */
         //retorna 1 si todo esta correcto
         Integer retorno=1;
         //verifico que nombre o empresa no esten vacios
-        if("".equals(nombre) || "".equals(empresa))
-            retorno = 4;
+        if("".equals(nombre) || "".equals(empresa) ||  "".equals(descripcion))
+            retorno = 4; 
+        else if(pond.isEmpty())
+            retorno= 5;
         else
         for(int i=0; i< pond.size(); i++){
              //verificar lista sin ponderaciones vacias

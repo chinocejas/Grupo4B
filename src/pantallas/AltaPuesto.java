@@ -14,6 +14,7 @@ import javax.swing.DefaultListModel;
 import Entidades.Competencia;
 import Entidades.Puesto;
 import Gestores.GestorPuesto;
+import java.awt.event.KeyEvent;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -46,9 +47,6 @@ public class AltaPuesto extends javax.swing.JFrame {
         tabla.setModel(modeloTabla);
         tabla.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
-        
-        
-         
         //muestro por pantalla el codigo no editable pasandolo a string previamente
         txtCodigo.setText(String.valueOf(idPuesto));
 
@@ -219,6 +217,11 @@ public class AltaPuesto extends javax.swing.JFrame {
         txtEmpresa.setBackground(new java.awt.Color(0, 51, 102));
         txtEmpresa.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
         txtEmpresa.setForeground(new java.awt.Color(255, 255, 255));
+        txtEmpresa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEmpresaActionPerformed(evt);
+            }
+        });
         txtEmpresa.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtEmpresaKeyReleased(evt);
@@ -242,6 +245,11 @@ public class AltaPuesto extends javax.swing.JFrame {
                 cancelarActionPerformed(evt);
             }
         });
+        cancelar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cancelarKeyPressed(evt);
+            }
+        });
 
         aceptar.setBackground(new java.awt.Color(0, 51, 102));
         aceptar.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
@@ -253,12 +261,25 @@ public class AltaPuesto extends javax.swing.JFrame {
                 aceptarActionPerformed(evt);
             }
         });
+        aceptar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                aceptarKeyPressed(evt);
+            }
+        });
 
         txtDescripcion.setBackground(new java.awt.Color(0, 51, 102));
         txtDescripcion.setColumns(20);
         txtDescripcion.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
         txtDescripcion.setForeground(new java.awt.Color(255, 255, 255));
         txtDescripcion.setRows(3);
+        txtDescripcion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtDescripcionKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDescripcionKeyTyped(evt);
+            }
+        });
         jScrollPane1.setViewportView(txtDescripcion);
 
         tabla.setModel(new javax.swing.table.DefaultTableModel(
@@ -408,6 +429,13 @@ public class AltaPuesto extends javax.swing.JFrame {
 
         int resultado = gestorPuesto.setPuesto(idPuesto, txtNombre.getText(), txtEmpresa.getText(), txtDescripcion.getText(), modeloTabla.getListaCompetencias(), modeloTabla.getListaPonderacion());
 
+        /* 1: todo correcto
+           2: ponderaciones vacias
+           3: ponderaciones fuera de rango (0-10)
+           4: campos en blanco
+           5: sin al menos una competencia seleccionada
+        */
+        
         switch (resultado) {
             //todo correcto
             case 1:
@@ -430,6 +458,11 @@ public class AltaPuesto extends javax.swing.JFrame {
            //nombre o empresa estan vacios
             case 4:
                 campoTexto.setText("Algunos campos se encuentran en blanco");
+                break;
+                
+            //sin al menos una competencia seleccionada
+            case 5:
+                campoTexto.setText("Seleccione al menos una competencia");
                 break;
         }
 
@@ -545,12 +578,54 @@ public class AltaPuesto extends javax.swing.JFrame {
             int pos = txtEmpresa.getCaretPosition();
             convertiraMayusculasEnJtextfield(txtEmpresa, pos);
     }//GEN-LAST:event_txtEmpresaKeyReleased
+
+    private void txtDescripcionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionKeyReleased
+ //Convierte el texto ingresado a mayusculas
+            int pos = txtDescripcion.getCaretPosition();
+            convertiraMayusculasEnJtextArea(txtDescripcion, pos);
+
+        
+    }//GEN-LAST:event_txtDescripcionKeyReleased
+
+    private void txtDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionKeyTyped
+       
+        char c = evt.getKeyChar();
+        //Solo permite letras y espacios
+        if (c < 32 || (c > 32 && c < 65) || (c > 90 && c < 97) || c > 122) {
+            evt.consume();
+        } else {
+            //Convierte el texto ingresado a mayusculas
+            int pos = txtDescripcion.getCaretPosition();
+            convertiraMayusculasEnJtextArea(txtDescripcion, pos);
+        }
+    }//GEN-LAST:event_txtDescripcionKeyTyped
+
+    private void txtEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmpresaActionPerformed
+
+    }//GEN-LAST:event_txtEmpresaActionPerformed
+
+    private void aceptarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_aceptarKeyPressed
+         if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            aceptarActionPerformed(null);
+        }
+    }//GEN-LAST:event_aceptarKeyPressed
+
+    private void cancelarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cancelarKeyPressed
+          if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            cancelarActionPerformed(null);
+        }
+    }//GEN-LAST:event_cancelarKeyPressed
     
     //METODO USADO ARRIBA
     public void convertiraMayusculasEnJtextfield(javax.swing.JTextField jTextfieldS, int pos) {
         String cadena = (jTextfieldS.getText()).toUpperCase();
         jTextfieldS.setText(cadena);
         jTextfieldS.setCaretPosition(pos);
+    }
+    public void convertiraMayusculasEnJtextArea(javax.swing.JTextArea jTextAreaS, int pos) {
+        String cadena = (jTextAreaS.getText()).toUpperCase();
+        jTextAreaS.setText(cadena);
+        jTextAreaS.setCaretPosition(pos);
     }
 
     /**
