@@ -30,8 +30,9 @@ public class PuestoDaoHibernate extends AbstractDao {
      * Insert a new Usuario into the database.
      * @param usuario
      */
-    public void save(Puesto puesto) throws DataAccessLayerException {
+    public void save(Puesto puesto, int idPuesto, List<Competencia> competencias, List<Integer> ponderaciones) throws DataAccessLayerException {
         super.save(puesto);
+        actualizarPuntajesCompetencias(idPuesto, competencias, ponderaciones);
     }
 
     

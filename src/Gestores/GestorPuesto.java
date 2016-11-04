@@ -61,8 +61,8 @@ public class GestorPuesto {
         }
     }
     
-    public void guardarPuesto (Puesto puesto){
-        puestoDao.save(puesto);
+    public void guardarPuesto (Puesto puesto, int idPuesto, List<Competencia> competencias, List<Integer> ponderaciones ){
+        puestoDao.save(puesto, idPuesto, competencias, ponderaciones);
     }
 
     public int setPuesto(int idPuesto, String nombre, String empresa, String descripcion, List<Competencia> competencias, List<Integer> ponderaciones) {
@@ -86,8 +86,8 @@ public class GestorPuesto {
                 puesto.setNombreEmpresa(empresa);
                 puesto.setDescripcion(descripcion);
                 puesto.setPuestoCompetencias(competenciasSet);
-                guardarPuesto(puesto);
-                actualizarPuntajesCompetencias(idPuesto, competencias, ponderaciones);
+                guardarPuesto(puesto, idPuesto, competencias,ponderaciones);
+                
                 break;
                 
             //hay ponderaciones sin completar
