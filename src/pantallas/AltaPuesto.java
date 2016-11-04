@@ -600,7 +600,7 @@ public class AltaPuesto extends javax.swing.JFrame {
     private void txtEmpresaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmpresaKeyTyped
         txtEmpresa.setBackground(new java.awt.Color(0, 51, 102));
         char c = evt.getKeyChar();
-         int pos = txtNombre.getCaretPosition();
+         int pos = txtEmpresa.getCaretPosition();
         //Solo permite letras, espacios, numeros y caracteres comunes
         if (c < 32 || (c > 32 && c < 40) || (c > 57 && c < 65) || (c>90 && c<97) || c > 122||(pos>101)) {
             evt.consume();
