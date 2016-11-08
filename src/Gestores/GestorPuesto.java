@@ -15,6 +15,8 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import pantallas.AltaPuesto;
+import pantallas.GestionDePuestos;
 
 /**
  *
@@ -36,7 +38,7 @@ public class GestorPuesto {
         private static final GestorPuesto INSTANCE = new GestorPuesto();
     }
 
-    public void buscarPuestos(DefaultTableModel modeloTabla, String codigo, String puesto, String empresa) {
+    public void buscarPuestos(GestionDePuestos.CustomTableModel modeloTabla, String codigo, String puesto, String empresa) {
 
         List listaPuestos = null;
 
@@ -44,12 +46,12 @@ public class GestorPuesto {
 
         for (int a = 0; a < listaPuestos.size(); a++) {
             Puesto puesto2 = (Puesto) listaPuestos.get(a);
-            modeloTabla.addRow(new Object[]{puesto2.getIdPuesto(), puesto2.getNombrePuesto(), puesto2.getNombreEmpresa()});
+            modeloTabla.addPuesto(puesto2);
         }
     }
     
     // Busca todos los puestos
-    public void buscarPuestos(DefaultTableModel modeloTabla) {
+    public void buscarPuestos(GestionDePuestos.CustomTableModel modeloTabla) {
 
         List listaPuestos = null;
 
@@ -57,7 +59,7 @@ public class GestorPuesto {
 
         for (int a = 0; a < listaPuestos.size(); a++) {
             Puesto puesto2 = (Puesto) listaPuestos.get(a);
-            modeloTabla.addRow(new Object[]{puesto2.getIdPuesto(), puesto2.getNombrePuesto(), puesto2.getNombreEmpresa()});
+            modeloTabla.addPuesto(puesto2);
         }
     }
     

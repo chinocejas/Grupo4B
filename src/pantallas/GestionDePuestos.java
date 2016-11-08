@@ -5,11 +5,16 @@
  */
 package pantallas;
 
+import Entidades.Competencia;
+import Entidades.Puesto;
 import Gestores.GestorPuesto;
 import VentanasEmergentes.PopUps;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JTable;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -18,13 +23,15 @@ import javax.swing.table.DefaultTableModel;
  */
 public class GestionDePuestos extends javax.swing.JFrame {
 
-    /**
-     * Creates new form NewJFrame
-     */
+    CustomTableModel modeloTabla = new CustomTableModel();
+    
     public GestionDePuestos() {
         initComponents();
         setSize(1024, 768);
         setLocationRelativeTo(null);
+        
+        tabla.setModel(modeloTabla);
+        tabla.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
     }
     
      public Image getIconImage() {
@@ -32,9 +39,9 @@ public class GestionDePuestos extends javax.swing.JFrame {
         return retValue;
     }
     
-    private void limpiarTabla(JTable tabla, DefaultTableModel modeloTabla){
+    private void limpiarTabla(JTable tabla, CustomTableModel modeloTabla){
        for (int i = 0; i < tabla.getRowCount(); i++) {
-           modeloTabla.removeRow(i);
+           modeloTabla.deleteRow(i);
            i-=1;
        }
    }
@@ -411,8 +418,7 @@ public class GestionDePuestos extends javax.swing.JFrame {
 
         //setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
        // setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        
-        DefaultTableModel modeloTabla =(DefaultTableModel) tabla.getModel(); 
+
         limpiarTabla(tabla,modeloTabla);    //se limpia la tabla para que al hacer busquedas consecutivas se borren los resultados anteriores
         
         //obtengo los datos de pantalla
@@ -467,7 +473,6 @@ public class GestionDePuestos extends javax.swing.JFrame {
 
     private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
 
-       DefaultTableModel modeloTabla =(DefaultTableModel) tabla.getModel(); //creo esta variable de nuevo porq no andaba en modo global
        //http://www.lawebdelprogramador.com/foros/Java/719076-Obtener-el-valor-de-una-celda-el-JTABLE.html
        //aca capturo el primer dato de la celda seleccionada en la columna cero (tiene el codigo)
        String dato=String.valueOf(modeloTabla.getValueAt(tabla.getSelectedRow(),0));
@@ -493,6 +498,96 @@ public class GestionDePuestos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_codigoActionPerformed
 
+     public class CustomTableModel extends AbstractTableModel {
+
+        private ArrayList<Puesto> data = new ArrayList<Puesto>();
+        private int numColumns = 3; //cant de columnas con la que se crea la tabla
+        private String columnNames[] = {"Código", "Nombre de puesto", "Empresa"};
+        // private Class classes[]={String.class ,String.class}; //tipo de las columnas
+        private boolean editable[] = {false,false, false};
+        
+        @Override
+        public int getRowCount() {  
+            
+            return data.size();
+        }
+
+        @Override
+        public int getColumnCount() { //construye la cantidad de columnas que se retorna
+
+            return numColumns;
+        }
+
+        @Override
+        public String getColumnName(int col) {
+            return columnNames[col];
+        }
+
+        @Override
+        public Class getColumnClass(int col) {
+            //return classes[col];
+            return String.class; //no cambiar a int u otra cosa porque pierde la propiedad de editable
+        }
+
+        @Override
+        public boolean isCellEditable(int rowIndex, int columnIndex) {
+            return columnIndex == 0 ? false : true;
+        }
+
+        @Override
+        // Cambia el valor que contiene una determinada casilla de
+        // la tabla
+        public void setValueAt(Object value, int row, int col) {
+            String c = (String)value;
+            Integer valorNumerico = null;
+            
+            fireTableCellUpdated(row, col);
+            // Indica que se ha cambiado
+            //fireTableDataChanged();
+        }
+        
+
+        public Puesto getPuesto(int fila) {
+            return (Puesto) data.get(fila);
+        }
+
+        public List<Puesto> getListaPuestos() {
+            return data;
+        }
+
+
+        @Override
+        //este metodo muestra por pantalla los nombres pero en realidad se esta manejando una lista con Competencias por detras
+        public Object getValueAt(int row, int col) {
+            Object retorno=null;
+            Puesto c = (Puesto) data.get(row);
+            switch(col){
+                case 0:
+                    retorno= c.getIdPuesto();
+                    break;
+                case 1:
+                    retorno= c.getNombrePuesto();
+                    break;
+                case 2:
+                    retorno=c.getNombreEmpresa();
+                    break;
+            }
+            return retorno;
+        }
+
+        public void addPuesto(Puesto puesto) {
+            data.add(puesto);      
+            fireTableDataChanged();
+        }
+
+        private void deleteRow(int row) {
+            data.remove(row);
+            
+            fireTableDataChanged();
+        }
+
+    }
+    
     /**
      * @param args the command line arguments
      */
