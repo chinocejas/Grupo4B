@@ -10,12 +10,8 @@ import Dao.PuestoDaoHibernate;
 import Entidades.Competencia;
 import Entidades.Puesto;
 import Entidades.PuestoCompetencia;
-import java.math.BigInteger;
 import java.util.HashSet;
 import java.util.Set;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import pantallas.AltaPuesto;
 import pantallas.GestionDePuestos;
 
 /**
@@ -63,18 +59,16 @@ public class GestorPuesto {
         }
     }
     
-    public void guardarPuesto (Puesto puesto, int idPuesto, List<Competencia> competencias, List<Integer> ponderaciones ){
-        puestoDao.save(puesto, idPuesto, competencias, ponderaciones);
+    public void guardarPuesto (Puesto puesto, List<Competencia> competencias, List<Integer> ponderaciones ){
+        puestoDao.save(puesto, competencias, ponderaciones);
     }
 
-    public int setPuesto(int idPuesto, String nombre, String empresa, String descripcion, List<Competencia> competencias, List<Integer> ponderaciones) {
+    public int crearPuesto(String nombre, String empresa, String descripcion, List<Competencia> competencias, List<Integer> ponderaciones) {
 
         
         int retorno=1; //si esta todo correcto se mantiene en 1
      
         Integer bandera = verificaciones(nombre, empresa, descripcion, ponderaciones); 
-        
-        
         
         switch (bandera){
             
@@ -87,8 +81,9 @@ public class GestorPuesto {
                 puesto.setNombrePuesto(nombre);
                 puesto.setNombreEmpresa(empresa);
                 puesto.setDescripcion(descripcion);
+                puesto.setEliminado(false);
                 puesto.setPuestoCompetencias(competenciasSet);
-                guardarPuesto(puesto, idPuesto, competencias,ponderaciones);
+                guardarPuesto(puesto, competencias,ponderaciones);
                 
                 break;
                 

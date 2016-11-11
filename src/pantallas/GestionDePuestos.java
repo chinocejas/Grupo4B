@@ -475,10 +475,10 @@ public class GestionDePuestos extends javax.swing.JFrame {
 
        //http://www.lawebdelprogramador.com/foros/Java/719076-Obtener-el-valor-de-una-celda-el-JTABLE.html
        //aca capturo el primer dato de la celda seleccionada en la columna cero (tiene el codigo)
-       String dato=String.valueOf(modeloTabla.getValueAt(tabla.getSelectedRow(),0));
-       //lo paso a int
-       int codigo= Integer.parseInt(dato);
-       ModificarPuesto obj= new ModificarPuesto(codigo);
+       Puesto puesto=modeloTabla.getPuesto(tabla.getSelectedRow());
+       
+       
+       ModificarPuesto obj= new ModificarPuesto(puesto);
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_modificarActionPerformed

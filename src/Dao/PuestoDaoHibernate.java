@@ -11,8 +11,6 @@ import java.math.BigInteger;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
-import org.hibernate.ejb.*;
-import javax.persistence.EntityManager;
 
 
 
@@ -28,16 +26,20 @@ public class PuestoDaoHibernate extends AbstractDao {
 
     /**
      * Insert a new Usuario into the database.
+     * @param puesto
+     * @param competencias
+     * @param ponderaciones
      * @param usuario
      */
-    public void save(Puesto puesto, int idPuesto, List<Competencia> competencias, List<Integer> ponderaciones) throws DataAccessLayerException {
+    public void save(Puesto puesto, List<Competencia> competencias, List<Integer> ponderaciones) throws DataAccessLayerException {
         super.save(puesto);
-        actualizarPuntajesCompetencias(idPuesto, competencias, ponderaciones);
+        actualizarPuntajesCompetencias(puesto.getIdPuesto(), competencias, ponderaciones);
     }
 
     
     /**
      * Updates a new Usuario into the database.
+     * @param puesto
      * @param usuario
      */
     public void update(Puesto puesto) throws DataAccessLayerException {
@@ -61,8 +63,9 @@ public class PuestoDaoHibernate extends AbstractDao {
         Puesto obj= new Puesto();
         try {
             startOperation();
-            Query query = null;
-         query = session.createQuery("from Puesto WHERE id_puesto= :id");     
+            
+         Query query;     
+            query = session.createQuery("from Puesto WHERE id_puesto= :id");
                 query.setParameter("id", id);
                 obj= (Puesto) query.uniqueResult();
           tx.commit();
@@ -79,8 +82,8 @@ public class PuestoDaoHibernate extends AbstractDao {
         List objects = null;
         try {
             startOperation();
-            Query query = null;
-            query = session.createQuery("from Puesto");     
+            Query query;
+            query = session.createQuery("from Puesto WHERE eliminado=false");     
             objects = query.list();
             tx.commit();
         } catch (HibernateException e) {
@@ -100,44 +103,44 @@ public class PuestoDaoHibernate extends AbstractDao {
         empresa = "%" + empresa + "%";
         try {
             startOperation();
-            Query query = null;
+            Query query;
 
            if (codigo!=null && puesto!=null && empresa!=null)  { //busqueda por los tres parametros
-               query = session.createQuery("from Puesto WHERE TRIM(TO_CHAR(id_puesto, '9999999999')) LIKE :codigo AND nombre_puesto LIKE :puesto AND nombre_empresa LIKE :empresa");     
+               query = session.createQuery("from Puesto WHERE TRIM(TO_CHAR(id_puesto, '9999999999')) LIKE :codigo AND nombre_puesto LIKE :puesto AND nombre_empresa LIKE :empresa AND eliminado=false");     
                 query.setParameter("codigo", codigo);
                 query.setParameter("puesto", puesto);
                 query.setParameter("empresa", empresa);
                 objects = query.list();
            }
            else if("".equals(empresa)){ //busqueda solo por codigo y puesto
-               query = session.createQuery("from Puesto WHERE TRIM(TO_CHAR(id_puesto, '9999999999')) LIKE :codigo AND nombre_puesto LIKE :puesto");    
+               query = session.createQuery("from Puesto WHERE TRIM(TO_CHAR(id_puesto, '9999999999')) LIKE :codigo AND nombre_puesto LIKE :puesto AND eliminado=false");    
                 query.setParameter("codigo", codigo);
                 query.setParameter("puesto", puesto);
                 objects = query.list();
            }
             else if("".equals(puesto)){ //busqueda solo por codigo y empresa
-               query = session.createQuery("from Puesto WHERE TRIM(TO_CHAR(id_puesto, '9999999999')) LIKE :codigo AND nombre_empresa LIKE :empresa");     
+               query = session.createQuery("from Puesto WHERE TRIM(TO_CHAR(id_puesto, '9999999999')) LIKE :codigo AND nombre_empresa LIKE :empresa AND eliminado=false");     
                 query.setParameter("codigo", codigo);
                 query.setParameter("empresa", empresa);
                 objects = query.list();
            }
             else if ("".equals(codigo)) { //busqueda solo por puesto y empresa
-                query = session.createQuery("from Puesto WHERE nombre_puesto LIKE :puesto AND nombre_empresa LIKE :empresa");
+                query = session.createQuery("from Puesto WHERE nombre_puesto LIKE :puesto AND nombre_empresa LIKE :empresa AND eliminado=false");
                 query.setParameter("puesto", puesto);
                 query.setParameter("empresa", empresa);
                 objects = query.list();
             } else if ("".equals(puesto) && "".equals(empresa)) //busqueda solo por codigo
             {
 
-                query = session.createQuery("from Puesto WHERE TRIM(TO_CHAR(id_puesto, '9999999999')) LIKE :codigo");      //el operador like funciona solo con cadenas por eso uso esto para id_puesto
+                query = session.createQuery("from Puesto WHERE TRIM(TO_CHAR(id_puesto, '9999999999')) LIKE :codigo AND eliminado=false");      //el operador like funciona solo con cadenas por eso uso esto para id_puesto
                 query.setParameter("codigo", codigo);
                 objects = query.list();
             } else if ("".equals(codigo) && "".equals(empresa)) { //busqueda solo por puesto
-                query = session.createQuery("from Puesto WHERE nombre_puesto LIKE :puesto");
+                query = session.createQuery("from Puesto WHERE nombre_puesto LIKE :puesto AND eliminado=false");
                 query.setParameter("puesto", puesto);
                 objects = query.list();
             } else if ("".equals(codigo) && "".equals(puesto)) { //busqueda solo por empresa
-                query = session.createQuery("from Puesto WHERE nombre_empresa LIKE :empresa");
+                query = session.createQuery("from Puesto WHERE nombre_empresa LIKE :empresa AND eliminado=false");
                 query.setParameter("empresa", empresa);
                 objects = query.list();
             }
@@ -183,11 +186,11 @@ public class PuestoDaoHibernate extends AbstractDao {
     }
     
     public int verificarNombrePuestoUnico(String nombre){
-        Integer retorno=null;
+        Integer retorno;
            Puesto puesto = null;
         try {
             startOperation();
-            Query query = null;
+            Query query;
             query = session.createQuery("from Puesto WHERE nombre_puesto= :nombre"); 
             query.setParameter("nombre", nombre);
             puesto = (Puesto) query.uniqueResult();
@@ -217,7 +220,7 @@ public class PuestoDaoHibernate extends AbstractDao {
        //hago una busqueda con el id del puesto y para cada competencia en la lista
        //traigo de la bs el registro que coincidan el idPuesto y el idCompetencia actual y lo guardo en una instancia de PuestoCompetencia
        //le agrego el puntaje y lo actualizo en la bs
-        PuestoCompetencia puestoCompetencia=null;
+        PuestoCompetencia puestoCompetencia;
     
         for (int i = 0; i < competencias.size(); i++) {
             try {

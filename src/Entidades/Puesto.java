@@ -17,6 +17,7 @@ public class Puesto  implements java.io.Serializable {
      private String nombreEmpresa;
      private String descripcion;
      private Date fechaUltMod;
+     private boolean eliminado;
      private Set puestoCompetencias = new HashSet(0);
 
     public Puesto() {
@@ -32,6 +33,7 @@ public class Puesto  implements java.io.Serializable {
        this.nombreEmpresa = nombreEmpresa;
        this.descripcion = descripcion;
        this.fechaUltMod = fechaUltMod;
+       this.eliminado= false;
        this.puestoCompetencias = puestoCompetencias;
     }
    
@@ -69,6 +71,13 @@ public class Puesto  implements java.io.Serializable {
     
     public void setFechaUltMod(Date fechaUltMod) {
         this.fechaUltMod = fechaUltMod;
+    }
+    public boolean getEliminado() {
+        return this.eliminado;
+    }
+    
+    public void setEliminado(boolean eliminado) {
+        this.eliminado = eliminado;
     }
     public Set getPuestoCompetencias() {
         return this.puestoCompetencias;

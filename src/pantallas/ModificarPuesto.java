@@ -5,24 +5,20 @@
  */
 package pantallas;
 
-import Dao.PuestoCompetenciaDaoHibernate;
 import Gestores.GestorCompetencia;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.util.List;
-import javax.swing.DefaultListModel;
 import Entidades.Competencia;
 import Entidades.Puesto;
 import Entidades.PuestoCompetencia;
 import Gestores.GestorPuesto;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import javax.swing.AbstractListModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -35,13 +31,15 @@ public class ModificarPuesto extends javax.swing.JFrame {
 
     //pido la instancia de gestor de puestos
     GestorPuesto gestorPuesto = GestorPuesto.getInstance();
-    Puesto puesto = new Puesto();
+    //declaro una variable de puesto global para ser visible en las acciones de los botones
+    //SE PUEDE BUSCAR OTRA MANERA
+    Puesto puestoAux;
 
     public ModificarPuesto() {
-
+        
     }
 
-    public ModificarPuesto(int codigo) {
+    public ModificarPuesto(Puesto puesto) {
         initComponents();
         setSize(1024, 768);
         setLocationRelativeTo(null);
@@ -49,10 +47,11 @@ public class ModificarPuesto extends javax.swing.JFrame {
         tabla.setModel(modeloTabla);
         tabla.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
+        //COPIO EL PUESTO PASADO POR PARAMETRO A OTRO AUX PARA TENER VISIBILIDAD GLOBAL
+        //SE PUEDE CAMBIAR
+        puestoAux= puesto;
         //muestro por pantalla el codigo no editable pasandolo a string previamente
-        txtCodigo.setText(String.valueOf(codigo));
-        //busco el puesto en la bs y lo guardo en puesto
-        puesto = gestorPuesto.buscarPuesto(codigo);
+        txtCodigo.setText(String.valueOf(puesto.getIdPuesto()));
         //muestro el resto de datos por pantalla
         txtNombre.setText(puesto.getNombrePuesto());
         txtEmpresa.setText(puesto.getNombreEmpresa());
@@ -83,7 +82,7 @@ public class ModificarPuesto extends javax.swing.JFrame {
             //guardo el id de competencia para buscar las ponderaciones en la tabla de union
             idCompetencia = competencia.getIdCompetencia();
             //recupero una instancia de PuestoCompetencia pasando los id del puesto y la competencia
-            puestoCompetencia = gestorPuesto.find(Long.valueOf(codigo), Long.valueOf(idCompetencia));
+            puestoCompetencia = gestorPuesto.find(Long.valueOf(puesto.getIdPuesto()), Long.valueOf(idCompetencia));
             //pido la ponderacion guardada en esa instancia
             ponderacion = puestoCompetencia.getPuntajeRequerido();
             //muestro por pantalla la ponderacion al lado de la competencia
@@ -446,16 +445,16 @@ public class ModificarPuesto extends javax.swing.JFrame {
 
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarActionPerformed
 
-        puesto.setNombrePuesto(txtNombre.getText());
-        puesto.setNombreEmpresa(txtEmpresa.getText());
-        puesto.setDescripcion(txtDescripcion.getText());
+        puestoAux.setNombrePuesto(txtNombre.getText());
+        puestoAux.setNombreEmpresa(txtEmpresa.getText());
+        puestoAux.setDescripcion(txtDescripcion.getText());
         //convierto a set la lista guardada en modeloTabla con las competencias seleccionadas para persistirlas en la bs 
         Set<Competencia> setCompetencias = new HashSet<Competencia>(modeloTabla.getListaCompetencias());
-        puesto.setPuestoCompetencias(setCompetencias);
-        gestorPuesto.actualizarPuesto(puesto);
+        puestoAux.setPuestoCompetencias(setCompetencias);
+        gestorPuesto.actualizarPuesto(puestoAux);
 
         
-        gestorPuesto.actualizarPuntajesCompetencias(puesto.getIdPuesto(), modeloTabla.getListaCompetencias(), modeloTabla.getListaPonderacion());
+        gestorPuesto.actualizarPuntajesCompetencias(puestoAux.getIdPuesto(), modeloTabla.getListaCompetencias(), modeloTabla.getListaPonderacion());
 
         JOptionPane.showMessageDialog(null, "La operación ha culminado con éxito");
         GestionDePuestos obj = new GestionDePuestos();

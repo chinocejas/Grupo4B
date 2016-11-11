@@ -207,7 +207,7 @@ public class IngresoConsultor extends javax.swing.JFrame {
 
         jPanel4.setOpaque(false);
 
-        mensajeError.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
+        mensajeError.setFont(new java.awt.Font("Arial", 1, 26)); // NOI18N
         mensajeError.setForeground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -329,7 +329,7 @@ public class IngresoConsultor extends javax.swing.JFrame {
             obj.setVisible(true);
             dispose();
         } else {
-            mensajeError.setText("Usuario/Contraseña incorrectos");
+            mensajeError.setText("El usuario o la contraseña no son válidos");
         }
 
 

@@ -5,26 +5,18 @@
  */
 package pantallas;
 
-import Dao.PuestoCompetenciaDaoHibernate;
 import Gestores.GestorCompetencia;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.util.List;
-import javax.swing.DefaultListModel;
 import Entidades.Competencia;
-import Entidades.Puesto;
 import Gestores.GestorPuesto;
 import java.awt.event.KeyEvent;
-import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
-import javafx.scene.paint.Color;
 import javax.swing.AbstractListModel;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.YES_NO_OPTION;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -37,8 +29,7 @@ public class AltaPuesto extends javax.swing.JFrame {
 
     //pido la instancia de gestor de puestos
     GestorPuesto gestorPuesto = GestorPuesto.getInstance();
-    //suma 1 al idPuesto porque buscarIdNuevoPuesto busca el actual de la bd
-    int idPuesto = gestorPuesto.buscarIdNuevoPuesto() + 1;
+    
 
     public AltaPuesto() {
 
@@ -49,8 +40,7 @@ public class AltaPuesto extends javax.swing.JFrame {
         tabla.setModel(modeloTabla);
         tabla.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
-        //muestro por pantalla el codigo no editable pasandolo a string previamente
-        txtCodigo.setText(String.valueOf(idPuesto));
+       
 
         GestorCompetencia gestorCompetencia = GestorCompetencia.getInstance();
         List allCompetencias = gestorCompetencia.allCompetenciasOrdenadasPorNombre();
@@ -87,13 +77,11 @@ public class AltaPuesto extends javax.swing.JFrame {
         btnRemoveAll = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         lista = new javax.swing.JList<>();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         txtEmpresa = new javax.swing.JTextField();
-        txtCodigo = new javax.swing.JLabel();
         cancelar = new javax.swing.JButton();
         aceptar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -173,7 +161,7 @@ public class AltaPuesto extends javax.swing.JFrame {
         });
 
         lista.setBackground(new java.awt.Color(0, 51, 102));
-        lista.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
+        lista.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         lista.setForeground(new java.awt.Color(255, 255, 255));
         lista.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         lista.addContainerListener(new java.awt.event.ContainerAdapter() {
@@ -187,10 +175,6 @@ public class AltaPuesto extends javax.swing.JFrame {
             }
         });
         jScrollPane3.setViewportView(lista);
-
-        jLabel4.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Código:");
 
         jLabel5.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -237,9 +221,6 @@ public class AltaPuesto extends javax.swing.JFrame {
                 txtEmpresaKeyTyped(evt);
             }
         });
-
-        txtCodigo.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
-        txtCodigo.setForeground(new java.awt.Color(255, 255, 255));
 
         cancelar.setBackground(new java.awt.Color(0, 51, 102));
         cancelar.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
@@ -321,11 +302,6 @@ public class AltaPuesto extends javax.swing.JFrame {
                         .addComponent(jLabel1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(58, 58, 58)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(90, 90, 90)
-                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 690, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(58, 58, 58)
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(10, 10, 10)
                         .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 690, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -353,7 +329,6 @@ public class AltaPuesto extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(btnAddAll, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(11, 11, 11)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(247, 247, 247)
@@ -365,7 +340,7 @@ public class AltaPuesto extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addGap(282, 282, 282)
                         .addComponent(jLabel3)))
-                .addGap(0, 504, Short.MAX_VALUE))
+                .addGap(0, 505, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(153, 153, 153)
                 .addComponent(campoTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 664, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -376,11 +351,7 @@ public class AltaPuesto extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(txtCodigo))
-                .addGap(16, 16, 16)
+                .addGap(58, 58, 58)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -445,7 +416,7 @@ public class AltaPuesto extends javax.swing.JFrame {
         }
         }
         */
-        int resultado = gestorPuesto.setPuesto(idPuesto,  txtNombre.getText(), txtEmpresa.getText(), txtDescripcion.getText(), modeloTabla.getListaCompetencias(), modeloTabla.getListaPonderacion());
+        int resultado = gestorPuesto.crearPuesto(txtNombre.getText(), txtEmpresa.getText(), txtDescripcion.getText(), modeloTabla.getListaCompetencias(), modeloTabla.getListaPonderacion());
 
          /* 1: todo correcto
            2: ponderaciones vacias
@@ -458,8 +429,9 @@ public class AltaPuesto extends javax.swing.JFrame {
         switch (resultado) {
             //todo correcto
             case 1:
-                int reply = JOptionPane.showConfirmDialog(null, "El puesto <" + txtNombre.getText() + "> se ha creado correctamente. ¿Desea cargar otro?", "HOLA", YES_NO_OPTION);
-               if (reply == JOptionPane.YES_OPTION)
+                int codigo=gestorPuesto.buscarIdNuevoPuesto();              //CHINO ARREGLA ESE POP UP!!
+                int reply = JOptionPane.showConfirmDialog(null, "El puesto <" + txtNombre.getText() + "> con ID: " + codigo +" se ha creado correctamente.\n ¿Desea cargar otro?", "HOLA", YES_NO_OPTION);
+               if (reply == JOptionPane.YES_OPTION)        
                 {
                     AltaPuesto obj = new AltaPuesto();
                     obj.setVisible(true);
@@ -882,7 +854,6 @@ public class AltaPuesto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -892,7 +863,6 @@ public class AltaPuesto extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JList<String> lista;
     private javax.swing.JTable tabla;
-    private javax.swing.JLabel txtCodigo;
     private javax.swing.JTextArea txtDescripcion;
     private javax.swing.JTextField txtEmpresa;
     private javax.swing.JTextField txtNombre;
