@@ -8,9 +8,11 @@ package pantallas;
 import Entidades.Competencia;
 import Entidades.Puesto;
 import Gestores.GestorPuesto;
+import Gestores.GestorValidacionesPantalla;
 import VentanasEmergentes.PopUps;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JTable;
@@ -24,6 +26,9 @@ import javax.swing.table.DefaultTableModel;
 public class GestionDePuestos extends javax.swing.JFrame {
 
     CustomTableModel modeloTabla = new CustomTableModel();
+    
+    //pido la instancia de gestor de validaciones de pantalla
+    GestorValidacionesPantalla gestorValidacionesPantalla = GestorValidacionesPantalla.getInstance();
     
     public GestionDePuestos() {
         initComponents();
@@ -73,7 +78,8 @@ public class GestionDePuestos extends javax.swing.JFrame {
         eliminar = new javax.swing.JButton();
         modificar = new javax.swing.JButton();
         codigo = new javax.swing.JTextField();
-        mensajeError = new javax.swing.JLabel();
+        txtMensaje = new javax.swing.JLabel();
+        txtMensajeBusqueda = new javax.swing.JLabel();
         arriba = new javax.swing.JPanel();
         Ingreso = new javax.swing.JLabel();
         abajo = new javax.swing.JPanel();
@@ -148,6 +154,14 @@ public class GestionDePuestos extends javax.swing.JFrame {
                 empresaActionPerformed(evt);
             }
         });
+        empresa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                empresaKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                empresaKeyTyped(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -172,6 +186,11 @@ public class GestionDePuestos extends javax.swing.JFrame {
                 buscarActionPerformed(evt);
             }
         });
+        buscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                buscarKeyPressed(evt);
+            }
+        });
 
         puesto.setBackground(new java.awt.Color(0, 51, 102));
         puesto.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
@@ -179,6 +198,14 @@ public class GestionDePuestos extends javax.swing.JFrame {
         puesto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 puestoActionPerformed(evt);
+            }
+        });
+        puesto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                puestoKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                puestoKeyTyped(evt);
             }
         });
 
@@ -261,9 +288,20 @@ public class GestionDePuestos extends javax.swing.JFrame {
                 codigoActionPerformed(evt);
             }
         });
+        codigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                codigoKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                codigoKeyTyped(evt);
+            }
+        });
 
-        mensajeError.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
-        mensajeError.setForeground(new java.awt.Color(255, 255, 255));
+        txtMensaje.setFont(new java.awt.Font("Arial", 0, 22)); // NOI18N
+        txtMensaje.setForeground(new java.awt.Color(255, 255, 255));
+
+        txtMensajeBusqueda.setFont(new java.awt.Font("Arial", 0, 22)); // NOI18N
+        txtMensajeBusqueda.setForeground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout trabajarAcaLayout = new javax.swing.GroupLayout(trabajarAca);
         trabajarAca.setLayout(trabajarAcaLayout);
@@ -271,13 +309,13 @@ public class GestionDePuestos extends javax.swing.JFrame {
             trabajarAcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(trabajarAcaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(trabajarAcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2)
-                    .addGroup(trabajarAcaLayout.createSequentialGroup()
+                .addGroup(trabajarAcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, trabajarAcaLayout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addGap(98, 98, 98)
                         .addComponent(empresa))
-                    .addGroup(trabajarAcaLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, trabajarAcaLayout.createSequentialGroup()
                         .addGroup(trabajarAcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel2)
@@ -290,13 +328,15 @@ public class GestionDePuestos extends javax.swing.JFrame {
                                     .addComponent(codigo, javax.swing.GroupLayout.Alignment.TRAILING)))
                             .addGroup(trabajarAcaLayout.createSequentialGroup()
                                 .addGap(6, 6, 6)
-                                .addComponent(mensajeError, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 114, Short.MAX_VALUE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, trabajarAcaLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(trabajarAcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nuevo, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, trabajarAcaLayout.createSequentialGroup()
+                                .addComponent(txtMensajeBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(trabajarAcaLayout.createSequentialGroup()
+                        .addGap(0, 170, Short.MAX_VALUE)
+                        .addGroup(trabajarAcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(nuevo)
+                            .addGroup(trabajarAcaLayout.createSequentialGroup()
+                                .addComponent(txtMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(29, 29, 29)
                                 .addComponent(modificar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(eliminar)))))
@@ -318,9 +358,11 @@ public class GestionDePuestos extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(empresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(trabajarAcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(trabajarAcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(buscar)
-                    .addComponent(mensajeError, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(trabajarAcaLayout.createSequentialGroup()
+                        .addComponent(txtMensajeBusqueda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(7, 7, 7)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(nuevo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -328,7 +370,8 @@ public class GestionDePuestos extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(trabajarAcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(eliminar)
-                    .addComponent(modificar))
+                    .addComponent(modificar)
+                    .addComponent(txtMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(62, 62, 62))
         );
 
@@ -416,21 +459,13 @@ public class GestionDePuestos extends javax.swing.JFrame {
 
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
 
-        //setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
-       // setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
         limpiarTabla(tabla,modeloTabla);    //se limpia la tabla para que al hacer busquedas consecutivas se borren los resultados anteriores
-        
+        txtMensajeBusqueda.setText("");
         //obtengo los datos de pantalla
         String codigo2 = codigo.getText();    
         String puesto2 = puesto.getText();
         String empresa2 = empresa.getText();
-        
-        //si se muestra el mensaje de error y vuelvo a buscar con un campo completado el mensaje se quita
-        mensajeError.setText(""); 
-        
-       
-        
+  
         if("".equals(codigo2) && "".equals(puesto2) && "".equals(empresa2)){ //no completo al menos un criterio de busqueda
             
             GestorPuesto gestorPuesto = GestorPuesto.getInstance();     //se pide la instancia de GestorPuesto
@@ -442,7 +477,9 @@ public class GestionDePuestos extends javax.swing.JFrame {
 
         gestorPuesto.buscarPuestos(modeloTabla, codigo2, puesto2, empresa2);  //busca en la BS y completa la tabla que es pasada por parametro con los resultados
         }
-
+        
+       if(modeloTabla.data.isEmpty())
+           txtMensajeBusqueda.setText("La búsqueda no ha arrojado resultados");
     }//GEN-LAST:event_buscarActionPerformed
 
     private void puestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_puestoActionPerformed
@@ -475,12 +512,16 @@ public class GestionDePuestos extends javax.swing.JFrame {
 
        //http://www.lawebdelprogramador.com/foros/Java/719076-Obtener-el-valor-de-una-celda-el-JTABLE.html
        //aca capturo el primer dato de la celda seleccionada en la columna cero (tiene el codigo)
-       Puesto puesto=modeloTabla.getPuesto(tabla.getSelectedRow());
-       
-       
-       ModificarPuesto obj= new ModificarPuesto(puesto);
-        obj.setVisible(true);
-        dispose();
+       Integer filaSeleccionada= tabla.getSelectedRow();
+       //si no hay una fila seleccionada filaSeleccionada= -1 por default
+        if (filaSeleccionada != -1) {
+            Puesto puesto = modeloTabla.getPuesto(tabla.getSelectedRow());
+            ModificarPuesto obj = new ModificarPuesto(puesto);
+            obj.setVisible(true);
+            dispose();
+       }
+       else
+           txtMensaje.setText("No hay ningun puesto seleccionado"); 
     }//GEN-LAST:event_modificarActionPerformed
 
     private void volverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_volverMouseClicked
@@ -498,13 +539,66 @@ public class GestionDePuestos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_codigoActionPerformed
 
+    private void codigoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codigoKeyReleased
+        
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            buscarActionPerformed(null);
+        }
+        else
+            gestorValidacionesPantalla.keyReleased(codigo);
+    }//GEN-LAST:event_codigoKeyReleased
+
+    private void puestoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_puestoKeyReleased
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            buscarActionPerformed(null);
+        }
+        else
+        gestorValidacionesPantalla.keyReleased(puesto);
+    }//GEN-LAST:event_puestoKeyReleased
+
+    private void empresaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_empresaKeyReleased
+       if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            buscarActionPerformed(null);
+        }
+        else
+        gestorValidacionesPantalla.keyReleased(empresa);
+    }//GEN-LAST:event_empresaKeyReleased
+
+    private void codigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codigoKeyTyped
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            buscarActionPerformed(null);
+        }
+        else
+        gestorValidacionesPantalla.keyTypedSoloNumeros(codigo, evt);
+    }//GEN-LAST:event_codigoKeyTyped
+
+    private void puestoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_puestoKeyTyped
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            buscarActionPerformed(null);
+        }
+        else
+            gestorValidacionesPantalla.keyTyped(puesto, evt);
+    }//GEN-LAST:event_puestoKeyTyped
+
+    private void empresaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_empresaKeyTyped
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            buscarActionPerformed(null);
+        }
+        else
+            gestorValidacionesPantalla.keyTyped(empresa, evt);
+    }//GEN-LAST:event_empresaKeyTyped
+
+    private void buscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscarKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            buscarActionPerformed(null);
+        }
+    }//GEN-LAST:event_buscarKeyPressed
+
      public class CustomTableModel extends AbstractTableModel {
 
         private ArrayList<Puesto> data = new ArrayList<Puesto>();
         private int numColumns = 3; //cant de columnas con la que se crea la tabla
-        private String columnNames[] = {"Código", "Nombre de puesto", "Empresa"};
-        // private Class classes[]={String.class ,String.class}; //tipo de las columnas
-        private boolean editable[] = {false,false, false};
+        private String columnNames[] = {"Código", "Nombre de puesto", "Empresa"};   
         
         @Override
         public int getRowCount() {  
@@ -531,7 +625,7 @@ public class GestionDePuestos extends javax.swing.JFrame {
 
         @Override
         public boolean isCellEditable(int rowIndex, int columnIndex) {
-            return columnIndex == 0 ? false : true;
+            return false;
         }
 
         @Override
@@ -643,13 +737,14 @@ public class GestionDePuestos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JLabel mensajeError;
     private javax.swing.JButton modificar;
     private javax.swing.JButton nuevo;
     private javax.swing.JFrame nuevoFrame;
     private javax.swing.JTextField puesto;
     private javax.swing.JTable tabla;
     private javax.swing.JPanel trabajarAca;
+    private javax.swing.JLabel txtMensaje;
+    private javax.swing.JLabel txtMensajeBusqueda;
     private javax.swing.JButton volver;
     // End of variables declaration//GEN-END:variables
 }

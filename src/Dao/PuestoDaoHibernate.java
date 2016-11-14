@@ -7,6 +7,7 @@ package Dao;
 import Entidades.Competencia;
 import Entidades.Puesto;
 import Entidades.PuestoCompetencia;
+import Entidades.PuestoCopia;
 import java.math.BigInteger;
 import java.util.List;
 import org.hibernate.HibernateException;
@@ -214,6 +215,35 @@ public class PuestoDaoHibernate extends AbstractDao {
 
     }
     
+     public int verificarNombrePuestoUnicoParaModificarPuesto(String nombre, int idPuesto){
+        Integer retorno;
+           Puesto puesto = null;
+        try {
+            startOperation();
+            Query query;
+            query = session.createQuery("from Puesto WHERE nombre_puesto= :nombre AND id_puesto <> :idPuesto"); 
+            query.setParameter("nombre", nombre);
+            query.setParameter("idPuesto", idPuesto);
+            puesto = (Puesto) query.uniqueResult();
+            tx.commit();
+        } catch (HibernateException e) {
+            handleException(e);
+        } finally {
+            HibernateFactory.close(session);
+        }
+        
+        //si no se retorna ningun puesto de la bd con ese nombre significa que no esta en uso
+        if (puesto == null)
+            //el nombre no esta en uso
+            retorno = 1;
+        else 
+            //el nombre esta en uso
+            retorno = 0;
+
+        return retorno;
+
+    }
+    
 
     //metodos para actualizar la ponderacion en la tabla union entre puesto y competencia
     
@@ -289,6 +319,12 @@ public class PuestoDaoHibernate extends AbstractDao {
     public void update(PuestoCompetencia puestoCompetencia) throws DataAccessLayerException {
         super.update(puestoCompetencia);
     }
+    
+    //........................................................
+    
+    //public List buscarPuestoCopia(int idPuesto){
+        
+    //} 
 
     private Object getJpaTemplate() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

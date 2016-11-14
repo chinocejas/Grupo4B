@@ -1,5 +1,5 @@
 package Entidades;
-// Generated 16/09/2016 18:42:16 by Hibernate Tools 4.3.1
+// Generated 14/11/2016 15:56:53 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -16,8 +16,9 @@ public class Puesto  implements java.io.Serializable {
      private String nombrePuesto;
      private String nombreEmpresa;
      private String descripcion;
-     private Date fechaUltMod;
-     private boolean eliminado;
+     private Date fechaUltimaModificacion;
+     private Boolean eliminado;
+     private Set puestoCopias = new HashSet(0);
      private Set puestoCompetencias = new HashSet(0);
 
     public Puesto() {
@@ -27,13 +28,14 @@ public class Puesto  implements java.io.Serializable {
     public Puesto(int idPuesto) {
         this.idPuesto = idPuesto;
     }
-    public Puesto(int idPuesto, String nombrePuesto, String nombreEmpresa, String descripcion, Date fechaUltMod, Set puestoCompetencias) {
+    public Puesto(int idPuesto, String nombrePuesto, String nombreEmpresa, String descripcion, Date fechaUltimaModificacion, Boolean eliminado, Set puestoCopias, Set puestoCompetencias) {
        this.idPuesto = idPuesto;
        this.nombrePuesto = nombrePuesto;
        this.nombreEmpresa = nombreEmpresa;
        this.descripcion = descripcion;
-       this.fechaUltMod = fechaUltMod;
-       this.eliminado= false;
+       this.fechaUltimaModificacion = fechaUltimaModificacion;
+       this.eliminado = eliminado;
+       this.puestoCopias = puestoCopias;
        this.puestoCompetencias = puestoCompetencias;
     }
    
@@ -65,19 +67,26 @@ public class Puesto  implements java.io.Serializable {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-    public Date getFechaUltMod() {
-        return this.fechaUltMod;
+    public Date getFechaUltimaModificacion() {
+        return this.fechaUltimaModificacion;
     }
     
-    public void setFechaUltMod(Date fechaUltMod) {
-        this.fechaUltMod = fechaUltMod;
+    public void setFechaUltimaModificacion(Date fechaUltimaModificacion) {
+        this.fechaUltimaModificacion = fechaUltimaModificacion;
     }
-    public boolean getEliminado() {
+    public Boolean getEliminado() {
         return this.eliminado;
     }
     
-    public void setEliminado(boolean eliminado) {
+    public void setEliminado(Boolean eliminado) {
         this.eliminado = eliminado;
+    }
+    public Set getPuestoCopias() {
+        return this.puestoCopias;
+    }
+    
+    public void setPuestoCopias(Set puestoCopias) {
+        this.puestoCopias = puestoCopias;
     }
     public Set getPuestoCompetencias() {
         return this.puestoCompetencias;

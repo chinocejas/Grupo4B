@@ -78,19 +78,26 @@
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
                           <Component id="jScrollPane3" min="-2" pref="400" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="btnRemoveAll" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Group type="102" attributes="0">
-                                  <EmptySpace min="30" pref="30" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="btnAdd" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="btnRemove" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="btnAddAll" min="-2" pref="97" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Component id="btnAddAll" min="-2" pref="97" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Component id="btnRemoveAll" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
                               </Group>
                           </Group>
                           <Component id="jScrollPane4" min="-2" pref="355" max="-2" attributes="0"/>
@@ -108,7 +115,7 @@
                           <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace min="0" pref="505" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="506" max="32767" attributes="0"/>
               </Group>
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="153" max="-2" attributes="0"/>

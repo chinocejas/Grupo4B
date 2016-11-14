@@ -43,5 +43,3 @@ public class PuestoCompetencia  implements java.io.Serializable {
     }
 
 }
-
-

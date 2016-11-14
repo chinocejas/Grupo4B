@@ -19,7 +19,7 @@
         <property name="descripcion" type="string">
             <column name="descripcion" />
         </property>
-        <property name="fechaUltMod" type="date">
+        <property name="fechaUltimaModificacion" type="date">
             <column name="fecha_ultima_modificacion" length="13" />
         </property>
         <property name="eliminado" type="boolean">

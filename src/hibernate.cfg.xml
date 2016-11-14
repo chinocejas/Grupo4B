@@ -6,10 +6,11 @@
     <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
     <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/postgres</property>
     <property name="hibernate.connection.username">postgres</property>
-    <property name="hibernate.connection.password">popi</property>
+    <property name="hibernate.connection.password">root</property>
     <mapping resource="Entidades/Puesto.hbm.xml"/>
     <mapping resource="Entidades/Consultor.hbm.xml"/>
-    <mapping resource="Entidades/Competencia.hbm.xml"/>
+    <mapping resource="Entidades/PuestoCopia.hbm.xml"/>
     <mapping resource="Entidades/PuestoCompetencia.hbm.xml"/>
+    <mapping resource="Entidades/Competencia.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

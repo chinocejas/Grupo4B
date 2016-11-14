@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 14/11/2016 15:56:54 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Entidades.PuestoCopia" table="puesto_copia" schema="public" optimistic-lock="version">
+        <id name="idPuestoCopia" type="int">
+            <column name="id_puesto_copia" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="puestoOriginal" class="Entidades.Puesto" fetch="select">
+            <column name="id_puesto_original" />
+        </many-to-one>
+        <property name="nombreEmpresa" type="string">
+            <column name="nombre_empresa" length="500" />
+        </property>
+        <property name="fechaCopia" type="date">
+            <column name="fecha_copia" length="13" />
+        </property>
+        <property name="nombrePuesto" type="string">
+            <column name="nombre_puesto" length="500" />
+        </property>
+    </class>
+</hibernate-mapping>

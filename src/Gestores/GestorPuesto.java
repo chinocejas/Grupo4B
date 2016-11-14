@@ -10,6 +10,7 @@ import Dao.PuestoDaoHibernate;
 import Entidades.Competencia;
 import Entidades.Puesto;
 import Entidades.PuestoCompetencia;
+import Entidades.PuestoCopia;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -69,7 +70,7 @@ public class GestorPuesto {
         
         int retorno=1; //si esta todo correcto se mantiene en 1
      
-        Integer bandera = verificaciones(nombre, empresa, descripcion, ponderaciones); 
+        Integer bandera = verificacionesAltaPuesto(nombre, empresa, descripcion, ponderaciones); 
         
         switch (bandera){
             
@@ -120,7 +121,7 @@ public class GestorPuesto {
        
         int retorno=1; //si esta todo correcto se mantiene en 1
      
-        Integer bandera = verificaciones(nombre, empresa, descripcion, ponderaciones);
+        Integer bandera = verificacionesModificarPuesto(puesto.getIdPuesto(), nombre, empresa, descripcion, ponderaciones);
         
         
         
@@ -185,7 +186,7 @@ public class GestorPuesto {
         return puestoDao.buscarSecuencia();
     }
 
-    public int verificaciones(String nombre, String empresa, String descripcion, List<Integer> pond) {
+    public int verificacionesAltaPuesto(String nombre, String empresa, String descripcion, List<Integer> pond) {
 
         
         
@@ -201,7 +202,53 @@ public class GestorPuesto {
         
         //nombreUnico=0 -> nombre en uso
         //nombreUnico= 1 ->el nombre esta libre
+        
         int nombreUnico=puestoDao.verificarNombrePuestoUnico(nombre);
+        
+        if(nombreUnico==0)
+            retorno=6;
+        
+        //verifico que nombre o empresa no esten vacios
+        else if("".equals(nombre) || "".equals(empresa) ||  "".equals(descripcion))
+            retorno = 4; 
+        else if(pond.isEmpty())
+            retorno= 5;
+        else
+        for(int i=0; i< pond.size(); i++){
+             //verificar lista sin ponderaciones vacias
+            if(pond.get(i)==null){
+                retorno=2;
+                    i=pond.size();
+            }
+            //verificar que las ponderaciones sean valores entre 0 y 10
+            else if(pond.get(i)<0 || pond.get(i)>10){
+                    //bandera=true;
+                    retorno=3;
+                    i=pond.size();
+            }
+            
+        }
+        return retorno;
+    }
+    
+    public int verificacionesModificarPuesto(int idPuesto, String nombre, String empresa, String descripcion, List<Integer> pond) {
+
+        
+        
+        /* 1: todo correcto
+           2: ponderaciones vacias
+           3: ponderaciones fuera de rango (0-10)
+           4: campos en blanco
+           5: sin al menos una competencia seleccionada
+           6: el nombre ya esta en uso
+        */
+        //retorna 1 si todo esta correcto
+        Integer retorno=1;
+        
+        //nombreUnico=0 -> nombre en uso
+        //nombreUnico= 1 ->el nombre esta libre
+        
+        int nombreUnico=puestoDao.verificarNombrePuestoUnicoParaModificarPuesto(nombre, idPuesto);
         
         if(nombreUnico==0)
             retorno=6;
@@ -231,7 +278,7 @@ public class GestorPuesto {
     
     //QUIZAS DEBA IR EN UN GESTORpUESTOcOPIA
     public boolean verificarPuestoEnUso(int idPuesto){
-        //puestoDao.buscarPuestoCopia(idPuesto);
+       // List<PuestoCopia> puestosCopias = puestoDao.buscarPuestoCopia(idPuesto);
         return false;
     }
 

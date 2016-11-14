@@ -555,7 +555,6 @@ public class ModificarPuesto extends javax.swing.JFrame {
     }//GEN-LAST:event_listaComponentAdded
 
     private void btnRemoveAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveAllActionPerformed
-
         while (modeloTabla.getRowCount() != 0) { //se va a ejecutar mientras haya alguna fila en la tabla
             modeloLista.addCompetencia((Competencia) modeloTabla.getCompetencia(0));
             modeloTabla.deleteRow(0);
@@ -568,7 +567,6 @@ public class ModificarPuesto extends javax.swing.JFrame {
             modeloTabla.addCompetencia(competencia);
             modeloLista.eliminarCompetencia(0);
         }
-
     }//GEN-LAST:event_btnAddAllActionPerformed
 
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
@@ -585,12 +583,10 @@ public class ModificarPuesto extends javax.swing.JFrame {
             Competencia competencia = modeloTabla.getCompetencia(row);
             modeloLista.addCompetencia(competencia);
             modeloTabla.deleteRow(row);
-
         }
     }//GEN-LAST:event_btnRemoveActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-
         if (lista.getSelectedValue() != null || lista.getComponentCount() == 0) {
             campoTexto.setText("");
             // String aux = lista.getSelectedValue();
@@ -759,19 +755,32 @@ public class ModificarPuesto extends javax.swing.JFrame {
         }
 
         @Override
-        // Cambia el valor que contiene una determinada casilla de
-        // la tabla
+        // Cambia el valor que contiene una determinada casilla de la tabla
         public void setValueAt(Object value, int row, int col) {
+            
+            
+            
             if (value.getClass() == String.class) {
-                Integer valorNumerico = Integer.parseInt((String) value);
-                ponderacion.set(row, valorNumerico);
+                //si entra el valor por pantalla viene un string
+                String c = (String)value;
+            Integer valorNumerico = null;
+            if (c.matches("[0-9]*")) {
+                valorNumerico = Integer.parseInt(c);
+                if (valorNumerico >= 0 && valorNumerico <= 10) {
+                    ponderacion.set(row, valorNumerico);
+                }
+                 else {campoTexto.setText("La ponderacion debe estar entre 0 y 10");}
+                       
+            }
+            else {campoTexto.setText("El campo ponderacion debe ser numerico entre 0 y 10");}
+                /*valorNumerico = Integer.parseInt((String) value);
+                ponderacion.set(row, valorNumerico);*/
             } else {
+                //si se carga desde la BD viene como un int
                 ponderacion.set(row, (Integer) value);
             }
 
             fireTableCellUpdated(row, col);
-            // Indica que se ha cambiado
-            //fireTableDataChanged();
         }
 
         public Competencia getCompetencia(int fila) {
