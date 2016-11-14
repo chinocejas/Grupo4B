@@ -42,8 +42,9 @@ public class PuestoDaoHibernate extends AbstractDao {
      * @param puesto
      * @param usuario
      */
-    public void update(Puesto puesto) throws DataAccessLayerException {
+    public void update(Puesto puesto, List<Competencia> competencias, List<Integer> ponderaciones) throws DataAccessLayerException {
         super.update(puesto);
+        actualizarPuntajesCompetencias(puesto.getIdPuesto(), competencias, ponderaciones);
     }
 
     /**

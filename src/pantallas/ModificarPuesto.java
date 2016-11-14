@@ -13,11 +13,13 @@ import Entidades.Competencia;
 import Entidades.Puesto;
 import Entidades.PuestoCompetencia;
 import Gestores.GestorPuesto;
+import Gestores.GestorValidacionesPantalla;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import javax.swing.AbstractListModel;
 import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.YES_NO_OPTION;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -31,6 +33,10 @@ public class ModificarPuesto extends javax.swing.JFrame {
 
     //pido la instancia de gestor de puestos
     GestorPuesto gestorPuesto = GestorPuesto.getInstance();
+    
+    //pido la instancia de gestor de validaciones de pantalla
+    GestorValidacionesPantalla gestorValidacionesPantalla = GestorValidacionesPantalla.getInstance();
+    
     //declaro una variable de puesto global para ser visible en las acciones de los botones
     //SE PUEDE BUSCAR OTRA MANERA
     Puesto puestoAux;
@@ -46,6 +52,10 @@ public class ModificarPuesto extends javax.swing.JFrame {
         lista.setModel(modeloLista);
         tabla.setModel(modeloTabla);
         tabla.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        
+        //puestoEnUso= true -> el puesto tiene puestosCopias asociados y esta en uso (no se pueden modificar las competencias)
+        //puestoEnUso= false -> el puesto no esta en uso y se pueden modificar las competencias
+        boolean puestoEnUso = gestorPuesto.verificarPuestoEnUso(puesto.getIdPuesto());
 
         //COPIO EL PUESTO PASADO POR PARAMETRO A OTRO AUX PARA TENER VISIBILIDAD GLOBAL
         //SE PUEDE CAMBIAR
@@ -263,10 +273,26 @@ public class ModificarPuesto extends javax.swing.JFrame {
         txtNombre.setBackground(new java.awt.Color(0, 51, 102));
         txtNombre.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
         txtNombre.setForeground(new java.awt.Color(255, 255, 255));
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNombreKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
 
         txtEmpresa.setBackground(new java.awt.Color(0, 51, 102));
         txtEmpresa.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
         txtEmpresa.setForeground(new java.awt.Color(255, 255, 255));
+        txtEmpresa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtEmpresaKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtEmpresaKeyTyped(evt);
+            }
+        });
 
         txtCodigo.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
         txtCodigo.setForeground(new java.awt.Color(255, 255, 255));
@@ -299,6 +325,14 @@ public class ModificarPuesto extends javax.swing.JFrame {
         txtDescripcion.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
         txtDescripcion.setForeground(new java.awt.Color(255, 255, 255));
         txtDescripcion.setRows(3);
+        txtDescripcion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtDescripcionKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDescripcionKeyTyped(evt);
+            }
+        });
         jScrollPane1.setViewportView(txtDescripcion);
 
         tabla.setModel(new javax.swing.table.DefaultTableModel(
@@ -445,21 +479,64 @@ public class ModificarPuesto extends javax.swing.JFrame {
 
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarActionPerformed
 
-        puestoAux.setNombrePuesto(txtNombre.getText());
-        puestoAux.setNombreEmpresa(txtEmpresa.getText());
-        puestoAux.setDescripcion(txtDescripcion.getText());
         //convierto a set la lista guardada en modeloTabla con las competencias seleccionadas para persistirlas en la bs 
-        Set<Competencia> setCompetencias = new HashSet<Competencia>(modeloTabla.getListaCompetencias());
-        puestoAux.setPuestoCompetencias(setCompetencias);
-        gestorPuesto.actualizarPuesto(puestoAux);
-
+        Set<Competencia> competencias = new HashSet<Competencia>(modeloTabla.getListaCompetencias());
+        int resultado= gestorPuesto.modificarPuesto(puestoAux, txtNombre.getText(), txtEmpresa.getText(), txtDescripcion.getText(), competencias, modeloTabla.getListaPonderacion());
+ /* 1: todo correcto
+           2: ponderaciones vacias
+           3: ponderaciones fuera de rango (0-10)
+           4: campos en blanco
+           5: sin al menos una competencia seleccionada
+           6: el nombre ya esta en uso
+        */
         
-        gestorPuesto.actualizarPuntajesCompetencias(puestoAux.getIdPuesto(), modeloTabla.getListaCompetencias(), modeloTabla.getListaPonderacion());
+        switch (resultado) {
+            //todo correcto
+            case 1:
+                JOptionPane.showMessageDialog(null, "La operación ha culminado con éxito");
+                GestionDePuestos obj = new GestionDePuestos();
+                obj.setVisible(true);
+                dispose();
+                break;
 
-        JOptionPane.showMessageDialog(null, "La operación ha culminado con éxito");
-        GestionDePuestos obj = new GestionDePuestos();
-        obj.setVisible(true);
-        dispose();
+            //hay ponderaciones sin completar
+            case 2:
+                campoTexto.setText("Algunas competencias no tienen una ponderación definida");
+                break;
+
+            //hay ponderaciones que no estan entre 0 y 10
+            case 3:
+                campoTexto.setText("Las ponderaciones deben ser valores entre 0 y 10");
+                break;
+                
+           //nombre o empresa estan vacios
+            case 4:
+                campoTexto.setText("Algunos campos se encuentran en blanco");
+                if (txtEmpresa.getText().equals("")){
+                    txtEmpresa.requestFocus();
+                    txtEmpresa.setBackground(java.awt.Color.RED);
+                }
+                if (txtDescripcion.getText().equals("")){
+                    txtDescripcion.requestFocus();
+                    txtDescripcion.setBackground(java.awt.Color.RED);
+                }
+                if (txtNombre.getText().equals("")){
+                    txtNombre.requestFocus();
+                    txtNombre.setBackground(java.awt.Color.red);
+                }
+                break;
+                
+            //sin al menos una competencia seleccionada
+            case 5:
+                campoTexto.setText("Seleccione al menos una competencia");
+                lista.setForeground(java.awt.Color.red);
+                break;
+            
+             //sin al menos una competencia seleccionada
+            case 6:
+                campoTexto.setText("El nombre del puesto ya esta en uso");
+                break; 
+        }
     }//GEN-LAST:event_aceptarActionPerformed
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
@@ -536,6 +613,30 @@ public class ModificarPuesto extends javax.swing.JFrame {
     }*/
 
     }//GEN-LAST:event_tablaMouseClicked
+
+    private void txtNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyReleased
+        gestorValidacionesPantalla.keyReleased(txtNombre);
+    }//GEN-LAST:event_txtNombreKeyReleased
+
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+        gestorValidacionesPantalla.keyTyped(txtNombre, evt);
+    }//GEN-LAST:event_txtNombreKeyTyped
+
+    private void txtEmpresaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmpresaKeyReleased
+        gestorValidacionesPantalla.keyReleased(txtEmpresa);
+    }//GEN-LAST:event_txtEmpresaKeyReleased
+
+    private void txtEmpresaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmpresaKeyTyped
+        gestorValidacionesPantalla.keyTyped(txtEmpresa, evt);
+    }//GEN-LAST:event_txtEmpresaKeyTyped
+
+    private void txtDescripcionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionKeyReleased
+        gestorValidacionesPantalla.keyReleased(txtDescripcion);
+    }//GEN-LAST:event_txtDescripcionKeyReleased
+
+    private void txtDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionKeyTyped
+        gestorValidacionesPantalla.keyTyped(txtDescripcion, evt);
+    }//GEN-LAST:event_txtDescripcionKeyTyped
 
     /**
      * @param args the command line arguments

@@ -10,6 +10,7 @@ import Dao.PuestoDaoHibernate;
 import Entidades.Competencia;
 import Entidades.Puesto;
 import Entidades.PuestoCompetencia;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import pantallas.GestionDePuestos;
@@ -114,15 +115,64 @@ public class GestorPuesto {
         }
         return retorno;
     }
+    
+    public int modificarPuesto(Puesto puesto, String nombre, String empresa, String descripcion, Set<Competencia> competencias, List<Integer> ponderaciones){
+       
+        int retorno=1; //si esta todo correcto se mantiene en 1
+     
+        Integer bandera = verificaciones(nombre, empresa, descripcion, ponderaciones);
+        
+        
+        
+        switch (bandera){
+            
+            //esta todo correcto
+            case 1:
+                puesto.setNombrePuesto(nombre);
+                puesto.setNombreEmpresa(empresa);
+                puesto.setDescripcion(descripcion);
+                puesto.setEliminado(false);
+                puesto.setPuestoCompetencias(competencias);
+                List<Competencia> competencias2 = new ArrayList<Competencia>(competencias);
+                actualizarPuesto(puesto, competencias2, ponderaciones);
+                break;
+                
+            //hay ponderaciones sin completar
+            case 2:
+                 retorno=2;
+                 break;
+                 
+            //hay ponderaciones que no estan entre 0 y 10
+            case 3:
+                 retorno=3;
+                         break;
+            
+            //nombre o empresa estan vacios
+            case 4:
+                retorno=4;
+                break;
+            
+            //sin al menos una competencia seleccionada
+            case 5:
+                retorno=5;
+                break;
+                 
+            //el nombre ya esta en uso
+            case 6:
+                retorno=6;
+                break;
+        }
+    return retorno;
+    }
 
     public void borrarPuesto(Puesto puesto) {
 
         puestoDao.delete(puesto);
     }
 
-    public void actualizarPuesto(Puesto puesto) {
+    public void actualizarPuesto(Puesto puesto, List<Competencia> competencias, List<Integer> ponderaciones ) {
 
-        puestoDao.update(puesto);
+        puestoDao.update(puesto, competencias, ponderaciones);
     }
 
     public Puesto buscarPuesto(int codigo) {
@@ -177,6 +227,12 @@ public class GestorPuesto {
             
         }
         return retorno;
+    }
+    
+    //QUIZAS DEBA IR EN UN GESTORpUESTOcOPIA
+    public boolean verificarPuestoEnUso(int idPuesto){
+        //puestoDao.buscarPuestoCopia(idPuesto);
+        return false;
     }
 
     //metodos para actualizar la ponderacion en la tabla union entre puesto y competencia //////////////

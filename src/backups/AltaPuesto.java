@@ -393,7 +393,7 @@ public class AltaPuesto extends javax.swing.JFrame {
         //convierto a set la lista guardada en modeloTabla con las competencias seleccionadas para persistirlas en la bs 
         Set<Competencia> setCompetencias = new HashSet<Competencia>(modeloTabla.getListaCompetencias());
         puesto.setPuestoCompetencias(setCompetencias);
-        gestorPuesto.actualizarPuesto(puesto);
+        //gestorPuesto.actualizarPuesto(puesto);
         
         PuestoCompetenciaDaoHibernate puestoCompetenciaDao= new PuestoCompetenciaDaoHibernate();
         

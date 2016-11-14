@@ -11,6 +11,7 @@ import java.awt.Toolkit;
 import java.util.List;
 import Entidades.Competencia;
 import Gestores.GestorPuesto;
+import Gestores.GestorValidacionesPantalla;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.AbstractListModel;
@@ -29,6 +30,8 @@ public class AltaPuesto extends javax.swing.JFrame {
 
     //pido la instancia de gestor de puestos
     GestorPuesto gestorPuesto = GestorPuesto.getInstance();
+    //pido la instancia de gestor de validaciones de pantalla
+    GestorValidacionesPantalla gestorValidacionesPantalla = GestorValidacionesPantalla.getInstance();
     
 
     public AltaPuesto() {
@@ -208,11 +211,6 @@ public class AltaPuesto extends javax.swing.JFrame {
         txtEmpresa.setBackground(new java.awt.Color(0, 51, 102));
         txtEmpresa.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
         txtEmpresa.setForeground(new java.awt.Color(255, 255, 255));
-        txtEmpresa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEmpresaActionPerformed(evt);
-            }
-        });
         txtEmpresa.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtEmpresaKeyReleased(evt);
@@ -549,75 +547,28 @@ public class AltaPuesto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void txtNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyReleased
-            //Convierte el texto ingresado a mayusculas
-            int pos = txtNombre.getCaretPosition();
-            convertiraMayusculasEnJtextfield(txtNombre, pos);
+            gestorValidacionesPantalla.keyReleased(txtNombre);
     }//GEN-LAST:event_txtNombreKeyReleased
 
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
-        txtNombre.setBackground(new java.awt.Color(0, 51, 102));
-        char c = evt.getKeyChar();
-        int pos = txtNombre.getCaretPosition();
-        //Solo permite letras, espacios, numeros y caracteres comunes
-        if (c < 32 || (c > 32 && c < 40) || (c > 57 && c < 65) || (c>90 && c<97) || c > 122 ||(pos>101)) {
-            evt.consume();
-        } else {
-            //Convierte el texto ingresado a mayusculas
-            pos = txtNombre.getCaretPosition();
-            convertiraMayusculasEnJtextfield(txtNombre, pos);
-            
-        }
+        gestorValidacionesPantalla.keyTyped(txtNombre, evt);
     }//GEN-LAST:event_txtNombreKeyTyped
 
     private void txtEmpresaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmpresaKeyTyped
-        txtEmpresa.setBackground(new java.awt.Color(0, 51, 102));
-        char c = evt.getKeyChar();
-         int pos = txtEmpresa.getCaretPosition();
-        //Solo permite letras, espacios, numeros y caracteres comunes
-        if (c < 32 || (c > 32 && c < 40) || (c > 57 && c < 65) || (c>90 && c<97) || c > 122||(pos>101)) {
-            evt.consume();
-        } else {
-            //Convierte el texto ingresado a mayusculas
-            pos = txtEmpresa.getCaretPosition();
-            convertiraMayusculasEnJtextfield(txtEmpresa, pos);
-        }
+        gestorValidacionesPantalla.keyTyped(txtEmpresa, evt);
     }//GEN-LAST:event_txtEmpresaKeyTyped
 
     private void txtEmpresaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmpresaKeyReleased
-            //Convierte el texto ingresado a mayusculas
-            int pos = txtEmpresa.getCaretPosition();
-            convertiraMayusculasEnJtextfield(txtEmpresa, pos);
+            gestorValidacionesPantalla.keyReleased(txtEmpresa);
     }//GEN-LAST:event_txtEmpresaKeyReleased
 
     private void txtDescripcionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionKeyReleased
- //Convierte el texto ingresado a mayusculas
-            int pos = txtDescripcion.getCaretPosition();
-            convertiraMayusculasEnJtextArea(txtDescripcion, pos);
-
-        
+      gestorValidacionesPantalla.keyReleased(txtDescripcion);
     }//GEN-LAST:event_txtDescripcionKeyReleased
 
     private void txtDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionKeyTyped
-        txtDescripcion.setBackground(new java.awt.Color(0, 51, 102));
-        char c = evt.getKeyChar();
-        int pos = txtDescripcion.getCaretPosition();
-        //Solo permite letras, espacios, numeros y caracteres comunes
-        if (c < 32 || (c > 32 && c < 40) || (c > 57 && c < 65) || (c>90 && c<97) || (c > 122)||(pos>1601)) {
-            evt.consume();
-        }
-        
-        else {
-            //Convierte el texto ingresado a mayusculas
-            pos = txtDescripcion.getCaretPosition();
-            
-            convertiraMayusculasEnJtextArea(txtDescripcion, pos);
-            
-        }
+        gestorValidacionesPantalla.keyTyped(txtDescripcion, evt);
     }//GEN-LAST:event_txtDescripcionKeyTyped
-
-    private void txtEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmpresaActionPerformed
-
-    }//GEN-LAST:event_txtEmpresaActionPerformed
 
     private void aceptarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_aceptarKeyPressed
          if (evt.getKeyCode() == KeyEvent.VK_ENTER){
@@ -645,18 +596,6 @@ public class AltaPuesto extends javax.swing.JFrame {
             filaSeleccionada = fila;
         }*/
     }//GEN-LAST:event_tablaMouseClicked
-    
-    //METODO USADO ARRIBA
-    public void convertiraMayusculasEnJtextfield(javax.swing.JTextField jTextfieldS, int pos) {
-        String cadena = (jTextfieldS.getText()).toUpperCase();
-        jTextfieldS.setText(cadena);
-        jTextfieldS.setCaretPosition(pos);
-    }
-    public void convertiraMayusculasEnJtextArea(javax.swing.JTextArea jTextAreaS, int pos) {
-        String cadena = (jTextAreaS.getText()).toUpperCase();
-        jTextAreaS.setText(cadena);
-        jTextAreaS.setCaretPosition(pos);
-    }
 
     /**
      * @param args the command line arguments
