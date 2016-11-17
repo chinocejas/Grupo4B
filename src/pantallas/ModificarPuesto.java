@@ -33,16 +33,17 @@ public class ModificarPuesto extends javax.swing.JFrame {
 
     //pido la instancia de gestor de puestos
     GestorPuesto gestorPuesto = GestorPuesto.getInstance();
-    
+
     //pido la instancia de gestor de validaciones de pantalla
     GestorValidacionesPantalla gestorValidacionesPantalla = GestorValidacionesPantalla.getInstance();
-    
+
     //declaro una variable de puesto global para ser visible en las acciones de los botones
     //SE PUEDE BUSCAR OTRA MANERA
     Puesto puestoAux;
+    boolean puestoEnUso;
 
     public ModificarPuesto() {
-        
+
     }
 
     public ModificarPuesto(Puesto puesto) {
@@ -52,14 +53,14 @@ public class ModificarPuesto extends javax.swing.JFrame {
         lista.setModel(modeloLista);
         tabla.setModel(modeloTabla);
         tabla.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        
+
         //puestoEnUso= true -> el puesto tiene puestosCopias asociados y esta en uso (no se pueden modificar las competencias)
         //puestoEnUso= false -> el puesto no esta en uso y se pueden modificar las competencias
-        boolean puestoEnUso = gestorPuesto.verificarPuestoEnUso(puesto.getIdPuesto());
+        puestoEnUso = gestorPuesto.verificarPuestoEnUso(puesto.getIdPuesto());
 
         //COPIO EL PUESTO PASADO POR PARAMETRO A OTRO AUX PARA TENER VISIBILIDAD GLOBAL
         //SE PUEDE CAMBIAR
-        puestoAux= puesto;
+        puestoAux = puesto;
         //muestro por pantalla el codigo no editable pasandolo a string previamente
         txtCodigo.setText(String.valueOf(puesto.getIdPuesto()));
         //muestro el resto de datos por pantalla
@@ -76,9 +77,7 @@ public class ModificarPuesto extends javax.swing.JFrame {
 
 //allCompetencias solo se usa para cargar modeloLista, despues se maneja todo con la lista dentro de modeloLista
         List allCompetencias = gestorCompetencia.allCompetenciasOrdenadasPorNombre();
-        
-        
-      
+
         int ponderacion;
         int idCompetencia;
         Competencia competencia;
@@ -98,7 +97,7 @@ public class ModificarPuesto extends javax.swing.JFrame {
             //muestro por pantalla la ponderacion al lado de la competencia
             modeloTabla.setValueAt(ponderacion, i, 0); //ni idea porque con i inserta en el lugar correcto   
         }
-        
+
         //le borro a la lista de competencias originales las que ya estan cargadas en el puesto para que no se muestren repetidas 
         Competencia comp;
         int idCompPuesto;
@@ -106,20 +105,20 @@ public class ModificarPuesto extends javax.swing.JFrame {
         //comparo la primer competencia de competenciasSeleccionadas (las del puesto) con todas las de allCompetencias (las originales)
         //cuando encuentro la coincidencia de ids, borro la competencia de la lista allCompetencias y
         //borro la primer competencia de competenciasSeleccionadas para poder salir del while cuando se vacie esta lista
-        while(!competenciasSeleccionadas.isEmpty()){
-            comp= (Competencia) competenciasSeleccionadas.get(0);
-            idCompPuesto=comp.getIdCompetencia();
-            for(int i=0; i<allCompetencias.size(); i++){
-                comp= (Competencia) allCompetencias.get(i);
-                idCompOriginal= comp.getIdCompetencia();
-                if(idCompPuesto==idCompOriginal){
+        while (!competenciasSeleccionadas.isEmpty()) {
+            comp = (Competencia) competenciasSeleccionadas.get(0);
+            idCompPuesto = comp.getIdCompetencia();
+            for (int i = 0; i < allCompetencias.size(); i++) {
+                comp = (Competencia) allCompetencias.get(i);
+                idCompOriginal = comp.getIdCompetencia();
+                if (idCompPuesto == idCompOriginal) {
                     allCompetencias.remove(i);
                     //no me importa vaciar la lista competenciasSeleccionadas porque ya no se usa (las competencias del puesto estan en la lista data de modeloTabla)
                     competenciasSeleccionadas.remove(0);
                 }
             }
         }
-        
+
         //completo la tabla izq con las competencias originales menos las que ya estan en el puesto (borradas arriba)
         for (int i = 0; i < allCompetencias.size(); i++) {
             competencia = (Competencia) allCompetencias.get(i);
@@ -363,23 +362,6 @@ public class ModificarPuesto extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(58, 58, 58)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(7, 7, 7)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGap(31, 31, 31)
-                                    .addComponent(btnAdd))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGap(31, 31, 31)
-                                    .addComponent(btnRemove))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGap(11, 11, 11)
-                                    .addComponent(btnAddAll, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(btnRemoveAll))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(58, 58, 58)
@@ -407,13 +389,30 @@ public class ModificarPuesto extends javax.swing.JFrame {
                                 .addGap(370, 370, 370)
                                 .addComponent(jLabel3))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(185, 185, 185)
-                                .addComponent(campoTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 664, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(246, 246, 246)
                                 .addComponent(aceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(237, 237, 237)
-                                .addComponent(cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(58, 58, 58)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(campoTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 890, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(7, 7, 7)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addGap(31, 31, 31)
+                                            .addComponent(btnAdd))
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addGap(31, 31, 31)
+                                            .addComponent(btnRemove))
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addGap(11, 11, 11)
+                                            .addComponent(btnAddAll, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(btnRemoveAll))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(330, 330, 330)
                         .addComponent(jLabel1)))
@@ -481,15 +480,15 @@ public class ModificarPuesto extends javax.swing.JFrame {
 
         //convierto a set la lista guardada en modeloTabla con las competencias seleccionadas para persistirlas en la bs 
         Set<Competencia> competencias = new HashSet<Competencia>(modeloTabla.getListaCompetencias());
-        int resultado= gestorPuesto.modificarPuesto(puestoAux, txtNombre.getText(), txtEmpresa.getText(), txtDescripcion.getText(), competencias, modeloTabla.getListaPonderacion());
- /* 1: todo correcto
+        int resultado = gestorPuesto.modificarPuesto(puestoAux, txtNombre.getText(), txtEmpresa.getText(), txtDescripcion.getText(), competencias, modeloTabla.getListaPonderacion());
+        /* 1: todo correcto
            2: ponderaciones vacias
            3: ponderaciones fuera de rango (0-10)
            4: campos en blanco
            5: sin al menos una competencia seleccionada
            6: el nombre ya esta en uso
-        */
-        
+         */
+
         switch (resultado) {
             //todo correcto
             case 1:
@@ -508,34 +507,36 @@ public class ModificarPuesto extends javax.swing.JFrame {
             case 3:
                 campoTexto.setText("Las ponderaciones deben ser valores entre 0 y 10");
                 break;
-                
-           //nombre o empresa estan vacios
+
+            //nombre o empresa estan vacios
             case 4:
                 campoTexto.setText("Algunos campos se encuentran en blanco");
-                if (txtEmpresa.getText().equals("")){
+                if (txtEmpresa.getText().equals("")) {
                     txtEmpresa.requestFocus();
                     txtEmpresa.setBackground(java.awt.Color.RED);
                 }
-                if (txtDescripcion.getText().equals("")){
+                if (txtDescripcion.getText().equals("")) {
                     txtDescripcion.requestFocus();
                     txtDescripcion.setBackground(java.awt.Color.RED);
                 }
-                if (txtNombre.getText().equals("")){
+                if (txtNombre.getText().equals("")) {
                     txtNombre.requestFocus();
                     txtNombre.setBackground(java.awt.Color.red);
                 }
                 break;
-                
+
             //sin al menos una competencia seleccionada
             case 5:
                 campoTexto.setText("Seleccione al menos una competencia");
                 lista.setForeground(java.awt.Color.red);
                 break;
-            
-             //sin al menos una competencia seleccionada
+
+            //sin al menos una competencia seleccionada
             case 6:
                 campoTexto.setText("El nombre del puesto ya esta en uso");
-                break; 
+                txtNombre.requestFocus();
+                txtNombre.setBackground(java.awt.Color.red);
+                break;
         }
     }//GEN-LAST:event_aceptarActionPerformed
 
@@ -555,46 +556,61 @@ public class ModificarPuesto extends javax.swing.JFrame {
     }//GEN-LAST:event_listaComponentAdded
 
     private void btnRemoveAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveAllActionPerformed
-        while (modeloTabla.getRowCount() != 0) { //se va a ejecutar mientras haya alguna fila en la tabla
-            modeloLista.addCompetencia((Competencia) modeloTabla.getCompetencia(0));
-            modeloTabla.deleteRow(0);
+        if (!puestoEnUso) { //significa que se pueden agregar/quitar competencias porq el puesto no esta en uso
+            while (modeloTabla.getRowCount() != 0) { //se va a ejecutar mientras haya alguna fila en la tabla
+                modeloLista.addCompetencia((Competencia) modeloTabla.getCompetencia(0));
+                modeloTabla.deleteRow(0);
+            }
+        } else {
+            campoTexto.setText("No es posible quitar competencias debido a que hay cuestionarios generados para este puesto");
         }
     }//GEN-LAST:event_btnRemoveAllActionPerformed
 
     private void btnAddAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddAllActionPerformed
-        while (modeloLista.getSize() != 0) {
-            Competencia competencia = modeloLista.getCompetencia(0);
-            modeloTabla.addCompetencia(competencia);
-            modeloLista.eliminarCompetencia(0);
+        if (!puestoEnUso) { //significa que se pueden agregar/quitar competencias porq el puesto no esta en uso
+            while (modeloLista.getSize() != 0) {
+                Competencia competencia = modeloLista.getCompetencia(0);
+                modeloTabla.addCompetencia(competencia);
+                modeloLista.eliminarCompetencia(0);
+            }
+        } else {
+            campoTexto.setText("No es posible agregar competencias debido a que hay cuestionarios generados para este puesto");
         }
     }//GEN-LAST:event_btnAddAllActionPerformed
 
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
-        //original para lista: if ((l2.getSelectedValue() == null) || (l2.getSelectedValue().equals("-1")) || l1.getComponentCount()==0) 
-        if ((tabla.getSelectedRow() == -1)) {
-            campoTexto.setText("Seleccione un elemento antes de presionar el boton");
-        } else {
-            campoTexto.setText("");
-            /* original para lista 
+        if (!puestoEnUso) { //significa que se pueden agregar/quitar competencias porq el puesto no esta en uso
+            if ((tabla.getSelectedRow() == -1)) {
+                campoTexto.setText("Seleccione un elemento antes de presionar el boton");
+            } else {
+                campoTexto.setText("");
+                /* original para lista 
             String aux = ModeloTabla.getSelectedValue();
             modelol1.addCompetencia(aux);
             modelol2.remove(tabla.getSelectedIndex());*/
-            int row = tabla.getSelectedRow();
-            Competencia competencia = modeloTabla.getCompetencia(row);
-            modeloLista.addCompetencia(competencia);
-            modeloTabla.deleteRow(row);
+                int row = tabla.getSelectedRow();
+                Competencia competencia = modeloTabla.getCompetencia(row);
+                modeloLista.addCompetencia(competencia);
+                modeloTabla.deleteRow(row);
+            }
+        } else {
+            campoTexto.setText("No es posible quitar competencias debido a que hay cuestionarios generados para este puesto");
         }
     }//GEN-LAST:event_btnRemoveActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        if (lista.getSelectedValue() != null || lista.getComponentCount() == 0) {
-            campoTexto.setText("");
-            // String aux = lista.getSelectedValue();
-            Competencia competencia = modeloLista.getCompetencia(lista.getSelectedIndex());
-            modeloTabla.addCompetencia(competencia);
-            modeloLista.eliminarCompetencia(lista.getSelectedIndex());
+        if (!puestoEnUso) { //significa que se pueden agregar/quitar competencias porq el puesto no esta en uso
+            if (lista.getSelectedValue() != null || lista.getComponentCount() == 0) {
+                campoTexto.setText("");
+                // String aux = lista.getSelectedValue();
+                Competencia competencia = modeloLista.getCompetencia(lista.getSelectedIndex());
+                modeloTabla.addCompetencia(competencia);
+                modeloLista.eliminarCompetencia(lista.getSelectedIndex());
+            } else {
+                campoTexto.setText("Seleccione un elemento antes de presionar el boton");
+            }
         } else {
-            campoTexto.setText("Seleccione un elemento antes de presionar el boton");
+            campoTexto.setText("No es posible agregar competencias debido a que hay cuestionarios generados para este puesto");
         }
     }//GEN-LAST:event_btnAddActionPerformed
 
@@ -757,22 +773,22 @@ public class ModificarPuesto extends javax.swing.JFrame {
         @Override
         // Cambia el valor que contiene una determinada casilla de la tabla
         public void setValueAt(Object value, int row, int col) {
-            
-            
-            
+
             if (value.getClass() == String.class) {
                 //si entra el valor por pantalla viene un string
-                String c = (String)value;
-            Integer valorNumerico = null;
-            if (c.matches("[0-9]*")) {
-                valorNumerico = Integer.parseInt(c);
-                if (valorNumerico >= 0 && valorNumerico <= 10) {
-                    ponderacion.set(row, valorNumerico);
+                String c = (String) value;
+                Integer valorNumerico = null;
+                if (c.matches("[0-9]*")) {
+                    valorNumerico = Integer.parseInt(c);
+                    if (valorNumerico >= 0 && valorNumerico <= 10) {
+                        ponderacion.set(row, valorNumerico);
+                    } else {
+                        campoTexto.setText("La ponderacion debe estar entre 0 y 10");
+                    }
+
+                } else {
+                    campoTexto.setText("El campo ponderacion debe ser numerico entre 0 y 10");
                 }
-                 else {campoTexto.setText("La ponderacion debe estar entre 0 y 10");}
-                       
-            }
-            else {campoTexto.setText("El campo ponderacion debe ser numerico entre 0 y 10");}
                 /*valorNumerico = Integer.parseInt((String) value);
                 ponderacion.set(row, valorNumerico);*/
             } else {

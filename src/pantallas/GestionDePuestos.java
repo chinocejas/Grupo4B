@@ -331,15 +331,15 @@ public class GestionDePuestos extends javax.swing.JFrame {
                                 .addComponent(txtMensajeBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(trabajarAcaLayout.createSequentialGroup()
-                        .addGap(0, 170, Short.MAX_VALUE)
-                        .addGroup(trabajarAcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(nuevo)
-                            .addGroup(trabajarAcaLayout.createSequentialGroup()
-                                .addComponent(txtMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(29, 29, 29)
-                                .addComponent(modificar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(eliminar)))))
+                        .addGap(0, 695, Short.MAX_VALUE)
+                        .addComponent(nuevo))
+                    .addGroup(trabajarAcaLayout.createSequentialGroup()
+                        .addGap(151, 151, 151)
+                        .addComponent(txtMensaje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(modificar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(eliminar)))
                 .addContainerGap())
         );
         trabajarAcaLayout.setVerticalGroup(
@@ -521,7 +521,7 @@ public class GestionDePuestos extends javax.swing.JFrame {
             dispose();
        }
        else
-           txtMensaje.setText("No hay ningun puesto seleccionado"); 
+           txtMensaje.setText("Seleccione el puesto que desea modificar"); 
     }//GEN-LAST:event_modificarActionPerformed
 
     private void volverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_volverMouseClicked

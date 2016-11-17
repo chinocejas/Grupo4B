@@ -248,7 +248,7 @@ public class GestorPuesto {
         //nombreUnico=0 -> nombre en uso
         //nombreUnico= 1 ->el nombre esta libre
         
-        int nombreUnico=puestoDao.verificarNombrePuestoUnicoParaModificarPuesto(nombre, idPuesto);
+        int nombreUnico=puestoDao.verificarNombrePuestoUnico(nombre, idPuesto);
         
         if(nombreUnico==0)
             retorno=6;
@@ -276,10 +276,13 @@ public class GestorPuesto {
         return retorno;
     }
     
-    //QUIZAS DEBA IR EN UN GESTORpUESTOcOPIA
+    
     public boolean verificarPuestoEnUso(int idPuesto){
-       // List<PuestoCopia> puestosCopias = puestoDao.buscarPuestoCopia(idPuesto);
-        return false;
+        boolean retorno=true;
+       List<PuestoCopia> puestosCopias = puestoDao.buscarPuestoCopia(idPuesto);
+       if(puestosCopias.isEmpty())
+           retorno=false;
+        return retorno;
     }
 
     //metodos para actualizar la ponderacion en la tabla union entre puesto y competencia //////////////

@@ -215,7 +215,8 @@ public class PuestoDaoHibernate extends AbstractDao {
 
     }
     
-     public int verificarNombrePuestoUnicoParaModificarPuesto(String nombre, int idPuesto){
+    //para modificar puesto, paso idPuesto para que excluya el puesto que ese esta modificando de la busqueda y no me impida seguir con el mismo nombre si no lo quiero modificar
+     public int verificarNombrePuestoUnico(String nombre, int idPuesto){
         Integer retorno;
            Puesto puesto = null;
         try {
@@ -243,8 +244,25 @@ public class PuestoDaoHibernate extends AbstractDao {
         return retorno;
 
     }
-    
-
+     
+      public List<PuestoCopia> buscarPuestoCopia(int idPuestoOriginal) {
+        
+         List objects = null;
+        try {
+            startOperation();
+            Query query;
+            query = session.createQuery("from PuestoCopia WHERE id_puesto_original = :idPuestoOriginal");     
+            query.setParameter("idPuestoOriginal", idPuestoOriginal);
+            objects = query.list();
+            tx.commit();
+        } catch (HibernateException e) {
+            handleException(e);
+        } finally {
+            HibernateFactory.close(session);
+        }
+        return objects;
+    }
+   
     //metodos para actualizar la ponderacion en la tabla union entre puesto y competencia
     
      public void actualizarPuntajesCompetencias(int idPuesto, List<Competencia> competencias, List<Integer> puntajes){
