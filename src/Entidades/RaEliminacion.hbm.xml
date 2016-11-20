@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 19/11/2016 22:59:27 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Entidades.RaEliminacion" table="ra_eliminacion" schema="public" optimistic-lock="version">
+        <id name="idRaEliminacion" type="int">
+            <column name="id_ra_eliminacion" />
+            <generator class="sequence">
+                <param name="sequence">ra_eliminacion_id_seq</param>
+            </generator>
+        </id>
+        <many-to-one name="consultor" class="Entidades.Consultor" fetch="select">
+            <column name="id_consultor" />
+        </many-to-one>
+        <property name="fecha" type="date">
+            <column name="fecha" length="13" />
+        </property>
+        <property name="objetoBorrado" type="string">
+            <column name="objeto_borrado" length="500" />
+        </property>
+    </class>
+</hibernate-mapping>

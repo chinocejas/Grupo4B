@@ -15,6 +15,8 @@ import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.YES_NO_OPTION;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
@@ -29,6 +31,8 @@ public class GestionDePuestos extends javax.swing.JFrame {
     
     //pido la instancia de gestor de validaciones de pantalla
     GestorValidacionesPantalla gestorValidacionesPantalla = GestorValidacionesPantalla.getInstance();
+     //pido la instancia de gestor de puestos
+    GestorPuesto gestorPuesto = GestorPuesto.getInstance();
     
     public GestionDePuestos() {
         initComponents();
@@ -501,7 +505,37 @@ public class GestionDePuestos extends javax.swing.JFrame {
     }//GEN-LAST:event_eliminarMouseClicked
 
     private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
-        // TODO add your handling code here:
+        
+        //puestoEnUso= true -> el puesto tiene puestosCopias asociados y esta en uso (no se pueden modificar las competencias)
+        //puestoEnUso= false -> el puesto no esta en uso y se pueden modificar las competencias
+        
+        Integer filaSeleccionada = tabla.getSelectedRow();
+        //si no hay una fila seleccionada filaSeleccionada= -1 por default
+        if (filaSeleccionada != -1) {
+            Puesto puesto = modeloTabla.getPuesto(tabla.getSelectedRow());
+            boolean puestoEnUso = gestorPuesto.verificarPuestoEnUso(puesto.getIdPuesto());
+        if(puestoEnUso){
+            JOptionPane.showMessageDialog(null, "El puesto " + puesto.getNombrePuesto() +" está siendo usado en la base de datos y no puede eliminarse");
+        }
+        else{
+
+            int reply = JOptionPane.showOptionDialog(null,"Los datos del puesto " + puesto.getNombrePuesto() + " serán eliminados del sistema","CONFIRMAR ELIMINACIÓN", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[]{"Eliminar", "Cancelar"}, "Cancelar" );
+            
+            //int reply = JOptionPane.showConfirmDialog(null, "Los datos del puesto " + puesto.getNombrePuesto() + " serán eliminados del sistema", "", YES_NO_OPTION);
+               if (reply == JOptionPane.YES_OPTION)        
+                {
+                    System.out.print("puesto eliminado");
+                 }
+        
+        }
+        
+        
+        
+        } else {
+            txtMensaje.setText("Seleccione el puesto que desea eliminar");
+        }
+
+
     }//GEN-LAST:event_eliminarActionPerformed
 
     private void modificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modificarMouseClicked
@@ -511,7 +545,6 @@ public class GestionDePuestos extends javax.swing.JFrame {
     private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
 
        //http://www.lawebdelprogramador.com/foros/Java/719076-Obtener-el-valor-de-una-celda-el-JTABLE.html
-       //aca capturo el primer dato de la celda seleccionada en la columna cero (tiene el codigo)
        Integer filaSeleccionada= tabla.getSelectedRow();
        //si no hay una fila seleccionada filaSeleccionada= -1 por default
         if (filaSeleccionada != -1) {
