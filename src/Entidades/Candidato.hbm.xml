@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 21-nov-2016 16:04:04 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Entidades.Candidato" table="candidato" schema="public" optimistic-lock="version">
+        <id name="idCandidato" type="int">
+            <column name="id_candidato" />
+            <generator class="assigned" />
+        </id>
+        <property name="numeroDocumento" type="java.lang.Integer">
+            <column name="numero_documento" />
+        </property>
+        <property name="tipoDocumento" type="string">
+            <column name="tipo_documento" length="500" />
+        </property>
+        <property name="nombreApellido" type="string">
+            <column name="nombre_apellido" length="500" />
+        </property>
+        <property name="fechaNacimiento" type="date">
+            <column name="fecha_nacimiento" length="13" />
+        </property>
+        <property name="genero" type="string">
+            <column name="genero" length="500" />
+        </property>
+        <property name="nacionalidad" type="string">
+            <column name="nacionalidad" length="500" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="500" />
+        </property>
+        <property name="escolaridad" type="string">
+            <column name="escolaridad" length="500" />
+        </property>
+        <property name="eliminado" type="java.lang.Boolean">
+            <column name="eliminado" />
+        </property>
+        <set name="cuestionarios" table="cuestionario" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_candidato" />
+            </key>
+            <one-to-many class="Entidades.Cuestionario" />
+        </set>
+    </class>
+</hibernate-mapping>

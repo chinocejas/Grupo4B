@@ -3,6 +3,8 @@
   <persistence-unit name="pantallaPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>Entidades.RaEliminacion</class>
+    <class>Entidades.Candidato</class>
+    <class>Entidades.Cuestionario</class>
     <properties>
       <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/postgres"/>

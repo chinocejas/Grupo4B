@@ -7,7 +7,7 @@
         <id name="idRaEliminacion" type="int">
             <column name="id_ra_eliminacion" />
             <generator class="sequence">
-                <param name="sequence">ra_eliminacion_id_seq</param>
+                <param name="sequence">id_ra_eliminacion</param>
             </generator>
         </id>
         <many-to-one name="consultor" class="Entidades.Consultor" fetch="select">

@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 21-nov-2016 16:04:04 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Entidades.Cuestionario" table="cuestionario" schema="public" optimistic-lock="version">
+        <id name="idCuestionario" type="int">
+            <column name="id_cuestionario" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="candidato" class="Entidades.Candidato" fetch="select">
+            <column name="id_candidato" />
+        </many-to-one>
+        <many-to-one name="puestoCopia" class="Entidades.PuestoCopia" fetch="select">
+            <column name="id_puesto_copia" />
+        </many-to-one>
+        <property name="preguntasContestadas" type="java.lang.Integer">
+            <column name="preguntas_contestadas" />
+        </property>
+        <property name="cantidadAccesos" type="java.lang.Integer">
+            <column name="cantidad_accesos" />
+        </property>
+        <property name="fechaCreacion" type="date">
+            <column name="fecha_creacion" length="13" />
+        </property>
+        <property name="fechaInicio" type="date">
+            <column name="fecha_inicio" length="13" />
+        </property>
+        <property name="fechaUltimoIngreso" type="date">
+            <column name="fecha_ultimo_ingreso" length="13" />
+        </property>
+        <property name="fechaFinalizacion" type="date">
+            <column name="fecha_finalizacion" length="13" />
+        </property>
+        <property name="clave" type="string">
+            <column name="clave" length="8" />
+        </property>
+        <property name="tiempoMaximo" type="java.lang.Integer">
+            <column name="tiempo_maximo" />
+        </property>
+    </class>
+</hibernate-mapping>
