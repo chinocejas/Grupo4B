@@ -26,12 +26,25 @@ public class GestorEliminacion {
         return GestorEliminacionHolder.INSTANCE;
     }
 
-    public void generarRegistroAuditoria(Puesto puesto, Consultor consultor, Date fechaActual) {
+    public void generarRegistroAuditoria(Object obj, Consultor consultor, Date fechaActual) {
+        
         RaEliminacion raEliminacion= new RaEliminacion();
-        raEliminacion.setObjetoEliminado(puesto);
+        raEliminacion.setObjetoEliminado(obj);
         raEliminacion.setConsultor(consultor);
         raEliminacion.setFecha(fechaActual);
-        raEliminacion.setObjetoBorrado("puesto");
+        String objetoString= obj.getClass().getSimpleName();
+        System.out.print("clase nombre "+ objetoString);
+        switch(objetoString){
+            case "Puesto":
+       
+                raEliminacion.setObjetoBorrado("PUESTO");
+                break;
+            case "Competencia":
+                raEliminacion.setObjetoBorrado("COMPETENCIA");
+                break;
+                
+                //completar para factor, pregunta,...
+        }
         daoEliminacion.save(raEliminacion);
         
     }

@@ -4,6 +4,7 @@
  */
 package Dao;
 
+import Entidades.Competencia;
 import Entidades.Puesto;
 import Entidades.RaEliminacion;
 import java.util.List;
@@ -33,36 +34,36 @@ public class DaoEliminacion extends AbstractDao {
             
             //se coloca la clave foranea donde corresponde (depende de si se borra un puesto, competencia,...
             int idRaEliminacion= raEliminacion.getIdRaEliminacion();
-            Puesto puesto= (Puesto) raEliminacion.getObjetoEliminado();
-            int idPuesto = puesto.getIdPuesto();
+            Query query;
+            switch(raEliminacion.getObjetoBorrado()){
+                 case "PUESTO":
+                     Puesto puesto = (Puesto) raEliminacion.getObjetoEliminado();
+                     int idPuesto = puesto.getIdPuesto();
 
-            Query query=session.createQuery("UPDATE RaEliminacion SET id_puesto = :idPuesto WHERE id_ra_eliminacion = :idRaEliminacion");    
-            query.setParameter("idPuesto", idPuesto);
-            query.setParameter("idRaEliminacion", idRaEliminacion);
-            query.executeUpdate();
-            
-            tx.commit();
-        } catch (HibernateException e) {
-            handleException(e);
-        } finally {
-            HibernateFactory.close(session);
-        }
- 
-         
-        // https://docs.jboss.org/hibernate/orm/3.5/reference/es-ES/html/batch.html
-        // 14.4. Operaciones de estilo DML
-         
-        try {
-            startOperation();
-           
-            int idRaEliminacion= raEliminacion.getIdRaEliminacion();
-            Puesto puesto= (Puesto) raEliminacion.getObjetoEliminado();
-            int idPuesto = puesto.getIdPuesto();
+                     query = session.createQuery("UPDATE RaEliminacion SET id_puesto = :idPuesto WHERE id_ra_eliminacion = :idRaEliminacion");
+                     query.setParameter("idPuesto", idPuesto);
+                     query.setParameter("idRaEliminacion", idRaEliminacion);
+                     query.executeUpdate();
+                     break;
+                 case "COMPETENCIA":
+                     Competencia competencia = (Competencia) raEliminacion.getObjetoEliminado();
+                     int idCompetencia = competencia.getIdCompetencia();
 
-            Query query=session.createQuery("UPDATE RaEliminacion SET id_puesto = :idPuesto WHERE id_ra_eliminacion = :idRaEliminacion");    
-            query.setParameter("idPuesto", idPuesto);
-            query.setParameter("idRaEliminacion", idRaEliminacion);
-            query.executeUpdate();
+                     query = session.createQuery("UPDATE RaEliminacion SET id_competencia = :idCompetencia WHERE id_ra_eliminacion = :idRaEliminacion");
+                     query.setParameter("idCompetencia", idCompetencia);
+                     query.setParameter("idRaEliminacion", idRaEliminacion);
+                     query.executeUpdate();
+                     break;
+                     
+                     //completar para todo lo que se puede borrar y probar!
+                 case "FACTOR":
+                     break;
+                     
+                     //case opc-respuesta
+                     //case pregunta
+                     
+             }
+
             tx.commit();
         } catch (HibernateException e) {
             handleException(e);
