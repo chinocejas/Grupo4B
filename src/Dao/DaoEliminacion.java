@@ -27,37 +27,42 @@ public class DaoEliminacion extends AbstractDao {
     public void save(RaEliminacion raEliminacion) throws DataAccessLayerException {
          try {
             startOperation();
+            
+            //guarda la instancia
             session.persist(raEliminacion);
+            
+            //se coloca la clave foranea donde corresponde (depende de si se borra un puesto, competencia,...
+            int idRaEliminacion= raEliminacion.getIdRaEliminacion();
+            Puesto puesto= (Puesto) raEliminacion.getObjetoEliminado();
+            int idPuesto = puesto.getIdPuesto();
+
+            Query query=session.createQuery("UPDATE RaEliminacion SET id_puesto = :idPuesto WHERE id_ra_eliminacion = :idRaEliminacion");    
+            query.setParameter("idPuesto", idPuesto);
+            query.setParameter("idRaEliminacion", idRaEliminacion);
+            query.executeUpdate();
+            
             tx.commit();
         } catch (HibernateException e) {
             handleException(e);
         } finally {
             HibernateFactory.close(session);
         }
+ 
          
-        
-
-        /*String hqlUpdate = "update Customer c set c.name = :newName where c.name = :oldName";
-// or String hqlUpdate = "update Customer set name = :newName where name = :oldName";
-        int updatedEntities = s.createQuery(hqlUpdate)
-               
-                .executeUpdate();
-        tx.commit();
-        session.close();
-         */
+        // https://docs.jboss.org/hibernate/orm/3.5/reference/es-ES/html/batch.html
+        // 14.4. Operaciones de estilo DML
          
         try {
             startOperation();
            
             int idRaEliminacion= raEliminacion.getIdRaEliminacion();
-            System.out.print("idRaeliminacion  "  + idRaEliminacion);
             Puesto puesto= (Puesto) raEliminacion.getObjetoEliminado();
             int idPuesto = puesto.getIdPuesto();
-            System.out.print("\n\nidpuesto "  + idPuesto);
-            Query query=session.createQuery("UPDATE ra_eliminacion SET id_puesto = 4 WHERE id_ra_eliminacion = 9");
+
+            Query query=session.createQuery("UPDATE RaEliminacion SET id_puesto = :idPuesto WHERE id_ra_eliminacion = :idRaEliminacion");    
+            query.setParameter("idPuesto", idPuesto);
+            query.setParameter("idRaEliminacion", idRaEliminacion);
             query.executeUpdate();
-            //query.setParameter("idPuesto", idPuesto);
-            //query.setParameter("idRaEliminacion", idRaEliminacion);
             tx.commit();
         } catch (HibernateException e) {
             handleException(e);
