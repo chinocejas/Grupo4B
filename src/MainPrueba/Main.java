@@ -23,7 +23,7 @@ public class Main {
     public static void main(String[] args) {
        ArrayList<Competencia> data = new ArrayList<Competencia>();
         data= (ArrayList<Competencia>) GestorCompetencia.getInstance().allCompetenciasOrdenadasPorNombre();
-        Competencia competencia= data.get(0);
+        Competencia competencia= data.get(2);
     Consultor consultor = GestorConsultor.getInstance().getConsultor();
                     Date fechaActual = new Date();
                     DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");

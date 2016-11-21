@@ -535,7 +535,7 @@ public class GestionDePuestos extends javax.swing.JFrame {
                     Date fechaActual = new Date();
                     DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
                     hourdateFormat.format(fechaActual);
-                    System.out.println("Hora y fecha: " + fechaActual);
+                    //System.out.println("Hora y fecha: " + fechaActual);
                     GestorEliminacion gestorEliminacion = GestorEliminacion.getInstance();
                     gestorEliminacion.generarRegistroAuditoria(puesto, consultor, fechaActual);
                 }

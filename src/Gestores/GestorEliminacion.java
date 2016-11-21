@@ -33,7 +33,7 @@ public class GestorEliminacion {
         raEliminacion.setConsultor(consultor);
         raEliminacion.setFecha(fechaActual);
         String objetoString= obj.getClass().getSimpleName();
-        System.out.print("clase nombre "+ objetoString);
+        
         switch(objetoString){
             case "Puesto":
        
