@@ -232,6 +232,10 @@ public class Inicio extends javax.swing.JFrame {
 
     private void botonCandidatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCandidatoActionPerformed
         // TODO add your handling code here:
+        CompletarQuest obj= new CompletarQuest();
+        obj.cargaCuestionario();
+        obj.setVisible(true);
+        dispose();
     }//GEN-LAST:event_botonCandidatoActionPerformed
 
     private void botonConsultorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_botonConsultorKeyPressed

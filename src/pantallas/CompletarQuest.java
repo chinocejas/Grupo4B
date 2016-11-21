@@ -4,6 +4,10 @@
  * and open the template in the editor.
  */
 package pantallas;
+import Gestores.GestorCuestionario;
+import java.util.List;
+import Entidades.*;
+import java.util.ArrayList;
 
 
 /**
@@ -194,6 +198,7 @@ public class CompletarQuest extends javax.swing.JFrame {
 
         centroInterior.add(abajoInterior, java.awt.BorderLayout.PAGE_END);
 
+        instrucciones.setEditable(false);
         instrucciones.setColumns(20);
         instrucciones.setRows(5);
         jScrollPane1.setViewportView(instrucciones);
@@ -208,11 +213,28 @@ public class CompletarQuest extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    // Carga Candidato
+    
     private void aceptarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarBtnActionPerformed
-        // TODO add your handling code here:
+        
+        
     }//GEN-LAST:event_aceptarBtnActionPerformed
-
+    public void cargaCuestionario(){
+        // Carga Candidato:
+        
+        GestorCuestionario gestorCuestionario = GestorCuestionario.getInstance();
+        List cueList = null;
+        Cuestionario s;
+        cueList = gestorCuestionario.findQuest();
+        
+        s = (Cuestionario) cueList.get(0);
+        
+       
+        
+        candidatoName.setText("Candidato: " + s.getCandidato().getNombreApellido());
+        candidatoDNI.setText("DNI: "+ s.getCandidato().getNumeroDocumento().toString());
+    
+    }
     private void volverBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_volverBtnActionPerformed
