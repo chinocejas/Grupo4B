@@ -7,6 +7,7 @@ package Dao;
 import Entidades.Competencia;
 import Entidades.Puesto;
 import Entidades.RaEliminacion;
+import static java.lang.Boolean.TRUE;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -25,7 +26,7 @@ public class DaoEliminacion extends AbstractDao {
      * Insert a new Usuario into the database.
      * @param usuario
      */
-    public void save(RaEliminacion raEliminacion) throws DataAccessLayerException {
+    public void saveRaEliminacion(RaEliminacion raEliminacion) throws DataAccessLayerException {
          try {
             startOperation();
             
@@ -76,17 +77,11 @@ public class DaoEliminacion extends AbstractDao {
      * Updates a new Usuario into the database.
      * @param usuario
      */
-    public void update(RaEliminacion raEliminacion) throws DataAccessLayerException {
-        super.update(raEliminacion);
+    public void update(Object obj) throws DataAccessLayerException {
+        super.update(obj);
     }
 
-    /**
-     * Delete a detached Usuario from the database.
-     * @param usuario
-     */
-    public void delete(RaEliminacion raEliminacion) throws DataAccessLayerException {
-        super.delete(raEliminacion);
-    }
+  
 
     /**
      * Find an Event by its primary key.
@@ -104,5 +99,10 @@ public class DaoEliminacion extends AbstractDao {
      */
     public List findAll() throws DataAccessLayerException {
         return super.findAll(RaEliminacion.class);
+    }
+
+    public void deleteLogic(Object obj) {
+        //completarr!
+        
     }
 }
