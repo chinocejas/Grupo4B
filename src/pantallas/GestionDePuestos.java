@@ -6,14 +6,21 @@
 package pantallas;
 
 import Entidades.Competencia;
+import Entidades.Consultor;
 import Entidades.Puesto;
+import Gestores.GestorConsultor;
+import Gestores.GestorEliminacion;
 import Gestores.GestorPuesto;
 import Gestores.GestorValidacionesPantalla;
 import VentanasEmergentes.PopUps;
+import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.YES_NO_OPTION;
@@ -524,10 +531,16 @@ public class GestionDePuestos extends javax.swing.JFrame {
             //int reply = JOptionPane.showConfirmDialog(null, "Los datos del puesto " + puesto.getNombrePuesto() + " serán eliminados del sistema", "", YES_NO_OPTION);
                if (reply == JOptionPane.YES_OPTION)        
                 {
-                    System.out.print("puesto eliminado");
-                 }
-        
-        }
+                    Consultor consultor = GestorConsultor.getInstance().getConsultor();
+                    Date fechaActual = new Date();
+                    DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
+                    hourdateFormat.format(fechaActual);
+                    System.out.println("Hora y fecha: " + fechaActual);
+                    GestorEliminacion gestorEliminacion = GestorEliminacion.getInstance();
+                    gestorEliminacion.generarRegistroAuditoria(puesto, consultor, fechaActual);
+                }
+
+            }
         
         
         

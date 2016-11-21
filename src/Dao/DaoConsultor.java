@@ -14,9 +14,9 @@ import org.hibernate.Query;
  *
  * @author Rolando
  */
-public class ConsultorDaoHibernate extends AbstractDao {
+public class DaoConsultor extends AbstractDao {
 
-    public ConsultorDaoHibernate() {
+    public DaoConsultor() {
         super();
     }
 

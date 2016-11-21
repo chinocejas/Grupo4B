@@ -19,9 +19,9 @@ import org.hibernate.Query;
  *
  * @author Rolando
  */
-public class PuestoDaoHibernate extends AbstractDao {
+public class DaoPuesto extends AbstractDao {
 
-    public PuestoDaoHibernate() {
+    public DaoPuesto() {
         super();
     }
 

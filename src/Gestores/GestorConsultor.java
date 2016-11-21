@@ -5,7 +5,7 @@
  */
 package Gestores;
 
-import Dao.ConsultorDaoHibernate;
+import Dao.DaoConsultor;
 import Entidades.Consultor;
 
 //COMPROBAR QUE FUNCIONA COMO SINGLETON!
@@ -31,7 +31,7 @@ public class GestorConsultor {
     
     public int validarConsultor(String username, String password){
       
-        ConsultorDaoHibernate consultorDAO = new ConsultorDaoHibernate();
+        DaoConsultor consultorDAO = new DaoConsultor();
         consultor=consultorDAO.findPorUsernameYClave(username,password);
         
         if(consultor!=null){

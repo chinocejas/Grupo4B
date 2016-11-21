@@ -5,7 +5,7 @@
  */
 package Gestores;
 
-import Dao.CompetenciaDaoHibernate;
+import Dao.DaoCompetencia;
 import Entidades.Puesto;
 import java.util.List;
 
@@ -33,7 +33,7 @@ public class GestorCompetencia {
         List listaCompetencias=null;
         
         
-        CompetenciaDaoHibernate competenciaDAO = new CompetenciaDaoHibernate();
+        DaoCompetencia competenciaDAO = new DaoCompetencia();
         listaCompetencias=competenciaDAO.findAllOrdenadoPorNombre();
         
         return listaCompetencias;

@@ -6,7 +6,7 @@
 package Gestores;
 
 import java.util.List;
-import Dao.PuestoDaoHibernate;
+import Dao.DaoPuesto;
 import Entidades.Competencia;
 import Entidades.Puesto;
 import Entidades.PuestoCompetencia;
@@ -22,7 +22,7 @@ import pantallas.GestionDePuestos;
  */
 public class GestorPuesto {
 
-    PuestoDaoHibernate puestoDao = new PuestoDaoHibernate();
+    DaoPuesto daoPuesto = new DaoPuesto();
 
     private GestorPuesto() {
     }
@@ -40,7 +40,7 @@ public class GestorPuesto {
 
         List listaPuestos = null;
 
-        listaPuestos = puestoDao.findPorCodigoAndPuestoAndEmpresa(codigo, puesto, empresa);
+        listaPuestos = daoPuesto.findPorCodigoAndPuestoAndEmpresa(codigo, puesto, empresa);
 
         for (int a = 0; a < listaPuestos.size(); a++) {
             Puesto puesto2 = (Puesto) listaPuestos.get(a);
@@ -53,7 +53,7 @@ public class GestorPuesto {
 
         List listaPuestos = null;
 
-        listaPuestos = puestoDao.findPorCodigoAndPuestoAndEmpresa();
+        listaPuestos = daoPuesto.findPorCodigoAndPuestoAndEmpresa();
 
         for (int a = 0; a < listaPuestos.size(); a++) {
             Puesto puesto2 = (Puesto) listaPuestos.get(a);
@@ -62,7 +62,7 @@ public class GestorPuesto {
     }
     
     public void guardarPuesto (Puesto puesto, List<Competencia> competencias, List<Integer> ponderaciones ){
-        puestoDao.save(puesto, competencias, ponderaciones);
+        daoPuesto.save(puesto, competencias, ponderaciones);
     }
 
     public int crearPuesto(String nombre, String empresa, String descripcion, List<Competencia> competencias, List<Integer> ponderaciones) {
@@ -168,22 +168,22 @@ public class GestorPuesto {
 
     public void borrarPuesto(Puesto puesto) {
 
-        puestoDao.delete(puesto);
+        daoPuesto.delete(puesto);
     }
 
     public void actualizarPuesto(Puesto puesto, List<Competencia> competencias, List<Integer> ponderaciones ) {
 
-        puestoDao.update(puesto, competencias, ponderaciones);
+        daoPuesto.update(puesto, competencias, ponderaciones);
     }
 
     public Puesto buscarPuesto(int codigo) {
 
         //al metodo find hay que pasarle un long como parametro de busqueda
-        return puestoDao.find(codigo);
+        return daoPuesto.find(codigo);
     }
 
     public int buscarIdNuevoPuesto() {
-        return puestoDao.buscarSecuencia();
+        return daoPuesto.buscarSecuencia();
     }
 
     public int verificacionesAltaPuesto(String nombre, String empresa, String descripcion, List<Integer> pond) {
@@ -203,7 +203,7 @@ public class GestorPuesto {
         //nombreUnico=0 -> nombre en uso
         //nombreUnico= 1 ->el nombre esta libre
         
-        int nombreUnico=puestoDao.verificarNombrePuestoUnico(nombre);
+        int nombreUnico=daoPuesto.verificarNombrePuestoUnico(nombre);
         
         if(nombreUnico==0)
             retorno=6;
@@ -248,7 +248,7 @@ public class GestorPuesto {
         //nombreUnico=0 -> nombre en uso
         //nombreUnico= 1 ->el nombre esta libre
         
-        int nombreUnico=puestoDao.verificarNombrePuestoUnico(nombre, idPuesto);
+        int nombreUnico=daoPuesto.verificarNombrePuestoUnico(nombre, idPuesto);
         
         if(nombreUnico==0)
             retorno=6;
@@ -279,7 +279,7 @@ public class GestorPuesto {
     
     public boolean verificarPuestoEnUso(int idPuesto){
         boolean retorno=true;
-       List<PuestoCopia> puestosCopias = puestoDao.buscarPuestoCopia(idPuesto);
+       List<PuestoCopia> puestosCopias = daoPuesto.buscarPuestoCopia(idPuesto);
        if(puestosCopias.isEmpty())
            retorno=false;
         return retorno;
@@ -287,12 +287,12 @@ public class GestorPuesto {
 
     //metodos para actualizar la ponderacion en la tabla union entre puesto y competencia //////////////
     public void actualizarPuntajesCompetencias(int idPuesto, List<Competencia> competencias, List<Integer> puntajes) {
-        puestoDao.actualizarPuntajesCompetencias(idPuesto, competencias, puntajes);
+        daoPuesto.actualizarPuntajesCompetencias(idPuesto, competencias, puntajes);
     }
 
     public PuestoCompetencia find(Long idPuesto, Long idCompetencia) {
         PuestoCompetencia obj = null;
-        obj = puestoDao.find(idPuesto, idCompetencia);
+        obj = daoPuesto.find(idPuesto, idCompetencia);
         return obj;
     }
 

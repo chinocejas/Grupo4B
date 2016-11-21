@@ -14,9 +14,9 @@ import org.hibernate.Query;
  *
  * @author Rolando
  */
-public class CompetenciaDaoHibernate extends AbstractDao {
+public class DaoCompetencia extends AbstractDao {
 
-    public CompetenciaDaoHibernate() {
+    public DaoCompetencia() {
         super();
     }
 

@@ -13,7 +13,7 @@
         <many-to-one name="consultor" class="Entidades.Consultor" fetch="select">
             <column name="id_consultor" />
         </many-to-one>
-        <property name="fecha" type="date">
+        <property name="fecha" type="timestamp">
             <column name="fecha" length="13" />
         </property>
         <property name="objetoBorrado" type="string">

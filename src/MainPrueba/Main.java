@@ -4,10 +4,10 @@
  */
 package MainPrueba;
 
-import Dao.CompetenciaDaoHibernate;
+import Dao.DaoCompetencia;
 import Entidades.Consultor;
-import Dao.ConsultorDaoHibernate;
-import Dao.PuestoDaoHibernate;
+import Dao.DaoConsultor;
+import Dao.DaoPuesto;
 
 import Entidades.Competencia;
 import Entidades.Puesto;
@@ -29,7 +29,7 @@ public class Main {
     
     public static void main(String[] args) {
         //esta parte funca
-        /*ConsultorDaoHibernate consultorDAO = new ConsultorDaoHibernate();
+        /*DaoConsultor consultorDAO = new DaoConsultor();
         Consultor consultor = new Consultor();
         consultor.setIdConsultor(1000);
         consultor.setUsername("juano47");
@@ -40,7 +40,7 @@ public class Main {
         
         Consultor consultor=null;
         
-        ConsultorDaoHibernate consultorDAO = new ConsultorDaoHibernate();
+        DaoConsultor consultorDAO = new DaoConsultor();
         consultor=consultorDAO.findPorUsernameYClave("juano4","000");
         System.out.println(consultor.getNombre());
 
@@ -70,7 +70,7 @@ public class Main {
     puesto.setPuestoCompetencias(competencias);
    
    
-  PuestoDaoHibernate puestoDao= new PuestoDaoHibernate();
+  DaoPuesto puestoDao= new DaoPuesto();
    puestoDao.save(puesto);
    */
   

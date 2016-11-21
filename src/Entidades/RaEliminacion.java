@@ -11,7 +11,6 @@ public class RaEliminacion  implements java.io.Serializable {
 
 
      private int idRaEliminacion;
-     private Competencia competencia;
      private Consultor consultor;
      private Object objetoEliminado;
      private Date fecha;
@@ -24,9 +23,9 @@ public class RaEliminacion  implements java.io.Serializable {
     public RaEliminacion(int idRaEliminacion) {
         this.idRaEliminacion = idRaEliminacion;
     }
-    public RaEliminacion(int idRaEliminacion, Competencia competencia, Consultor consultor, Object objetoEliminado, Date fecha, String objetoBorrado) {
+    public RaEliminacion(int idRaEliminacion, Consultor consultor, Object objetoEliminado, Date fecha, String objetoBorrado) {
        this.idRaEliminacion = idRaEliminacion;
-       this.competencia = competencia;
+       
        this.consultor = consultor;
        this.objetoEliminado = objetoEliminado;
        this.fecha = fecha;
@@ -40,13 +39,7 @@ public class RaEliminacion  implements java.io.Serializable {
     public void setIdRaEliminacion(int idRaEliminacion) {
         this.idRaEliminacion = idRaEliminacion;
     }
-    public Competencia getCompetencia() {
-        return this.competencia;
-    }
-    
-    public void setCompetencia(Competencia competencia) {
-        this.competencia = competencia;
-    }
+   
     public Consultor getConsultor() {
         return this.consultor;
     }
