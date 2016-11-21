@@ -45,8 +45,12 @@ public class GestorEliminacion {
                 
                 //completar para factor, pregunta,...
         }
-        daoEliminacion.save(raEliminacion);
+        daoEliminacion.saveRaEliminacion(raEliminacion);
         
+    }
+
+    public void eliminarPuestoOriginal(Puesto puesto) {
+        daoEliminacion.deleteLogic(puesto);
     }
     
     private static class GestorEliminacionHolder {

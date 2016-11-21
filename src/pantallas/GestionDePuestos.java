@@ -538,6 +538,7 @@ public class GestionDePuestos extends javax.swing.JFrame {
                     //System.out.println("Hora y fecha: " + fechaActual);
                     GestorEliminacion gestorEliminacion = GestorEliminacion.getInstance();
                     gestorEliminacion.generarRegistroAuditoria(puesto, consultor, fechaActual);
+                    gestorEliminacion.eliminarPuestoOriginal(puesto);
                 }
 
             }
