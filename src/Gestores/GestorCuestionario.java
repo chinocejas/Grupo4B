@@ -36,6 +36,8 @@ public class GestorCuestionario {
     public List findQuest() {      
        
        return daoCuestionario.findQuestFor(12);
+       
+       
            
                     
         }

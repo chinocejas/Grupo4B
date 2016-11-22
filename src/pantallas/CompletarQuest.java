@@ -51,56 +51,60 @@ public class CompletarQuest extends javax.swing.JFrame {
         abajoInterior = new javax.swing.JPanel();
         aceptarBtn = new javax.swing.JButton();
         cancelarBtn = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        instrucciones = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        instrucciones = new javax.swing.JEditorPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
+        fondo.setMaximumSize(new java.awt.Dimension(1024, 768));
+        fondo.setMinimumSize(new java.awt.Dimension(1024, 768));
+        fondo.setOpaque(false);
+        fondo.setPreferredSize(new java.awt.Dimension(1024, 768));
         fondo.setLayout(new java.awt.BorderLayout(10, 10));
 
         arriba.setBorder(new javax.swing.border.MatteBorder(null));
         arriba.setPreferredSize(new java.awt.Dimension(1024, 100));
         arriba.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 60)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 44)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(219, 219, 219));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Cuestionario");
-        jLabel1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jLabel1.setPreferredSize(new java.awt.Dimension(303, 51));
         arriba.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 1030, 60));
 
         candidatoName.setText("Candidato:");
-        arriba.add(candidatoName, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 420, 20));
+        arriba.add(candidatoName, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 420, 20));
 
         candidatoDNI.setText("DNI:");
-        arriba.add(candidatoDNI, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 14, 470, 20));
+        arriba.add(candidatoDNI, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 470, 20));
 
         fondo.add(arriba, java.awt.BorderLayout.PAGE_START);
 
         abajo.setBorder(new javax.swing.border.MatteBorder(null));
 
+        volverBtn.setBackground(new java.awt.Color(0, 51, 102));
+        volverBtn.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
+        volverBtn.setForeground(new java.awt.Color(255, 255, 255));
         volverBtn.setText("Volver");
-        volverBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                volverBtnActionPerformed(evt);
-            }
-        });
+        volverBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout abajoLayout = new javax.swing.GroupLayout(abajo);
         abajo.setLayout(abajoLayout);
         abajoLayout.setHorizontalGroup(
             abajoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(abajoLayout.createSequentialGroup()
-                .addGap(64, 64, 64)
-                .addComponent(volverBtn)
-                .addContainerGap(901, Short.MAX_VALUE))
+                .addGap(90, 90, 90)
+                .addComponent(volverBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(793, Short.MAX_VALUE))
         );
         abajoLayout.setVerticalGroup(
             abajoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(abajoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(volverBtn)
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addComponent(volverBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         fondo.add(abajo, java.awt.BorderLayout.PAGE_END);
@@ -114,6 +118,7 @@ public class CompletarQuest extends javax.swing.JFrame {
         arribaInterior.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 36)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(219, 219, 219));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Instrucciones");
 
@@ -144,7 +149,7 @@ public class CompletarQuest extends javax.swing.JFrame {
         );
         izquierdaLayout.setVerticalGroup(
             izquierdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 314, Short.MAX_VALUE)
+            .addGap(0, 340, Short.MAX_VALUE)
         );
 
         centroInterior.add(izquierda, java.awt.BorderLayout.LINE_START);
@@ -159,51 +164,58 @@ public class CompletarQuest extends javax.swing.JFrame {
         );
         derechaLayout.setVerticalGroup(
             derechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 314, Short.MAX_VALUE)
+            .addGap(0, 340, Short.MAX_VALUE)
         );
 
         centroInterior.add(derecha, java.awt.BorderLayout.LINE_END);
 
         abajoInterior.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
 
-        aceptarBtn.setText("aceptar");
+        aceptarBtn.setBackground(new java.awt.Color(0, 51, 102));
+        aceptarBtn.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
+        aceptarBtn.setForeground(new java.awt.Color(255, 255, 255));
+        aceptarBtn.setText("Aceptar");
+        aceptarBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         aceptarBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 aceptarBtnActionPerformed(evt);
             }
         });
 
-        cancelarBtn.setText("cancelar");
+        cancelarBtn.setBackground(new java.awt.Color(0, 51, 102));
+        cancelarBtn.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
+        cancelarBtn.setForeground(new java.awt.Color(255, 255, 255));
+        cancelarBtn.setText("Cancelar");
+        cancelarBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout abajoInteriorLayout = new javax.swing.GroupLayout(abajoInterior);
         abajoInterior.setLayout(abajoInteriorLayout);
         abajoInteriorLayout.setHorizontalGroup(
             abajoInteriorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(abajoInteriorLayout.createSequentialGroup()
-                .addGap(230, 230, 230)
-                .addComponent(aceptarBtn)
-                .addGap(297, 297, 297)
-                .addComponent(cancelarBtn)
-                .addContainerGap(353, Short.MAX_VALUE))
+                .addGap(247, 247, 247)
+                .addComponent(aceptarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 257, Short.MAX_VALUE)
+                .addComponent(cancelarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(228, 228, 228))
         );
         abajoInteriorLayout.setVerticalGroup(
             abajoInteriorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(abajoInteriorLayout.createSequentialGroup()
                 .addGap(35, 35, 35)
                 .addGroup(abajoInteriorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(aceptarBtn)
-                    .addComponent(cancelarBtn))
-                .addContainerGap(42, Short.MAX_VALUE))
+                    .addComponent(cancelarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(aceptarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         centroInterior.add(abajoInterior, java.awt.BorderLayout.PAGE_END);
 
         instrucciones.setEditable(false);
-        instrucciones.setColumns(20);
-        instrucciones.setRows(5);
-        jScrollPane1.setViewportView(instrucciones);
+        instrucciones.setContentType("text/html"); // NOI18N
+        jScrollPane2.setViewportView(instrucciones);
 
-        centroInterior.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+        centroInterior.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
         centro.add(centroInterior, java.awt.BorderLayout.CENTER);
 
@@ -233,12 +245,9 @@ public class CompletarQuest extends javax.swing.JFrame {
         
         candidatoName.setText("Candidato: " + s.getCandidato().getNombreApellido());
         candidatoDNI.setText("DNI: "+ s.getCandidato().getNumeroDocumento().toString());
-    
+        
+        instrucciones.setText(Gestores.GestorRepositorio.getInstance().getInstrucciones());
     }
-    private void volverBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_volverBtnActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -273,6 +282,7 @@ public class CompletarQuest extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         
+       
         
 
         /* Create and display the form */
@@ -296,11 +306,11 @@ public class CompletarQuest extends javax.swing.JFrame {
     private javax.swing.JPanel centroInterior;
     private javax.swing.JPanel derecha;
     private javax.swing.JPanel fondo;
-    private javax.swing.JTextArea instrucciones;
+    private javax.swing.JEditorPane instrucciones;
     private javax.swing.JPanel izquierda;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton volverBtn;
     // End of variables declaration//GEN-END:variables
 }
