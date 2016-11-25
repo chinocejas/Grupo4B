@@ -5,6 +5,7 @@
  */
 package pantallas;
 
+import Entidades.Candidato;
 import Gestores.GestorCompetencia;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -43,7 +44,13 @@ public class EvaluarCandidato extends javax.swing.JFrame {
     boolean puestoEnUso;
 
     public EvaluarCandidato() {
-
+        initComponents();
+        setSize(1024, 768);
+        setLocationRelativeTo(null);
+        lista.setModel(modeloLista);
+        tabla.setModel(modeloTabla);
+        tabla.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        
     }
 
     public EvaluarCandidato(Puesto puesto) {
@@ -53,7 +60,7 @@ public class EvaluarCandidato extends javax.swing.JFrame {
         lista.setModel(modeloLista);
         tabla.setModel(modeloTabla);
         tabla.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-
+/*
         //puestoEnUso= true -> el puesto tiene puestosCopias asociados y esta en uso (no se pueden modificar las competencias)
         //puestoEnUso= false -> el puesto no esta en uso y se pueden modificar las competencias
         puestoEnUso = gestorPuesto.verificarPuestoEnUso(puesto.getIdPuesto());
@@ -82,14 +89,14 @@ public class EvaluarCandidato extends javax.swing.JFrame {
         int idCompetencia;
         Competencia competencia;
         PuestoCompetencia puestoCompetencia = new PuestoCompetencia();
-
+           //ARREGLAR ESTA LOGICA
         for (int i = 0; i < competenciasSeleccionadas.size(); i++) {
             //recupero la competencia en la posicion i
-            competencia = (Competencia) competenciasSeleccionadas.get(i);
+            candidato = (Candidato) candidatosSeleccionados.get(i);
             //agrego a la lista de competencias en el modeloTabla
-            modeloTabla.addCompetencia(competencia);
+            modeloTabla.addCandidato(candidato);
             //guardo el id de competencia para buscar las ponderaciones en la tabla de union
-            idCompetencia = competencia.getIdCompetencia();
+            idCandidato = candidato.getIdCandidato();
             //recupero una instancia de PuestoCompetencia pasando los id del puesto y la competencia
             puestoCompetencia = gestorPuesto.find(Long.valueOf(puesto.getIdPuesto()), Long.valueOf(idCompetencia));
             //pido la ponderacion guardada en esa instancia
@@ -124,7 +131,7 @@ public class EvaluarCandidato extends javax.swing.JFrame {
             competencia = (Competencia) allCompetencias.get(i);
             modeloLista.addCompetencia(competencia);
         }
-
+*/
     }
 
     public Image getIconImage() {
@@ -477,8 +484,8 @@ public class EvaluarCandidato extends javax.swing.JFrame {
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarActionPerformed
 
         //convierto a set la lista guardada en modeloTabla con las competencias seleccionadas para persistirlas en la bs
-        Set<Competencia> competencias = new HashSet<Competencia>(modeloTabla.getListaCompetencias());
-        int resultado = gestorPuesto.modificarPuesto(puestoAux, txtApellido.getText(), txtNombre.getText(), txtNombre.getText(), competencias, modeloTabla.getListaPonderacion());
+        Set<Candidato> candidatos = new HashSet<Candidato>(modeloTabla.getListaCandidatos());
+   //MODIFICAR     int resultado = gestorPuesto.modificarPuesto(puestoAux, txtApellido.getText(), txtNombre.getText(), txtNombre.getText(), c, modeloTabla.getListaPonderacion());
         /* 1: todo correcto
         2: ponderaciones vacias
         3: ponderaciones fuera de rango (0-10)
@@ -486,7 +493,7 @@ public class EvaluarCandidato extends javax.swing.JFrame {
         5: sin al menos una competencia seleccionada
         6: el nombre ya esta en uso
         */
-
+/*
         switch (resultado) {
             //todo correcto
             case 1:
@@ -536,6 +543,7 @@ public class EvaluarCandidato extends javax.swing.JFrame {
             txtApellido.setBackground(java.awt.Color.red);
             break;
         }
+        */
     }//GEN-LAST:event_aceptarActionPerformed
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
@@ -572,7 +580,7 @@ public class EvaluarCandidato extends javax.swing.JFrame {
     private void btnRemoveAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveAllActionPerformed
         if (!puestoEnUso) { //significa que se pueden agregar/quitar competencias porq el puesto no esta en uso
             while (modeloTabla.getRowCount() != 0) { //se va a ejecutar mientras haya alguna fila en la tabla
-                modeloLista.addCompetencia((Competencia) modeloTabla.getCompetencia(0));
+                modeloLista.addCandidato((Candidato) modeloTabla.getCandidato(0));
                 modeloTabla.deleteRow(0);
             }
         } else {
@@ -581,7 +589,7 @@ public class EvaluarCandidato extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRemoveAllActionPerformed
 
     private void btnAddAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddAllActionPerformed
-        if (!puestoEnUso) { //significa que se pueden agregar/quitar competencias porq el puesto no esta en uso
+        /*if (!puestoEnUso) { //significa que se pueden agregar/quitar competencias porq el puesto no esta en uso
             while (modeloLista.getSize() != 0) {
                 Competencia competencia = modeloLista.getCompetencia(0);
                 modeloTabla.addCompetencia(competencia);
@@ -589,27 +597,27 @@ public class EvaluarCandidato extends javax.swing.JFrame {
             }
         } else {
             campoTexto.setText("No es posible agregar competencias debido a que hay cuestionarios generados para este puesto");
-        }
+        }*/
     }//GEN-LAST:event_btnAddAllActionPerformed
 
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
-        if (!puestoEnUso) { //significa que se pueden agregar/quitar competencias porq el puesto no esta en uso
+        /*if (!puestoEnUso) { //significa que se pueden agregar/quitar competencias porq el puesto no esta en uso
             if ((tabla.getSelectedRow() == -1)) {
                 campoTexto.setText("Seleccione un elemento antes de presionar el boton");
             } else {
-                campoTexto.setText("");
+                campoTexto.setText("");*/
                 /* original para lista
                 String aux = ModeloTabla.getSelectedValue();
                 modelol1.addCompetencia(aux);
                 modelol2.remove(tabla.getSelectedIndex());*/
-                int row = tabla.getSelectedRow();
+                /*int row = tabla.getSelectedRow();
                 Competencia competencia = modeloTabla.getCompetencia(row);
                 modeloLista.addCompetencia(competencia);
                 modeloTabla.deleteRow(row);
             }
         } else {
             campoTexto.setText("No es posible quitar competencias debido a que hay cuestionarios generados para este puesto");
-        }
+        }*/
     }//GEN-LAST:event_btnRemoveActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
@@ -617,9 +625,9 @@ public class EvaluarCandidato extends javax.swing.JFrame {
             if (lista.getSelectedValue() != null || lista.getComponentCount() == 0) {
                 campoTexto.setText("");
                 // String aux = lista.getSelectedValue();
-                Competencia competencia = modeloLista.getCompetencia(lista.getSelectedIndex());
-                modeloTabla.addCompetencia(competencia);
-                modeloLista.eliminarCompetencia(lista.getSelectedIndex());
+                Candidato candidato = modeloLista.getCandidato(lista.getSelectedIndex());
+                modeloTabla.addCandidato(candidato);
+                modeloLista.eliminarCandidato(lista.getSelectedIndex());
             } else {
                 campoTexto.setText("Seleccione un elemento antes de presionar el boton");
             }
@@ -662,37 +670,6 @@ public class EvaluarCandidato extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(EvaluarCandidato.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -705,7 +682,7 @@ public class EvaluarCandidato extends javax.swing.JFrame {
     // http://serprogramador.es/usando-un-jlist-para-almacenar-objetos-java-swing/
     public class CustomListModel extends AbstractListModel {
 
-        private ArrayList<Competencia> lista = new ArrayList<>();
+        private ArrayList<Candidato> lista = new ArrayList<>();
 
         @Override
         public int getSize() {
@@ -714,21 +691,23 @@ public class EvaluarCandidato extends javax.swing.JFrame {
 
         @Override
         public Object getElementAt(int index) {
-            Competencia c = lista.get(index);
-            return c.getNombreCompetencia();
+            //hacer que devuelva algo
+            /*Candidato c = lista.get(index);
+            return c.getNombreCompetencia();*/
+            return 1;//modificar
         }
 
-        public void addCompetencia(Competencia c) {
+        public void addCandidato(Candidato c) {
             lista.add(c);
             this.fireIntervalAdded(this, getSize(), getSize() + 1);
         }
 
-        public void eliminarCompetencia(int index0) {
+        public void eliminarCandidato(int index0) {
             lista.remove(index0);
             this.fireIntervalRemoved(index0, getSize(), getSize() + 1);
         }
 
-        public Competencia getCompetencia(int index) {
+        public Candidato getCandidato(int index) {
             return lista.get(index);
         }
 
@@ -738,7 +717,7 @@ public class EvaluarCandidato extends javax.swing.JFrame {
     //http://docs.oracle.com/javase/tutorial/uiswing/components/table.html#data
     public class CustomTableModel extends AbstractTableModel {
 
-        private ArrayList<Competencia> data = new ArrayList<Competencia>();
+        private ArrayList<Candidato> data = new ArrayList<Candidato>();
         private ArrayList<Integer> ponderacion = new ArrayList<Integer>();
         private int numColumns = 2; //cant de columnas con la que se crea la tabla
         private String columnNames[] = {"Competencia", "Ponderación"};
@@ -801,11 +780,11 @@ public class EvaluarCandidato extends javax.swing.JFrame {
             fireTableCellUpdated(row, col);
         }
 
-        public Competencia getCompetencia(int fila) {
-            return (Competencia) data.get(fila);
+        public Candidato getCandidato(int fila) {
+            return (Candidato) data.get(fila);
         }
 
-        public List<Competencia> getListaCompetencias() {
+        public List<Candidato> getListaCandidatos() {
             return data;
         }
 
@@ -816,15 +795,15 @@ public class EvaluarCandidato extends javax.swing.JFrame {
         @Override
         //este metodo muestra por pantalla los nombres pero en realidad se esta manejando una lista con Competencias por detras
         public Object getValueAt(int row, int col) {
-            Competencia c = (Competencia) data.get(row);
+            Candidato c = (Candidato) data.get(row);
             //Si la columa es la 0 muestra el nombre de la competencia
             // sino (es la columna 1) muestro la ponderacion
-            return col == 0 ? c.getNombreCompetencia() : ponderacion.get(row);  //cosas locas sacadas de internet
+            return col == 0 ? c.getNombreApellido() : ponderacion.get(row);  //cosas locas sacadas de internet
             //return data.get(row)[col];
         }
 
-        public void addCompetencia(Competencia competencia) {
-            data.add(competencia);
+        public void addCandidato(Candidato candidato) {
+            data.add(candidato);
             ponderacion.add(null);
             fireTableDataChanged();
         }
