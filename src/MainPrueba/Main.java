@@ -4,22 +4,15 @@
  */
 package MainPrueba;
 
-import Dao.DaoCompetencia;
-import Entidades.Consultor;
-import Dao.DaoConsultor;
-import Dao.DaoPuesto;
-
 import Entidades.Competencia;
-import Entidades.Puesto;
-
+import Entidades.Consultor;
 import Gestores.GestorCompetencia;
+import Gestores.GestorConsultor;
+import Gestores.GestorEliminacion;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import net.sf.ehcache.hibernate.HibernateUtil;
-import org.hibernate.Session;
 
 /**
  *
@@ -28,64 +21,16 @@ import org.hibernate.Session;
 public class Main {
     
     public static void main(String[] args) {
-        //esta parte funca
-        /*DaoConsultor consultorDAO = new DaoConsultor();
-        Consultor consultor = new Consultor();
-        consultor.setIdConsultor(1000);
-        consultor.setUsername("juano47");
-        consultor.setClave("000");
-        consultor.setNombre("juancito");
-        consultorDAO.save(consultor);
-
-        
-        Consultor consultor=null;
-        
-        DaoConsultor consultorDAO = new DaoConsultor();
-        consultor=consultorDAO.findPorUsernameYClave("juano4","000");
-        System.out.println(consultor.getNombre());
-
-        
-        Consultor consultor= new Consultor();
-        consultor.setIdConsultor(1000);
-        consultor.setNombre("juancitoo");
-        System.out.println(consultor.getNombre());
-*/
-
-        
-    //creo puestos, le agrego una lista de competencias que es obligacion que ya esten en la base de datos
-    //y subo los puestos a la bs o los borro
-    //se carga la tabla intermedia automaticamente
-    //si guardo o borro un puesto no se toca la tabla competencia por la conf del .hbm
-    /*Puesto puesto = new Puesto();
+       ArrayList<Competencia> data = new ArrayList<Competencia>();
+        data= (ArrayList<Competencia>) GestorCompetencia.getInstance().allCompetenciasOrdenadasPorNombre();
+        Competencia competencia= data.get(2);
+    Consultor consultor = GestorConsultor.getInstance().getConsultor();
+                    Date fechaActual = new Date();
+                    DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
+                    hourdateFormat.format(fechaActual);
+                    System.out.println("Hora y fecha: " + fechaActual);
+                    GestorEliminacion gestorEliminacion = GestorEliminacion.getInstance();
+                    gestorEliminacion.generarRegistroAuditoria(competencia, consultor, fechaActual);
     
-    puesto.setNombrePuesto("puestoooo");
-    puesto.setNombreEmpresa("empresaaaaa");
-
-    Competencia competencia1 = new Competencia();
-    competencia1.setIdCompetencia(11);
-    competencia1.setNombreCompetencia("comp2");
-     Set<Competencia> competencias = new HashSet<Competencia>();
-     competencias.add(competencia1);
-
-    puesto.setPuestoCompetencias(competencias);
-   
-   
-  DaoPuesto puestoDao= new DaoPuesto();
-   puestoDao.save(puesto);
-   */
-  
-    
-
-    /* GestorCompetencia gestor = GestorCompetencia.getInstance();
-    List allCompetencias= gestor.allCompetencias();
-        System.out.println(allCompetencias.getClass());
-        Competencia competencia= (Competencia) allCompetencias.get(0);
-        System.out.println(competencia.getClass());
-        System.out.println(competencia.getNombreCompetencia());
-*/
-    
-    
-    
-    Integer num=null;
     }
 }

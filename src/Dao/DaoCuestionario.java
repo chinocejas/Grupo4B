@@ -5,6 +5,7 @@
  */
 package Dao;
 import Entidades.Cuestionario;
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -34,5 +35,24 @@ public class DaoCuestionario extends AbstractDao{
     public Cuestionario find(Long id) throws DataAccessLayerException {
         return (Cuestionario) super.find(Cuestionario.class, id);
     }
-    
+    public List findQuestFor(int idCuestionario) {
+        
+       List objects = null;
+      
+        try {
+            startOperation();
+            Query query;
+            query = session.createQuery("from Cuestionario WHERE id_cuestionario = :idCuestionario");     
+            query.setParameter("idCuestionario", idCuestionario);
+            objects = query.list();
+            tx.commit();
+        } catch (HibernateException e) {
+            handleException(e);
+        } finally {
+            HibernateFactory.close(session);
+           
+        }
+        
+        return objects;
+    }
 }

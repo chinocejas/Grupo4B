@@ -4,8 +4,10 @@
  */
 package Dao;
 
+import Entidades.Competencia;
 import Entidades.Puesto;
 import Entidades.RaEliminacion;
+import static java.lang.Boolean.TRUE;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -24,40 +26,45 @@ public class DaoEliminacion extends AbstractDao {
      * Insert a new Usuario into the database.
      * @param usuario
      */
-    public void save(RaEliminacion raEliminacion) throws DataAccessLayerException {
+    public void saveRaEliminacion(RaEliminacion raEliminacion) throws DataAccessLayerException {
          try {
             startOperation();
+            
+            //guarda la instancia
             session.persist(raEliminacion);
-            tx.commit();
-        } catch (HibernateException e) {
-            handleException(e);
-        } finally {
-            HibernateFactory.close(session);
-        }
-         
-        
-
-        /*String hqlUpdate = "update Customer c set c.name = :newName where c.name = :oldName";
-// or String hqlUpdate = "update Customer set name = :newName where name = :oldName";
-        int updatedEntities = s.createQuery(hqlUpdate)
-               
-                .executeUpdate();
-        tx.commit();
-        session.close();
-         */
-         
-        try {
-            startOperation();
-           
+            
+            //se coloca la clave foranea donde corresponde (depende de si se borra un puesto, competencia,...
             int idRaEliminacion= raEliminacion.getIdRaEliminacion();
-            System.out.print("idRaeliminacion  "  + idRaEliminacion);
-            Puesto puesto= (Puesto) raEliminacion.getObjetoEliminado();
-            int idPuesto = puesto.getIdPuesto();
-            System.out.print("\n\nidpuesto "  + idPuesto);
-            Query query=session.createQuery("UPDATE ra_eliminacion SET id_puesto = 4 WHERE id_ra_eliminacion = 9");
-            query.executeUpdate();
-            //query.setParameter("idPuesto", idPuesto);
-            //query.setParameter("idRaEliminacion", idRaEliminacion);
+            Query query;
+            switch(raEliminacion.getObjetoBorrado()){
+                 case "PUESTO":
+                     Puesto puesto = (Puesto) raEliminacion.getObjetoEliminado();
+                     int idPuesto = puesto.getIdPuesto();
+
+                     query = session.createQuery("UPDATE RaEliminacion SET id_puesto = :idPuesto WHERE id_ra_eliminacion = :idRaEliminacion");
+                     query.setParameter("idPuesto", idPuesto);
+                     query.setParameter("idRaEliminacion", idRaEliminacion);
+                     query.executeUpdate();
+                     break;
+                 case "COMPETENCIA":
+                     Competencia competencia = (Competencia) raEliminacion.getObjetoEliminado();
+                     int idCompetencia = competencia.getIdCompetencia();
+
+                     query = session.createQuery("UPDATE RaEliminacion SET id_competencia = :idCompetencia WHERE id_ra_eliminacion = :idRaEliminacion");
+                     query.setParameter("idCompetencia", idCompetencia);
+                     query.setParameter("idRaEliminacion", idRaEliminacion);
+                     query.executeUpdate();
+                     break;
+                     
+                     //completar para todo lo que se puede borrar y probar!
+                 case "FACTOR":
+                     break;
+                     
+                     //case opc-respuesta
+                     //case pregunta
+                     
+             }
+
             tx.commit();
         } catch (HibernateException e) {
             handleException(e);
@@ -70,17 +77,11 @@ public class DaoEliminacion extends AbstractDao {
      * Updates a new Usuario into the database.
      * @param usuario
      */
-    public void update(RaEliminacion raEliminacion) throws DataAccessLayerException {
-        super.update(raEliminacion);
+    public void update(Object obj) throws DataAccessLayerException {
+        super.update(obj);
     }
 
-    /**
-     * Delete a detached Usuario from the database.
-     * @param usuario
-     */
-    public void delete(RaEliminacion raEliminacion) throws DataAccessLayerException {
-        super.delete(raEliminacion);
-    }
+  
 
     /**
      * Find an Event by its primary key.
@@ -98,5 +99,10 @@ public class DaoEliminacion extends AbstractDao {
      */
     public List findAll() throws DataAccessLayerException {
         return super.findAll(RaEliminacion.class);
+    }
+
+    public void deleteLogic(Object obj) {
+        //completarr!
+        
     }
 }

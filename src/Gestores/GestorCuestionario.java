@@ -5,14 +5,21 @@
  */
 package Gestores;
 
-import Entidades.Cuestionario;
-import java.util.List;
+import Entidades.*;
+import Dao.*;
+import java.util.*;
 
 /**
  *
  * @author Agustina
  */
 public class GestorCuestionario {
+    
+    DaoCuestionario daoCuestionario = new DaoCuestionario();
+    
+    
+            
+    
     
     private GestorCuestionario() {
     }
@@ -24,17 +31,28 @@ public class GestorCuestionario {
     private static class GestorCuestionarioHolder {
 
         private static final GestorCuestionario INSTANCE = new GestorCuestionario();
-        
-        public void findQuest() {
-
-        List listaCuestionarios = null;
-        
-        
-        
-
-        
-
-        
     }
-    }
+        
+    public List findQuest() {      
+       
+       return daoCuestionario.findQuestFor(12);
+       
+       
+           
+                    
+        }
+        
+        
+        
+            
+        
+        
+        
+        
+
+        
+
+        
+    
+    
 }

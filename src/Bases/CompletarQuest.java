@@ -33,8 +33,9 @@ public class CompletarQuest extends javax.swing.JFrame {
 
         fondo = new javax.swing.JPanel();
         arriba = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         abajo = new javax.swing.JPanel();
+        volverBtn1 = new javax.swing.JButton();
         centro = new javax.swing.JPanel();
         centroInterior = new javax.swing.JPanel();
         arribaInterior = new javax.swing.JPanel();
@@ -51,23 +52,38 @@ public class CompletarQuest extends javax.swing.JFrame {
         arriba.setPreferredSize(new java.awt.Dimension(1024, 100));
         arriba.setLayout(new java.awt.GridBagLayout());
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 60)); // NOI18N
-        jLabel1.setText("Ingreso");
-        arriba.add(jLabel1, new java.awt.GridBagConstraints());
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 44)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(219, 219, 219));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Cuestionario");
+        jLabel2.setPreferredSize(new java.awt.Dimension(303, 51));
+        arriba.add(jLabel2, new java.awt.GridBagConstraints());
 
         fondo.add(arriba, java.awt.BorderLayout.PAGE_START);
 
         abajo.setBorder(new javax.swing.border.MatteBorder(null));
 
+        volverBtn1.setBackground(new java.awt.Color(0, 51, 102));
+        volverBtn1.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
+        volverBtn1.setForeground(new java.awt.Color(255, 255, 255));
+        volverBtn1.setText("Volver");
+        volverBtn1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
         javax.swing.GroupLayout abajoLayout = new javax.swing.GroupLayout(abajo);
         abajo.setLayout(abajoLayout);
         abajoLayout.setHorizontalGroup(
             abajoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1022, Short.MAX_VALUE)
+            .addGroup(abajoLayout.createSequentialGroup()
+                .addGap(90, 90, 90)
+                .addComponent(volverBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(787, Short.MAX_VALUE))
         );
         abajoLayout.setVerticalGroup(
             abajoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGroup(abajoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(volverBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         fondo.add(abajo, java.awt.BorderLayout.PAGE_END);
@@ -199,6 +215,7 @@ public class CompletarQuest extends javax.swing.JFrame {
     private javax.swing.JPanel derecha;
     private javax.swing.JPanel fondo;
     private javax.swing.JPanel izquierda;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton volverBtn1;
     // End of variables declaration//GEN-END:variables
 }
