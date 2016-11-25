@@ -12,6 +12,7 @@ import java.util.List;
 import Entidades.Competencia;
 import Gestores.GestorPuesto;
 import Gestores.GestorValidacionesPantalla;
+import java.applet.AudioClip;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.AbstractListModel;
@@ -431,6 +432,10 @@ public class AltaPuesto extends javax.swing.JFrame {
         switch (resultado) {
             //todo correcto
             case 1:
+                //Sonido
+                AudioClip sonido;
+                sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/exito4.wav"));
+                sonido.play();
                 int codigo=gestorPuesto.buscarIdNuevoPuesto();              //CHINO ARREGLA ESE POP UP!!
                 int reply = JOptionPane.showConfirmDialog(null, "El puesto <" + txtNombre.getText() + "> con ID: " + codigo +" se ha creado correctamente.\n ¿Desea cargar otro?", "HOLA", YES_NO_OPTION);
                if (reply == JOptionPane.YES_OPTION)        
