@@ -5,15 +5,12 @@
  */
 package pantallas;
 
-import Entidades.Competencia;
 import Entidades.Consultor;
 import Entidades.Puesto;
 import Gestores.GestorConsultor;
 import Gestores.GestorEliminacion;
 import Gestores.GestorPuesto;
 import Gestores.GestorValidacionesPantalla;
-import VentanasEmergentes.PopUps;
-import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
@@ -23,10 +20,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
-import static javax.swing.JOptionPane.YES_NO_OPTION;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *

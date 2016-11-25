@@ -193,7 +193,7 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 44)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(219, 219, 219));
-        jLabel1.setText("Evaluar candidato");
+        jLabel1.setText("Evaluar Candidatos");
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
