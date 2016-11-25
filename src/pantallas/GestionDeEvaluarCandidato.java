@@ -177,6 +177,8 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
         txtId = new javax.swing.JTextField();
+        btnBuscar = new javax.swing.JButton();
+        txtMensajeBusqueda = new javax.swing.JLabel();
         fondoImagen = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -292,6 +294,11 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
         txtNombre.setBackground(new java.awt.Color(0, 51, 102));
         txtNombre.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
         txtNombre.setForeground(new java.awt.Color(255, 255, 255));
+        txtNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombreActionPerformed(evt);
+            }
+        });
         txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtNombreKeyReleased(evt);
@@ -307,7 +314,7 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
         cancelar.setBackground(new java.awt.Color(0, 51, 102));
         cancelar.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
         cancelar.setForeground(new java.awt.Color(255, 255, 255));
-        cancelar.setText("Cancelar");
+        cancelar.setText("Siguiente");
         cancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cancelar.setPreferredSize(new java.awt.Dimension(137, 41));
         cancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -319,7 +326,7 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
         aceptar.setBackground(new java.awt.Color(0, 51, 102));
         aceptar.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
         aceptar.setForeground(new java.awt.Color(255, 255, 255));
-        aceptar.setText("Aceptar");
+        aceptar.setText("Volver");
         aceptar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         aceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -360,6 +367,17 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
             }
         });
 
+        btnBuscar.setBackground(new java.awt.Color(0, 51, 102));
+        btnBuscar.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
+        btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
+        btnBuscar.setText("Buscar");
+        btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -392,9 +410,13 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
                                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(70, 70, 70)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 690, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 690, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 690, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtMensajeBusqueda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGap(58, 58, 58)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -442,7 +464,11 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(80, 80, 80)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtMensajeBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3))
@@ -464,7 +490,8 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
                 .addGap(9, 9, 9)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(aceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(100, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -651,6 +678,34 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIdKeyTyped
 
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        /*limpiarTabla(tabla,modeloTabla);    //se limpia la tabla para que al hacer busquedas consecutivas se borren los resultados anteriores
+        txtMensajeBusqueda.setText("");
+        //obtengo los datos de pantalla
+        String apellido2 = txtApellido.getText();    
+        String nombre2 = txtNombre.getText();
+        String id2 = txtId.getText();
+  
+        if("".equals(apellido2) && "".equals(nombre2) && "".equals(id2)){ //no completo al menos un criterio de busqueda
+            
+            GestorPuesto gestorPuesto = GestorPuesto.getInstance();     //se pide la instancia de GestorPuesto
+            gestorPuesto.buscarPuestos(modeloTabla);  //busca en la BS y completa la tabla que es pasada por parametro con los resultados
+            
+        }
+        else{
+        GestorPuesto gestorPuesto = GestorPuesto.getInstance();     //se pide la instancia de GestorPuesto
+
+        gestorPuesto.buscarPuestos(modeloTabla, codigo2, puesto2, empresa2);  //busca en la BS y completa la tabla que es pasada por parametro con los resultados
+        }
+        
+       if(modeloTabla.data.isEmpty())
+           txtMensajeBusqueda.setText("La búsqueda no ha arrojado resultados");*/
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -728,7 +783,7 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
         private ArrayList<Candidato> data = new ArrayList<Candidato>();
         private ArrayList<Integer> ponderacion = new ArrayList<Integer>();
         private int numColumns = 2; //cant de columnas con la que se crea la tabla
-        private String columnNames[] = {"Competencia", "Ponderación"};
+        private String columnNames[] = {"Nombre y Apellido", "Número ID"};
         // private Class classes[]={String.class ,String.class}; //tipo de las columnas
         private boolean editable[] = {false, true};
 
@@ -835,6 +890,7 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
     private javax.swing.JLabel apellido;
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnAddAll;
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnRemove;
     private javax.swing.JButton btnRemoveAll;
     private javax.swing.JLabel campoTexto;
@@ -853,6 +909,7 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
     private javax.swing.JTextField txtApellido;
     private javax.swing.JLabel txtCodigo;
     private javax.swing.JTextField txtId;
+    private javax.swing.JLabel txtMensajeBusqueda;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }
