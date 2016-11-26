@@ -6,15 +6,10 @@
 package pantallas;
 
 import Entidades.Candidato;
-import Gestores.GestorCompetencia;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.util.List;
-import Entidades.Competencia;
-import Entidades.Puesto;
-import Entidades.PuestoCompetencia;
 import Gestores.GestorCandidato;
-import Gestores.GestorPuesto;
 import Gestores.GestorValidacionesPantalla;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -40,7 +35,7 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
     //pido la instancia de gestor de validaciones de pantalla
     GestorValidacionesPantalla gestorValidacionesPantalla = GestorValidacionesPantalla.getInstance();
     
-    Candidato candidatoAux;
+    //Candidato candidatoAux;
 
 
     public GestionDeEvaluarCandidato() {
@@ -52,11 +47,7 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
         tablaSeleccionados.setModel(modeloTablaSeleccionados);
         tablaSeleccionados.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         
-        
-        
-        
     }
-
 
     public Image getIconImage() {
         Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Imagenes/BS_ultimate2.png"));
@@ -540,8 +531,7 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
         if("".equals(apellido) && "".equals(nombre) && "".equals(id)){ //no completo al menos un criterio de busqueda
             
             GestorCandidato gestorCandidato = GestorCandidato.getInstance();     //se pide la instancia de GestorCandidato
-            gestorCandidato.buscarCandidato(modeloTabla);  //busca en la BD y completa la tabla que es pasada por parametro con los resultados
-            
+            gestorCandidato.buscarCandidato(modeloTabla);  //busca en la BD y completa la tabla que es pasada por parametro con los resultados 
         }
         else{
         GestorCandidato gestorCandidato = GestorCandidato.getInstance();     //se pide la instancia de GestorCandidato
