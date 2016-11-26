@@ -13,6 +13,7 @@ import java.util.List;
 import Entidades.Competencia;
 import Entidades.Puesto;
 import Entidades.PuestoCompetencia;
+import Gestores.GestorCandidato;
 import Gestores.GestorPuesto;
 import Gestores.GestorValidacionesPantalla;
 import java.util.ArrayList;
@@ -30,110 +31,32 @@ import javax.swing.table.AbstractTableModel;
  */
 public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
 
-    CustomListModel modeloLista = new CustomListModel();
     CustomTableModel modeloTabla = new CustomTableModel();
-
-    //pido la instancia de gestor de puestos
-    GestorPuesto gestorPuesto = GestorPuesto.getInstance();
+    CustomTableModel modeloTablaSeleccionados = new CustomTableModel();
+    
+    //pido la instancia de gestor de candidatos
+    GestorCandidato gestorCandidato = GestorCandidato.getInstance();
 
     //pido la instancia de gestor de validaciones de pantalla
     GestorValidacionesPantalla gestorValidacionesPantalla = GestorValidacionesPantalla.getInstance();
+    
+    Candidato candidatoAux;
 
-    //declaro una variable de puesto global para ser visible en las acciones de los botones
-    //SE PUEDE BUSCAR OTRA MANERA
-    Puesto puestoAux;
-    boolean puestoEnUso;
 
     public GestionDeEvaluarCandidato() {
         initComponents();
         setSize(1024, 768);
         setLocationRelativeTo(null);
-        lista.setModel(modeloLista);
-        tabla.setModel(modeloTabla);
-        tabla.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tablaBusqueda.setModel(modeloTabla);
+        tablaBusqueda.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tablaSeleccionados.setModel(modeloTablaSeleccionados);
+        tablaSeleccionados.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        
+        
+        
         
     }
 
-    public GestionDeEvaluarCandidato(Puesto puesto) {
-        initComponents();
-        setSize(1024, 768);
-        setLocationRelativeTo(null);
-        lista.setModel(modeloLista);
-        tabla.setModel(modeloTabla);
-        tabla.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-/*
-        //puestoEnUso= true -> el puesto tiene puestosCopias asociados y esta en uso (no se pueden modificar las competencias)
-        //puestoEnUso= false -> el puesto no esta en uso y se pueden modificar las competencias
-        puestoEnUso = gestorPuesto.verificarPuestoEnUso(puesto.getIdPuesto());
-
-        //COPIO EL PUESTO PASADO POR PARAMETRO A OTRO AUX PARA TENER VISIBILIDAD GLOBAL
-        //SE PUEDE CAMBIAR
-        puestoAux = puesto;
-        //muestro por pantalla el codigo no editable pasandolo a string previamente
-        txtCodigo.setText(String.valueOf(puesto.getIdPuesto()));
-        //muestro el resto de datos por pantalla
-        txtApellido.setText(puesto.getNombrePuesto());
-        txtNombre.setText(puesto.getNombreEmpresa());
-        txtNombre.setText(puesto.getDescripcion());
-
-        GestorCompetencia gestorCompetencia = GestorCompetencia.getInstance();
-
-//competenciasSeleccionadas: tiene las competencias que ya estaban cargadas en el puesto
-        List competenciasSeleccionadas = new ArrayList();
-        //convierto el set obtenido a una lista
-        competenciasSeleccionadas.addAll(puesto.getPuestoCompetencias());
-
-//allCompetencias solo se usa para cargar modeloLista, despues se maneja todo con la lista dentro de modeloLista
-        List allCompetencias = gestorCompetencia.allCompetenciasOrdenadasPorNombre();
-
-        int ponderacion;
-        int idCompetencia;
-        Competencia competencia;
-        PuestoCompetencia puestoCompetencia = new PuestoCompetencia();
-           //ARREGLAR ESTA LOGICA
-        for (int i = 0; i < competenciasSeleccionadas.size(); i++) {
-            //recupero la competencia en la posicion i
-            candidato = (Candidato) candidatosSeleccionados.get(i);
-            //agrego a la lista de competencias en el modeloTabla
-            modeloTabla.addCandidato(candidato);
-            //guardo el id de competencia para buscar las ponderaciones en la tabla de union
-            idCandidato = candidato.getIdCandidato();
-            //recupero una instancia de PuestoCompetencia pasando los id del puesto y la competencia
-            puestoCompetencia = gestorPuesto.find(Long.valueOf(puesto.getIdPuesto()), Long.valueOf(idCompetencia));
-            //pido la ponderacion guardada en esa instancia
-            ponderacion = puestoCompetencia.getPuntajeRequerido();
-            //muestro por pantalla la ponderacion al lado de la competencia
-            modeloTabla.setValueAt(ponderacion, i, 0); //ni idea porque con i inserta en el lugar correcto   
-        }
-
-        //le borro a la lista de competencias originales las que ya estan cargadas en el puesto para que no se muestren repetidas 
-        Competencia comp;
-        int idCompPuesto;
-        int idCompOriginal;
-        //comparo la primer competencia de competenciasSeleccionadas (las del puesto) con todas las de allCompetencias (las originales)
-        //cuando encuentro la coincidencia de ids, borro la competencia de la lista allCompetencias y
-        //borro la primer competencia de competenciasSeleccionadas para poder salir del while cuando se vacie esta lista
-        while (!competenciasSeleccionadas.isEmpty()) {
-            comp = (Competencia) competenciasSeleccionadas.get(0);
-            idCompPuesto = comp.getIdCompetencia();
-            for (int i = 0; i < allCompetencias.size(); i++) {
-                comp = (Competencia) allCompetencias.get(i);
-                idCompOriginal = comp.getIdCompetencia();
-                if (idCompPuesto == idCompOriginal) {
-                    allCompetencias.remove(i);
-                    //no me importa vaciar la lista competenciasSeleccionadas porque ya no se usa (las competencias del puesto estan en la lista data de modeloTabla)
-                    competenciasSeleccionadas.remove(0);
-                }
-            }
-        }
-
-        //completo la tabla izq con las competencias originales menos las que ya estan en el puesto (borradas arriba)
-        for (int i = 0; i < allCompetencias.size(); i++) {
-            competencia = (Competencia) allCompetencias.get(i);
-            modeloLista.addCompetencia(competencia);
-        }
-*/
-    }
 
     public Image getIconImage() {
         Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Imagenes/BS_ultimate2.png"));
@@ -142,7 +65,7 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
     
     private void limpiarTabla(JTable tabla, GestionDeEvaluarCandidato.CustomTableModel modeloTabla){
        for (int i = 0; i < tabla.getRowCount(); i++) {
-           modeloTabla.deleteRow(i);
+           tabla.remove(i);
            i-=1;
        }
     }
@@ -164,21 +87,21 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
         btnRemove = new javax.swing.JButton();
         btnAddAll = new javax.swing.JButton();
         btnRemoveAll = new javax.swing.JButton();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        lista = new javax.swing.JList<>();
         apellido = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         txtApellido = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
         txtCodigo = new javax.swing.JLabel();
-        cancelar = new javax.swing.JButton();
-        aceptar = new javax.swing.JButton();
+        btnSiguiente = new javax.swing.JButton();
+        btnVolver = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
-        tabla = new javax.swing.JTable();
+        tablaBusqueda = new javax.swing.JTable();
         txtId = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
         txtMensajeBusqueda = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tablaSeleccionados = new javax.swing.JTable();
         fondoImagen = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -197,7 +120,7 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Lista original");
+        jLabel2.setText("Resultados de Búsqueda");
 
         campoTexto.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
         campoTexto.setForeground(new java.awt.Color(255, 255, 255));
@@ -216,7 +139,7 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Lista a rellenar");
+        jLabel3.setText("Seleccionados");
 
         btnRemove.setBackground(new java.awt.Color(0, 51, 102));
         btnRemove.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
@@ -250,22 +173,6 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
                 btnRemoveAllActionPerformed(evt);
             }
         });
-
-        lista.setBackground(new java.awt.Color(0, 51, 102));
-        lista.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
-        lista.setForeground(new java.awt.Color(255, 255, 255));
-        lista.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lista.addContainerListener(new java.awt.event.ContainerAdapter() {
-            public void componentAdded(java.awt.event.ContainerEvent evt) {
-                listaComponentAdded(evt);
-            }
-        });
-        lista.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                listaFocusGained(evt);
-            }
-        });
-        jScrollPane3.setViewportView(lista);
 
         apellido.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
         apellido.setForeground(new java.awt.Color(255, 255, 255));
@@ -311,30 +218,30 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
         txtCodigo.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
         txtCodigo.setForeground(new java.awt.Color(255, 255, 255));
 
-        cancelar.setBackground(new java.awt.Color(0, 51, 102));
-        cancelar.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
-        cancelar.setForeground(new java.awt.Color(255, 255, 255));
-        cancelar.setText("Siguiente");
-        cancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        cancelar.setPreferredSize(new java.awt.Dimension(137, 41));
-        cancelar.addActionListener(new java.awt.event.ActionListener() {
+        btnSiguiente.setBackground(new java.awt.Color(0, 51, 102));
+        btnSiguiente.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
+        btnSiguiente.setForeground(new java.awt.Color(255, 255, 255));
+        btnSiguiente.setText("Siguiente");
+        btnSiguiente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSiguiente.setPreferredSize(new java.awt.Dimension(137, 41));
+        btnSiguiente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelarActionPerformed(evt);
+                btnSiguienteActionPerformed(evt);
             }
         });
 
-        aceptar.setBackground(new java.awt.Color(0, 51, 102));
-        aceptar.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
-        aceptar.setForeground(new java.awt.Color(255, 255, 255));
-        aceptar.setText("Volver");
-        aceptar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        aceptar.addActionListener(new java.awt.event.ActionListener() {
+        btnVolver.setBackground(new java.awt.Color(0, 51, 102));
+        btnVolver.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
+        btnVolver.setForeground(new java.awt.Color(255, 255, 255));
+        btnVolver.setText("Volver");
+        btnVolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                aceptarActionPerformed(evt);
+                btnVolverActionPerformed(evt);
             }
         });
 
-        tabla.setModel(new javax.swing.table.DefaultTableModel(
+        tablaBusqueda.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"no se muestran los cambios hechos aca"}
             },
@@ -342,17 +249,17 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
                 "no se usa este diseño"
             }
         ));
-        tabla.setColumnSelectionAllowed(true);
-        tabla.getTableHeader().setReorderingAllowed(false);
-        tabla.addMouseListener(new java.awt.event.MouseAdapter() {
+        tablaBusqueda.setColumnSelectionAllowed(true);
+        tablaBusqueda.getTableHeader().setReorderingAllowed(false);
+        tablaBusqueda.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tablaMouseClicked(evt);
+                tablaBusquedaMouseClicked(evt);
             }
         });
-        jScrollPane4.setViewportView(tabla);
-        tabla.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        if (tabla.getColumnModel().getColumnCount() > 0) {
-            tabla.getColumnModel().getColumn(0).setPreferredWidth(190);
+        jScrollPane4.setViewportView(tablaBusqueda);
+        tablaBusqueda.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        if (tablaBusqueda.getColumnModel().getColumnCount() > 0) {
+            tablaBusqueda.getColumnModel().getColumn(0).setPreferredWidth(190);
         }
 
         txtId.setBackground(new java.awt.Color(0, 51, 102));
@@ -378,6 +285,29 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
             }
         });
 
+        txtMensajeBusqueda.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        txtMensajeBusqueda.setForeground(new java.awt.Color(255, 255, 255));
+
+        tablaSeleccionados.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"no se muestran los cambios hechos aca"}
+            },
+            new String [] {
+                "no se usa este diseño"
+            }
+        ));
+        tablaSeleccionados.getTableHeader().setReorderingAllowed(false);
+        tablaSeleccionados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaSeleccionadosMouseClicked(evt);
+            }
+        });
+        jScrollPane5.setViewportView(tablaSeleccionados);
+        tablaSeleccionados.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        if (tablaSeleccionados.getColumnModel().getColumnCount() > 0) {
+            tablaSeleccionados.getColumnModel().getColumn(0).setPreferredWidth(190);
+        }
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -395,15 +325,10 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
                                 .addGap(10, 10, 10)
                                 .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 690, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(190, 190, 190)
-                                .addComponent(jLabel2)
-                                .addGap(370, 370, 370)
-                                .addComponent(jLabel3))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(246, 246, 246)
-                                .addComponent(aceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(237, 237, 237)
-                                .addComponent(cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(58, 58, 58)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -418,12 +343,19 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(txtMensajeBusqueda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                         .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(58, 58, 58)
+                            .addContainerGap()
+                            .addComponent(campoTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 890, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(10, 10, 10))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(campoTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 890, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(7, 7, 7)
+                                    .addGap(124, 124, 124)
+                                    .addComponent(jLabel2)
+                                    .addGap(149, 149, 149))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(42, 42, 42)
+                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(jPanel1Layout.createSequentialGroup()
                                             .addGap(31, 31, 31)
@@ -435,12 +367,16 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
                                             .addGap(11, 11, 11)
                                             .addComponent(btnAddAll, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addComponent(btnRemoveAll))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addGap(18, 18, 18)))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel3)
+                                    .addGap(134, 134, 134)))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(330, 330, 330)
                         .addComponent(jLabel1)))
-                .addGap(76, 76, 76))
+                .addGap(47, 47, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -468,29 +404,31 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtMensajeBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23)
+                .addGap(10, 10, 10)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
-                .addGap(9, 9, 9)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(btnAdd)
                         .addGap(9, 9, 9)
                         .addComponent(btnRemove)
                         .addGap(9, 9, 9)
                         .addComponent(btnAddAll)
                         .addGap(9, 9, 9)
-                        .addComponent(btnRemoveAll))
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addComponent(campoTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(9, 9, 9)
+                        .addComponent(btnRemoveAll)
+                        .addGap(65, 65, 65)))
+                .addComponent(campoTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(aceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(100, Short.MAX_VALUE))
         );
 
@@ -504,22 +442,118 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMouseClicked
+    private void tablaBusquedaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaBusquedaMouseClicked
 
-        //no se sabe todavia para que sirve
-        /*
-        int fila = tabla.rowAtPoint(evt.getPoint());
-        int columna = tabla.columnAtPoint(evt.getPoint());
-        if ((fila > -1) && (columna > -1)) {
-            filaSeleccionada = fila;
-        }*/
-    }//GEN-LAST:event_tablaMouseClicked
+    }//GEN-LAST:event_tablaBusquedaMouseClicked
 
-    private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarActionPerformed
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+        
+    }//GEN-LAST:event_btnVolverActionPerformed
 
-        //convierto a set la lista guardada en modeloTabla con las competencias seleccionadas para persistirlas en la bs
-        Set<Candidato> candidatos = new HashSet<Candidato>(modeloTabla.getListaCandidatos());
-   //MODIFICAR     int resultado = gestorPuesto.modificarPuesto(puestoAux, txtApellido.getText(), txtNombre.getText(), txtNombre.getText(), c, modeloTabla.getListaPonderacion());
+    private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
+
+        GestionDePuestos obj = new GestionDePuestos();
+        obj.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnSiguienteActionPerformed
+
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+        gestorValidacionesPantalla.keyTyped(txtNombre, evt);
+    }//GEN-LAST:event_txtNombreKeyTyped
+
+    private void txtNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyReleased
+        gestorValidacionesPantalla.keyReleased(txtNombre);
+    }//GEN-LAST:event_txtNombreKeyReleased
+
+    private void txtApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyTyped
+        gestorValidacionesPantalla.keyTyped(txtApellido, evt);
+    }//GEN-LAST:event_txtApellidoKeyTyped
+
+    private void txtApellidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyReleased
+        gestorValidacionesPantalla.keyReleased(txtApellido);
+    }//GEN-LAST:event_txtApellidoKeyReleased
+
+    private void btnRemoveAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveAllActionPerformed
+       
+        while (modeloTabla.getRowCount() != 0) { //se va a ejecutar mientras haya alguna fila en la tabla
+            modeloTabla.addCandidato((Candidato) modeloTabla.getCandidato(0));
+            modeloTabla.eliminarCandidato(0);
+        }
+    }//GEN-LAST:event_btnRemoveAllActionPerformed
+
+    private void btnAddAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddAllActionPerformed
+
+        while (modeloTabla.getRowCount() != 0) {
+            Candidato cand = modeloTabla.getCandidato(0);
+            modeloTabla.addCandidato(cand);
+            modeloTabla.eliminarCandidato(0);
+        }
+
+    }//GEN-LAST:event_btnAddAllActionPerformed
+
+    private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
+        
+            if ((tablaSeleccionados.getSelectedRow() == -1)) {
+                campoTexto.setText("Seleccione un elemento antes de presionar el boton");
+            } else {
+                campoTexto.setText("");
+                
+                int row = tablaSeleccionados.getSelectedRow();
+                Candidato cand = modeloTablaSeleccionados.getCandidato(row);
+                modeloTabla.addCandidato(cand);
+                modeloTablaSeleccionados.eliminarCandidato(row);
+            }
+
+    }//GEN-LAST:event_btnRemoveActionPerformed
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+    
+        if (tablaBusqueda.getSelectedRow() != -1 || tablaBusqueda.getComponentCount() == 0) {
+            campoTexto.setText("");
+            Candidato candidato = modeloTabla.getCandidato(tablaBusqueda.getSelectedRow());
+            modeloTablaSeleccionados.addCandidato(candidato);
+            modeloTabla.eliminarCandidato(tablaBusqueda.getSelectedRow());
+        } else {
+            campoTexto.setText("Seleccione un elemento antes de presionar el boton");
+        }
+
+    }//GEN-LAST:event_btnAddActionPerformed
+
+    private void txtIdKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIdKeyReleased
+
+    private void txtIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIdKeyTyped
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+    
+        limpiarTabla(tablaBusqueda,modeloTabla);    //se limpia la tabla para que al hacer busquedas consecutivas se borren los resultados anteriores
+        
+        txtMensajeBusqueda.setText("");
+        //obtengo los datos de pantalla
+        String apellido = txtApellido.getText();    
+        String nombre = txtNombre.getText();
+        String id = txtId.getText();
+  
+        if("".equals(apellido) && "".equals(nombre) && "".equals(id)){ //no completo al menos un criterio de busqueda
+            
+            GestorCandidato gestorCandidato = GestorCandidato.getInstance();     //se pide la instancia de GestorCandidato
+            gestorCandidato.buscarCandidato(modeloTabla);  //busca en la BD y completa la tabla que es pasada por parametro con los resultados
+            
+        }
+        else{
+        GestorCandidato gestorCandidato = GestorCandidato.getInstance();     //se pide la instancia de GestorCandidato
+
+        gestorCandidato.buscarCandidato(modeloTabla, apellido, nombre, id);  //busca en la BD y completa la tabla que es pasada por parametro con los resultados
+        }
+        
+        if (modeloTabla.data.isEmpty()) {
+            txtMensajeBusqueda.setText("La búsqueda no ha arrojado resultados");
+        }
+
+        //int resultado = gestorCandidato.buscarCandidato(txtApellido.getText(), txtNombre.getText(), txtId.getText());
         /* 1: todo correcto
         2: ponderaciones vacias
         3: ponderaciones fuera de rango (0-10)
@@ -578,133 +612,16 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
             break;
         }
         */
-    }//GEN-LAST:event_aceptarActionPerformed
-
-    private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
-
-        GestionDePuestos obj = new GestionDePuestos();
-        obj.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_cancelarActionPerformed
-
-    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
-        gestorValidacionesPantalla.keyTyped(txtNombre, evt);
-    }//GEN-LAST:event_txtNombreKeyTyped
-
-    private void txtNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyReleased
-        gestorValidacionesPantalla.keyReleased(txtNombre);
-    }//GEN-LAST:event_txtNombreKeyReleased
-
-    private void txtApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyTyped
-        gestorValidacionesPantalla.keyTyped(txtApellido, evt);
-    }//GEN-LAST:event_txtApellidoKeyTyped
-
-    private void txtApellidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyReleased
-        gestorValidacionesPantalla.keyReleased(txtApellido);
-    }//GEN-LAST:event_txtApellidoKeyReleased
-
-    private void listaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_listaFocusGained
-        // TODO add your handling code here:
-    }//GEN-LAST:event_listaFocusGained
-
-    private void listaComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_listaComponentAdded
-        // TODO add your handling code here:
-    }//GEN-LAST:event_listaComponentAdded
-
-    private void btnRemoveAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveAllActionPerformed
-        if (!puestoEnUso) { //significa que se pueden agregar/quitar competencias porq el puesto no esta en uso
-            while (modeloTabla.getRowCount() != 0) { //se va a ejecutar mientras haya alguna fila en la tabla
-                modeloLista.addCandidato((Candidato) modeloTabla.getCandidato(0));
-                modeloTabla.deleteRow(0);
-            }
-        } else {
-            campoTexto.setText("No es posible quitar competencias debido a que hay cuestionarios generados para este puesto");
-        }
-    }//GEN-LAST:event_btnRemoveAllActionPerformed
-
-    private void btnAddAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddAllActionPerformed
-        /*if (!puestoEnUso) { //significa que se pueden agregar/quitar competencias porq el puesto no esta en uso
-            while (modeloLista.getSize() != 0) {
-                Competencia competencia = modeloLista.getCompetencia(0);
-                modeloTabla.addCompetencia(competencia);
-                modeloLista.eliminarCompetencia(0);
-            }
-        } else {
-            campoTexto.setText("No es posible agregar competencias debido a que hay cuestionarios generados para este puesto");
-        }*/
-    }//GEN-LAST:event_btnAddAllActionPerformed
-
-    private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
-        /*if (!puestoEnUso) { //significa que se pueden agregar/quitar competencias porq el puesto no esta en uso
-            if ((tabla.getSelectedRow() == -1)) {
-                campoTexto.setText("Seleccione un elemento antes de presionar el boton");
-            } else {
-                campoTexto.setText("");*/
-                /* original para lista
-                String aux = ModeloTabla.getSelectedValue();
-                modelol1.addCompetencia(aux);
-                modelol2.remove(tabla.getSelectedIndex());*/
-                /*int row = tabla.getSelectedRow();
-                Competencia competencia = modeloTabla.getCompetencia(row);
-                modeloLista.addCompetencia(competencia);
-                modeloTabla.deleteRow(row);
-            }
-        } else {
-            campoTexto.setText("No es posible quitar competencias debido a que hay cuestionarios generados para este puesto");
-        }*/
-    }//GEN-LAST:event_btnRemoveActionPerformed
-
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        if (!puestoEnUso) { //significa que se pueden agregar/quitar competencias porq el puesto no esta en uso
-            if (lista.getSelectedValue() != null || lista.getComponentCount() == 0) {
-                campoTexto.setText("");
-                // String aux = lista.getSelectedValue();
-                Candidato candidato = modeloLista.getCandidato(lista.getSelectedIndex());
-                modeloTabla.addCandidato(candidato);
-                modeloLista.eliminarCandidato(lista.getSelectedIndex());
-            } else {
-                campoTexto.setText("Seleccione un elemento antes de presionar el boton");
-            }
-        } else {
-            campoTexto.setText("No es posible agregar competencias debido a que hay cuestionarios generados para este puesto");
-        }
-    }//GEN-LAST:event_btnAddActionPerformed
-
-    private void txtIdKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIdKeyReleased
-
-    private void txtIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIdKeyTyped
-
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        /*limpiarTabla(tabla,modeloTabla);    //se limpia la tabla para que al hacer busquedas consecutivas se borren los resultados anteriores
-        txtMensajeBusqueda.setText("");
-        //obtengo los datos de pantalla
-        String apellido2 = txtApellido.getText();    
-        String nombre2 = txtNombre.getText();
-        String id2 = txtId.getText();
-  
-        if("".equals(apellido2) && "".equals(nombre2) && "".equals(id2)){ //no completo al menos un criterio de busqueda
-            
-            GestorPuesto gestorPuesto = GestorPuesto.getInstance();     //se pide la instancia de GestorPuesto
-            gestorPuesto.buscarPuestos(modeloTabla);  //busca en la BS y completa la tabla que es pasada por parametro con los resultados
-            
-        }
-        else{
-        GestorPuesto gestorPuesto = GestorPuesto.getInstance();     //se pide la instancia de GestorPuesto
-
-        gestorPuesto.buscarPuestos(modeloTabla, codigo2, puesto2, empresa2);  //busca en la BS y completa la tabla que es pasada por parametro con los resultados
-        }
         
-       if(modeloTabla.data.isEmpty())
-           txtMensajeBusqueda.setText("La búsqueda no ha arrojado resultados");*/
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreActionPerformed
+
+    private void tablaSeleccionadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaSeleccionadosMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tablaSeleccionadosMouseClicked
 
     /**
      * @param args the command line arguments
@@ -742,50 +659,15 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
         });
     }
 
-    // http://serprogramador.es/usando-un-jlist-para-almacenar-objetos-java-swing/
-    public class CustomListModel extends AbstractListModel {
-
-        private ArrayList<Candidato> lista = new ArrayList<>();
-
-        @Override
-        public int getSize() {
-            return lista.size();
-        }
-
-        @Override
-        public Object getElementAt(int index) {
-            //hacer que devuelva algo
-            /*Candidato c = lista.get(index);
-            return c.getNombreCompetencia();*/
-            return 1;//modificar
-        }
-
-        public void addCandidato(Candidato c) {
-            lista.add(c);
-            this.fireIntervalAdded(this, getSize(), getSize() + 1);
-        }
-
-        public void eliminarCandidato(int index0) {
-            lista.remove(index0);
-            this.fireIntervalRemoved(index0, getSize(), getSize() + 1);
-        }
-
-        public Candidato getCandidato(int index) {
-            return lista.get(index);
-        }
-
-    }
-
     //http://jcaballero-progravan1.blogspot.com.ar/2011/03/jtable.html
     //http://docs.oracle.com/javase/tutorial/uiswing/components/table.html#data
     public class CustomTableModel extends AbstractTableModel {
 
         private ArrayList<Candidato> data = new ArrayList<Candidato>();
-        private ArrayList<Integer> ponderacion = new ArrayList<Integer>();
         private int numColumns = 2; //cant de columnas con la que se crea la tabla
         private String columnNames[] = {"Nombre y Apellido", "Número ID"};
         // private Class classes[]={String.class ,String.class}; //tipo de las columnas
-        private boolean editable[] = {false, true};
+        private boolean editable[] = {false, false};
 
         @Override
         public int getRowCount() {
@@ -814,87 +696,57 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
             return columnIndex == 0 ? false : true;
         }
 
-        @Override
-        // Cambia el valor que contiene una determinada casilla de la tabla
-        public void setValueAt(Object value, int row, int col) {
-
-            if (value.getClass() == String.class) {
-                //si entra el valor por pantalla viene un string
-                String c = (String) value;
-                Integer valorNumerico = null;
-                if (c.matches("[0-9]*")) {
-                    valorNumerico = Integer.parseInt(c);
-                    if (valorNumerico >= 0 && valorNumerico <= 10) {
-                        ponderacion.set(row, valorNumerico);
-                    } else {
-                        campoTexto.setText("La ponderacion debe estar entre 0 y 10");
-                    }
-
-                } else {
-                    campoTexto.setText("El campo ponderacion debe ser numerico entre 0 y 10");
-                }
-                /*valorNumerico = Integer.parseInt((String) value);
-                ponderacion.set(row, valorNumerico);*/
-            } else {
-                //si se carga desde la BD viene como un int
-                ponderacion.set(row, (Integer) value);
-            }
-
-            fireTableCellUpdated(row, col);
-        }
-
         public Candidato getCandidato(int fila) {
-            return (Candidato) data.get(fila);
+            return (Candidato)data.get(fila);
+        }
+        public Candidato getCandidato2(int fila) {
+            return (Candidato)data.get(fila);
         }
 
         public List<Candidato> getListaCandidatos() {
             return data;
         }
 
-        public List<Integer> getListaPonderacion() {
-            return ponderacion;
-        }
 
         @Override
         //este metodo muestra por pantalla los nombres pero en realidad se esta manejando una lista con Competencias por detras
         public Object getValueAt(int row, int col) {
+
+            Object retorno=null;
             Candidato c = (Candidato) data.get(row);
-            //Si la columa es la 0 muestra el nombre de la competencia
-            // sino (es la columna 1) muestro la ponderacion
-            return col == 0 ? c.getNombreApellido() : ponderacion.get(row);  //cosas locas sacadas de internet
-            //return data.get(row)[col];
+            switch(col){
+                case 0:
+                    retorno= c.getNombreApellido();
+                    break;
+                case 1:
+                    retorno= c.getIdCandidato();
+                    break;
+            }
+            return retorno;
         }
 
         public void addCandidato(Candidato candidato) {
-            data.add(candidato);
-            ponderacion.add(null);
+            data.add(candidato);      
             fireTableDataChanged();
         }
 
-        private void deleteRow(int row) {
+        private void eliminarCandidato(int row) {
             data.remove(row);
-            ponderacion.remove(row);
             fireTableDataChanged();
         }
 
-        public void mostrar() {
-            for (int i = 0; i < ponderacion.size(); i++) {
-
-                System.out.print(i + 1 + " -> " + ponderacion.get(i) + "\n");
-            }
-        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton aceptar;
     private javax.swing.JLabel apellido;
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnAddAll;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnRemove;
     private javax.swing.JButton btnRemoveAll;
+    private javax.swing.JButton btnSiguiente;
+    private javax.swing.JButton btnVolver;
     private javax.swing.JLabel campoTexto;
-    private javax.swing.JButton cancelar;
     private javax.swing.JLabel fondoImagen;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -902,10 +754,10 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JList<String> lista;
-    private javax.swing.JTable tabla;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JTable tablaBusqueda;
+    private javax.swing.JTable tablaSeleccionados;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JLabel txtCodigo;
     private javax.swing.JTextField txtId;
