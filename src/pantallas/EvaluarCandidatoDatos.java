@@ -11,19 +11,22 @@ import javax.swing.table.AbstractTableModel;
 
 /**
  *
- * @author John
+ * @author pc
  */
 public class EvaluarCandidatoDatos extends javax.swing.JFrame {
 
     CustomTableModel modeloTabla = new CustomTableModel();
+    
     public EvaluarCandidatoDatos() {
         initComponents();
         setSize(1024, 768);
         setLocationRelativeTo(null);
         tabla.setModel(modeloTabla);
         tabla.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        
     }
-    
+
+//Los métodos de esto estan mal. modificar
     public class CustomTableModel extends AbstractTableModel {
 
         private int numColumns = 4; //cant de columnas con la que se crea la tabla
@@ -72,7 +75,7 @@ public class EvaluarCandidatoDatos extends javax.swing.JFrame {
         }
     }
     
-   
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -136,7 +139,7 @@ public class EvaluarCandidatoDatos extends javax.swing.JFrame {
         cancelar.setBackground(new java.awt.Color(0, 51, 102));
         cancelar.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
         cancelar.setForeground(new java.awt.Color(255, 255, 255));
-        cancelar.setText("Siguiente");
+        cancelar.setText("Finalizar");
         cancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cancelar.setPreferredSize(new java.awt.Dimension(137, 41));
         cancelar.addActionListener(new java.awt.event.ActionListener() {

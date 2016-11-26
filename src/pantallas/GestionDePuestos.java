@@ -55,7 +55,7 @@ public class GestionDePuestos extends javax.swing.JFrame {
            modeloTabla.deleteRow(i);
            i-=1;
        }
-   }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
