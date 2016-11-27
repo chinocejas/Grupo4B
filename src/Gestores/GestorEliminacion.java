@@ -50,7 +50,7 @@ public class GestorEliminacion {
     }
 
     public void eliminarPuestoOriginal(Puesto puesto) {
-        daoEliminacion.deleteLogic(puesto);
+        daoEliminacion.deleteLogicPuesto(puesto);
     }
     
     private static class GestorEliminacionHolder {
