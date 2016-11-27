@@ -14,8 +14,11 @@
         <property name="tipoDocumento" type="string">
             <column name="tipo_documento" length="500" />
         </property>
-        <property name="nombreApellido" type="string">
-            <column name="nombre_apellido" length="500" />
+        <property name="nombre" type="string">
+            <column name="nombre" length="500" />
+        </property>
+        <property name="apellido" type="string">
+            <column name="apellido" length="500" />
         </property>
         <property name="fechaNacimiento" type="date">
             <column name="fecha_nacimiento" length="13" />

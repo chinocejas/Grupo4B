@@ -57,7 +57,6 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
     private void limpiarTabla(JTable tabla, GestionDeEvaluarCandidato.CustomTableModel modeloTabla){
        for (int i = 0; i < tabla.getRowCount(); i++) {
            modeloTabla.eliminarCandidato(i);
-           //tabla.remove(i);
            i-=1;
        }
     }
@@ -439,7 +438,9 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
     }//GEN-LAST:event_tablaBusquedaMouseClicked
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        
+        GestionCandidatos obj = new GestionCandidatos();
+        obj.setVisible(true);
+        dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
@@ -468,7 +469,7 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
     private void btnRemoveAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveAllActionPerformed
        
         while (modeloTablaSeleccionados.getRowCount() != 0) { //se va a ejecutar mientras haya alguna fila en la tabla
-            modeloTabla.addCandidato(/*(Candidato)*/ modeloTablaSeleccionados.getCandidato(0));
+            modeloTabla.addCandidato(modeloTablaSeleccionados.getCandidato(0));
             modeloTablaSeleccionados.eliminarCandidato(0);
         }
     }//GEN-LAST:event_btnRemoveAllActionPerformed
@@ -543,66 +544,6 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
         if (modeloTabla.data.isEmpty()) {
             txtMensajeBusqueda.setText("La búsqueda no ha arrojado resultados");
         }
-
-        //int resultado = gestorCandidato.buscarCandidato(txtApellido.getText(), txtNombre.getText(), txtId.getText());
-        /* 1: todo correcto
-        2: ponderaciones vacias
-        3: ponderaciones fuera de rango (0-10)
-        4: campos en blanco
-        5: sin al menos una competencia seleccionada
-        6: el nombre ya esta en uso
-        */
-/*
-        switch (resultado) {
-            //todo correcto
-            case 1:
-            JOptionPane.showMessageDialog(null, "La operación ha culminado con éxito");
-            GestionDePuestos obj = new GestionDePuestos();
-            obj.setVisible(true);
-            dispose();
-            break;
-
-            //hay ponderaciones sin completar
-            case 2:
-            campoTexto.setText("Algunas competencias no tienen una ponderación definida");
-            break;
-
-            //hay ponderaciones que no estan entre 0 y 10
-            case 3:
-            campoTexto.setText("Las ponderaciones deben ser valores entre 0 y 10");
-            break;
-
-            //nombre o empresa estan vacios
-            case 4:
-            campoTexto.setText("Algunos campos se encuentran en blanco");
-            if (txtNombre.getText().equals("")) {
-                txtNombre.requestFocus();
-                txtNombre.setBackground(java.awt.Color.RED);
-            }
-            if (txtNombre.getText().equals("")) {
-                txtNombre.requestFocus();
-                txtNombre.setBackground(java.awt.Color.RED);
-            }
-            if (txtApellido.getText().equals("")) {
-                txtApellido.requestFocus();
-                txtApellido.setBackground(java.awt.Color.red);
-            }
-            break;
-
-            //sin al menos una competencia seleccionada
-            case 5:
-            campoTexto.setText("Seleccione al menos una competencia");
-            lista.setForeground(java.awt.Color.red);
-            break;
-
-            //sin al menos una competencia seleccionada
-            case 6:
-            campoTexto.setText("El nombre del puesto ya esta en uso");
-            txtApellido.requestFocus();
-            txtApellido.setBackground(java.awt.Color.red);
-            break;
-        }
-        */
         
     }//GEN-LAST:event_btnBuscarActionPerformed
 
@@ -655,10 +596,10 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
     public class CustomTableModel extends AbstractTableModel {
 
         private ArrayList<Candidato> data = new ArrayList<Candidato>();
-        private int numColumns = 2; //cant de columnas con la que se crea la tabla
-        private String columnNames[] = {"Nombre y Apellido", "Número ID"};
+        private int numColumns = 3; //cant de columnas con la que se crea la tabla
+        private String columnNames[] = {"Nombre", "Apellido", "Número ID"};
         // private Class classes[]={String.class ,String.class}; //tipo de las columnas
-        private boolean editable[] = {false, false};
+        private boolean editable[] = {false, false, false};
 
         @Override
         public int getRowCount() {
@@ -705,12 +646,15 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
 
             Object retorno=null;
             Candidato c = (Candidato) data.get(row);
-            switch(col){
+            switch (col) {
                 case 0:
-                    retorno= c.getNombreApellido();
+                    retorno = c.getNombre();
                     break;
                 case 1:
-                    retorno= c.getIdCandidato();
+                    retorno = c.getApellido();
+                    break;
+                case 2:
+                    retorno = c.getIdCandidato();
                     break;
             }
             return retorno;

@@ -15,7 +15,8 @@ public class Candidato  implements java.io.Serializable {
      private int idCandidato;
      private Integer numeroDocumento;
      private String tipoDocumento;
-     private String nombreApellido;
+     private String nombre;
+     private String apellido;
      private Date fechaNacimiento;
      private String genero;
      private String nacionalidad;
@@ -31,11 +32,12 @@ public class Candidato  implements java.io.Serializable {
     public Candidato(int idCandidato) {
         this.idCandidato = idCandidato;
     }
-    public Candidato(int idCandidato, Integer numeroDocumento, String tipoDocumento, String nombreApellido, Date fechaNacimiento, String genero, String nacionalidad, String email, String escolaridad, Boolean eliminado, Set cuestionarios) {
+    public Candidato(int idCandidato, Integer numeroDocumento, String tipoDocumento, String nombre, String apellido, Date fechaNacimiento, String genero, String nacionalidad, String email, String escolaridad, Boolean eliminado, Set cuestionarios) {
        this.idCandidato = idCandidato;
        this.numeroDocumento = numeroDocumento;
        this.tipoDocumento = tipoDocumento;
-       this.nombreApellido = nombreApellido;
+       this.nombre = nombre;
+       this.apellido = apellido;
        this.fechaNacimiento = fechaNacimiento;
        this.genero = genero;
        this.nacionalidad = nacionalidad;
@@ -66,12 +68,21 @@ public class Candidato  implements java.io.Serializable {
     public void setTipoDocumento(String tipoDocumento) {
         this.tipoDocumento = tipoDocumento;
     }
+    public String getNombre() {
+        return this.nombre;
+    }
+    public String getApellido() {
+        return this.apellido;
+    }
     public String getNombreApellido() {
-        return this.nombreApellido;
+        return (this.nombre +" "+ this.apellido);
     }
     
-    public void setNombreApellido(String nombreApellido) {
-        this.nombreApellido = nombreApellido;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
     }
     public Date getFechaNacimiento() {
         return this.fechaNacimiento;

@@ -110,36 +110,36 @@ public class DaoCandidato extends AbstractDao {
             Query query;
 
     /**/        if (apellido != null && nombre != null && id != null) { //busqueda por los tres parametros
-                query = session.createQuery("from Candidato WHERE TRIM(TO_CHAR(id_candidato, '9999999999')) LIKE :id AND nombre_apellido LIKE :apellido AND nombre_apellido LIKE :nombre AND eliminado=false");
+                query = session.createQuery("from Candidato WHERE TRIM(TO_CHAR(id_candidato, '9999999999')) LIKE :id AND apellido LIKE :apellido AND nombre LIKE :nombre AND eliminado=false");
                 query.setParameter("id", id);
                 query.setParameter("apellido", apellido);
                 query.setParameter("nombre", nombre);
                 objects = query.list();
-    /**/        } else if ("".equals(nombre)) { //busqueda solo por id y apellido
-                query = session.createQuery("from Candidato WHERE TRIM(TO_CHAR(id_candidato, '9999999999')) LIKE :id AND nombre_apellido LIKE :apellido AND eliminado=false");
+            } else if ("".equals(nombre)) { //busqueda solo por id y apellido
+     /**/           query = session.createQuery("from Candidato WHERE TRIM(TO_CHAR(id_candidato, '9999999999')) LIKE :id AND apellido LIKE :apellido AND eliminado=false");
                 query.setParameter("id", id);
                 query.setParameter("apellido", apellido);
                 objects = query.list();
-     /**/       } else if ("".equals(apellido)) { //busqueda solo por id y nombre
-                query = session.createQuery("from Candidato WHERE TRIM(TO_CHAR(id_candidato, '9999999999')) LIKE :id AND nombre_apellido LIKE :nombre AND eliminado=false");
+            } else if ("".equals(apellido)) { //busqueda solo por id y nombre
+      /**/          query = session.createQuery("from Candidato WHERE TRIM(TO_CHAR(id_candidato, '9999999999')) LIKE :id AND nombre LIKE :nombre AND eliminado=false");
                 query.setParameter("id", id);
                 query.setParameter("nombre", nombre);
                 objects = query.list();
             } else if ("".equals(id)) { //busqueda solo por apellido y nombre
-    /**/            query = session.createQuery("from Candidato WHERE nombre_apellido LIKE :apellido AND nombre_apellido LIKE :nombre AND eliminado=false");
+      /**/          query = session.createQuery("from Candidato WHERE apellido LIKE :apellido AND nombre LIKE :nombre AND eliminado=false");
                 query.setParameter("apellido", apellido);
                 query.setParameter("nombre", nombre);
                 objects = query.list();
-  /**/          } else if ("".equals(nombre) && "".equals(id)) { //busqueda solo por apellido
-                query = session.createQuery("from Candidato WHERE nombre_apellido LIKE :apellido AND eliminado=false");
+            } else if ("".equals(nombre) && "".equals(id)) { //busqueda solo por apellido
+      /**/          query = session.createQuery("from Candidato WHERE apellido LIKE :apellido AND eliminado=false");
                 query.setParameter("apellido", apellido);
                 objects = query.list();
-  /**/          } else if ("".equals(apellido) && "".equals(id)) { //busqueda solo por nombre
-                query = session.createQuery("from Candidato WHERE nombre_apellido LIKE :nombre AND eliminado=false");
+            } else if ("".equals(apellido) && "".equals(id)) { //busqueda solo por nombre
+      /**/          query = session.createQuery("from Candidato WHERE nombre LIKE :nombre AND eliminado=false");
                 query.setParameter("nombre", nombre);
                 objects = query.list();
-  /**/          } else if ("".equals(apellido) && "".equals(nombre)) { //busqueda solo por id
-                query = session.createQuery("from Candidato WHERE TRIM(TO_CHAR(id_candidato, '9999999999')) LIKE :id AND eliminado=false");
+            } else if ("".equals(apellido) && "".equals(nombre)) { //busqueda solo por id
+     /**/           query = session.createQuery("from Candidato WHERE TRIM(TO_CHAR(id_candidato, '9999999999')) LIKE :id AND eliminado=false");
                 //el operador like funciona solo con cadenas por eso uso esto para id_candidato
                 query.setParameter("id", id);
                 objects = query.list();
