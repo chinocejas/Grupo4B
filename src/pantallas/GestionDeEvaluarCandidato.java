@@ -56,7 +56,8 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
     
     private void limpiarTabla(JTable tabla, GestionDeEvaluarCandidato.CustomTableModel modeloTabla){
        for (int i = 0; i < tabla.getRowCount(); i++) {
-           tabla.remove(i);
+           modeloTabla.eliminarCandidato(i);
+           //tabla.remove(i);
            i-=1;
        }
     }
@@ -466,9 +467,9 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
 
     private void btnRemoveAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveAllActionPerformed
        
-        while (modeloTabla.getRowCount() != 0) { //se va a ejecutar mientras haya alguna fila en la tabla
-            modeloTabla.addCandidato((Candidato) modeloTabla.getCandidato(0));
-            modeloTabla.eliminarCandidato(0);
+        while (modeloTablaSeleccionados.getRowCount() != 0) { //se va a ejecutar mientras haya alguna fila en la tabla
+            modeloTabla.addCandidato(/*(Candidato)*/ modeloTablaSeleccionados.getCandidato(0));
+            modeloTablaSeleccionados.eliminarCandidato(0);
         }
     }//GEN-LAST:event_btnRemoveAllActionPerformed
 
@@ -476,7 +477,7 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
 
         while (modeloTabla.getRowCount() != 0) {
             Candidato cand = modeloTabla.getCandidato(0);
-            modeloTabla.addCandidato(cand);
+            modeloTablaSeleccionados.addCandidato(cand);
             modeloTabla.eliminarCandidato(0);
         }
 
