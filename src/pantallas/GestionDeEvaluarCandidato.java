@@ -192,11 +192,6 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
         txtNombre.setBackground(new java.awt.Color(0, 51, 102));
         txtNombre.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
         txtNombre.setForeground(new java.awt.Color(255, 255, 255));
-        txtNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNombreActionPerformed(evt);
-            }
-        });
         txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtNombreKeyReleased(evt);
@@ -257,9 +252,6 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
         txtId.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
         txtId.setForeground(new java.awt.Color(255, 255, 255));
         txtId.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtIdKeyReleased(evt);
-            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtIdKeyTyped(evt);
             }
@@ -276,7 +268,6 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
             }
         });
 
-        txtMensajeBusqueda.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         txtMensajeBusqueda.setForeground(new java.awt.Color(255, 255, 255));
 
         tablaSeleccionados.setModel(new javax.swing.table.DefaultTableModel(
@@ -451,7 +442,7 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSiguienteActionPerformed
 
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
-        gestorValidacionesPantalla.keyTyped(txtNombre, evt);
+        gestorValidacionesPantalla.keyTypedTextoYEspacios(txtNombre, evt);
     }//GEN-LAST:event_txtNombreKeyTyped
 
     private void txtNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyReleased
@@ -459,7 +450,7 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNombreKeyReleased
 
     private void txtApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyTyped
-        gestorValidacionesPantalla.keyTyped(txtApellido, evt);
+        gestorValidacionesPantalla.keyTypedTextoYEspacios(txtApellido, evt);
     }//GEN-LAST:event_txtApellidoKeyTyped
 
     private void txtApellidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyReleased
@@ -512,12 +503,8 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnAddActionPerformed
 
-    private void txtIdKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIdKeyReleased
-
     private void txtIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdKeyTyped
-        // TODO add your handling code here:
+        gestorValidacionesPantalla.keyTypedSoloNumeros(txtId, evt);
     }//GEN-LAST:event_txtIdKeyTyped
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -546,10 +533,6 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_btnBuscarActionPerformed
-
-    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombreActionPerformed
 
     private void tablaSeleccionadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaSeleccionadosMouseClicked
         // TODO add your handling code here:
