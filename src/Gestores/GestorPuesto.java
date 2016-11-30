@@ -11,10 +11,14 @@ import Entidades.Competencia;
 import Entidades.Puesto;
 import Entidades.PuestoCompetencia;
 import Entidades.PuestoCopia;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import pantallas.GestionDePuestos;
+import pantallas.ModificarPuesto;
 
 /**
  *
@@ -29,6 +33,32 @@ public class GestorPuesto {
 
     public static GestorPuesto getInstance() {
         return GestorPuestoHolder.INSTANCE;
+    }
+
+    
+
+    //agrega a modeloTabla las ponderaciones cargadas en puesto y BUSCA EN LA BD LAS PONDERACIONES y tambien las carga en modeloTabla
+    public void cargarTablaCompetenciasYPonderaciones(ModificarPuesto.CustomTableModel modeloTabla, Puesto puesto, List competenciasSeleccionadas) {
+        
+        int ponderacion;
+        int idCompetencia;
+        Competencia competencia;
+        PuestoCompetencia puestoCompetencia;
+        
+        for (int i = 0; i < competenciasSeleccionadas.size(); i++) {
+            //recupero la competencia en la posicion i
+            competencia = (Competencia) competenciasSeleccionadas.get(i);
+            //agrego a la lista de competencias en el modeloTabla
+            modeloTabla.addCompetencia(competencia);
+            //guardo el id de competencia para buscar las ponderaciones en la tabla de union
+            idCompetencia = competencia.getIdCompetencia();
+            //recupero una instancia de PuestoCompetencia pasando los id del puesto y la competencia
+            puestoCompetencia = find(Long.valueOf(puesto.getIdPuesto()), Long.valueOf(idCompetencia));
+            //pido la ponderacion guardada en esa instancia
+            ponderacion = puestoCompetencia.getPuntajeRequerido();
+            //muestro por pantalla la ponderacion al lado de la competencia
+            modeloTabla.setValueAt(ponderacion, i, 0); //ni idea porque con i inserta en el lugar correcto   
+        }
     }
 
     private static class GestorPuestoHolder {
@@ -84,7 +114,7 @@ public class GestorPuesto {
                 puesto.setNombreEmpresa(empresa);
                 puesto.setDescripcion(descripcion);
                 puesto.setEliminado(false);
-                puesto.setPuestoCompetencias(competenciasSet);
+                puesto.setCompetencias(competenciasSet);
                 guardarPuesto(puesto, competencias,ponderaciones);
                 
                 break;
@@ -129,11 +159,15 @@ public class GestorPuesto {
             
             //esta todo correcto
             case 1:
+                Date fechaActual = new Date();
+                DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
+                hourdateFormat.format(fechaActual);
                 puesto.setNombrePuesto(nombre);
                 puesto.setNombreEmpresa(empresa);
                 puesto.setDescripcion(descripcion);
+                puesto.setFechaUltimaModificacion(fechaActual);
                 puesto.setEliminado(false);
-                puesto.setPuestoCompetencias(competencias);
+                puesto.setCompetencias(competencias);
                 List<Competencia> competencias2 = new ArrayList<Competencia>(competencias);
                 actualizarPuesto(puesto, competencias2, ponderaciones);
                 break;

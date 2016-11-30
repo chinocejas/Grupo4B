@@ -9,6 +9,8 @@ import Dao.DaoEliminacion;
 import Entidades.Consultor;
 import Entidades.Puesto;
 import Entidades.RaEliminacion;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -26,7 +28,7 @@ public class GestorEliminacion {
         return GestorEliminacionHolder.INSTANCE;
     }
 
-    public void generarRegistroAuditoria(Object obj, Consultor consultor, Date fechaActual) {
+    public RaEliminacion crearRegistroAuditoria(Object obj, Consultor consultor, Date fechaActual) {
         
         RaEliminacion raEliminacion= new RaEliminacion();
         raEliminacion.setObjetoEliminado(obj);
@@ -45,12 +47,17 @@ public class GestorEliminacion {
                 
                 //completar para factor, pregunta,...
         }
-        daoEliminacion.saveRaEliminacion(raEliminacion);
-        
+        return raEliminacion;   
     }
 
     public void eliminarPuestoOriginal(Puesto puesto) {
         daoEliminacion.deleteLogicPuesto(puesto);
+        Consultor consultor = GestorConsultor.getInstance().getConsultor();
+        Date fechaActual = new Date();
+        DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
+        hourdateFormat.format(fechaActual);
+        RaEliminacion raEliminacion = crearRegistroAuditoria(puesto, consultor, fechaActual);
+        daoEliminacion.saveRaEliminacion(raEliminacion);
     }
     
     private static class GestorEliminacionHolder {

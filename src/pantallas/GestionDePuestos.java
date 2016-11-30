@@ -5,19 +5,14 @@
  */
 package pantallas;
 
-import Entidades.Consultor;
 import Entidades.Puesto;
-import Gestores.GestorConsultor;
 import Gestores.GestorEliminacion;
 import Gestores.GestorPuesto;
 import Gestores.GestorValidacionesPantalla;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -523,17 +518,14 @@ public class GestionDePuestos extends javax.swing.JFrame {
 
             int reply = JOptionPane.showOptionDialog(null,"Los datos del puesto " + puesto.getNombrePuesto() + " serán eliminados del sistema","CONFIRMAR ELIMINACIÓN", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[]{"Eliminar", "Cancelar"}, "Cancelar" );
             
-            //int reply = JOptionPane.showConfirmDialog(null, "Los datos del puesto " + puesto.getNombrePuesto() + " serán eliminados del sistema", "", YES_NO_OPTION);
                if (reply == JOptionPane.YES_OPTION)        
                 {
-                    Consultor consultor = GestorConsultor.getInstance().getConsultor();
-                    Date fechaActual = new Date();
-                    DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
-                    hourdateFormat.format(fechaActual);
-                    
                     GestorEliminacion gestorEliminacion = GestorEliminacion.getInstance();
-                    gestorEliminacion.generarRegistroAuditoria(puesto, consultor, fechaActual);
                     gestorEliminacion.eliminarPuestoOriginal(puesto);
+                    JOptionPane.showMessageDialog(null, "Los datos del puesto " + puesto.getNombrePuesto() +" han sido eliminados del sistema.");
+                    
+                    //se deja de visualizar en la tabla el puesto eliminado
+                    modeloTabla.deleteRow(filaSeleccionada);
                 }
 
             }
