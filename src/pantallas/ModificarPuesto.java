@@ -54,10 +54,6 @@ public class ModificarPuesto extends javax.swing.JFrame {
         tabla.setModel(modeloTabla);
         tabla.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
-        //puestoEnUso= true -> el puesto tiene puestosCopias asociados y esta en uso (no se pueden modificar las competencias)
-        //puestoEnUso= false -> el puesto no esta en uso y se pueden modificar las competencias
-        puestoEnUso = gestorPuesto.verificarPuestoEnUso(puesto.getIdPuesto());
-
         //COPIO EL PUESTO PASADO POR PARAMETRO A OTRO AUX PARA TENER VISIBILIDAD GLOBAL
         //SE PUEDE CAMBIAR
         puestoAux = puesto;
@@ -70,33 +66,17 @@ public class ModificarPuesto extends javax.swing.JFrame {
 
         GestorCompetencia gestorCompetencia = GestorCompetencia.getInstance();
 
-//competenciasSeleccionadas: tiene las competencias que ya estaban cargadas en el puesto
+        //competenciasSeleccionadas: tiene las competencias que ya estaban cargadas en el puesto
         List competenciasSeleccionadas = new ArrayList();
         //convierto el set obtenido a una lista
-        competenciasSeleccionadas.addAll(puesto.getPuestoCompetencias());
+        competenciasSeleccionadas.addAll(puesto.getCompetencias());
 
-//allCompetencias solo se usa para cargar modeloLista, despues se maneja todo con la lista dentro de modeloLista
+        //allCompetencias solo se usa para cargar modeloLista, despues se maneja todo con la lista dentro de modeloLista
         List allCompetencias = gestorCompetencia.allCompetenciasOrdenadasPorNombre();
 
-        int ponderacion;
-        int idCompetencia;
-        Competencia competencia;
-        PuestoCompetencia puestoCompetencia = new PuestoCompetencia();
-
-        for (int i = 0; i < competenciasSeleccionadas.size(); i++) {
-            //recupero la competencia en la posicion i
-            competencia = (Competencia) competenciasSeleccionadas.get(i);
-            //agrego a la lista de competencias en el modeloTabla
-            modeloTabla.addCompetencia(competencia);
-            //guardo el id de competencia para buscar las ponderaciones en la tabla de union
-            idCompetencia = competencia.getIdCompetencia();
-            //recupero una instancia de PuestoCompetencia pasando los id del puesto y la competencia
-            puestoCompetencia = gestorPuesto.find(Long.valueOf(puesto.getIdPuesto()), Long.valueOf(idCompetencia));
-            //pido la ponderacion guardada en esa instancia
-            ponderacion = puestoCompetencia.getPuntajeRequerido();
-            //muestro por pantalla la ponderacion al lado de la competencia
-            modeloTabla.setValueAt(ponderacion, i, 0); //ni idea porque con i inserta en el lugar correcto   
-        }
+        //ademas de pasar la lista de competencias (que ya viene como parametro dentro de puesto) a la tabla,
+        //SE BUSCAN LAS PONDERACIONES EN LA BD y tambien se cargan en la tabla
+        gestorPuesto.cargarTablaCompetenciasYPonderaciones(modeloTabla, puesto, competenciasSeleccionadas);
 
         //le borro a la lista de competencias originales las que ya estan cargadas en el puesto para que no se muestren repetidas 
         Competencia comp;
@@ -119,11 +99,16 @@ public class ModificarPuesto extends javax.swing.JFrame {
             }
         }
 
+        Competencia competencia;
         //completo la tabla izq con las competencias originales menos las que ya estan en el puesto (borradas arriba)
         for (int i = 0; i < allCompetencias.size(); i++) {
             competencia = (Competencia) allCompetencias.get(i);
             modeloLista.addCompetencia(competencia);
         }
+
+        //puestoEnUso= true -> el puesto tiene puestosCopias asociados y esta en uso (no se pueden modificar las competencias)
+        //puestoEnUso= false -> el puesto no esta en uso y se pueden modificar las competencias
+        puestoEnUso = gestorPuesto.verificarPuestoEnUso(puesto.getIdPuesto());
 
     }
 

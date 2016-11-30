@@ -19,7 +19,7 @@ public class Puesto  implements java.io.Serializable {
      private Date fechaUltimaModificacion;
      private Boolean eliminado;
      private Set puestoCopias = new HashSet(0);
-     private Set puestoCompetencias = new HashSet(0);
+     private Set competencias = new HashSet(0);
 
     public Puesto() {
     }
@@ -28,7 +28,7 @@ public class Puesto  implements java.io.Serializable {
     public Puesto(int idPuesto) {
         this.idPuesto = idPuesto;
     }
-    public Puesto(int idPuesto, String nombrePuesto, String nombreEmpresa, String descripcion, Date fechaUltimaModificacion, Boolean eliminado, Set puestoCopias, Set puestoCompetencias) {
+    public Puesto(int idPuesto, String nombrePuesto, String nombreEmpresa, String descripcion, Date fechaUltimaModificacion, Boolean eliminado, Set puestoCopias, Set competencias) {
        this.idPuesto = idPuesto;
        this.nombrePuesto = nombrePuesto;
        this.nombreEmpresa = nombreEmpresa;
@@ -36,7 +36,7 @@ public class Puesto  implements java.io.Serializable {
        this.fechaUltimaModificacion = fechaUltimaModificacion;
        this.eliminado = eliminado;
        this.puestoCopias = puestoCopias;
-       this.puestoCompetencias = puestoCompetencias;
+       this.competencias = competencias;
     }
    
     public int getIdPuesto() {
@@ -88,12 +88,12 @@ public class Puesto  implements java.io.Serializable {
     public void setPuestoCopias(Set puestoCopias) {
         this.puestoCopias = puestoCopias;
     }
-    public Set getPuestoCompetencias() {
-        return this.puestoCompetencias;
+    public Set getCompetencias() {
+        return this.competencias;
     }
     
-    public void setPuestoCompetencias(Set puestoCompetencias) {
-        this.puestoCompetencias = puestoCompetencias;
+    public void setCompetencias(Set competencias) {
+        this.competencias = competencias;
     }
 
 
