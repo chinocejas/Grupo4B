@@ -236,10 +236,10 @@ public class GestorPuesto {
         
         //nombreUnico=0 -> nombre en uso
         //nombreUnico= 1 ->el nombre esta libre
+        //verificar nombre unico
+        Puesto puesto=daoPuesto.buscarPuestosNombre(nombre);
         
-        int nombreUnico=daoPuesto.verificarNombrePuestoUnico(nombre);
-        
-        if(nombreUnico==0)
+        if(puesto!=null)
             retorno=6;
         
         //verifico que nombre o empresa no esten vacios

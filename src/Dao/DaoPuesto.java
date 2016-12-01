@@ -187,8 +187,8 @@ public class DaoPuesto extends AbstractDao {
         return seq.intValue();
     }
     
-    public int verificarNombrePuestoUnico(String nombre){
-        Integer retorno;
+    public Puesto buscarPuestosNombre(String nombre){
+      
            Puesto puesto = null;
         try {
             startOperation();
@@ -203,15 +203,9 @@ public class DaoPuesto extends AbstractDao {
             HibernateFactory.close(session);
         }
         
-        //si no se retorna ningun puesto de la bd con ese nombre significa que no esta en uso
-        if (puesto == null)
-            //el nombre no esta en uso
-            retorno = 1;
-        else 
-            //el nombre esta en uso
-            retorno = 0;
+        ;
 
-        return retorno;
+        return puesto;
 
     }
     
