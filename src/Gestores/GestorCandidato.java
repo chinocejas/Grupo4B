@@ -7,6 +7,7 @@ package Gestores;
 
 import Dao.DaoCandidato;
 import Entidades.Candidato;
+import java.util.ArrayList;
 import java.util.List;
 import pantallas.GestionDeEvaluarCandidato;
 
@@ -58,11 +59,11 @@ public class GestorCandidato {
     
     //Devuelve lista de candidatos que tengan cuestionarios activos o en proceso.
     public List<Candidato> findCuestionariosActPro(List<Candidato> lista){
-        List<Candidato> ret=null;
+        List<Candidato> ret= new ArrayList<Candidato>();
         
         for(Candidato cand: lista){
             //agregar cuestionarios activos o en proceso para cada candidato de la lista
-            if(daoCandidato.findCuestionariosActPro(cand)){
+            if(!daoCandidato.findCuestionariosActPro(cand)){
                 ret.add(cand);
             }
         }

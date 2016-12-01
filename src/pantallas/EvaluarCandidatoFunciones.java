@@ -61,7 +61,7 @@ public class EvaluarCandidatoFunciones extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        req = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1024, 768));
@@ -179,9 +179,9 @@ public class EvaluarCandidatoFunciones extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel3.setText("Requerimientos mínimos");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
+        req.setColumns(20);
+        req.setRows(5);
+        jScrollPane2.setViewportView(req);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -216,7 +216,7 @@ public class EvaluarCandidatoFunciones extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void listaFuncionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaFuncionActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_listaFuncionActionPerformed
 
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarActionPerformed
@@ -275,7 +275,7 @@ public class EvaluarCandidatoFunciones extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JComboBox<String> listaFuncion;
+    private javax.swing.JTextArea req;
     // End of variables declaration//GEN-END:variables
 }
