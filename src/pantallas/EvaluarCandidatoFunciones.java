@@ -6,6 +6,8 @@
 package pantallas;
 
 import Bases.*;
+import Entidades.Puesto;
+import java.util.List;
 
 
 /**
@@ -21,6 +23,17 @@ public class EvaluarCandidatoFunciones extends javax.swing.JFrame {
         initComponents();
         setSize(1024, 768);
         setLocationRelativeTo(null);
+        
+    }
+    
+    public EvaluarCandidatoFunciones(List<Puesto> puestos) {
+        initComponents();
+        setSize(1024, 768);
+        setLocationRelativeTo(null);
+        for(Puesto p: puestos){
+            listaFuncion.addItem(p.getNombrePuesto()+" - "+p.getNombreEmpresa());
+        }
+        
         
     }
     
@@ -64,21 +77,17 @@ public class EvaluarCandidatoFunciones extends javax.swing.JFrame {
         arriba.setLayout(arribaLayout);
         arribaLayout.setHorizontalGroup(
             arribaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1024, Short.MAX_VALUE)
-            .addGroup(arribaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(arribaLayout.createSequentialGroup()
-                    .addGap(323, 323, 323)
-                    .addComponent(jLabel2)
-                    .addContainerGap(292, Short.MAX_VALUE)))
+            .addGroup(arribaLayout.createSequentialGroup()
+                .addGap(323, 323, 323)
+                .addComponent(jLabel2)
+                .addContainerGap(292, Short.MAX_VALUE))
         );
         arribaLayout.setVerticalGroup(
             arribaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 102, Short.MAX_VALUE)
-            .addGroup(arribaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(arribaLayout.createSequentialGroup()
-                    .addGap(25, 25, 25)
-                    .addComponent(jLabel2)
-                    .addContainerGap(26, Short.MAX_VALUE)))
+            .addGroup(arribaLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(jLabel2)
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         fondo.add(arriba, java.awt.BorderLayout.PAGE_START);
@@ -138,7 +147,6 @@ public class EvaluarCandidatoFunciones extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Función:");
 
-        listaFuncion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         listaFuncion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 listaFuncionActionPerformed(evt);

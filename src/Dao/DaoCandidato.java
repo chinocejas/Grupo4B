@@ -153,4 +153,25 @@ public class DaoCandidato extends AbstractDao {
         }
         return objects;
     }
+    
+    public boolean findCuestionariosActPro(Candidato candidato){
+        boolean ret=false;
+        int idCandidato = candidato.getIdCandidato();
+        List cuest = null;
+        //Pide cuestionarios para el candidato. Si existen retorna true, sino false
+        try {
+            startOperation();
+            Query query;
+            query = session.createQuery("from Cuestionario WHERE id_candidato= :idCandidato AND (estado=1 OR estado=5)");     
+            query.setParameter("idCandidato", idCandidato);
+            cuest = query.list();
+            tx.commit();
+            ret = cuest.isEmpty();
+        } catch (HibernateException e) {
+            handleException(e);
+        } finally {
+            HibernateFactory.close(session);
+        }
+        return ret;
+    }
 }

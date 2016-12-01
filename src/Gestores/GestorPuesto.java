@@ -78,7 +78,7 @@ public class GestorPuesto {
         }
     }
     
-    // Busca todos los puestos
+    // Busca todos los puestos por codigo puesto y empresa
     public void buscarPuestos(GestionDePuestos.CustomTableModel modeloTabla) {
 
         List listaPuestos = null;
@@ -330,5 +330,12 @@ public class GestorPuesto {
         return obj;
     }
 
-    ///////////////////////////////////////////////////////
+    public List<Puesto> buscarTodosPuestos() {
+
+        List listaPuestos = null;
+
+        listaPuestos = daoPuesto.findTodosPuestos();
+
+        return listaPuestos;
+    }
 }

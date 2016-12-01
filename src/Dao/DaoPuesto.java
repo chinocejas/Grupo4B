@@ -347,4 +347,25 @@ public class DaoPuesto extends AbstractDao {
     private Object getJpaTemplate() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    //Busca todos los puestos no eliminados
+    public List findTodosPuestos() {
+        List ret = null;
+        
+         try {
+            startOperation();
+            Query query;
+            query = session.createQuery("from Puesto WHERE eliminado=FALSE"); 
+            ret = query.list();
+            tx.commit();
+        } catch (HibernateException e) {
+            handleException(e);
+        } finally {
+            HibernateFactory.close(session);
+        }
+        
+        return ret;
+    }
+    
+    
 }

@@ -127,7 +127,7 @@
                                   <Component id="jScrollPane5" min="-2" pref="391" max="-2" attributes="0"/>
                                   <Group type="102" alignment="1" attributes="0">
                                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="134" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="97" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -271,7 +271,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Seleccionados"/>
+            <Property name="text" type="java.lang.String" value="Candidatos a evaluar"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnRemove">

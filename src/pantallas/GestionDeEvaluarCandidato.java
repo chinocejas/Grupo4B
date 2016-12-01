@@ -6,10 +6,12 @@
 package pantallas;
 
 import Entidades.Candidato;
+import Entidades.Puesto;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.util.List;
 import Gestores.GestorCandidato;
+import Gestores.GestorPuesto;
 import Gestores.GestorValidacionesPantalla;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -31,6 +33,8 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
     
     //pido la instancia de gestor de candidatos
     GestorCandidato gestorCandidato = GestorCandidato.getInstance();
+    //pido la instancia de gestor de puestos
+    GestorPuesto gestorPuesto = GestorPuesto.getInstance();
 
     //pido la instancia de gestor de validaciones de pantalla
     GestorValidacionesPantalla gestorValidacionesPantalla = GestorValidacionesPantalla.getInstance();
@@ -130,7 +134,7 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Seleccionados");
+        jLabel3.setText("Candidatos a evaluar");
 
         btnRemove.setBackground(new java.awt.Color(0, 51, 102));
         btnRemove.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
@@ -354,7 +358,7 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
                                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                     .addComponent(jLabel3)
-                                    .addGap(134, 134, 134)))))
+                                    .addGap(97, 97, 97)))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(330, 330, 330)
                         .addComponent(jLabel1)))
@@ -435,10 +439,22 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
+        //Lista de cand con cuestionarios activos o en proceso
+        //List<Candidato> conCuestionarioActPro = gestorCandidato.findCuestionariosActPro(modeloTablaSeleccionados.getListaCandidatos());
+        
+       // if(conCuestionarioActPro.isEmpty()){
+            List<Puesto> puestos = gestorPuesto.buscarTodosPuestos();
+            EvaluarCandidatoFunciones obj = new EvaluarCandidatoFunciones(puestos);
+            obj.setVisible(true);
+            dispose();
+        //}else {
+            /*COLOREAR ELEMENTOS QUE TIENEN CUEST ACTIVO O EN PROCESO*/
+        //};
 
-        GestionDePuestos obj = new GestionDePuestos();
-        obj.setVisible(true);
-        dispose();
+        
+        
+        
+        
     }//GEN-LAST:event_btnSiguienteActionPerformed
 
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped

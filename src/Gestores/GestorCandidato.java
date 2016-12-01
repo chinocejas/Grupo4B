@@ -56,4 +56,18 @@ public class GestorCandidato {
         }
     }
     
+    //Devuelve lista de candidatos que tengan cuestionarios activos o en proceso.
+    public List<Candidato> findCuestionariosActPro(List<Candidato> lista){
+        List<Candidato> ret=null;
+        
+        for(Candidato cand: lista){
+            //agregar cuestionarios activos o en proceso para cada candidato de la lista
+            if(daoCandidato.findCuestionariosActPro(cand)){
+                ret.add(cand);
+            }
+        }
+        
+        return ret;
+    }
+    
 }
