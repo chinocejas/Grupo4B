@@ -440,7 +440,8 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
 
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
         //Lista de cand con cuestionarios activos o en proceso
-        //List<Candidato> conCuestionarioActPro = gestorCandidato.findCuestionariosActPro(modeloTablaSeleccionados.getListaCandidatos());
+        //ArrayList<Candidato> conCuestionarioActPro = new ArrayList<Candidato>();
+        //conCuestionarioActPro = gestorCandidato.findCuestionariosActPro(modeloTablaSeleccionados.getListaCandidatos());
         
        // if(conCuestionarioActPro.isEmpty()){
             List<Puesto> puestos = gestorPuesto.buscarTodosPuestos();

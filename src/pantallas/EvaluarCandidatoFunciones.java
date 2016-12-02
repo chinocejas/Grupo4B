@@ -6,8 +6,13 @@
 package pantallas;
 
 import Bases.*;
+import Entidades.Competencia;
 import Entidades.Puesto;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -15,10 +20,9 @@ import java.util.List;
  * @author John
  */
 public class EvaluarCandidatoFunciones extends javax.swing.JFrame {
-
-    /**
-     * Creates new form otraaaaa
-     */
+    
+    List<Puesto> puestosGlobal = new ArrayList<Puesto>();
+    
     public EvaluarCandidatoFunciones() {
         initComponents();
         setSize(1024, 768);
@@ -30,12 +34,13 @@ public class EvaluarCandidatoFunciones extends javax.swing.JFrame {
         initComponents();
         setSize(1024, 768);
         setLocationRelativeTo(null);
-        for(Puesto p: puestos){
-            listaFuncion.addItem(p.getNombrePuesto()+" - "+p.getNombreEmpresa());
+        
+        puestosGlobal = puestos;
+        
+        for(Puesto p: puestosGlobal){
+            listaFuncion.addItem(p.datosPuesto());
         }
-        
-        
-    }
+}
     
     
     
@@ -52,8 +57,8 @@ public class EvaluarCandidatoFunciones extends javax.swing.JFrame {
         arriba = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         abajo = new javax.swing.JPanel();
-        aceptar = new javax.swing.JButton();
-        cancelar = new javax.swing.JButton();
+        btnVolver = new javax.swing.JButton();
+        btnSiguiente = new javax.swing.JButton();
         centro = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -92,26 +97,26 @@ public class EvaluarCandidatoFunciones extends javax.swing.JFrame {
 
         fondo.add(arriba, java.awt.BorderLayout.PAGE_START);
 
-        aceptar.setBackground(new java.awt.Color(0, 51, 102));
-        aceptar.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
-        aceptar.setForeground(new java.awt.Color(255, 255, 255));
-        aceptar.setText("Volver");
-        aceptar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        aceptar.addActionListener(new java.awt.event.ActionListener() {
+        btnVolver.setBackground(new java.awt.Color(0, 51, 102));
+        btnVolver.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
+        btnVolver.setForeground(new java.awt.Color(255, 255, 255));
+        btnVolver.setText("Volver");
+        btnVolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                aceptarActionPerformed(evt);
+                btnVolverActionPerformed(evt);
             }
         });
 
-        cancelar.setBackground(new java.awt.Color(0, 51, 102));
-        cancelar.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
-        cancelar.setForeground(new java.awt.Color(255, 255, 255));
-        cancelar.setText("Siguiente");
-        cancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        cancelar.setPreferredSize(new java.awt.Dimension(137, 41));
-        cancelar.addActionListener(new java.awt.event.ActionListener() {
+        btnSiguiente.setBackground(new java.awt.Color(0, 51, 102));
+        btnSiguiente.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
+        btnSiguiente.setForeground(new java.awt.Color(255, 255, 255));
+        btnSiguiente.setText("Siguiente");
+        btnSiguiente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSiguiente.setPreferredSize(new java.awt.Dimension(137, 41));
+        btnSiguiente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelarActionPerformed(evt);
+                btnSiguienteActionPerformed(evt);
             }
         });
 
@@ -123,9 +128,9 @@ public class EvaluarCandidatoFunciones extends javax.swing.JFrame {
             .addGroup(abajoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(abajoLayout.createSequentialGroup()
                     .addGap(248, 248, 248)
-                    .addComponent(aceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(237, 237, 237)
-                    .addComponent(cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(249, Short.MAX_VALUE)))
         );
         abajoLayout.setVerticalGroup(
@@ -135,8 +140,8 @@ public class EvaluarCandidatoFunciones extends javax.swing.JFrame {
                 .addGroup(abajoLayout.createSequentialGroup()
                     .addGap(45, 45, 45)
                     .addGroup(abajoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(aceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addContainerGap(45, Short.MAX_VALUE)))
         );
 
@@ -216,16 +221,36 @@ public class EvaluarCandidatoFunciones extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void listaFuncionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaFuncionActionPerformed
+        //Agarro el indice seleccionado del jComboBox
+        int indice = listaFuncion.getSelectedIndex();
+        //Guardo en aux el Puesto seleccionado, guardado en la variable global puestosGlonal
+        Puesto aux = puestosGlobal.get(indice);
+        
+        /*Iterator iter = aux.getCompetencias().iterator();
+        
+        while(iter.hasNext()){
+            if(i==indice)
+        }*/
+        //Guardo las competencias de ese puesto en la variable competencias
+        Set<Competencia> competencias = aux.getCompetencias();
+        //Para cada competencia, muestro su nombre y ponderacion requerida
+        for (Competencia s : competencias) {
+            req.setText(s.getNombreCompetencia()+ " - Ponderacion requerida: " + s.hashCode());
+        }
+       
+        
+        //Poner competencias y ponderaciones en req
         
     }//GEN-LAST:event_listaFuncionActionPerformed
 
-    private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarActionPerformed
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
 
-    }//GEN-LAST:event_aceptarActionPerformed
+    }//GEN-LAST:event_btnVolverActionPerformed
 
-    private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
-
-    }//GEN-LAST:event_cancelarActionPerformed
+    private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
+        //Seleccioner item del jcombobox
+        
+    }//GEN-LAST:event_btnSiguienteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -264,9 +289,9 @@ public class EvaluarCandidatoFunciones extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel abajo;
-    private javax.swing.JButton aceptar;
     private javax.swing.JPanel arriba;
-    private javax.swing.JButton cancelar;
+    private javax.swing.JButton btnSiguiente;
+    private javax.swing.JButton btnVolver;
     private javax.swing.JPanel centro;
     private javax.swing.JPanel fondo;
     private javax.swing.JLabel jLabel1;

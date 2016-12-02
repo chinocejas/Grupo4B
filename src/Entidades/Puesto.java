@@ -96,8 +96,9 @@ public class Puesto  implements java.io.Serializable {
         this.competencias = competencias;
     }
 
-
-
+    public String datosPuesto() {
+        return (this.getNombrePuesto() +" - "+ this.getNombreEmpresa());
+    }
 
 }
 
