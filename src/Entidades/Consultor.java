@@ -11,22 +11,20 @@ public class Consultor  implements java.io.Serializable {
 
      private int idConsultor;
      private String username;
-     private String clave;
      private String nombre;
 
     public Consultor() {
     }
 
 	
-    public Consultor(int idConsultor, String username, String clave) {
+    public Consultor(int idConsultor, String username) {
         this.idConsultor = idConsultor;
         this.username = username;
-        this.clave = clave;
+       
     }
-    public Consultor(int idConsultor, String username, String clave, String nombre) {
+    public Consultor(int idConsultor, String username, String nombre) {
        this.idConsultor = idConsultor;
        this.username = username;
-       this.clave = clave;
        this.nombre = nombre;
     }
    
@@ -43,13 +41,6 @@ public class Consultor  implements java.io.Serializable {
     
     public void setUsername(String username) {
         this.username = username;
-    }
-    public String getClave() {
-        return this.clave;
-    }
-    
-    public void setClave(String clave) {
-        this.clave = clave;
     }
     public String getNombre() {
         return this.nombre;

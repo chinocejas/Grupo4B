@@ -6,6 +6,7 @@
 package Gestores;
 
 import Dao.DaoConsultor;
+import Dao.LDAP;
 import Entidades.Consultor;
 
 //COMPROBAR QUE FUNCIONA COMO SINGLETON!
@@ -31,11 +32,14 @@ public class GestorConsultor {
     
     public int validarConsultor(String username, String password){
       
-        DaoConsultor consultorDAO = new DaoConsultor();
-        consultor=consultorDAO.findPorUsernameYClave(username,password);
+        Integer idConsultor;
+        LDAP ldap = new LDAP();
+        idConsultor=ldap.findPorUsernameYClave(username, password);
+        if(idConsultor!=null){
         
-        if(consultor!=null){
-            return 1;
+        DaoConsultor consultorDAO = new DaoConsultor();
+        consultor=consultorDAO.buscarConsultor(idConsultor);
+        return 1;
         }
         else
         return 0;

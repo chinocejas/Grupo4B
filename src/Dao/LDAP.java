@@ -14,9 +14,9 @@ import org.hibernate.Query;
  *
  * @author Rolando
  */
-public class DaoConsultor extends AbstractDao {
+public class LDAP extends AbstractDao {
 
-    public DaoConsultor() {
+    public LDAP() {
         super();
     }
 
@@ -52,6 +52,25 @@ public class DaoConsultor extends AbstractDao {
     public Consultor find(Long id) throws DataAccessLayerException {
         return (Consultor) super.find(Consultor.class, id);
     }
+    
+    //agregado por el negro
+    public Integer findPorUsernameYClave(String username, String password) throws DataAccessLayerException {
+        Integer idConsultor=null;
+        try {
+            startOperation();
+            
+          Query query = session.createSQLQuery("SELECT id_consultor from LDAP where username= :username and clave= :password");
+          query.setParameter("username", username);
+          query.setParameter("password", password);
+          idConsultor = (Integer) query.uniqueResult();
+            tx.commit();
+        } catch (HibernateException e) {
+            handleException(e);
+        } finally {
+            HibernateFactory.close(session);
+        }
+        return idConsultor;
+    }
 
     /**
      * Lista todos los usuarios de la base de datos
@@ -59,23 +78,5 @@ public class DaoConsultor extends AbstractDao {
      */
     public List findAll() throws DataAccessLayerException {
         return super.findAll(Consultor.class);
-    }
-
-    public Consultor buscarConsultor(int idConsultor) {
-        Consultor consultor=null;
-        try {
-            startOperation();
-            
-          Query query = session.createQuery("from Consultor where id_consultor= :idConsultor");
-          query.setParameter("idConsultor", idConsultor);
-          
-          consultor = (Consultor) query.uniqueResult();
-            tx.commit();
-        } catch (HibernateException e) {
-            handleException(e);
-        } finally {
-            HibernateFactory.close(session);
-        }
-        return consultor;
     }
 }

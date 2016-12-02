@@ -30,6 +30,7 @@ public class GestorValidacionesPantalla {
             int pos = jTextfieldS.getCaretPosition();
             convertiraMayusculas(jTextfieldS, pos);
     }
+    
    
     public void keyReleased (javax.swing.JTextArea jTextAreaS){
         //Convierte el texto ingresado a mayusculas
@@ -106,6 +107,30 @@ public class GestorValidacionesPantalla {
             convertiraMayusculas(jTextAreaS, pos);
             
         }
+    }
+    
+    public void keyTypedConsultorUsername(javax.swing.JTextField jTextfieldS, java.awt.event.KeyEvent evt) {
+        jTextfieldS.setBackground(new java.awt.Color(0, 51, 102));
+        char c = evt.getKeyChar();
+        int pos = jTextfieldS.getCaretPosition();
+        //Solo permite letras, numeros y caracteres comunes y solo 15 caracteres
+        if (c < 32 || (c > 32 && c < 45) || (c > 57 && c < 64) || (c>90 && c<95) || (c>95 && c<97) || c > 122 ||(pos>14)) {
+            evt.consume();
+        } else {
+            //Convierte el texto ingresado a mayusculas
+            pos = jTextfieldS.getCaretPosition();
+            convertiraMayusculas(jTextfieldS, pos);
+
+        }
+    }
+    
+    public void keyTypedConsultorPassword(javax.swing.JTextField jTextfieldS, java.awt.event.KeyEvent evt) {
+        jTextfieldS.setBackground(new java.awt.Color(0, 51, 102));
+        char c = evt.getKeyChar();
+        int pos = jTextfieldS.getCaretPosition();
+        //alfanumérico
+        if (pos>19) 
+            evt.consume();
     }
     
     public void convertiraMayusculas(javax.swing.JTextField jTextfieldS, int pos) {
