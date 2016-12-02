@@ -147,7 +147,7 @@ public class GestorPuesto {
         return retorno;
     }
     
-    public int modificarPuesto(Puesto puesto, String nombre, String empresa, String descripcion, Set<Competencia> competencias, List<Integer> ponderaciones){
+    public int modificarPuesto(Puesto puesto, String nombre, String empresa, String descripcion, List<Competencia> competencias, List<Integer> ponderaciones){
        
         int retorno=1; //si esta todo correcto se mantiene en 1
      
@@ -167,9 +167,11 @@ public class GestorPuesto {
                 puesto.setDescripcion(descripcion);
                 puesto.setFechaUltimaModificacion(fechaActual);
                 puesto.setEliminado(false);
-                puesto.setCompetencias(competencias);
-                List<Competencia> competencias2 = new ArrayList<Competencia>(competencias);
-                actualizarPuesto(puesto, competencias2, ponderaciones);
+                //convierto a set la lista guardada en modeloTabla con las competencias seleccionadas para persistirlas en la bs 
+                 Set<Competencia> competencias2 = new HashSet<Competencia>(competencias);
+                puesto.setCompetencias(competencias2);
+                
+                actualizarPuesto(puesto, competencias, ponderaciones);
                 break;
                 
             //hay ponderaciones sin completar

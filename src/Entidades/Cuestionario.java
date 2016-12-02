@@ -21,6 +21,7 @@ public class Cuestionario  implements java.io.Serializable {
      private Date fechaFinalizacion;
      private String clave;
      private Integer tiempoMaximo;
+     private Integer estado;
 
     public Cuestionario() {
     }
@@ -29,7 +30,7 @@ public class Cuestionario  implements java.io.Serializable {
     public Cuestionario(int idCuestionario) {
         this.idCuestionario = idCuestionario;
     }
-    public Cuestionario(int idCuestionario, Candidato candidato, PuestoCopia puestoCopia, Integer preguntasContestadas, Integer cantidadAccesos, Date fechaCreacion, Date fechaInicio, Date fechaUltimoIngreso, Date fechaFinalizacion, String clave, Integer tiempoMaximo) {
+    public Cuestionario(int idCuestionario, Candidato candidato, PuestoCopia puestoCopia, Integer preguntasContestadas, Integer cantidadAccesos, Date fechaCreacion, Date fechaInicio, Date fechaUltimoIngreso, Date fechaFinalizacion, String clave, Integer tiempoMaximo, Integer estado) {
        this.idCuestionario = idCuestionario;
        this.candidato = candidato;
        this.puestoCopia = puestoCopia;
@@ -41,6 +42,7 @@ public class Cuestionario  implements java.io.Serializable {
        this.fechaFinalizacion = fechaFinalizacion;
        this.clave = clave;
        this.tiempoMaximo = tiempoMaximo;
+       this.estado= estado;
     }
    
     public int getIdCuestionario() {
@@ -121,6 +123,13 @@ public class Cuestionario  implements java.io.Serializable {
         this.tiempoMaximo = tiempoMaximo;
     }
 
+    public Integer getEstado() {
+        return this.estado;
+    }
+
+    public void setEstado(Integer estado) {
+        this.estado = estado;
+    }
 
 
 

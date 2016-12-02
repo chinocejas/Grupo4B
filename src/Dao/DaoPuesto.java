@@ -216,7 +216,7 @@ public class DaoPuesto extends AbstractDao {
         try {
             startOperation();
             Query query;
-            query = session.createQuery("from Puesto WHERE nombre_puesto= :nombre AND id_puesto <> :idPuesto"); 
+            query = session.createQuery("from Puesto WHERE nombre_puesto= :nombre AND id_puesto <> :idPuesto AND eliminado=FALSE"); 
             query.setParameter("nombre", nombre);
             query.setParameter("idPuesto", idPuesto);
             puesto = (Puesto) query.uniqueResult();

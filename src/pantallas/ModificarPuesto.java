@@ -11,7 +11,6 @@ import java.awt.Toolkit;
 import java.util.List;
 import Entidades.Competencia;
 import Entidades.Puesto;
-import Entidades.PuestoCompetencia;
 import Gestores.GestorPuesto;
 import Gestores.GestorValidacionesPantalla;
 import java.util.ArrayList;
@@ -19,7 +18,6 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.swing.AbstractListModel;
 import javax.swing.JOptionPane;
-import static javax.swing.JOptionPane.YES_NO_OPTION;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -70,7 +68,6 @@ public class ModificarPuesto extends javax.swing.JFrame {
         List competenciasSeleccionadas = new ArrayList();
         //convierto el set obtenido a una lista
         competenciasSeleccionadas.addAll(puesto.getCompetencias());
-
         //allCompetencias solo se usa para cargar modeloLista, despues se maneja todo con la lista dentro de modeloLista
         List allCompetencias = gestorCompetencia.allCompetenciasOrdenadasPorNombre();
 
@@ -105,6 +102,7 @@ public class ModificarPuesto extends javax.swing.JFrame {
             competencia = (Competencia) allCompetencias.get(i);
             modeloLista.addCompetencia(competencia);
         }
+        
 
         //puestoEnUso= true -> el puesto tiene puestosCopias asociados y esta en uso (no se pueden modificar las competencias)
         //puestoEnUso= false -> el puesto no esta en uso y se pueden modificar las competencias
@@ -463,9 +461,18 @@ public class ModificarPuesto extends javax.swing.JFrame {
 
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarActionPerformed
 
+        List<Competencia> comp= new ArrayList();
+        comp=modeloTabla.getListaCompetencias();
+        List<Integer> pond= new ArrayList();
+        pond= modeloTabla.getListaPonderacion();
+        for(int i=0; i<modeloTabla.getRowCount(); i++){
+            System.out.print("\n competencia: " + comp.get(i).getIdCompetencia() + " - " + comp.get(i).getNombreCompetencia());
+            System.out.print("\n ponderacion: " + pond.get(i));
+        }
         //convierto a set la lista guardada en modeloTabla con las competencias seleccionadas para persistirlas en la bs 
-        Set<Competencia> competencias = new HashSet<Competencia>(modeloTabla.getListaCompetencias());
-        int resultado = gestorPuesto.modificarPuesto(puestoAux, txtNombre.getText(), txtEmpresa.getText(), txtDescripcion.getText(), competencias, modeloTabla.getListaPonderacion());
+        //Set<Competencia> competencias = new HashSet<Competencia>(modeloTabla.getListaCompetencias());
+        
+        int resultado = gestorPuesto.modificarPuesto(puestoAux, txtNombre.getText(), txtEmpresa.getText(), txtDescripcion.getText(), modeloTabla.getListaCompetencias(), modeloTabla.getListaPonderacion());
         /* 1: todo correcto
            2: ponderaciones vacias
            3: ponderaciones fuera de rango (0-10)
@@ -569,10 +576,6 @@ public class ModificarPuesto extends javax.swing.JFrame {
                 campoTexto.setText("Seleccione un elemento antes de presionar el boton");
             } else {
                 campoTexto.setText("");
-                /* original para lista 
-            String aux = ModeloTabla.getSelectedValue();
-            modelol1.addCompetencia(aux);
-            modelol2.remove(tabla.getSelectedIndex());*/
                 int row = tabla.getSelectedRow();
                 Competencia competencia = modeloTabla.getCompetencia(row);
                 modeloLista.addCompetencia(competencia);

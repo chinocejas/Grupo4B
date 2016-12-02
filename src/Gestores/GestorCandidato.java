@@ -7,8 +7,10 @@ package Gestores;
 
 import Dao.DaoCandidato;
 import Entidades.Candidato;
+import Entidades.Cuestionario;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import pantallas.GestionDeEvaluarCandidato;
 
 /**
@@ -69,6 +71,35 @@ public class GestorCandidato {
         }
         
         return ret;
+    }
+    
+    public Object validarCandidato(String tipoDocumento, String numeroDocumento, String password) {
+        Object retorno=null;
+        int numeroDoc= Integer.parseInt(numeroDocumento);
+      Candidato candidato=daoCandidato.buscarCandidato(tipoDocumento, numeroDoc);
+      if(candidato!=null){
+          Set<Cuestionario> cuestionariosSet= candidato.getCuestionarios();
+          List<Cuestionario> cuestionarios= new ArrayList<Cuestionario>(cuestionariosSet);
+          if(cuestionarios!=null){
+              Cuestionario cuestionarioValido= getCuestionarioActivoEnProceso(cuestionarios);
+              if(cuestionarioValido!=null){
+                  String passwordCuestionario= cuestionarioValido.getClave();
+                  if(passwordCuestionario.equals(password))
+                      retorno= candidato;
+              }
+          }
+      }
+      return retorno;
+    }
+    
+    private Cuestionario getCuestionarioActivoEnProceso(List<Cuestionario> cuestionarios) {
+        Cuestionario cuestionario = null;
+        for (Cuestionario cuest : cuestionarios) {
+            if (cuest.getEstado()==1 || cuest.getEstado()==1) {
+                cuestionario= cuest;
+            }
+        }
+        return cuestionario;
     }
     
 }

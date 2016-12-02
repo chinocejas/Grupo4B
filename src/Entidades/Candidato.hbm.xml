@@ -38,7 +38,7 @@
         <property name="eliminado" type="java.lang.Boolean">
             <column name="eliminado" />
         </property>
-        <set name="cuestionarios" table="cuestionario" inverse="true" lazy="true" fetch="select">
+        <set name="cuestionarios" table="cuestionario" inverse="true" lazy="false" fetch="select">
             <key>
                 <column name="id_candidato" />
             </key>

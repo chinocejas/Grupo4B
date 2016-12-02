@@ -54,7 +54,7 @@ public class DaoCandidato extends AbstractDao {
     }
     
     //agregado por el negro
-    public Candidato findPorUsernameYClave(String username, String password) throws DataAccessLayerException {
+    /*public Candidato findPorUsernameYClave(String username, String password) throws DataAccessLayerException {
         Candidato obj= null;
         try {
             startOperation();
@@ -71,7 +71,7 @@ public class DaoCandidato extends AbstractDao {
         }
         return obj;
     }
-
+*/
     /**
      * Lista todos los usuarios de la base de datos
      * @return
@@ -173,5 +173,26 @@ public class DaoCandidato extends AbstractDao {
             HibernateFactory.close(session);
         }
         return ret;
+    }
+
+    public Candidato buscarCandidato(String tipoDocumento, int numeroDoc) {
+       
+        Candidato candidato=null;
+       
+       
+        try {
+            startOperation();
+            Query query;
+            query = session.createQuery("from Candidato WHERE tipo_documento= :tipoDocumento AND numero_documento= :numeroDoc AND eliminado= FALSE");     
+            query.setParameter("tipoDocumento", tipoDocumento);
+            query.setParameter("numeroDoc", numeroDoc);
+            candidato = (Candidato) query.uniqueResult();
+            tx.commit();
+        } catch (HibernateException e) {
+            handleException(e);
+        } finally {
+            HibernateFactory.close(session);
+        }
+        return candidato;
     }
 }
