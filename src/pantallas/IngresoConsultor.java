@@ -13,6 +13,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.util.logging.Level;
+import javax.swing.JOptionPane;
 
 
 
@@ -340,7 +341,9 @@ public class IngresoConsultor extends javax.swing.JFrame {
             obj.setVisible(true);
             dispose();
         } else {
-            mensajeError.setText("El usuario o la contraseña no son válidos");
+            JOptionPane.showMessageDialog(null, "El usuario o la contraseña no son válidos", "Error de autenticación", JOptionPane.ERROR_MESSAGE);
+            user.setText("");
+            pass.setText("");
         }
 
 
