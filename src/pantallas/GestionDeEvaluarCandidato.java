@@ -686,6 +686,7 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
 
     }
     
+   // http://www.jc-mouse.net/java/jtable-de-colores-problema-resuelto
     public class FormatoTabla extends DefaultTableCellRenderer {
 
         private List<Candidato> conCuestionarioActPro;
