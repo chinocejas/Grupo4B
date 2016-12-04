@@ -124,13 +124,23 @@ public class GestorValidacionesPantalla {
         }
     }
     
-    public void keyTypedConsultorPassword(javax.swing.JTextField jTextfieldS, java.awt.event.KeyEvent evt) {
+    public void keyTypedConsultorYCandidatoPassword(javax.swing.JTextField jTextfieldS, java.awt.event.KeyEvent evt) {
         jTextfieldS.setBackground(new java.awt.Color(0, 51, 102));
         char c = evt.getKeyChar();
         int pos = jTextfieldS.getCaretPosition();
         //alfanumérico
         if (pos>19) 
             evt.consume();
+    }
+    
+     public void keyTypedDNI(javax.swing.JTextField jTextfieldS, java.awt.event.KeyEvent evt) {
+        jTextfieldS.setBackground(new java.awt.Color(0, 51, 102));
+        char c = evt.getKeyChar();
+        int pos = jTextfieldS.getCaretPosition();
+        //Solo permite numeros
+        if (c < 48 || c > 57 || pos>7) {
+            evt.consume();
+        }
     }
     
     public void convertiraMayusculas(javax.swing.JTextField jTextfieldS, int pos) {

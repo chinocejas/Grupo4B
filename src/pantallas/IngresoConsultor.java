@@ -6,13 +6,10 @@
 package pantallas;
 
 import Gestores.GestorConsultor;
-import Bases.*;
-import Entidades.Consultor;
 import Gestores.GestorValidacionesPantalla;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
-import java.util.logging.Level;
 import javax.swing.JOptionPane;
 
 
@@ -388,7 +385,7 @@ public class IngresoConsultor extends javax.swing.JFrame {
     }//GEN-LAST:event_userKeyReleased
 
     private void passKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passKeyTyped
-        gestorValidacionesPantalla.keyTypedConsultorPassword(pass, evt);
+        gestorValidacionesPantalla.keyTypedConsultorYCandidatoPassword(pass, evt);
     }//GEN-LAST:event_passKeyTyped
 
     /**

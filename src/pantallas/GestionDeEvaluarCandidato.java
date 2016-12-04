@@ -13,14 +13,12 @@ import java.util.List;
 import Gestores.GestorCandidato;
 import Gestores.GestorPuesto;
 import Gestores.GestorValidacionesPantalla;
+import java.awt.Color;
+import java.awt.Component;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
-import javax.swing.AbstractListModel;
-import javax.swing.JOptionPane;
-import static javax.swing.JOptionPane.YES_NO_OPTION;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  *
@@ -38,7 +36,7 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
 
     //pido la instancia de gestor de validaciones de pantalla
     GestorValidacionesPantalla gestorValidacionesPantalla = GestorValidacionesPantalla.getInstance();
-    
+
     //Candidato candidatoAux;
 
 
@@ -117,7 +115,7 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Resultados de Búsqueda");
 
-        campoTexto.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
+        campoTexto.setFont(new java.awt.Font("Arial", 0, 19)); // NOI18N
         campoTexto.setForeground(new java.awt.Color(255, 255, 255));
         campoTexto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
@@ -299,8 +297,9 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(258, 258, 258)
@@ -327,42 +326,42 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtMensajeBusqueda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(campoTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 890, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(10, 10, 10))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGap(124, 124, 124)
-                                    .addComponent(jLabel2)
-                                    .addGap(149, 149, 149))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGap(42, 42, 42)
-                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addGap(31, 31, 31)
-                                            .addComponent(btnAdd))
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addGap(31, 31, 31)
-                                            .addComponent(btnRemove))
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addGap(11, 11, 11)
-                                            .addComponent(btnAddAll, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(btnRemoveAll))
-                                    .addGap(18, 18, 18)))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel3)
-                                    .addGap(97, 97, 97)))))
+                                        .addComponent(txtMensajeBusqueda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(124, 124, 124)
+                                .addComponent(jLabel2)
+                                .addGap(149, 149, 149))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(42, 42, 42)
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(31, 31, 31)
+                                        .addComponent(btnAdd))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(31, 31, 31)
+                                        .addComponent(btnRemove))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(11, 11, 11)
+                                        .addComponent(btnAddAll, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(btnRemoveAll))
+                                .addGap(18, 18, 18)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(97, 97, 97))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGap(330, 330, 330)
-                        .addComponent(jLabel1)))
-                .addGap(47, 47, Short.MAX_VALUE))
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addComponent(campoTexto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(47, 47, 47))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -415,7 +414,7 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(100, Short.MAX_VALUE))
+                .addContainerGap(94, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -439,7 +438,7 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
-        //Lista de cand con cuestionarios activos o en proceso
+     /*   //Lista de cand con cuestionarios activos o en proceso
         //ArrayList<Candidato> conCuestionarioActPro = new ArrayList<Candidato>();
         //conCuestionarioActPro = gestorCandidato.findCuestionariosActPro(modeloTablaSeleccionados.getListaCandidatos());
         
@@ -451,9 +450,24 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
         //}else {
             /*COLOREAR ELEMENTOS QUE TIENEN CUEST ACTIVO O EN PROCESO*/
         //};
-
         
+         
         
+        //Lista de cand con cuestionarios activos o en proceso
+        List<Candidato> conCuestionarioActPro = new ArrayList<Candidato>();
+        conCuestionarioActPro = gestorCandidato.findCuestionariosActPro(modeloTablaSeleccionados.getListaCandidatos());
+        
+        if(conCuestionarioActPro.isEmpty()){
+            List<Puesto> puestos = gestorPuesto.buscarTodosPuestos();
+            EvaluarCandidatoFunciones obj = new EvaluarCandidatoFunciones(puestos);
+            obj.setVisible(true);
+            dispose();
+        }else {
+            campoTexto.setText("Los candidatos resaltados poseen cuestionarios activos o en proceso y no pueden ser evaluados nuevamente");
+            FormatoTabla ft = new FormatoTabla(conCuestionarioActPro);
+            tablaSeleccionados.setDefaultRenderer (Object.class, ft);
+            modeloTablaSeleccionados.fireTableDataChanged();
+        };
         
         
     }//GEN-LAST:event_btnSiguienteActionPerformed
@@ -668,6 +682,40 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
         private void eliminarCandidato(int row) {
             data.remove(row);
             fireTableDataChanged();
+        }
+
+    }
+    
+    public class FormatoTabla extends DefaultTableCellRenderer {
+
+        private List<Candidato> conCuestionarioActPro;
+
+        public FormatoTabla(List<Candidato> conCuestionarioActPro) {
+            this.conCuestionarioActPro = conCuestionarioActPro;
+        }
+
+        @Override
+        public Component getTableCellRendererComponent(
+                JTable table,
+                Object value,
+                boolean selected,
+                boolean focused,
+                int row,
+                int column) {
+            setBackground(Color.white);//color de fondo
+            table.setForeground(Color.black);//color de texto
+
+            for (int i = 0; i < conCuestionarioActPro.size(); i++) 
+            {
+                //si el valor de la tabla en cualquier fila y la columna 2 (ID CANDIDATO) 
+                //es igual al id de algun candidato de la lista se resalta
+                if (table.getValueAt(row, 2).equals(conCuestionarioActPro.get(i).getIdCandidato())) {
+                    setBackground(Color.MAGENTA);
+                }
+            }
+
+            super.getTableCellRendererComponent(table, value, selected, focused, row, column);
+            return this;
         }
 
     }

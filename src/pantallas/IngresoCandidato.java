@@ -405,7 +405,7 @@ public class IngresoCandidato extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelarKeyPressed
 
     private void numDocKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_numDocKeyTyped
-        gestorValidacionesPantalla.keyTypedConsultorUsername(numDoc, evt);
+        gestorValidacionesPantalla.keyTypedDNI(numDoc, evt);
     }//GEN-LAST:event_numDocKeyTyped
 
     private void numDocKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_numDocKeyReleased
@@ -413,7 +413,7 @@ public class IngresoCandidato extends javax.swing.JFrame {
     }//GEN-LAST:event_numDocKeyReleased
 
     private void passKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passKeyTyped
-        gestorValidacionesPantalla.keyTypedConsultorPassword(pass, evt);
+        gestorValidacionesPantalla.keyTypedConsultorYCandidatoPassword(pass, evt);
     }//GEN-LAST:event_passKeyTyped
 
     private void tipoDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoDocActionPerformed
