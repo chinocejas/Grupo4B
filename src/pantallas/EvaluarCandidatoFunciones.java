@@ -8,6 +8,8 @@ package pantallas;
 import Bases.*;
 import Entidades.Competencia;
 import Entidades.Puesto;
+import Entidades.PuestoCompetencia;
+import Gestores.GestorPuesto;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -23,6 +25,8 @@ import java.util.Set;
 public class EvaluarCandidatoFunciones extends javax.swing.JFrame {
     
     List<Puesto> puestosGlobal = new ArrayList<Puesto>();
+    //pido la instancia de gestor de puestos
+    GestorPuesto gestorPuesto = GestorPuesto.getInstance();
     
     public EvaluarCandidatoFunciones() {
         initComponents();
@@ -42,9 +46,7 @@ public class EvaluarCandidatoFunciones extends javax.swing.JFrame {
             listaFuncion.addItem(p.datosPuesto());
         }
 }
-    
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -258,18 +260,33 @@ public class EvaluarCandidatoFunciones extends javax.swing.JFrame {
         }*/
         //Guardo las competencias de ese puesto en la variable competencias
         Set<Competencia> competencias = aux.getCompetencias();
+        
         //Para cada competencia, muestro su nombre y ponderacion requerida
+        PuestoCompetencia puestoCompetencia;
+        int idCompetencia;
+        int ponderacion;
+        String str="";
         for (Competencia s : competencias) {
-            req.setText(s.getNombreCompetencia()+ " - Ponderacion requerida: " + s.hashCode());
+            //guardo el id de competencia para buscar las ponderaciones en la tabla de union
+            idCompetencia = s.getIdCompetencia();
+            //recupero una instancia de PuestoCompetencia pasando los id del puesto y la competencia
+            puestoCompetencia = gestorPuesto.find(Long.valueOf(aux.getIdPuesto()), Long.valueOf(idCompetencia));
+            //pido la ponderacion guardada en esa instancia
+            ponderacion = puestoCompetencia.getPuntajeRequerido();
+            
+            str+=s.getNombreCompetencia()+ "  -  Ponderacion requerida: " + ponderacion+"\n";
+            
         }
-       
+        req.setText(str);
         
         //Poner competencias y ponderaciones en req
         
     }//GEN-LAST:event_listaFuncionActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-
+        GestionDeEvaluarCandidato obj = new GestionDeEvaluarCandidato();
+        obj.setVisible(true);
+        dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed

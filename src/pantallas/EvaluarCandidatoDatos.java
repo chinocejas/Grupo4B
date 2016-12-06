@@ -29,10 +29,10 @@ public class EvaluarCandidatoDatos extends javax.swing.JFrame {
 //Los métodos de esto estan mal. modificar
     public class CustomTableModel extends AbstractTableModel {
 
-        private int numColumns = 4; //cant de columnas con la que se crea la tabla
-        private String columnNames[] = {"Nombre y Apellido", "Tipo de Documento", "Numero de Documento", "Clave de Ingreso"};
+        private int numColumns = 5; //cant de columnas con la que se crea la tabla
+        private String columnNames[] = {"Nombre","Apellido", "Tipo de Documento", "Numero de Documento", "Clave de Ingreso"};
         // private Class classes[]={String.class ,String.class}; //tipo de las columnas
-        private boolean editable[] = {false, false, false, false};
+        private boolean editable[] = {false, false, false, false,false};
 
         public int getRowCount() {
             return 1;//modificar esto que no funciona
