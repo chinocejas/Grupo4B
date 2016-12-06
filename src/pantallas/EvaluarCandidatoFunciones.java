@@ -8,6 +8,7 @@ package pantallas;
 import Bases.*;
 import Entidades.Competencia;
 import Entidades.Puesto;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -114,6 +115,11 @@ public class EvaluarCandidatoFunciones extends javax.swing.JFrame {
                 btnVolverActionPerformed(evt);
             }
         });
+        btnVolver.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnVolverKeyPressed(evt);
+            }
+        });
 
         btnSiguiente.setBackground(new java.awt.Color(0, 51, 102));
         btnSiguiente.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
@@ -124,6 +130,11 @@ public class EvaluarCandidatoFunciones extends javax.swing.JFrame {
         btnSiguiente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSiguienteActionPerformed(evt);
+            }
+        });
+        btnSiguiente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnSiguienteKeyPressed(evt);
             }
         });
 
@@ -265,6 +276,18 @@ public class EvaluarCandidatoFunciones extends javax.swing.JFrame {
         //Seleccioner item del jcombobox
         
     }//GEN-LAST:event_btnSiguienteActionPerformed
+
+    private void btnVolverKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnVolverKeyPressed
+       if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            btnVolverActionPerformed(null);
+        }
+    }//GEN-LAST:event_btnVolverKeyPressed
+
+    private void btnSiguienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSiguienteKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            btnSiguienteActionPerformed(null);
+        }
+    }//GEN-LAST:event_btnSiguienteKeyPressed
 
     /**
      * @param args the command line arguments

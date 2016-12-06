@@ -453,16 +453,22 @@ public class AltaPuesto extends javax.swing.JFrame {
 
             //hay ponderaciones sin completar
             case 2:
+                sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error.wav"));
+                sonido.play();
                 campoTexto.setText("Algunas competencias no tienen una ponderación definida");
                 break;
 
             //hay ponderaciones que no estan entre 0 y 10
             case 3:
+                sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error.wav"));
+                sonido.play();
                 campoTexto.setText("Las ponderaciones deben ser valores entre 0 y 10");
                 break;
                 
            //nombre o empresa estan vacios
             case 4:
+                sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error.wav"));
+                sonido.play();
                 campoTexto.setText("Algunos campos se encuentran en blanco");
                 if (txtEmpresa.getText().equals("")){
                     txtEmpresa.requestFocus();
@@ -480,12 +486,16 @@ public class AltaPuesto extends javax.swing.JFrame {
                 
             //sin al menos una competencia seleccionada
             case 5:
+                sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error.wav"));
+                sonido.play();
                 campoTexto.setText("Seleccione al menos una competencia");
                 lista.setForeground(java.awt.Color.red);
                 break;
             
              //sin al menos una competencia seleccionada
             case 6:
+                sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error.wav"));
+                sonido.play();
                 campoTexto.setText("El nombre del puesto ya esta en uso");
                 break; 
         }

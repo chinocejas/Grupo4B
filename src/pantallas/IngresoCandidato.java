@@ -10,6 +10,7 @@ import Bases.*;
 import Entidades.Consultor;
 import Gestores.GestorCandidato;
 import Gestores.GestorValidacionesPantalla;
+import java.applet.AudioClip;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
@@ -271,6 +272,11 @@ public class IngresoCandidato extends javax.swing.JFrame {
                 aceptarActionPerformed(evt);
             }
         });
+        aceptar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                aceptarKeyPressed(evt);
+            }
+        });
 
         cancelar.setBackground(new java.awt.Color(0, 51, 102));
         cancelar.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
@@ -366,6 +372,9 @@ public class IngresoCandidato extends javax.swing.JFrame {
             obj.setVisible(true);
             dispose();
         } else {
+             AudioClip sonido;
+                sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error.wav"));
+                sonido.play();
             JOptionPane.showMessageDialog(null, "Los datos ingresados no son válidos o no existe un cuestionario para el Candidato", "Error de autenticación", JOptionPane.ERROR_MESSAGE);
             numDoc.setText("");
             pass.setText("");
@@ -419,6 +428,12 @@ public class IngresoCandidato extends javax.swing.JFrame {
     private void tipoDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoDocActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tipoDocActionPerformed
+
+    private void aceptarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_aceptarKeyPressed
+         if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            aceptarActionPerformed(null);
+        }
+    }//GEN-LAST:event_aceptarKeyPressed
 
     /**
      * @param args the command line arguments

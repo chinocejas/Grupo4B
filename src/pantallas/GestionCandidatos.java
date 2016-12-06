@@ -4,6 +4,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 
 import Gestores.*;
+import java.awt.event.KeyEvent;
 
 /**
  *
@@ -130,6 +131,11 @@ public class GestionCandidatos extends javax.swing.JFrame {
                 volverActionPerformed(evt);
             }
         });
+        volver.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                volverKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -226,6 +232,11 @@ public class GestionCandidatos extends javax.swing.JFrame {
                 jButton9ActionPerformed(evt);
             }
         });
+        jButton9.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton9KeyPressed(evt);
+            }
+        });
 
         jButton10.setBackground(new java.awt.Color(0, 51, 102));
         jButton10.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
@@ -235,6 +246,11 @@ public class GestionCandidatos extends javax.swing.JFrame {
         jButton10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton10ActionPerformed(evt);
+            }
+        });
+        jButton10.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton10KeyPressed(evt);
             }
         });
 
@@ -293,6 +309,24 @@ public class GestionCandidatos extends javax.swing.JFrame {
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton9KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton9KeyPressed
+       if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            jButton9ActionPerformed(null);
+        }
+    }//GEN-LAST:event_jButton9KeyPressed
+
+    private void jButton10KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton10KeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            jButton10ActionPerformed(null);
+        }
+    }//GEN-LAST:event_jButton10KeyPressed
+
+    private void volverKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_volverKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            volverActionPerformed(null);
+        }
+    }//GEN-LAST:event_volverKeyPressed
 
     /**
      * @param args the command line arguments

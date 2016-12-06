@@ -9,6 +9,7 @@ import Entidades.Puesto;
 import Gestores.GestorEliminacion;
 import Gestores.GestorPuesto;
 import Gestores.GestorValidacionesPantalla;
+import java.applet.AudioClip;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
@@ -248,6 +249,11 @@ public class GestionDePuestos extends javax.swing.JFrame {
                 nuevoActionPerformed(evt);
             }
         });
+        nuevo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                nuevoKeyPressed(evt);
+            }
+        });
 
         eliminar.setBackground(new java.awt.Color(0, 51, 102));
         eliminar.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
@@ -264,6 +270,11 @@ public class GestionDePuestos extends javax.swing.JFrame {
                 eliminarActionPerformed(evt);
             }
         });
+        eliminar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                eliminarKeyPressed(evt);
+            }
+        });
 
         modificar.setBackground(new java.awt.Color(0, 51, 102));
         modificar.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
@@ -278,6 +289,11 @@ public class GestionDePuestos extends javax.swing.JFrame {
         modificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 modificarActionPerformed(evt);
+            }
+        });
+        modificar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                modificarKeyPressed(evt);
             }
         });
 
@@ -422,6 +438,11 @@ public class GestionDePuestos extends javax.swing.JFrame {
                 volverActionPerformed(evt);
             }
         });
+        volver.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                volverKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout abajoLayout = new javax.swing.GroupLayout(abajo);
         abajo.setLayout(abajoLayout);
@@ -512,6 +533,9 @@ public class GestionDePuestos extends javax.swing.JFrame {
             Puesto puesto = modeloTabla.getPuesto(tabla.getSelectedRow());
             boolean puestoEnUso = gestorPuesto.verificarPuestoEnUso(puesto.getIdPuesto());
         if(puestoEnUso){
+            AudioClip sonido;
+            sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error.wav"));
+            sonido.play();
             JOptionPane.showMessageDialog(null, "El puesto " + puesto.getNombrePuesto() +" está siendo usado en la base de datos y no puede eliminarse");
         }
         else{
@@ -522,6 +546,9 @@ public class GestionDePuestos extends javax.swing.JFrame {
                 {
                     GestorEliminacion gestorEliminacion = GestorEliminacion.getInstance();
                     gestorEliminacion.eliminarPuestoOriginal(puesto);
+                    AudioClip sonido;
+                    sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/exito4.wav"));
+                    sonido.play();
                     JOptionPane.showMessageDialog(null, "Los datos del puesto " + puesto.getNombrePuesto() +" han sido eliminados del sistema.");
                     
                     //se deja de visualizar en la tabla el puesto eliminado
@@ -533,6 +560,9 @@ public class GestionDePuestos extends javax.swing.JFrame {
         
         
         } else {
+            AudioClip sonido;
+            sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error.wav"));
+            sonido.play();
             txtMensaje.setText("Seleccione el puesto que desea eliminar");
         }
 
@@ -554,8 +584,12 @@ public class GestionDePuestos extends javax.swing.JFrame {
             obj.setVisible(true);
             dispose();
        }
-       else
+        else{
+            AudioClip sonido;
+            sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error.wav"));
+            sonido.play();
            txtMensaje.setText("Seleccione el puesto que desea modificar"); 
+        }
     }//GEN-LAST:event_modificarActionPerformed
 
     private void volverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_volverMouseClicked
@@ -627,6 +661,30 @@ public class GestionDePuestos extends javax.swing.JFrame {
             buscarActionPerformed(null);
         }
     }//GEN-LAST:event_buscarKeyPressed
+
+    private void nuevoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nuevoKeyPressed
+       if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            nuevoActionPerformed(null);
+        }
+    }//GEN-LAST:event_nuevoKeyPressed
+
+    private void modificarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_modificarKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            modificarActionPerformed(null);
+        }
+    }//GEN-LAST:event_modificarKeyPressed
+
+    private void eliminarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_eliminarKeyPressed
+       if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+           eliminarActionPerformed(null);
+        }
+    }//GEN-LAST:event_eliminarKeyPressed
+
+    private void volverKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_volverKeyPressed
+       if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            volverActionPerformed(null);
+        }
+    }//GEN-LAST:event_volverKeyPressed
 
      public class CustomTableModel extends AbstractTableModel {
 

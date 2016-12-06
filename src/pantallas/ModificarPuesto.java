@@ -13,6 +13,8 @@ import Entidades.Competencia;
 import Entidades.Puesto;
 import Gestores.GestorPuesto;
 import Gestores.GestorValidacionesPantalla;
+import java.applet.AudioClip;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -182,6 +184,11 @@ public class ModificarPuesto extends javax.swing.JFrame {
                 btnAddActionPerformed(evt);
             }
         });
+        btnAdd.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnAddKeyPressed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -197,6 +204,11 @@ public class ModificarPuesto extends javax.swing.JFrame {
                 btnRemoveActionPerformed(evt);
             }
         });
+        btnRemove.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnRemoveKeyPressed(evt);
+            }
+        });
 
         btnAddAll.setBackground(new java.awt.Color(0, 51, 102));
         btnAddAll.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
@@ -208,6 +220,11 @@ public class ModificarPuesto extends javax.swing.JFrame {
                 btnAddAllActionPerformed(evt);
             }
         });
+        btnAddAll.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnAddAllKeyPressed(evt);
+            }
+        });
 
         btnRemoveAll.setBackground(new java.awt.Color(0, 51, 102));
         btnRemoveAll.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
@@ -217,6 +234,11 @@ public class ModificarPuesto extends javax.swing.JFrame {
         btnRemoveAll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRemoveAllActionPerformed(evt);
+            }
+        });
+        btnRemoveAll.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnRemoveAllKeyPressed(evt);
             }
         });
 
@@ -290,6 +312,11 @@ public class ModificarPuesto extends javax.swing.JFrame {
                 cancelarActionPerformed(evt);
             }
         });
+        cancelar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cancelarKeyPressed(evt);
+            }
+        });
 
         aceptar.setBackground(new java.awt.Color(0, 51, 102));
         aceptar.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
@@ -299,6 +326,11 @@ public class ModificarPuesto extends javax.swing.JFrame {
         aceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 aceptarActionPerformed(evt);
+            }
+        });
+        aceptar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                aceptarKeyPressed(evt);
             }
         });
 
@@ -460,18 +492,7 @@ public class ModificarPuesto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarActionPerformed
-
-        List<Competencia> comp= new ArrayList();
-        comp=modeloTabla.getListaCompetencias();
-        List<Integer> pond= new ArrayList();
-        pond= modeloTabla.getListaPonderacion();
-        for(int i=0; i<modeloTabla.getRowCount(); i++){
-            System.out.print("\n competencia: " + comp.get(i).getIdCompetencia() + " - " + comp.get(i).getNombreCompetencia());
-            System.out.print("\n ponderacion: " + pond.get(i));
-        }
-        //convierto a set la lista guardada en modeloTabla con las competencias seleccionadas para persistirlas en la bs 
-        //Set<Competencia> competencias = new HashSet<Competencia>(modeloTabla.getListaCompetencias());
-        
+         
         int resultado = gestorPuesto.modificarPuesto(puestoAux, txtNombre.getText(), txtEmpresa.getText(), txtDescripcion.getText(), modeloTabla.getListaCompetencias(), modeloTabla.getListaPonderacion());
         /* 1: todo correcto
            2: ponderaciones vacias
@@ -484,6 +505,9 @@ public class ModificarPuesto extends javax.swing.JFrame {
         switch (resultado) {
             //todo correcto
             case 1:
+                AudioClip sonido;
+                sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/exito4.wav"));
+                sonido.play();
                 JOptionPane.showMessageDialog(null, "La operación ha culminado con éxito");
                 GestionDePuestos obj = new GestionDePuestos();
                 obj.setVisible(true);
@@ -492,16 +516,22 @@ public class ModificarPuesto extends javax.swing.JFrame {
 
             //hay ponderaciones sin completar
             case 2:
+                sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error.wav"));
+                sonido.play();
                 campoTexto.setText("Algunas competencias no tienen una ponderación definida");
                 break;
 
             //hay ponderaciones que no estan entre 0 y 10
             case 3:
+                sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error.wav"));
+                sonido.play();
                 campoTexto.setText("Las ponderaciones deben ser valores entre 0 y 10");
                 break;
 
             //nombre o empresa estan vacios
             case 4:
+                sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error.wav"));
+                sonido.play();
                 campoTexto.setText("Algunos campos se encuentran en blanco");
                 if (txtEmpresa.getText().equals("")) {
                     txtEmpresa.requestFocus();
@@ -519,12 +549,16 @@ public class ModificarPuesto extends javax.swing.JFrame {
 
             //sin al menos una competencia seleccionada
             case 5:
+                sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error.wav"));
+                sonido.play();
                 campoTexto.setText("Seleccione al menos una competencia");
                 lista.setForeground(java.awt.Color.red);
                 break;
 
             //sin al menos una competencia seleccionada
             case 6:
+                sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error.wav"));
+                sonido.play();
                 campoTexto.setText("El nombre del puesto ya esta en uso");
                 txtNombre.requestFocus();
                 txtNombre.setBackground(java.awt.Color.red);
@@ -554,6 +588,9 @@ public class ModificarPuesto extends javax.swing.JFrame {
                 modeloTabla.deleteRow(0);
             }
         } else {
+            AudioClip sonido;
+            sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error.wav"));
+            sonido.play();
             campoTexto.setText("No es posible quitar competencias debido a que hay cuestionarios generados para este puesto");
         }
     }//GEN-LAST:event_btnRemoveAllActionPerformed
@@ -566,6 +603,9 @@ public class ModificarPuesto extends javax.swing.JFrame {
                 modeloLista.eliminarCompetencia(0);
             }
         } else {
+            AudioClip sonido;
+            sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error.wav"));
+            sonido.play();
             campoTexto.setText("No es posible agregar competencias debido a que hay cuestionarios generados para este puesto");
         }
     }//GEN-LAST:event_btnAddAllActionPerformed
@@ -573,6 +613,9 @@ public class ModificarPuesto extends javax.swing.JFrame {
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
         if (!puestoEnUso) { //significa que se pueden agregar/quitar competencias porq el puesto no esta en uso
             if ((tabla.getSelectedRow() == -1)) {
+                AudioClip sonido;
+                sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error.wav"));
+                sonido.play();
                 campoTexto.setText("Seleccione un elemento antes de presionar el boton");
             } else {
                 campoTexto.setText("");
@@ -582,6 +625,9 @@ public class ModificarPuesto extends javax.swing.JFrame {
                 modeloTabla.deleteRow(row);
             }
         } else {
+            AudioClip sonido;
+            sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error.wav"));
+            sonido.play();
             campoTexto.setText("No es posible quitar competencias debido a que hay cuestionarios generados para este puesto");
         }
     }//GEN-LAST:event_btnRemoveActionPerformed
@@ -595,9 +641,15 @@ public class ModificarPuesto extends javax.swing.JFrame {
                 modeloTabla.addCompetencia(competencia);
                 modeloLista.eliminarCompetencia(lista.getSelectedIndex());
             } else {
+                AudioClip sonido;
+                sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error.wav"));
+                sonido.play();
                 campoTexto.setText("Seleccione un elemento antes de presionar el boton");
             }
         } else {
+            AudioClip sonido;
+            sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error.wav"));
+            sonido.play();
             campoTexto.setText("No es posible agregar competencias debido a que hay cuestionarios generados para este puesto");
         }
     }//GEN-LAST:event_btnAddActionPerformed
@@ -637,6 +689,42 @@ public class ModificarPuesto extends javax.swing.JFrame {
     private void txtDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionKeyTyped
         gestorValidacionesPantalla.keyTyped(txtDescripcion, evt);
     }//GEN-LAST:event_txtDescripcionKeyTyped
+
+    private void aceptarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_aceptarKeyPressed
+       if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            aceptarActionPerformed(null);
+        }
+    }//GEN-LAST:event_aceptarKeyPressed
+
+    private void cancelarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cancelarKeyPressed
+       if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            cancelarActionPerformed(null);
+        }
+    }//GEN-LAST:event_cancelarKeyPressed
+
+    private void btnAddKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnAddKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            btnAddActionPerformed(null);
+        }
+    }//GEN-LAST:event_btnAddKeyPressed
+
+    private void btnRemoveKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnRemoveKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            btnRemoveActionPerformed(null);
+        }
+    }//GEN-LAST:event_btnRemoveKeyPressed
+
+    private void btnAddAllKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnAddAllKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            btnAddAllActionPerformed(null);
+        }
+    }//GEN-LAST:event_btnAddAllKeyPressed
+
+    private void btnRemoveAllKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnRemoveAllKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            btnRemoveAllActionPerformed(null);
+        }
+    }//GEN-LAST:event_btnRemoveAllKeyPressed
 
     /**
      * @param args the command line arguments

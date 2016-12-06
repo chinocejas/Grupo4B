@@ -138,7 +138,7 @@ public class GestorValidacionesPantalla {
         char c = evt.getKeyChar();
         int pos = jTextfieldS.getCaretPosition();
         //Solo permite numeros
-        if (c < 48 || c > 57 || pos>7) {
+        if (c < 48 || c > 57 || pos>9) {
             evt.consume();
         }
     }

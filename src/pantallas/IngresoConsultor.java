@@ -7,6 +7,7 @@ package pantallas;
 
 import Gestores.GestorConsultor;
 import Gestores.GestorValidacionesPantalla;
+import java.applet.AudioClip;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
@@ -114,6 +115,11 @@ public class IngresoConsultor extends javax.swing.JFrame {
         aceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 aceptarActionPerformed(evt);
+            }
+        });
+        aceptar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                aceptarKeyPressed(evt);
             }
         });
 
@@ -338,6 +344,9 @@ public class IngresoConsultor extends javax.swing.JFrame {
             obj.setVisible(true);
             dispose();
         } else {
+             AudioClip sonido;
+                sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error.wav"));
+                sonido.play();
             JOptionPane.showMessageDialog(null, "El usuario o la contraseña no son válidos", "Error de autenticación", JOptionPane.ERROR_MESSAGE);
             user.setText("");
             pass.setText("");
@@ -387,6 +396,12 @@ public class IngresoConsultor extends javax.swing.JFrame {
     private void passKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passKeyTyped
         gestorValidacionesPantalla.keyTypedConsultorYCandidatoPassword(pass, evt);
     }//GEN-LAST:event_passKeyTyped
+
+    private void aceptarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_aceptarKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            aceptarActionPerformed(null);
+        }
+    }//GEN-LAST:event_aceptarKeyPressed
 
     /**
      * @param args the command line arguments

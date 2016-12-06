@@ -15,6 +15,7 @@ import Gestores.GestorPuesto;
 import Gestores.GestorValidacionesPantalla;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
@@ -129,6 +130,11 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
                 btnAddActionPerformed(evt);
             }
         });
+        btnAdd.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnAddKeyPressed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -144,6 +150,11 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
                 btnRemoveActionPerformed(evt);
             }
         });
+        btnRemove.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnRemoveKeyPressed(evt);
+            }
+        });
 
         btnAddAll.setBackground(new java.awt.Color(0, 51, 102));
         btnAddAll.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
@@ -155,6 +166,11 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
                 btnAddAllActionPerformed(evt);
             }
         });
+        btnAddAll.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnAddAllKeyPressed(evt);
+            }
+        });
 
         btnRemoveAll.setBackground(new java.awt.Color(0, 51, 102));
         btnRemoveAll.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
@@ -164,6 +180,11 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
         btnRemoveAll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRemoveAllActionPerformed(evt);
+            }
+        });
+        btnRemoveAll.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnRemoveAllKeyPressed(evt);
             }
         });
 
@@ -217,6 +238,11 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
                 btnSiguienteActionPerformed(evt);
             }
         });
+        btnSiguiente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnSiguienteKeyPressed(evt);
+            }
+        });
 
         btnVolver.setBackground(new java.awt.Color(0, 51, 102));
         btnVolver.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
@@ -226,6 +252,11 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
         btnVolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVolverActionPerformed(evt);
+            }
+        });
+        btnVolver.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnVolverKeyPressed(evt);
             }
         });
 
@@ -267,6 +298,11 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
+            }
+        });
+        btnBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnBuscarKeyPressed(evt);
             }
         });
 
@@ -568,6 +604,48 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
     private void tablaSeleccionadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaSeleccionadosMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_tablaSeleccionadosMouseClicked
+
+    private void btnBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnBuscarKeyPressed
+       if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            btnBuscarActionPerformed(null);
+        }
+    }//GEN-LAST:event_btnBuscarKeyPressed
+
+    private void btnVolverKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnVolverKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            btnVolverActionPerformed(null);
+        }
+    }//GEN-LAST:event_btnVolverKeyPressed
+
+    private void btnSiguienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSiguienteKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            btnSiguienteActionPerformed(null);
+        }
+    }//GEN-LAST:event_btnSiguienteKeyPressed
+
+    private void btnAddKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnAddKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            btnAddActionPerformed(null);
+        }
+    }//GEN-LAST:event_btnAddKeyPressed
+
+    private void btnRemoveKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnRemoveKeyPressed
+       if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            btnRemoveActionPerformed(null);
+        }
+    }//GEN-LAST:event_btnRemoveKeyPressed
+
+    private void btnAddAllKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnAddAllKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            btnAddAllActionPerformed(null);
+        }
+    }//GEN-LAST:event_btnAddAllKeyPressed
+
+    private void btnRemoveAllKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnRemoveAllKeyPressed
+      if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            btnRemoveAllActionPerformed(null);
+        }
+    }//GEN-LAST:event_btnRemoveAllKeyPressed
 
     /**
      * @param args the command line arguments

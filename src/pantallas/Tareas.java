@@ -5,6 +5,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 
 import Gestores.*;
+import java.awt.event.KeyEvent;
 
 
 /**
@@ -41,14 +42,14 @@ public class Tareas extends javax.swing.JFrame {
         nombreConsultor = new javax.swing.JLabel();
         abajo = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
+        botonCerrarSesion = new javax.swing.JButton();
         centro = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        botonGestion = new javax.swing.JButton();
+        botonReportes = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -112,19 +113,24 @@ public class Tareas extends javax.swing.JFrame {
 
         jPanel4.setOpaque(false);
 
-        jButton3.setBackground(new java.awt.Color(0, 51, 102));
-        jButton3.setFont(new java.awt.Font("Arial", 0, 22)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(204, 204, 204));
-        jButton3.setText("Cerrar Sesión");
-        jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+        botonCerrarSesion.setBackground(new java.awt.Color(0, 51, 102));
+        botonCerrarSesion.setFont(new java.awt.Font("Arial", 0, 22)); // NOI18N
+        botonCerrarSesion.setForeground(new java.awt.Color(204, 204, 204));
+        botonCerrarSesion.setText("Cerrar Sesión");
+        botonCerrarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton3MouseClicked(evt);
+                botonCerrarSesionMouseClicked(evt);
             }
         });
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        botonCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                botonCerrarSesionActionPerformed(evt);
+            }
+        });
+        botonCerrarSesion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                botonCerrarSesionKeyPressed(evt);
             }
         });
 
@@ -134,14 +140,14 @@ public class Tareas extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(45, 45, 45)
-                .addComponent(jButton3)
+                .addComponent(botonCerrarSesion)
                 .addContainerGap(877, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(botonCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(34, Short.MAX_VALUE))
         );
 
@@ -214,29 +220,39 @@ public class Tareas extends javax.swing.JFrame {
         jPanel5.setOpaque(false);
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setBackground(new java.awt.Color(0, 51, 102));
-        jButton1.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Gestión");
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        botonGestion.setBackground(new java.awt.Color(0, 51, 102));
+        botonGestion.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
+        botonGestion.setForeground(new java.awt.Color(255, 255, 255));
+        botonGestion.setText("Gestión");
+        botonGestion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonGestion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                botonGestionActionPerformed(evt);
             }
         });
-        jPanel5.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 350, 54));
+        botonGestion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                botonGestionKeyPressed(evt);
+            }
+        });
+        jPanel5.add(botonGestion, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 350, 54));
 
-        jButton2.setBackground(new java.awt.Color(0, 51, 102));
-        jButton2.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Reportes");
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        botonReportes.setBackground(new java.awt.Color(0, 51, 102));
+        botonReportes.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
+        botonReportes.setForeground(new java.awt.Color(255, 255, 255));
+        botonReportes.setText("Reportes");
+        botonReportes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonReportes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                botonReportesActionPerformed(evt);
             }
         });
-        jPanel5.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, 350, 54));
+        botonReportes.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                botonReportesKeyPressed(evt);
+            }
+        });
+        jPanel5.add(botonReportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, 350, 54));
 
         centro.add(jPanel5, java.awt.BorderLayout.CENTER);
 
@@ -252,31 +268,49 @@ public class Tareas extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void botonGestionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGestionActionPerformed
         Gestion obj= new Gestion();
         obj.setVisible(true);
         dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_botonGestionActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void botonReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReportesActionPerformed
         
         Reportes obj= new Reportes();
         obj.setVisible(true);
         dispose();
         
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_botonReportesActionPerformed
 
-    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+    private void botonCerrarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonCerrarSesionMouseClicked
         // TODO add your handling code here:
        
-    }//GEN-LAST:event_jButton3MouseClicked
+    }//GEN-LAST:event_botonCerrarSesionMouseClicked
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void botonCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCerrarSesionActionPerformed
         // TODO add your handling code here:
         Inicio obj= new Inicio();
         obj.setVisible(true);
         dispose();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_botonCerrarSesionActionPerformed
+
+    private void botonGestionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_botonGestionKeyPressed
+       if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            botonGestionActionPerformed(null);
+        }
+    }//GEN-LAST:event_botonGestionKeyPressed
+
+    private void botonReportesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_botonReportesKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            botonReportesActionPerformed(null);
+        }
+    }//GEN-LAST:event_botonReportesKeyPressed
+
+    private void botonCerrarSesionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_botonCerrarSesionKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            botonCerrarSesionActionPerformed(null);
+        }
+    }//GEN-LAST:event_botonCerrarSesionKeyPressed
 
     /**
      * @param args the command line arguments
@@ -318,11 +352,11 @@ public class Tareas extends javax.swing.JFrame {
     private javax.swing.JLabel Ingreso;
     private javax.swing.JPanel abajo;
     private javax.swing.JPanel arriba;
+    private javax.swing.JButton botonCerrarSesion;
+    private javax.swing.JButton botonGestion;
+    private javax.swing.JButton botonReportes;
     private javax.swing.JPanel centro;
     private javax.swing.JPanel fondo;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;

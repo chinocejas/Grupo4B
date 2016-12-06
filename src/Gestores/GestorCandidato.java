@@ -75,6 +75,7 @@ public class GestorCandidato {
     
     public Object validarCandidato(String tipoDocumento, String numeroDocumento, String password) {
         Object retorno=null;
+        if(!numeroDocumento.equals("")){
         int numeroDoc= Integer.parseInt(numeroDocumento);
       Candidato candidato=daoCandidato.buscarCandidato(tipoDocumento, numeroDoc);
       if(candidato!=null){
@@ -89,6 +90,7 @@ public class GestorCandidato {
               }
           }
       }
+        }
       return retorno;
     }
     

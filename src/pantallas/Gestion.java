@@ -4,6 +4,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 
 import Gestores.*;
+import java.awt.event.KeyEvent;
 
 /**
  *
@@ -41,17 +42,17 @@ public class Gestion extends javax.swing.JFrame {
         nombreConsultor = new javax.swing.JLabel();
         abajo = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
-        volver = new javax.swing.JButton();
+        botonVolver = new javax.swing.JButton();
         centro = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        puestos = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
+        botonCandidatos = new javax.swing.JButton();
+        botonPuestos = new javax.swing.JButton();
+        botonFactores = new javax.swing.JButton();
+        botonCompetencias = new javax.swing.JButton();
+        botonPreguntas = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -116,19 +117,24 @@ public class Gestion extends javax.swing.JFrame {
 
         jPanel4.setOpaque(false);
 
-        volver.setBackground(new java.awt.Color(0, 51, 102));
-        volver.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
-        volver.setForeground(new java.awt.Color(255, 255, 255));
-        volver.setText("Volver");
-        volver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        volver.addMouseListener(new java.awt.event.MouseAdapter() {
+        botonVolver.setBackground(new java.awt.Color(0, 51, 102));
+        botonVolver.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
+        botonVolver.setForeground(new java.awt.Color(255, 255, 255));
+        botonVolver.setText("Volver");
+        botonVolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonVolver.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                volverMouseClicked(evt);
+                botonVolverMouseClicked(evt);
             }
         });
-        volver.addActionListener(new java.awt.event.ActionListener() {
+        botonVolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                volverActionPerformed(evt);
+                botonVolverActionPerformed(evt);
+            }
+        });
+        botonVolver.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                botonVolverKeyPressed(evt);
             }
         });
 
@@ -138,14 +144,14 @@ public class Gestion extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(45, 45, 45)
-                .addComponent(volver, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(botonVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(848, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(volver, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(botonVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(34, Short.MAX_VALUE))
         );
 
@@ -217,58 +223,83 @@ public class Gestion extends javax.swing.JFrame {
 
         jPanel5.setOpaque(false);
 
-        jButton1.setBackground(new java.awt.Color(0, 51, 102));
-        jButton1.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Candidatos");
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        botonCandidatos.setBackground(new java.awt.Color(0, 51, 102));
+        botonCandidatos.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
+        botonCandidatos.setForeground(new java.awt.Color(255, 255, 255));
+        botonCandidatos.setText("Candidatos");
+        botonCandidatos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonCandidatos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                botonCandidatosActionPerformed(evt);
+            }
+        });
+        botonCandidatos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                botonCandidatosKeyPressed(evt);
             }
         });
 
-        puestos.setBackground(new java.awt.Color(0, 51, 102));
-        puestos.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
-        puestos.setForeground(new java.awt.Color(255, 255, 255));
-        puestos.setText("Puestos");
-        puestos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        puestos.addActionListener(new java.awt.event.ActionListener() {
+        botonPuestos.setBackground(new java.awt.Color(0, 51, 102));
+        botonPuestos.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
+        botonPuestos.setForeground(new java.awt.Color(255, 255, 255));
+        botonPuestos.setText("Puestos");
+        botonPuestos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonPuestos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                puestosActionPerformed(evt);
+                botonPuestosActionPerformed(evt);
+            }
+        });
+        botonPuestos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                botonPuestosKeyPressed(evt);
             }
         });
 
-        jButton8.setBackground(new java.awt.Color(0, 51, 102));
-        jButton8.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
-        jButton8.setForeground(new java.awt.Color(255, 255, 255));
-        jButton8.setText("Factores");
-        jButton8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        botonFactores.setBackground(new java.awt.Color(0, 51, 102));
+        botonFactores.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
+        botonFactores.setForeground(new java.awt.Color(255, 255, 255));
+        botonFactores.setText("Factores");
+        botonFactores.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonFactores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                botonFactoresActionPerformed(evt);
+            }
+        });
+        botonFactores.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                botonFactoresKeyPressed(evt);
             }
         });
 
-        jButton9.setBackground(new java.awt.Color(0, 51, 102));
-        jButton9.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
-        jButton9.setForeground(new java.awt.Color(255, 255, 255));
-        jButton9.setText("Competencias");
-        jButton9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
+        botonCompetencias.setBackground(new java.awt.Color(0, 51, 102));
+        botonCompetencias.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
+        botonCompetencias.setForeground(new java.awt.Color(255, 255, 255));
+        botonCompetencias.setText("Competencias");
+        botonCompetencias.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonCompetencias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
+                botonCompetenciasActionPerformed(evt);
+            }
+        });
+        botonCompetencias.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                botonCompetenciasKeyPressed(evt);
             }
         });
 
-        jButton10.setBackground(new java.awt.Color(0, 51, 102));
-        jButton10.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
-        jButton10.setForeground(new java.awt.Color(255, 255, 255));
-        jButton10.setText("Preguntas");
-        jButton10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
+        botonPreguntas.setBackground(new java.awt.Color(0, 51, 102));
+        botonPreguntas.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
+        botonPreguntas.setForeground(new java.awt.Color(255, 255, 255));
+        botonPreguntas.setText("Preguntas");
+        botonPreguntas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonPreguntas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
+                botonPreguntasActionPerformed(evt);
+            }
+        });
+        botonPreguntas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                botonPreguntasKeyPressed(evt);
             }
         });
 
@@ -279,24 +310,24 @@ public class Gestion extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(puestos, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(botonPreguntas, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonCompetencias, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonFactores, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonPuestos, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonCandidatos, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(botonCandidatos, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
-                .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(botonCompetencias, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
-                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(botonFactores, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
-                .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(botonPreguntas, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
-                .addComponent(puestos, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(botonPuestos, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         centro.add(jPanel5, java.awt.BorderLayout.CENTER);
@@ -313,41 +344,77 @@ public class Gestion extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void volverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_volverMouseClicked
+    private void botonVolverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonVolverMouseClicked
         // TODO add your handling code here:
        
-    }//GEN-LAST:event_volverMouseClicked
+    }//GEN-LAST:event_botonVolverMouseClicked
 
-    private void volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverActionPerformed
+    private void botonVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVolverActionPerformed
         // TODO add your handling code here:
         Tareas obj= new Tareas();
         obj.setVisible(true);
         dispose();
-    }//GEN-LAST:event_volverActionPerformed
+    }//GEN-LAST:event_botonVolverActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void botonCandidatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCandidatosActionPerformed
         GestionCandidatos obj = new GestionCandidatos();
         obj.setVisible(true);
         dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_botonCandidatosActionPerformed
 
-    private void puestosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_puestosActionPerformed
+    private void botonPuestosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPuestosActionPerformed
         GestionDePuestos obj= new GestionDePuestos();
         obj.setVisible(true);
         dispose();
-    }//GEN-LAST:event_puestosActionPerformed
+    }//GEN-LAST:event_botonPuestosActionPerformed
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+    private void botonFactoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonFactoresActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton8ActionPerformed
+    }//GEN-LAST:event_botonFactoresActionPerformed
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+    private void botonCompetenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCompetenciasActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton9ActionPerformed
+    }//GEN-LAST:event_botonCompetenciasActionPerformed
 
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+    private void botonPreguntasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPreguntasActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton10ActionPerformed
+    }//GEN-LAST:event_botonPreguntasActionPerformed
+
+    private void botonCandidatosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_botonCandidatosKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            botonCandidatosActionPerformed(null);
+        }
+    }//GEN-LAST:event_botonCandidatosKeyPressed
+
+    private void botonCompetenciasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_botonCompetenciasKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            botonCompetenciasActionPerformed(null);
+        }
+    }//GEN-LAST:event_botonCompetenciasKeyPressed
+
+    private void botonFactoresKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_botonFactoresKeyPressed
+       if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            botonFactoresActionPerformed(null);
+        }
+    }//GEN-LAST:event_botonFactoresKeyPressed
+
+    private void botonPreguntasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_botonPreguntasKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            botonPreguntasActionPerformed(null);
+        }
+    }//GEN-LAST:event_botonPreguntasKeyPressed
+
+    private void botonPuestosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_botonPuestosKeyPressed
+       if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            botonPuestosActionPerformed(null);
+        }
+    }//GEN-LAST:event_botonPuestosKeyPressed
+
+    private void botonVolverKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_botonVolverKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            botonVolverActionPerformed(null);
+        }
+    }//GEN-LAST:event_botonVolverKeyPressed
 
     /**
      * @param args the command line arguments
@@ -390,12 +457,14 @@ public class Gestion extends javax.swing.JFrame {
     private javax.swing.JLabel Ingreso;
     private javax.swing.JPanel abajo;
     private javax.swing.JPanel arriba;
+    private javax.swing.JButton botonCandidatos;
+    private javax.swing.JButton botonCompetencias;
+    private javax.swing.JButton botonFactores;
+    private javax.swing.JButton botonPreguntas;
+    private javax.swing.JButton botonPuestos;
+    private javax.swing.JButton botonVolver;
     private javax.swing.JPanel centro;
     private javax.swing.JPanel fondo;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
@@ -404,8 +473,6 @@ public class Gestion extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JLabel nombreConsultor;
-    private javax.swing.JButton puestos;
     private javax.swing.JLabel userConsultor;
-    private javax.swing.JButton volver;
     // End of variables declaration//GEN-END:variables
 }
