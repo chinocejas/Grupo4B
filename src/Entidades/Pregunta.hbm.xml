@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 06-dic-2016 15:03:45 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Entidades.Pregunta" table="pregunta" schema="public" optimistic-lock="version">
+        <id name="idPregunta" type="int">
+            <column name="id_pregunta" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="factor" class="Entidades.Factor" fetch="select">
+            <column name="id_factor" />
+        </many-to-one>
+        <many-to-one name="opcionRespuesta" class="Entidades.OpcionRespuesta" fetch="select">
+            <column name="id_opcion_respuesta" />
+        </many-to-one>
+        <property name="nombrePregunta" type="string">
+            <column name="nombre_pregunta" length="500" />
+        </property>
+        <property name="pregunta" type="string">
+            <column name="pregunta" length="500" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="descripcion" length="500" />
+        </property>
+        <set name="raEliminacions" table="ra_eliminacion" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_pregunta" />
+            </key>
+            <one-to-many class="Entidades.RaEliminacion" />
+        </set>
+        <set name="ponderas" table="pondera" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_pregunta" not-null="true" />
+            </key>
+            <one-to-many class="Entidades.Pondera" />
+        </set>
+    </class>
+</hibernate-mapping>

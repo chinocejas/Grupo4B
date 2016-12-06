@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 06-dic-2016 15:03:45 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Entidades.OpcionRespuestaCopia" table="opcion_respuesta_copia" schema="public" optimistic-lock="version">
+        <id name="idOpcionRespuestaCopia" type="int">
+            <column name="id_opcion_respuesta_copia" />
+            <generator class="assigned" />
+        </id>
+        <property name="nombreOpcionRespuesta" type="string">
+            <column name="nombre_opcion_respuesta" length="500" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="descripcion" length="500" />
+        </property>
+        <set name="preguntaCopias" table="pregunta_copia" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_opcion_respuesta_copia" />
+            </key>
+            <one-to-many class="Entidades.PreguntaCopia" />
+        </set>
+        <set name="respuestaCopias" table="respuesta_copia" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_opcion_respuesta_copia" />
+            </key>
+            <one-to-many class="Entidades.RespuestaCopia" />
+        </set>
+    </class>
+</hibernate-mapping>

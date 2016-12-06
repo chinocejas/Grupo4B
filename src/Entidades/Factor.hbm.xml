@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 06-dic-2016 15:03:45 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Entidades.Factor" table="factor" schema="public" optimistic-lock="version">
+        <id name="idFactor" type="int">
+            <column name="id_factor" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="competencia" class="Entidades.Competencia" fetch="select">
+            <column name="id_competencia" />
+        </many-to-one>
+        <property name="nombre" type="string">
+            <column name="nombre" length="500" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="descripcion" length="500" />
+        </property>
+        <property name="numeroOrden" type="java.lang.Integer">
+            <column name="numero_orden" />
+        </property>
+        <property name="eliminado" type="java.lang.Boolean">
+            <column name="eliminado" />
+        </property>
+        <set name="preguntas" table="pregunta" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_factor" />
+            </key>
+            <one-to-many class="Entidades.Pregunta" />
+        </set>
+        <set name="raEliminacions" table="ra_eliminacion" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_factor" />
+            </key>
+            <one-to-many class="Entidades.RaEliminacion" />
+        </set>
+    </class>
+</hibernate-mapping>

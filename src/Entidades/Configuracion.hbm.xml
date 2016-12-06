@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 06-dic-2016 15:03:45 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Entidades.Configuracion" table="configuracion" schema="public" optimistic-lock="version">
+        <id name="idConfiguracion" type="int">
+            <column name="id_configuracion" />
+            <generator class="assigned" />
+        </id>
+        <property name="instrucciones" type="string">
+            <column name="instrucciones" length="5000" />
+        </property>
+        <property name="cantidadMaximaAccesos" type="java.lang.Integer">
+            <column name="cantidad_maxima_accesos" />
+        </property>
+        <property name="preguntasPorBloque" type="java.lang.Integer">
+            <column name="preguntas_por_bloque" />
+        </property>
+        <property name="tiempoMaximoCuestionario" type="java.lang.Integer">
+            <column name="tiempo_maximo_cuestionario" />
+        </property>
+        <property name="tiempoMaximoCuestionarioActivo" type="java.lang.Integer">
+            <column name="tiempo_maximo_cuestionario_activo" />
+        </property>
+    </class>
+</hibernate-mapping>

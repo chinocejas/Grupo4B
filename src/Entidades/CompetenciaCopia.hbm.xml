@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 06-dic-2016 15:03:45 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Entidades.CompetenciaCopia" table="competencia_copia" schema="public" optimistic-lock="version">
+        <id name="idCompetenciaCopia" type="int">
+            <column name="id_competencia_copia" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="puestoCopia" class="Entidades.PuestoCopia" fetch="select">
+            <column name="id_puesto_copia" />
+        </many-to-one>
+        <property name="nombreCompetencia" type="string">
+            <column name="nombre_competencia" length="500" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="descripcion" length="500" />
+        </property>
+        <property name="puntajeRequerido" type="java.lang.Integer">
+            <column name="puntaje_requerido" />
+        </property>
+        <set name="factorCopias" table="factor_copia" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_competencia_copia" />
+            </key>
+            <one-to-many class="Entidades.FactorCopia" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 06-dic-2016 15:03:45 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Entidades.RaCuestionario" table="ra_cuestionario" schema="public" optimistic-lock="version">
+        <id name="idRaCuestionario" type="int">
+            <column name="id_ra_cuestionario" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="cuestionario" class="Entidades.Cuestionario" fetch="select">
+            <column name="id_cuestionario" />
+        </many-to-one>
+        <property name="estadoActual" type="java.lang.Integer">
+            <column name="estado_actual" />
+        </property>
+        <property name="estadoPrevio" type="java.lang.Integer">
+            <column name="estado_previo" />
+        </property>
+        <property name="fecha" type="date">
+            <column name="fecha" length="13" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 06-dic-2016 15:03:45 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Entidades.CuestionarioRespuestaCopia" table="cuestionario_respuesta_copia" schema="public" optimistic-lock="version">
+        <composite-id name="id" class="Entidades.CuestionarioRespuestaCopiaId">
+            <key-property name="idCuestionario" type="int">
+                <column name="id_cuestionario" />
+            </key-property>
+            <key-property name="idRespuestaCopia" type="int">
+                <column name="id_respuesta_copia" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="cuestionario" class="Entidades.Cuestionario" update="false" insert="false" fetch="select">
+            <column name="id_cuestionario" not-null="true" />
+        </many-to-one>
+        <many-to-one name="respuestaCopia" class="Entidades.RespuestaCopia" update="false" insert="false" fetch="select">
+            <column name="id_respuesta_copia" not-null="true" />
+        </many-to-one>
+        <property name="orden" type="java.lang.Integer">
+            <column name="orden" />
+        </property>
+    </class>
+</hibernate-mapping>
