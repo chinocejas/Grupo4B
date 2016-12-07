@@ -6,9 +6,11 @@
 package pantallas;
 
 import Bases.*;
+import Entidades.Candidato;
 import Entidades.Competencia;
 import Entidades.Puesto;
 import Entidades.PuestoCompetencia;
+import Entidades.PuestoCopia;
 import Gestores.GestorPuesto;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -35,7 +37,7 @@ public class EvaluarCandidatoFunciones extends javax.swing.JFrame {
         
     }
     
-    public EvaluarCandidatoFunciones(List<Puesto> puestos) {
+    public EvaluarCandidatoFunciones(List<Puesto> puestos, List<Candidato> candidatosSeleccionados) {
         initComponents();
         setSize(1024, 768);
         setLocationRelativeTo(null);
@@ -290,7 +292,21 @@ public class EvaluarCandidatoFunciones extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
-        //Seleccioner item del jcombobox
+
+        //Agarro el indice seleccionado del jComboBox
+        int indice = listaFuncion.getSelectedIndex();
+        //Guardo en aux el Puesto seleccionado, guardado en la variable global puestosGlonal
+        Puesto aux = puestosGlobal.get(indice);
+        
+        PuestoCopia puestoCopiado = gestorPuesto.controlarPuesto(aux);
+        
+        //Si es null, no se hizo copia del puesto. Se mostraron las competencias invalidas.
+        //Se vuelve a GestionDeEvaluarCandidato
+        if(puestoCopiado==null){
+            dispose();
+        }else {
+            //cargar cuestionarios.  List<Candidato> candidatosSeleccionados - son los candidatos
+        }
         
     }//GEN-LAST:event_btnSiguienteActionPerformed
 
