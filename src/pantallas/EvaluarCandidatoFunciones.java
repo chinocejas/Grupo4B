@@ -210,6 +210,7 @@ public class EvaluarCandidatoFunciones extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Requerimientos mínimos");
 
+        req.setEditable(false);
         req.setColumns(20);
         req.setRows(5);
         jScrollPane2.setViewportView(req);
@@ -304,7 +305,7 @@ public class EvaluarCandidatoFunciones extends javax.swing.JFrame {
         //Si es null, no se hizo copia del puesto. Se mostraron las competencias invalidas.
         //Se vuelve a GestionDeEvaluarCandidato
         if(puestoCopiado==null){
-            CompetenciasInvalidas a = new CompetenciasInvalidas("ejecuto");
+            
         }else {
             //cargar cuestionarios.  List<Candidato> candidatosSeleccionados - son los candidatos
         }

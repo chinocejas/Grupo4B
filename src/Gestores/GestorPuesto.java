@@ -372,14 +372,19 @@ public class GestorPuesto {
         //Evaluo si todas las competencias son validas
         for (Competencia comp : competencias) {
             boolean competenciaValida = false;
+            //System.out.println("Competencia : "+comp.getNombreCompetencia()+"\n");
             Set<Factor> factores = gestorCompetencia.getFactores(comp);
+            
+            
             //Veo si algun factor de cada competencia es valido
             for (Factor fact : factores) {
                 //veo si el factor es valido
                 if (gestorFactor.esEvaluable(fact)) {
+                    //System.out.println("Factor: "+fact.getNombre()+" "+gestorFactor.esEvaluable(fact)+"\n");
                     competenciaValida = true;
                     break;
                 }
+                
             }
             
             if (!competenciaValida) {
@@ -392,12 +397,17 @@ public class GestorPuesto {
             ret = true;
         }else {//Muestro popup con competencias invalidas
             ret=false;
-            String s="Las siguientes competencias no pueden ser evaluadas:\n";
+            String s= new String("Las siguientes competencias no pueden ser evaluadas:\n");
             
             for(Competencia comp: competenciasInvalidas){
-                s += comp.getNombreCompetencia()+"\n";
+                s=s.concat(comp.getNombreCompetencia());
+                s=s.concat(", ");
+                //System.out.println(s);
             }
+            //Arreglar popup
             CompetenciasInvalidas popup = new CompetenciasInvalidas(s);
+            
+            
         }
         
         return ret;

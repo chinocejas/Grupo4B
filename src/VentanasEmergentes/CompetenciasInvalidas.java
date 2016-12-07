@@ -25,26 +25,26 @@ public class CompetenciasInvalidas extends javax.swing.JFrame {
         initComponents();
         //setTitle("Inicio");
         setSize(800,300);
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(null);       
         setOpacity(0.98f);//con la f aclaramos que es float
         txtArea.setEditable(false);
         Shape forma = new RoundRectangle2D.Double(0, 0, this.getBounds().width, this.getBounds().height, 15, 15); 
         AWTUtilities.setWindowShape(this, forma)  ; 
-         
     }
     
-    public CompetenciasInvalidas(String s) {
+    public CompetenciasInvalidas(String string) {
         setUndecorated(true);
         initComponents();
         //setTitle("Inicio");
         setSize(800,300);
         setLocationRelativeTo(null);
-        setOpacity(0.98f);//con la f aclaramos que es float 
+        setOpacity(0.98f);//con la f aclaramos que es float
+        txtArea.setText(string);
         txtArea.setEditable(false);
         Shape forma = new RoundRectangle2D.Double(0, 0, this.getBounds().width, this.getBounds().height, 15, 15); 
-        
         AWTUtilities.setWindowShape(this, forma)  ; 
-        txtArea.setText(s);
+        
+         
     }
     
     /**
@@ -94,6 +94,7 @@ public class CompetenciasInvalidas extends javax.swing.JFrame {
             }
         });
 
+        txtArea.setEditable(false);
         txtArea.setBackground(new java.awt.Color(0, 51, 153));
         txtArea.setColumns(20);
         txtArea.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
