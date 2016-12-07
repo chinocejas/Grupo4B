@@ -73,13 +73,14 @@ public class GestorCandidato {
         return ret;
     }
     
-    public Object validarCandidato(String tipoDocumento, String numeroDocumento, String password) {
-        Object retorno=null;
+    public Candidato validarCandidato(String tipoDocumento, String numeroDocumento, String password) {
+        Candidato retorno=null;
         if(!numeroDocumento.equals("")){
         int numeroDoc= Integer.parseInt(numeroDocumento);
       Candidato candidato=daoCandidato.buscarCandidato(tipoDocumento, numeroDoc);
       if(candidato!=null){
           Set<Cuestionario> cuestionariosSet= candidato.getCuestionarios();
+          // castea set to list
           List<Cuestionario> cuestionarios= new ArrayList<Cuestionario>(cuestionariosSet);
           if(cuestionarios!=null){
               Cuestionario cuestionarioValido= getCuestionarioActivoEnProceso(cuestionarios);
@@ -97,11 +98,20 @@ public class GestorCandidato {
     private Cuestionario getCuestionarioActivoEnProceso(List<Cuestionario> cuestionarios) {
         Cuestionario cuestionario = null;
         for (Cuestionario cuest : cuestionarios) {
-            if (cuest.getEstado()==1 || cuest.getEstado()==1) {
+            if (cuest.getEstado()==5 || cuest.getEstado()==1) {
                 cuestionario= cuest;
             }
         }
         return cuestionario;
+    }
+    // Obtiene el estado del cuestionario de un candidato particular
+    public int getEstadoQuest(Candidato candidato){
+            Set<Cuestionario> cuestionariosSet= candidato.getCuestionarios();
+            // castea set to list
+            List<Cuestionario> cuestionarios= new ArrayList<Cuestionario>(cuestionariosSet);
+            Cuestionario cuestionario = cuestionarios.get(0);
+            return cuestionario.getEstado();
+                               
     }
     
 }

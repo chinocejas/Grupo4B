@@ -33,9 +33,9 @@ public class GestorCuestionario {
         private static final GestorCuestionario INSTANCE = new GestorCuestionario();
     }
         
-    public List findQuest() {      
+    public List findQuest(int id_cuestionario) {      
        
-       return daoCuestionario.findQuestFor(12);
+       return daoCuestionario.findQuestFor(id_cuestionario);
        
        
            

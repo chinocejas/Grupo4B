@@ -7,6 +7,7 @@ package pantallas;
 
 import Gestores.GestorConsultor;
 import Bases.*;
+import Entidades.Candidato;
 import Entidades.Consultor;
 import Gestores.GestorCandidato;
 import Gestores.GestorValidacionesPantalla;
@@ -362,15 +363,19 @@ public class IngresoCandidato extends javax.swing.JFrame {
         String numeroDocumento = new String(numDoc.getText());
         String tipoDocumento= (String) tipoDoc.getSelectedItem();
 
-        Object validacion = gestorCandidato.validarCandidato(tipoDocumento, numeroDocumento, password);
+        Candidato validacion = gestorCandidato.validarCandidato(tipoDocumento, numeroDocumento, password);
        
         if (validacion!=null) {
-
-            CompletarQuest obj= new CompletarQuest();
-            //obj.cargaCuestionario();
-           
+            if(gestorCandidato.getEstadoQuest(validacion)==1){//Si nunca entro a responder el cuestionario
+            CompletarQuest obj= new CompletarQuest(validacion);
             obj.setVisible(true);
             dispose();
+            } 
+            else // Si entra aca es porque esl cuestionario esta en_proceso
+                JOptionPane.showMessageDialog(null, "TENES QUE HACER LA PANTALLA QUE PARA COMPLETAR QUEST", "FALTA PANTALLA", JOptionPane.ERROR_MESSAGE);
+            //obj.cargaCuestionario();
+           
+           
         } else {
              AudioClip sonido;
                 sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error.wav"));
