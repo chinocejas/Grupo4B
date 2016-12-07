@@ -12,6 +12,7 @@ import Entidades.Puesto;
 import Entidades.PuestoCompetencia;
 import Entidades.PuestoCopia;
 import Gestores.GestorPuesto;
+import VentanasEmergentes.CompetenciasInvalidas;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -303,7 +304,7 @@ public class EvaluarCandidatoFunciones extends javax.swing.JFrame {
         //Si es null, no se hizo copia del puesto. Se mostraron las competencias invalidas.
         //Se vuelve a GestionDeEvaluarCandidato
         if(puestoCopiado==null){
-            dispose();
+            CompetenciasInvalidas a = new CompetenciasInvalidas("ejecuto");
         }else {
             //cargar cuestionarios.  List<Candidato> candidatosSeleccionados - son los candidatos
         }
