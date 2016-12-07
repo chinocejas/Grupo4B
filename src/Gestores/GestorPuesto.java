@@ -7,10 +7,13 @@ package Gestores;
 
 import java.util.List;
 import Dao.DaoPuesto;
+import Entidades.Candidato;
 import Entidades.Competencia;
+import Entidades.Factor;
 import Entidades.Puesto;
 import Entidades.PuestoCompetencia;
 import Entidades.PuestoCopia;
+import VentanasEmergentes.CompetenciasInvalidas;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -27,6 +30,10 @@ import pantallas.ModificarPuesto;
 public class GestorPuesto {
 
     DaoPuesto daoPuesto = new DaoPuesto();
+    //pido la instancia de gestor de factor
+    GestorFactor gestorFactor = GestorFactor.getInstance();
+    //pido la instancia de gestor de competencia
+    GestorCompetencia gestorCompetencia = GestorCompetencia.getInstance();
 
     private GestorPuesto() {
     }
@@ -339,5 +346,60 @@ public class GestorPuesto {
         listaPuestos = daoPuesto.findTodosPuestos();
 
         return listaPuestos;
+    }
+    
+    public PuestoCopia controlarPuesto(Puesto puesto){
+        PuestoCopia ret = new PuestoCopia();
+        boolean competenciasValidas = false;
+        
+        competenciasValidas = verificarFactores(puesto.getCompetencias());
+        
+        if(!competenciasValidas){
+            ret = null;
+        }else {
+            //hacer copia de puestos
+        }
+        
+        
+        //hacer la copia y guardarla en ret
+        return ret;
+    }
+    //TERMINAR GETFACTORES
+    public boolean verificarFactores(Set<Competencia> competencias){
+        boolean ret = false;
+        List<Competencia> competenciasInvalidas = new ArrayList<Competencia>();//guardo las comp invalidas para motrarlas en un popup
+        
+        //Evaluo si todas las competencias son validas
+        for (Competencia comp : competencias) {
+            boolean competenciaValida = false;
+            Set<Factor> factores = gestorCompetencia.getFactores(comp);
+            //Veo si algun factor de cada competencia es valido
+            for (Factor fact : factores) {
+                //veo si el factor es valido
+                if (gestorFactor.esEvaluable(fact)) {
+                    competenciaValida = true;
+                    break;
+                }
+            }
+            
+            if (!competenciaValida) {
+                competenciasInvalidas.add(comp);
+            }
+
+        }
+        
+        if(competenciasInvalidas.isEmpty()){
+            ret = true;
+        }else {//Muestro popup con competencias invalidas
+            ret=false;
+            String s="Las siguientes competencias no pueden ser evaluadas:\n";
+            
+            for(Competencia comp: competenciasInvalidas){
+                s += comp.getNombreCompetencia()+"\n";
+            }
+            CompetenciasInvalidas popup = new CompetenciasInvalidas(s);
+        }
+        
+        return ret;
     }
 }

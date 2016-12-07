@@ -16,7 +16,8 @@ public class Competencia  implements java.io.Serializable {
      private String descripcion;
      private Boolean eliminado;
      private Set puestoCompetencias = new HashSet(0);
-
+     private Set factores = new HashSet(0);
+     
     public Competencia() {
     }
 
@@ -39,6 +40,15 @@ public class Competencia  implements java.io.Serializable {
     public void setIdCompetencia(int idCompetencia) {
         this.idCompetencia = idCompetencia;
     }
+    
+    public Set<Factor> getFactores() {
+        return this.factores;
+    }
+    
+    public void setFactores(Set<Factor> factores) {
+        this.factores = factores;
+    }
+    
     public String getNombreCompetencia() {
         return this.nombreCompetencia;
     }

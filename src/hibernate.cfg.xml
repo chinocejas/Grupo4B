@@ -15,5 +15,10 @@
     <mapping resource="Entidades/Candidato.hbm.xml"/>
     <mapping resource="Entidades/Consultor.hbm.xml"/>
     <mapping resource="Entidades/Puesto.hbm.xml"/>
+    <mapping resource="Entidades/Factor.hbm.xml"/>
+    <mapping resource="Entidades/Pregunta.hbm.xml"/>
+    <mapping resource="Entidades/Pondera.hbm.xml"/>
+    <mapping resource="Entidades/Respuesta.hbm.xml"/>
+    <mapping resource="Entidades/OpcionRespuesta.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

@@ -495,7 +495,7 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
         
         if(conCuestionarioActPro.isEmpty()){
             List<Puesto> puestos = gestorPuesto.buscarTodosPuestos();
-            EvaluarCandidatoFunciones obj = new EvaluarCandidatoFunciones(puestos);
+            EvaluarCandidatoFunciones obj = new EvaluarCandidatoFunciones(puestos, conCuestionarioActPro);
             obj.setVisible(true);
             dispose();
         }else {

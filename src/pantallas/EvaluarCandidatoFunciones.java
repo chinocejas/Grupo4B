@@ -293,13 +293,13 @@ public class EvaluarCandidatoFunciones extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
-
+        PuestoCopia puestoCopiado = null;
         //Agarro el indice seleccionado del jComboBox
         int indice = listaFuncion.getSelectedIndex();
         //Guardo en aux el Puesto seleccionado, guardado en la variable global puestosGlonal
         Puesto aux = puestosGlobal.get(indice);
         
-        PuestoCopia puestoCopiado = gestorPuesto.controlarPuesto(aux);
+        puestoCopiado = gestorPuesto.controlarPuesto(aux);
         
         //Si es null, no se hizo copia del puesto. Se mostraron las competencias invalidas.
         //Se vuelve a GestionDeEvaluarCandidato

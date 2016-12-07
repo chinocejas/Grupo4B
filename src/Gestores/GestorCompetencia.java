@@ -6,8 +6,12 @@
 package Gestores;
 
 import Dao.DaoCompetencia;
+import Entidades.Competencia;
+import Entidades.Factor;
 import Entidades.Puesto;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -39,5 +43,11 @@ public class GestorCompetencia {
         return listaCompetencias;
         
         
+    }
+
+    public Set<Factor> getFactores(Competencia comp){
+        Set<Factor> ret;
+        ret = comp.getFactores();
+        return ret;
     }
 }

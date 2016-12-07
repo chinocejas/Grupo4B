@@ -14,5 +14,14 @@
         <property name="descripcion" type="string">
             <column name="descripcion" />
         </property>
+        <property name="eliminado" type="boolean">
+            <column name="eliminado" />
+        </property>
+        <set name="factores" table="factor" lazy="false" fetch="select">
+            <key>
+                <column name="id_competencia" />
+            </key>
+            <one-to-many class="Entidades.Factor" />
+        </set>
     </class>
 </hibernate-mapping>

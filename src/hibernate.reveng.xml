@@ -10,4 +10,9 @@
   <table-filter match-name="cuestionario"/>
   <table-filter match-name="puesto"/>
   <table-filter match-name="consultor"/>
+  <table-filter match-name="factor"/>
+  <table-filter match-name="pregunta"/>
+  <table-filter match-name="pondera"/>
+  <table-filter match-name="respuesta"/>
+  <table-filter match-name="opcion_respuesta"/>
 </hibernate-reverse-engineering>

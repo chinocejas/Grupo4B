@@ -23,7 +23,7 @@
         <property name="eliminado" type="java.lang.Boolean">
             <column name="eliminado" />
         </property>
-        <set name="preguntas" table="pregunta" inverse="true" lazy="true" fetch="select">
+        <set name="preguntas" table="pregunta" inverse="true" lazy="false" fetch="select">
             <key>
                 <column name="id_factor" />
             </key>
