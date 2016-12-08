@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import javax.swing.JOptionPane;
 import pantallas.CopiarPuesto;
 import pantallas.GestionDePuestos;
 import pantallas.ModificarPuesto;
@@ -400,7 +401,7 @@ public class GestorPuesto {
         //hacer la copia y guardarla en ret
         return ret;
     }
-    //TERMINAR GETFACTORES
+    
     public boolean verificarFactores(Set<Competencia> competencias){
         boolean ret = false;
         List<Competencia> competenciasInvalidas = new ArrayList<Competencia>();//guardo las comp invalidas para motrarlas en un popup
@@ -438,11 +439,10 @@ public class GestorPuesto {
             for(Competencia comp: competenciasInvalidas){
                 s=s.concat(comp.getNombreCompetencia());
                 s=s.concat(", ");
-                //System.out.println(s);
+                //
             }
-            //Arreglar popup
-            CompetenciasInvalidas popup = new CompetenciasInvalidas(s);
-            
+            //Arreglar popup y sacar la linea de arriba
+            JOptionPane.showMessageDialog(null, s,"No se puede evaluar el puesto", JOptionPane.ERROR_MESSAGE);
             
         }
         

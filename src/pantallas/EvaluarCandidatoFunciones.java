@@ -305,7 +305,9 @@ public class EvaluarCandidatoFunciones extends javax.swing.JFrame {
         //Si es null, no se hizo copia del puesto. Se mostraron las competencias invalidas.
         //Se vuelve a GestionDeEvaluarCandidato
         if(puestoCopiado==null){
-            
+            GestionDeEvaluarCandidato obj = new GestionDeEvaluarCandidato();
+            obj.setVisible(true);
+            dispose();
         }else {
             //cargar cuestionarios.  List<Candidato> candidatosSeleccionados - son los candidatos
         }
