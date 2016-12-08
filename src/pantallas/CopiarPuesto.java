@@ -709,7 +709,10 @@ public class CopiarPuesto extends javax.swing.JFrame {
             //pido la instancia de gestor copia
             GestorCopia gestorCopia = GestorCopia.getInstance();
             PuestoCopia puestoCopiado= gestorCopia.duplicarPuesto(puesto);
-            
+            AudioClip sonido;
+            sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/exito4.wav"));
+            sonido.play();
+            JOptionPane.showMessageDialog(null, "El puesto " + puesto.getNombrePuesto() +" se ha copiado con exito!");
        }
         else{
             AudioClip sonido;
