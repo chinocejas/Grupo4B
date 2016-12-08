@@ -6,7 +6,9 @@
     <class name="Entidades.PuestoCopia" table="puesto_copia" schema="public" optimistic-lock="version">
         <id name="idPuestoCopia" type="int">
             <column name="id_puesto_copia" />
-            <generator class="assigned" />
+            <generator class="sequence">
+                <param name="sequence">puesto_copia_id_seq</param>
+            </generator>
         </id>
         <many-to-one name="puestoOriginal" class="Entidades.Puesto" fetch="select">
             <column name="id_puesto_original" />
@@ -20,5 +22,15 @@
         <property name="nombrePuesto" type="string">
             <column name="nombre_puesto" length="500" />
         </property>
+         <property name="descripcion" type="string">
+            <column name="descripcion" length="1700" />
+        </property>
+        <set name="competencias" table="competencia_copia" cascade="save-update" inverse="true" lazy="false" fetch="select">
+            <key>
+                <column name="id_puesto_copia" />
+            </key>
+            <one-to-many class="Entidades.CompetenciaCopia" />
+        </set>
+        
     </class>
 </hibernate-mapping>

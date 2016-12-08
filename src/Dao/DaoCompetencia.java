@@ -5,6 +5,7 @@
 package Dao;
 
 import Entidades.Competencia;
+import Entidades.CompetenciaCopia;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -75,5 +76,9 @@ public class DaoCompetencia extends AbstractDao {
             HibernateFactory.close(session);
         }
         return objects;
+    }
+
+    public void save(CompetenciaCopia competenciaCopia) {
+        super.save(competenciaCopia);
     }
 }

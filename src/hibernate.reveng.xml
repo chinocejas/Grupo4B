@@ -15,4 +15,12 @@
   <table-filter match-name="pondera"/>
   <table-filter match-name="respuesta"/>
   <table-filter match-name="opcion_respuesta"/>
+  <table-filter match-name="competencia_copia"/>
+  <table-filter match-name="factor_copia"/>
+  <table-filter match-name="pregunta_copia"/>
+  <table-filter match-name="cuestionario_pregunta_copia"/>
+  <table-filter match-name="pondera_copia"/>
+  <table-filter match-name="respuesta_copia"/>
+  <table-filter match-name="cuestionario_respuesta_copia"/>
+  <table-filter match-name="opcion_respuesta_copia"/>
 </hibernate-reverse-engineering>

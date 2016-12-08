@@ -360,6 +360,14 @@ public class DaoPuesto extends AbstractDao {
         
         return ret;
     }
+
+    public void savePuestoCopia(PuestoCopia puestoCopiado) {
+        super.save(puestoCopiado);
+    }
+
+    public void updatePuestoCopia(PuestoCopia puestoCopiado) {
+        super.update(puestoCopiado);
+    }
     
     
 }

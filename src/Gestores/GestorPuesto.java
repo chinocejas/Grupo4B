@@ -9,6 +9,7 @@ import java.util.List;
 import Dao.DaoPuesto;
 import Entidades.Candidato;
 import Entidades.Competencia;
+import Entidades.CompetenciaCopia;
 import Entidades.Factor;
 import Entidades.Puesto;
 import Entidades.PuestoCompetencia;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import pantallas.CopiarPuesto;
 import pantallas.GestionDePuestos;
 import pantallas.ModificarPuesto;
 
@@ -91,6 +93,32 @@ public class GestorPuesto {
         List listaPuestos = null;
 
         listaPuestos = daoPuesto.findPorCodigoAndPuestoAndEmpresa();
+
+        for (int a = 0; a < listaPuestos.size(); a++) {
+            Puesto puesto2 = (Puesto) listaPuestos.get(a);
+            modeloTabla.addPuesto(puesto2);
+        }
+    }
+    
+     //borraRRR
+    public void buscarPuestosTemporal(CopiarPuesto.CustomTableModel modeloTabla) {
+
+        List listaPuestos = null;
+
+        listaPuestos = daoPuesto.findPorCodigoAndPuestoAndEmpresa();
+
+        for (int a = 0; a < listaPuestos.size(); a++) {
+            Puesto puesto2 = (Puesto) listaPuestos.get(a);
+            modeloTabla.addPuesto(puesto2);
+        }
+    }
+    
+    //borrarrr
+    public void buscarPuestosTemporal(CopiarPuesto.CustomTableModel modeloTabla, String codigo, String puesto, String empresa) {
+
+        List listaPuestos = null;
+
+        listaPuestos = daoPuesto.findPorCodigoAndPuestoAndEmpresa(codigo, puesto, empresa);
 
         for (int a = 0; a < listaPuestos.size(); a++) {
             Puesto puesto2 = (Puesto) listaPuestos.get(a);
@@ -323,8 +351,16 @@ public class GestorPuesto {
     public boolean verificarPuestoEnUso(int idPuesto){
         boolean retorno=true;
        List<PuestoCopia> puestosCopias = daoPuesto.buscarPuestoCopia(idPuesto);
+       
        if(puestosCopias.isEmpty())
            retorno=false;
+       //borrar este else
+       else{
+           Set <CompetenciaCopia> compSet=puestosCopias.get(0).getCompetencias();
+       List<CompetenciaCopia> competencias= new ArrayList();
+       competencias.addAll(compSet);
+       System.out.print(competencias.get(0).getNombreCompetencia()+competencias.get(0).getIdCompetenciaCopia());
+       }
         return retorno;
     }
 

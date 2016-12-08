@@ -20,5 +20,13 @@
     <mapping resource="Entidades/Pondera.hbm.xml"/>
     <mapping resource="Entidades/Respuesta.hbm.xml"/>
     <mapping resource="Entidades/OpcionRespuesta.hbm.xml"/>
+    <mapping resource="Entidades/CompetenciaCopia.hbm.xml"/>
+    <mapping resource="Entidades/FactorCopia.hbm.xml"/>
+    <mapping resource="Entidades/PreguntaCopia.hbm.xml"/>
+    <mapping resource="Entidades/CuestionarioPreguntaCopia.hbm.xml"/>
+    <mapping resource="Entidades/PonderaCopia.hbm.xml"/>
+    <mapping resource="Entidades/RespuestaCopia.hbm.xml"/>
+    <mapping resource="Entidades/CuestionarioRespuestaCopia.hbm.xml"/>
+    <mapping resource="Entidades/OpcionRespuestaCopia.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>
