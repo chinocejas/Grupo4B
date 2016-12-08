@@ -5,6 +5,7 @@
  */
 package Dao;
 import Entidades.Cuestionario;
+import Entidades.PuestoCopia;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
@@ -20,7 +21,9 @@ public class DaoCuestionario extends AbstractDao{
         super();
     }
     
-    public void save(Cuestionario cuestionario) throws DataAccessLayerException {
+    //Como guarda esto?? como asocia el puesto y la id candidato?
+    
+    public void save(Cuestionario cuestionario, Integer id_candidato, PuestoCopia puesto) throws DataAccessLayerException {
         super.save(cuestionario);
     }
     

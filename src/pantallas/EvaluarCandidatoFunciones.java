@@ -8,9 +8,11 @@ package pantallas;
 import Bases.*;
 import Entidades.Candidato;
 import Entidades.Competencia;
+import Entidades.Cuestionario;
 import Entidades.Puesto;
 import Entidades.PuestoCompetencia;
 import Entidades.PuestoCopia;
+import Gestores.GestorCuestionario;
 import Gestores.GestorPuesto;
 import VentanasEmergentes.CompetenciasInvalidas;
 import java.awt.event.KeyEvent;
@@ -26,10 +28,14 @@ import java.util.Set;
  * @author John
  */
 public class EvaluarCandidatoFunciones extends javax.swing.JFrame {
-    
+    //Listas globales para usarlas en los eventos de botones
     List<Puesto> puestosGlobal = new ArrayList<Puesto>();
+    List<Candidato> candidatosSeleccionadosGlobal = new ArrayList<Candidato>();
+    
     //pido la instancia de gestor de puestos
     GestorPuesto gestorPuesto = GestorPuesto.getInstance();
+    //pido la instancia de gestor de puestos
+    GestorCuestionario gestorCuestionario = GestorCuestionario.getInstance();
     
     public EvaluarCandidatoFunciones() {
         initComponents();
@@ -44,6 +50,7 @@ public class EvaluarCandidatoFunciones extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         
         puestosGlobal = puestos;
+        candidatosSeleccionadosGlobal = candidatosSeleccionados;
         
         for(Puesto p: puestosGlobal){
             listaFuncion.addItem(p.datosPuesto());
@@ -309,7 +316,12 @@ public class EvaluarCandidatoFunciones extends javax.swing.JFrame {
             obj.setVisible(true);
             dispose();
         }else {
-            //cargar cuestionarios.  List<Candidato> candidatosSeleccionados - son los candidatos
+            //cargar cuestionarios
+            List<Cuestionario> cuestionarios = gestorCuestionario.cargarCuestionarios(candidatosSeleccionadosGlobal, puestoCopiado);
+            //nueva pantalla que muestra los cuestionarios cargados
+            EvaluarCandidatoDatos obj = new EvaluarCandidatoDatos(cuestionarios);
+            obj.setVisible(true);
+            dispose();
         }
         
     }//GEN-LAST:event_btnSiguienteActionPerformed

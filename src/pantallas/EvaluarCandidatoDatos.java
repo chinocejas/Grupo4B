@@ -6,6 +6,9 @@
 package pantallas;
 
 import Bases.*;
+import Entidades.Cuestionario;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 
@@ -25,10 +28,23 @@ public class EvaluarCandidatoDatos extends javax.swing.JFrame {
         tabla.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         
     }
+    
+    public EvaluarCandidatoDatos(List<Cuestionario> cuestionarios) {
+        initComponents();
+        setSize(1024, 768);
+        setLocationRelativeTo(null);
+        tabla.setModel(modeloTabla);
+        tabla.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        
+        /*for(Cuestionario cuest: cuestionarios){
+            modeloTabla.addCuestionario();
+        }*/
+        
+    }
 
 //Los métodos de esto estan mal. modificar
     public class CustomTableModel extends AbstractTableModel {
-
+        
         private int numColumns = 5; //cant de columnas con la que se crea la tabla
         private String columnNames[] = {"Nombre","Apellido", "Tipo de Documento", "Numero de Documento", "Clave de Ingreso"};
         // private Class classes[]={String.class ,String.class}; //tipo de las columnas
@@ -73,6 +89,11 @@ public class EvaluarCandidatoDatos extends javax.swing.JFrame {
         public void mostrar() {
             //hacer aglgo
         }
+        
+        public void addCuestionario(Cuestionario cuest) {
+            //tabla.add(cuest);
+        }
+        
     }
     
     
