@@ -19,10 +19,10 @@ public class Configuracion  implements java.io.Serializable {
     public Configuracion() {
     }
 
-	
+    
     public Configuracion(int idConfiguracion) {
         this.idConfiguracion = idConfiguracion;
-    }
+    }  
     public Configuracion(int idConfiguracion, String instrucciones, Integer cantidadMaximaAccesos, Integer preguntasPorBloque, Integer tiempoMaximoCuestionario, Integer tiempoMaximoCuestionarioActivo) {
        this.idConfiguracion = idConfiguracion;
        this.instrucciones = instrucciones;

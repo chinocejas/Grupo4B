@@ -50,7 +50,7 @@ public class EvaluarCandidatoFunciones extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         
         puestosGlobal = puestos;
-        candidatosSeleccionadosGlobal = candidatosSeleccionados;
+        candidatosSeleccionadosGlobal.addAll(candidatosSeleccionados);
         
         for(Puesto p: puestosGlobal){
             listaFuncion.addItem(p.datosPuesto());
@@ -318,6 +318,7 @@ public class EvaluarCandidatoFunciones extends javax.swing.JFrame {
             dispose();
         }else {
             //cargar cuestionarios
+            System.out.println("Tamaño: " + candidatosSeleccionadosGlobal.size());
             List<Cuestionario> cuestionarios = gestorCuestionario.cargarCuestionarios(candidatosSeleccionadosGlobal, puestoCopiado);
             //nueva pantalla que muestra los cuestionarios cargados
             EvaluarCandidatoDatos obj = new EvaluarCandidatoDatos(cuestionarios);

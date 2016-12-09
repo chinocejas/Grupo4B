@@ -7,6 +7,8 @@ package Gestores;
 
 import Entidades.*;
 import Dao.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -50,23 +52,33 @@ public class GestorCuestionario {
             estado, tiempo_maximo, id_candidato, id_puesto_copia)*/
         //id_puesto X, id_candidato, clave X, estado=activo X,
         
+        
         for(Candidato cand: candidatos){
             Cuestionario cuest = new Cuestionario();
             
+            //estado
             cuest.setEstado(1);
+            //clave
             String clave = generarClave(8);
             cuest.setClave(clave);
             //clave foranea a puestoCopia
             cuest.setPuestoCopia(puestoCopiado);
+            //candidato
             cuest.setCandidato(cand);
+            //fecha
+            Date fechaCreacion = new Date();
+            DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
+            hourdateFormat.format(fechaCreacion);
+            cuest.setFechaCreacion(fechaCreacion);
+            cuest.setTiempoMaximo(0);
             
-            daoCuestionario.save(cuest);
+            
             //Asocio cuestionario y candidato
             //cand.addCuestionario(cuest);
             //update Candidato
             //daoCandidato.update(cand);
             
-            
+            daoCuestionario.save(cuest);
             //debo devolverlo con las id ascociadas
             ret.add(cuest);
         }

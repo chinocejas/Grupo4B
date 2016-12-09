@@ -20,7 +20,7 @@ public class Cuestionario  implements java.io.Serializable {
      private Date fechaUltimoIngreso;
      private Date fechaFinalizacion;
      private String clave;
-     private Integer tiempoMaximo;
+     private Integer tiempoMaximo;//Es el tiempo actual. El tiempo maximo esta en la configuracion
      private Integer estado;
 
     public Cuestionario() {
