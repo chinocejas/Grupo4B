@@ -71,11 +71,11 @@ public class GestorCopia {
         
         //por cada COMPETENCIA original realizo una copia y la seteo con los parametros correspondientes
         for (Competencia compOriginal : competenciasOriginales) {
-            
+
             //creo una competenciaCopia
             CompetenciaCopia competenciaCopia = new CompetenciaCopia();
             daoCompetencia.saveCompetenciaCopia(competenciaCopia);
-          
+
             //SE RECUPERAN LAS PONDERACIONES DE LAS COMPETENCIAS DESDE LA BD
             //guardo el id de competenciaOriginal para buscar las ponderaciones en la tabla de union
             idCompetencia = compOriginal.getIdCompetencia();
@@ -83,7 +83,7 @@ public class GestorCopia {
             puestoCompetencia = gestorPuesto.find(Long.valueOf(puesto.getIdPuesto()), Long.valueOf(idCompetencia));
             //pido la ponderacion guardada en esa instancia
             ponderacion = puestoCompetencia.getPuntajeRequerido();
-            
+
             //seteo la competencia copia:
             //seteo nombre
             competenciaCopia.setNombreCompetencia(compOriginal.getNombreCompetencia());
@@ -93,7 +93,7 @@ public class GestorCopia {
             competenciaCopia.setPuestoCopia(puestoCopiado);
             //seteo puntaje
             competenciaCopia.setPuntajeRequerido(ponderacion);
-   
+
             //REALIZO LA COPIA DE LOS FACTORES PARA CADA COMPETENCIA..............
             //obtengo el set de FACTORES originales y lo convierto a list
             Set factoresSet = compOriginal.getFactores();
@@ -122,28 +122,27 @@ public class GestorCopia {
                 factoresCopia.add(factorCopia);
             }
             //....................................................................
-     
+
             //conversion de list a set
-        Set factoresCopiaSet=new HashSet();
-        factoresCopiaSet.addAll(factoresCopia);
-        
-        //seteo los factores a la competencia copiada
-        competenciaCopia.setFactorCopias(factoresCopiaSet);
-        
+            Set factoresCopiaSet = new HashSet();
+            factoresCopiaSet.addAll(factoresCopia);
+
+            //seteo los factores a la competencia copiada
+            competenciaCopia.setFactorCopias(factoresCopiaSet);
+
             //agrego a la lista de competenciasCopia la competenciaCopia inicializada y seteada
             competenciasCopia.add(competenciaCopia);
-            
-                
-            }
+
+        }
         //conversion de list a set
-        Set competenciasCopiaSet=new HashSet();
+        Set competenciasCopiaSet = new HashSet();
         competenciasCopiaSet.addAll(competenciasCopia);
-        
+
         //seteo las competencias al puesto copiado
         puestoCopiado.setCompetencias(competenciasCopiaSet);
         //actualizo el puesto ya con todos los datos
         daoPuesto.savePuestoCopia(puestoCopiado);
-        
+
         return puestoCopiado;
             
     }

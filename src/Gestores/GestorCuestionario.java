@@ -16,6 +16,7 @@ import java.util.*;
 public class GestorCuestionario {
     
     DaoCuestionario daoCuestionario = new DaoCuestionario();
+    DaoCandidato daoCandidato = new DaoCandidato();
     
     
             
@@ -47,8 +48,7 @@ public class GestorCuestionario {
         /*id_cuestionario, preguntas_contestadas, cantidad_accesos, fecha_creacion, 
             fecha_inicio, fecha_ultimo_ingreso, fecha_finalizacion, clave, 
             estado, tiempo_maximo, id_candidato, id_puesto_copia)*/
-        //id_puesto, id_candidato, clave, estado=activo,
-        
+        //id_puesto X, id_candidato, clave X, estado=activo X,
         
         for(Candidato cand: candidatos){
             Cuestionario cuest = new Cuestionario();
@@ -56,9 +56,16 @@ public class GestorCuestionario {
             cuest.setEstado(1);
             String clave = generarClave(8);
             cuest.setClave(clave);
-            //poner clave foranea id_puesto_copia, id_candidato??
+            //clave foranea a puestoCopia
+            cuest.setPuestoCopia(puestoCopiado);
+            cuest.setCandidato(cand);
             
-            //daoCuestionario.save(cuest, cand.getIdCandidato(), puestoCopiado);
+            daoCuestionario.save(cuest);
+            //Asocio cuestionario y candidato
+            //cand.addCuestionario(cuest);
+            //update Candidato
+            //daoCandidato.update(cand);
+            
             
             //debo devolverlo con las id ascociadas
             ret.add(cuest);

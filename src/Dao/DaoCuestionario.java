@@ -21,9 +21,7 @@ public class DaoCuestionario extends AbstractDao{
         super();
     }
     
-    //Como guarda esto?? como asocia el puesto y la id candidato?
-    
-    public void save(Cuestionario cuestionario, Integer id_candidato, PuestoCopia puesto) throws DataAccessLayerException {
+    public void save(Cuestionario cuestionario) throws DataAccessLayerException {
         super.save(cuestionario);
     }
     

@@ -37,6 +37,8 @@ public class GestorPuesto {
     GestorFactor gestorFactor = GestorFactor.getInstance();
     //pido la instancia de gestor de competencia
     GestorCompetencia gestorCompetencia = GestorCompetencia.getInstance();
+    //pido la instancia de gestor de competencia
+    GestorCopia gestorCopia = GestorCopia.getInstance();
 
     private GestorPuesto() {
     }
@@ -394,11 +396,10 @@ public class GestorPuesto {
         if(!competenciasValidas){
             ret = null;
         }else {
-            //hacer copia de puestos
+            //Duplico puesto
+            ret = gestorCopia.duplicarPuesto(puesto);
         }
         
-        
-        //hacer la copia y guardarla en ret
         return ret;
     }
     

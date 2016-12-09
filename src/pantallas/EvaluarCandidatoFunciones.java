@@ -309,6 +309,7 @@ public class EvaluarCandidatoFunciones extends javax.swing.JFrame {
         
         puestoCopiado = gestorPuesto.controlarPuesto(aux);
         
+        
         //Si es null, no se hizo copia del puesto. Se mostraron las competencias invalidas.
         //Se vuelve a GestionDeEvaluarCandidato
         if(puestoCopiado==null){

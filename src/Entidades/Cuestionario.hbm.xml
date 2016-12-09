@@ -6,7 +6,9 @@
     <class name="Entidades.Cuestionario" table="cuestionario" schema="public" optimistic-lock="version">
         <id name="idCuestionario" type="int">
             <column name="id_cuestionario" />
-            <generator class="assigned" />
+            <generator class="sequence">
+                <param name="sequence">cuestionario_id_seq</param>
+            </generator>
         </id>
         <many-to-one name="candidato" class="Entidades.Candidato" fetch="select" lazy="false" >
             <column name="id_candidato" />

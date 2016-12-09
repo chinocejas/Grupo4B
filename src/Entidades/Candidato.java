@@ -134,7 +134,9 @@ public class Candidato  implements java.io.Serializable {
         this.cuestionarios = cuestionarios;
     }
 
-
+    public void addCuestionario(Cuestionario cuest){
+        this.cuestionarios.add(cuest);
+    }
 
 
 }
