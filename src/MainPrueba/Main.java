@@ -4,6 +4,9 @@
  */
 package MainPrueba;
 
+import Dao.DaoCuestionario;
+import Entidades.Cuestionario;
+
 /**
  *
  * @author Rolando
@@ -11,7 +14,10 @@ package MainPrueba;
 public class Main {
     
     public static void main(String[] args) {
+       DaoCuestionario daoCuestionario= new DaoCuestionario();
        
-    
+       Cuestionario cuestionario= new Cuestionario();
+    daoCuestionario.save(cuestionario);
+    System.out.print("listo");
     }
 }
