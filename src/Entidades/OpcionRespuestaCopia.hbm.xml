@@ -6,7 +6,9 @@
     <class name="Entidades.OpcionRespuestaCopia" table="opcion_respuesta_copia" schema="public" optimistic-lock="version">
         <id name="idOpcionRespuestaCopia" type="int">
             <column name="id_opcion_respuesta_copia" />
-            <generator class="assigned" />
+            <generator class="sequence">
+                <param name="sequence">opc_rta_copia_id_seq</param>
+            </generator>
         </id>
         <property name="nombreOpcionRespuesta" type="string">
             <column name="nombre_opcion_respuesta" length="500" />

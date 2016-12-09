@@ -11,7 +11,7 @@
         <many-to-one name="factor" class="Entidades.Factor" fetch="select">
             <column name="id_factor" />
         </many-to-one>
-        <many-to-one name="opcionRespuesta" class="Entidades.OpcionRespuesta" fetch="select">
+        <many-to-one name="opcionRespuesta" class="Entidades.OpcionRespuesta" cascade="save-update" lazy="false" fetch="select">
             <column name="id_opcion_respuesta" />
         </many-to-one>
         <property name="nombrePregunta" type="string">

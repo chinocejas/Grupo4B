@@ -22,7 +22,7 @@
         <property name="numeroOrden" type="java.lang.Integer">
             <column name="numero_orden" />
         </property>
-        <set name="preguntaCopias" table="pregunta_copia" inverse="true" lazy="true" fetch="select">
+        <set name="preguntaCopias" table="pregunta_copia" cascade="save-update" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="id_factor_copia" />
             </key>
