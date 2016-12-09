@@ -22,7 +22,7 @@
         <property name="puntajeRequerido" type="java.lang.Integer">
             <column name="puntaje_requerido" />
         </property>
-        <set name="factorCopias" table="factor_copia" inverse="true" lazy="true" fetch="select">
+        <set name="factorCopias" table="factor_copia" cascade="save-update" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="id_competencia_copia" />
             </key>

@@ -81,4 +81,8 @@ public class DaoCompetencia extends AbstractDao {
     public void save(CompetenciaCopia competenciaCopia) {
         super.save(competenciaCopia);
     }
+
+    public void saveCompetenciaCopia(CompetenciaCopia competenciaCopia) {
+        super.save(competenciaCopia);
+    }
 }

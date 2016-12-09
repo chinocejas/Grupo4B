@@ -9,6 +9,8 @@ import Dao.DaoCompetencia;
 import Dao.DaoPuesto;
 import Entidades.Competencia;
 import Entidades.CompetenciaCopia;
+import Entidades.Factor;
+import Entidades.FactorCopia;
 import Entidades.Puesto;
 import Entidades.PuestoCompetencia;
 import Entidades.PuestoCopia;
@@ -37,45 +39,43 @@ public class GestorCopia {
 
         private static final GestorCopia INSTANCE = new GestorCopia();
     }
- 
+
     public PuestoCopia duplicarPuesto(Puesto puesto) {
 
-         DaoCompetencia daoCompetencia= new DaoCompetencia();
-        
+        GestorPuesto gestorPuesto = GestorPuesto.getInstance();
+        DaoPuesto daoPuesto = new DaoPuesto();
+        DaoCompetencia daoCompetencia= new DaoCompetencia();
+
         Date fechaCopia = new Date();
         DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
         hourdateFormat.format(fechaCopia);
 
         PuestoCopia puestoCopiado = new PuestoCopia();
-        DaoPuesto daoPuesto= new DaoPuesto();
-        daoPuesto.savePuestoCopia(puestoCopiado);
+        
         puestoCopiado.setPuestoOriginal(puesto);
         puestoCopiado.setNombrePuesto(puesto.getNombrePuesto());
         puestoCopiado.setNombreEmpresa(puesto.getNombreEmpresa());
         puestoCopiado.setDescripcion(puesto.getDescripcion());
         puestoCopiado.setFechaCopia(fechaCopia);
         
-        List<CompetenciaCopia> competenciasCopia= new ArrayList();
+        //obtengo el set de COMPETENCIAS originales y lo convierto a list
         Set competenciasSet=puesto.getCompetencias();
         List<Competencia> competenciasOriginales=  new ArrayList();
         competenciasOriginales.addAll(competenciasSet);
-        
-         GestorPuesto gestorPuesto = GestorPuesto.getInstance();
-         
+      
         PuestoCompetencia puestoCompetencia;
         int idCompetencia;
-        int ponderacion;
+        int ponderacion;  
         
-        //por cada competencia original realizo una copia y la seteo con los parametros correspondientes
+        List<CompetenciaCopia> competenciasCopia= new ArrayList();
+        
+        //por cada COMPETENCIA original realizo una copia y la seteo con los parametros correspondientes
         for (Competencia compOriginal : competenciasOriginales) {
             
             //creo una competenciaCopia
             CompetenciaCopia competenciaCopia = new CompetenciaCopia();
-            //seteo nombre
-            competenciaCopia.setNombreCompetencia(compOriginal.getNombreCompetencia());
-            //seteo descripcion
-            competenciaCopia.setDescripcion(compOriginal.getDescripcion());
-        
+            daoCompetencia.saveCompetenciaCopia(competenciaCopia);
+          
             //SE RECUPERAN LAS PONDERACIONES DE LAS COMPETENCIAS DESDE LA BD
             //guardo el id de competenciaOriginal para buscar las ponderaciones en la tabla de union
             idCompetencia = compOriginal.getIdCompetencia();
@@ -84,22 +84,67 @@ public class GestorCopia {
             //pido la ponderacion guardada en esa instancia
             ponderacion = puestoCompetencia.getPuntajeRequerido();
             
-            //seteo puntaje
-            competenciaCopia.setPuntajeRequerido(ponderacion);
+            //seteo la competencia copia:
+            //seteo nombre
+            competenciaCopia.setNombreCompetencia(compOriginal.getNombreCompetencia());
+            //seteo descripcion
+            competenciaCopia.setDescripcion(compOriginal.getDescripcion());
             //seteo el puesto copiado a la que pertenece la competencia copia
             competenciaCopia.setPuestoCopia(puestoCopiado);
-            
+            //seteo puntaje
+            competenciaCopia.setPuntajeRequerido(ponderacion);
+   
+            //REALIZO LA COPIA DE LOS FACTORES PARA CADA COMPETENCIA..............
+            //obtengo el set de FACTORES originales y lo convierto a list
+            Set factoresSet = compOriginal.getFactores();
+            List<Factor> factoresOriginales = new ArrayList();
+            factoresOriginales.addAll(factoresSet);//por acaaaa
+
+            List<FactorCopia> factoresCopia = new ArrayList();
+
+            //por cada FACTOR original realizo una copia y lo seteo con los parametros correspondientes
+            for (Factor factOriginal : factoresOriginales) {
+
+                //creo un factorCopia
+                FactorCopia factorCopia = new FactorCopia();
+
+                //seteo el factor copia:
+                //seteo nombre
+                factorCopia.setNombre(factOriginal.getNombre());
+                //seteo descripcion
+                factorCopia.setDescripcion(factOriginal.getDescripcion());
+                //seteo NroOrden
+                factorCopia.setNumeroOrden(factOriginal.getNumeroOrden());
+                //seteo la competencia copia a la que pertenece el factor copia
+                factorCopia.setCompetenciaCopia(competenciaCopia);
+
+                //agrego a la lista de factoresCopia el factorCopia recien seteado
+                factoresCopia.add(factorCopia);
+            }
+            //....................................................................
+     
+            //conversion de list a set
+        Set factoresCopiaSet=new HashSet();
+        factoresCopiaSet.addAll(factoresCopia);
+        
+        //seteo los factores a la competencia copiada
+        competenciaCopia.setFactorCopias(factoresCopiaSet);
+        
             //agrego a la lista de competenciasCopia la competenciaCopia inicializada y seteada
             competenciasCopia.add(competenciaCopia);
             
-           //daoCompetencia.save(competenciaCopia);
                 
             }
+        //conversion de list a set
         Set competenciasCopiaSet=new HashSet();
         competenciasCopiaSet.addAll(competenciasCopia);
+        
+        //seteo las competencias al puesto copiado
         puestoCopiado.setCompetencias(competenciasCopiaSet);
-        daoPuesto.updatePuestoCopia(puestoCopiado);
-                return puestoCopiado;
+        //actualizo el puesto ya con todos los datos
+        daoPuesto.savePuestoCopia(puestoCopiado);
+        
+        return puestoCopiado;
             
     }
 }

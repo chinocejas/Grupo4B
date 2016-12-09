@@ -6,7 +6,9 @@
     <class name="Entidades.FactorCopia" table="factor_copia" schema="public" optimistic-lock="version">
         <id name="idFactorCopia" type="int">
             <column name="id_factor_copia" />
-            <generator class="assigned" />
+            <generator class="sequence">
+                <param name="sequence">factor_copia_id_seq</param>
+            </generator>
         </id>
         <many-to-one name="competenciaCopia" class="Entidades.CompetenciaCopia" fetch="select">
             <column name="id_competencia_copia" />
