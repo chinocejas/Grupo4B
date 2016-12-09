@@ -130,8 +130,21 @@ public class GestorCopia {
                 preguntasOriginales.addAll(preguntasSet);
 
                 List<PreguntaCopia> preguntasCopia = new ArrayList();
-System.out.print("tamaño: " + preguntasOriginales.size());
+
                 //por cada PREGUNTA original realizo una copia y lo seteo con los parametros correspondientes
+                //seteo opcion de rta:
+                //creo una OpcionRespuestaCopia
+                OpcionRespuestaCopia opcRtaCopia = new OpcionRespuestaCopia();
+                //seteo el nombre de la opcRtaCopia
+                if (!preguntasOriginales.isEmpty()) {
+                    //pido la opcRta original
+                    OpcionRespuesta opcRtaOriginal = preguntasOriginales.get(0).getOpcionRespuesta();
+
+                    opcRtaCopia.setNombreOpcionRespuesta(opcRtaOriginal.getNombreOpcionRespuesta());
+                    //seteo la descripcion de la opcRtaCopia
+                    opcRtaCopia.setDescripcion(opcRtaOriginal.getDescripcion());
+
+                }
                 for (Pregunta pregOriginal : preguntasOriginales) {
 
                     //creo una preguntaCopia
@@ -146,69 +159,43 @@ System.out.print("tamaño: " + preguntasOriginales.size());
                     preguntaCopia.setPregunta(pregOriginal.getPregunta());
                     //seteo el factor copia al que pertenece la pregunta copia
                     preguntaCopia.setFactorCopia(factorCopia);
-                    
-                    //seteo opcion de rta:
-                    //pido la opcRta original
-                    OpcionRespuesta opcRtaOriginal=pregOriginal.getOpcionRespuesta();
-                    //creo una OpcionRespuestaCopia
-                    OpcionRespuestaCopia opcRtaCopia= new OpcionRespuestaCopia();
-                    //seteo el nombre de la opcRtaCopia
-                    opcRtaCopia.setNombreOpcionRespuesta(opcRtaOriginal.getNombreOpcionRespuesta());
-                    //seteo la descripcion de la opcRtaCopia
-                    opcRtaCopia.setDescripcion(opcRtaOriginal.getDescripcion());
-                    
-                    /*
-                //obtengo el set de PREGUNTAS dentro de OpcRtaOriginal y lo convierto a list
-                Set preguntasOpcRtaSet = opcRtaOriginal.getPreguntas();
-                List<Pregunta> preguntasOpcRtaOriginales = new ArrayList();
-                preguntasOpcRtaOriginales.addAll(preguntasOpcRtaSet);
-                */
-                
-                    
-                    
-                    //********preguntaCopia.setOpcionRespuestaCopia(opcRtaCopia);
+                    //seteo la opcRta
+                    preguntaCopia.setOpcionRespuestaCopia(opcRtaCopia);
 
                     //agrego a la lista de preguntasCopia la preguntaCopia recien seteada
                     preguntasCopia.add(preguntaCopia);
 
-                    
-
-                   
                 }
                 //conversion de list a set
-                    Set preguntasCopiaSet = new HashSet();
-                    preguntasCopiaSet.addAll(preguntasCopia);
-                    factorCopia.setPreguntaCopias(preguntasCopiaSet);
-                    //------------------------------------------------------------------
-                    //------------------------------------------------------------------
- //agrego a la lista de factoresCopia el factorCopia recien seteado
-                    factoresCopia.add(factorCopia);
-                
-
-                
+                Set preguntasCopiaSet = new HashSet();
+                preguntasCopiaSet.addAll(preguntasCopia);
+                factorCopia.setPreguntaCopias(preguntasCopiaSet);
+                //------------------------------------------------------------------
+                //------------------------------------------------------------------
+                //agrego a la lista de factoresCopia el factorCopia recien seteado
+                factoresCopia.add(factorCopia);
 
             }
             //conversion de list a set
-                Set factoresCopiaSet = new HashSet();
-                factoresCopiaSet.addAll(factoresCopia);
-                //....................................................................
-                
-//seteo los factores a la competencia copiada
-                competenciaCopia.setFactorCopias(factoresCopiaSet);
-                
+            Set factoresCopiaSet = new HashSet();
+            factoresCopiaSet.addAll(factoresCopia);
+            //....................................................................
+
+            //seteo los factores a la competencia copiada
+            competenciaCopia.setFactorCopias(factoresCopiaSet);
+
             //agrego a la lista de competenciasCopia la competenciaCopia inicializada y seteada
-                competenciasCopia.add(competenciaCopia);
-            
+            competenciasCopia.add(competenciaCopia);
 
         }
         //conversion de list a set
-            Set competenciasCopiaSet = new HashSet();
-            competenciasCopiaSet.addAll(competenciasCopia);
+        Set competenciasCopiaSet = new HashSet();
+        competenciasCopiaSet.addAll(competenciasCopia);
 
-            //seteo las competencias al puesto copiado
-            puestoCopiado.setCompetencias(competenciasCopiaSet);
-            //actualizo el puesto ya con todos los datos
-            daoPuesto.savePuestoCopia(puestoCopiado);
+        //seteo las competencias al puesto copiado
+        puestoCopiado.setCompetencias(competenciasCopiaSet);
+        //actualizo el puesto ya con todos los datos
+        daoPuesto.savePuestoCopia(puestoCopiado);
         return puestoCopiado;
     }
 }

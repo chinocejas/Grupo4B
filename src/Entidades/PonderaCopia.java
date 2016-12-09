@@ -9,7 +9,8 @@ package Entidades;
 public class PonderaCopia  implements java.io.Serializable {
 
 
-     private PonderaCopiaId id;
+     private int idPreguntaCopia;
+     private int idRespuestaCopia;
      private PreguntaCopia preguntaCopia;
      private RespuestaCopia respuestaCopia;
      private Integer ponderacion;
@@ -18,27 +19,33 @@ public class PonderaCopia  implements java.io.Serializable {
     }
 
 	
-    public PonderaCopia(PonderaCopiaId id, PreguntaCopia preguntaCopia, RespuestaCopia respuestaCopia) {
-        this.id = id;
+    public PonderaCopia(int idPreguntaCopia, int idRespuestaCopia, PreguntaCopia preguntaCopia, RespuestaCopia respuestaCopia) {
+        this.idPreguntaCopia = idPreguntaCopia;
+        this.idRespuestaCopia = idRespuestaCopia;
         this.preguntaCopia = preguntaCopia;
         this.respuestaCopia = respuestaCopia;
     }
-    public PonderaCopia(PonderaCopiaId id, PreguntaCopia preguntaCopia, RespuestaCopia respuestaCopia, Integer ponderacion) {
-       this.id = id;
+    public PonderaCopia(int idPreguntaCopia, int idRespuestaCopia, PreguntaCopia preguntaCopia, RespuestaCopia respuestaCopia, Integer ponderacion) {
+       this.idPreguntaCopia = idPreguntaCopia;
+        this.idRespuestaCopia = idRespuestaCopia;
        this.preguntaCopia = preguntaCopia;
        this.respuestaCopia = respuestaCopia;
        this.ponderacion = ponderacion;
     }
    
-    public PonderaCopiaId getId() {
-        return this.id;
+    public int getIdPreguntaCopia() {
+        return this.idPreguntaCopia;
     }
     
-    public void setId(PonderaCopiaId id) {
-        this.id = id;
+    public void setIdPreguntaCopia(int idPreguntaCopia) {
+        this.idPreguntaCopia = idPreguntaCopia;
     }
-    public PreguntaCopia getPreguntaCopia() {
-        return this.preguntaCopia;
+    public int getIdRespuestaCopia() {
+        return this.idRespuestaCopia;
+    }
+    
+    public void setIdRespuestaCopia(int idRespuestaCopia) {
+        this.idRespuestaCopia = idRespuestaCopia;
     }
     
     public void setPreguntaCopia(PreguntaCopia preguntaCopia) {
@@ -50,6 +57,10 @@ public class PonderaCopia  implements java.io.Serializable {
     
     public void setRespuestaCopia(RespuestaCopia respuestaCopia) {
         this.respuestaCopia = respuestaCopia;
+    }
+    
+     public RespuestaCopia getPreguntaCopia() {
+        return this.respuestaCopia;
     }
     public Integer getPonderacion() {
         return this.ponderacion;

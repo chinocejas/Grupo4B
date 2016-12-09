@@ -9,7 +9,8 @@ package Entidades;
 public class Pondera  implements java.io.Serializable {
 
 
-     private PonderaId id;
+     private int idPregunta;
+     private int idRespuesta;
      private Pregunta pregunta;
      private Respuesta respuesta;
      private Integer ponderacion;
@@ -18,24 +19,33 @@ public class Pondera  implements java.io.Serializable {
     }
 
 	
-    public Pondera(PonderaId id, Pregunta pregunta, Respuesta respuesta) {
-        this.id = id;
+    public Pondera(int idPregunta, int idRespuesta, Pregunta pregunta, Respuesta respuesta) {
+        this.idPregunta = idPregunta;
+        this.idRespuesta = idRespuesta;
         this.pregunta = pregunta;
         this.respuesta = respuesta;
     }
-    public Pondera(PonderaId id, Pregunta pregunta, Respuesta respuesta, Integer ponderacion) {
-       this.id = id;
+    public Pondera(int idPregunta, int idRespuesta, Pregunta pregunta, Respuesta respuesta, Integer ponderacion) {
+       this.idPregunta = idPregunta;
+       this.idRespuesta = idRespuesta;
        this.pregunta = pregunta;
        this.respuesta = respuesta;
        this.ponderacion = ponderacion;
     }
    
-    public PonderaId getId() {
-        return this.id;
+    public int getIdPregunta() {
+        return this.idPregunta;
     }
     
-    public void setId(PonderaId id) {
-        this.id = id;
+    public void setIdPregunta(int idPregunta) {
+        this.idPregunta = idPregunta;
+    }
+    public int getIdRespuesta() {
+        return this.idRespuesta;
+    }
+    
+    public void setIdRespuesta(int idRespuesta) {
+        this.idRespuesta = idRespuesta;
     }
     public Pregunta getPregunta() {
         return this.pregunta;

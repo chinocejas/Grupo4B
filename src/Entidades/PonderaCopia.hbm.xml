@@ -4,7 +4,7 @@
 <!-- Generated 06-dic-2016 15:03:45 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="Entidades.PonderaCopia" table="pondera_copia" schema="public" optimistic-lock="version">
-        <composite-id name="id" class="Entidades.PonderaCopiaId">
+        <composite-id>
             <key-property name="idPreguntaCopia" type="int">
                 <column name="id_pregunta_copia" />
             </key-property>
