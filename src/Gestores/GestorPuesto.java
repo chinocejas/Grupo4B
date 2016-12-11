@@ -397,7 +397,6 @@ public class GestorPuesto {
             ret = null;
         }else {
             //Duplico puesto
-            System.out.println("dentro del else de controlarPuesto");
             ret = gestorCopia.duplicarPuesto(puesto);
         }
         
