@@ -29,7 +29,7 @@
             </key>
             <one-to-many class="Entidades.RaEliminacion" />
         </set>
-        <set name="ponderas" table="pondera" inverse="true" lazy="true" fetch="select">
+        <set name="ponderas" table="pondera" inverse="true" lazy="false" fetch="select">
             <key>
                 <column name="id_pregunta" not-null="true" />
             </key>

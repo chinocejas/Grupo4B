@@ -269,7 +269,7 @@ public class CompletarQuest extends javax.swing.JFrame {
     public void cargaCuestionario(Candidato candidato){
        //LLENA LOS DATOS DE LAS PANTALLAS    
         candidatoName.setText("Candidato: " + candidato.getNombreApellido());
-        candidatoDNI.setText("DNI: "+ candidato.getNumeroDocumento().toString());
+        candidatoDNI.setText(candidato.getTipoDocumento()+": "+ candidato.getNumeroDocumento().toString());
         
         instrucciones.setText(Gestores.GestorRepositorio.getInstance().getInstrucciones());
     }

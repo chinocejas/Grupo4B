@@ -31,7 +31,7 @@
             </key>
             <one-to-many class="Entidades.CuestionarioPreguntaCopia" />
         </set>
-        <set name="ponderaCopias" table="pondera_copia" inverse="true" lazy="true" fetch="select">
+        <set name="ponderaCopias" table="pondera_copia" cascade="save-update" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="id_pregunta_copia" not-null="true" />
             </key>

@@ -23,4 +23,5 @@
   <table-filter match-name="respuesta_copia"/>
   <table-filter match-name="cuestionario_respuesta_copia"/>
   <table-filter match-name="opcion_respuesta_copia"/>
+  <table-filter match-name="configuracion"/>
 </hibernate-reverse-engineering>

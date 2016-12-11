@@ -15,7 +15,7 @@
         <many-to-one name="preguntaCopia" class="Entidades.PreguntaCopia" update="false" insert="false" fetch="select">
             <column name="id_pregunta_copia" not-null="true" />
         </many-to-one>
-        <many-to-one name="respuestaCopia" class="Entidades.RespuestaCopia" update="false" insert="false" fetch="select">
+        <many-to-one name="respuestaCopia" class="Entidades.RespuestaCopia" cascade="save-update" update="false" insert="false" fetch="select">
             <column name="id_respuesta_copia" not-null="true" />
         </many-to-one>
         <property name="ponderacion" type="java.lang.Integer">

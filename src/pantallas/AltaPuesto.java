@@ -537,6 +537,9 @@ public class AltaPuesto extends javax.swing.JFrame {
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
         //original para lista: if ((l2.getSelectedValue() == null) || (l2.getSelectedValue().equals("-1")) || l1.getComponentCount()==0) 
         if ((tabla.getSelectedRow() == -1)) {
+            AudioClip sonido;
+            sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error.wav"));
+            sonido.play();
             campoTexto.setText("Seleccione un elemento antes de presionar el boton");
         } else {
             campoTexto.setText("");
@@ -561,6 +564,9 @@ public class AltaPuesto extends javax.swing.JFrame {
             modeloTabla.addCompetencia(competencia);
             modeloLista.eliminarCompetencia(lista.getSelectedIndex());
         } else {
+            AudioClip sonido;
+            sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error.wav"));
+            sonido.play();
             campoTexto.setText("Seleccione un elemento antes de presionar el boton");
         }
     }//GEN-LAST:event_btnAddActionPerformed

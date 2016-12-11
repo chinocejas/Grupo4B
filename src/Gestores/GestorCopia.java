@@ -6,18 +6,23 @@
 package Gestores;
 
 import Dao.DaoCompetencia;
+import Dao.DaoPregunta;
 import Dao.DaoPuesto;
+import Dao.DaoRespuesta;
 import Entidades.Competencia;
 import Entidades.CompetenciaCopia;
 import Entidades.Factor;
 import Entidades.FactorCopia;
 import Entidades.OpcionRespuesta;
 import Entidades.OpcionRespuestaCopia;
+import Entidades.Pondera;
+import Entidades.PonderaCopia;
 import Entidades.Pregunta;
 import Entidades.PreguntaCopia;
 import Entidades.Puesto;
 import Entidades.PuestoCompetencia;
 import Entidades.PuestoCopia;
+import Entidades.RespuestaCopia;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -48,7 +53,8 @@ public class GestorCopia {
 
         GestorPuesto gestorPuesto = GestorPuesto.getInstance();
         DaoPuesto daoPuesto = new DaoPuesto();
-        DaoCompetencia daoCompetencia = new DaoCompetencia();
+        DaoPregunta daoPregunta = new DaoPregunta();
+        DaoRespuesta daoRespuesta = new DaoRespuesta();
 
         Date fechaCopia = new Date();
         DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
@@ -78,7 +84,6 @@ public class GestorCopia {
 
             //creo una competenciaCopia
             CompetenciaCopia competenciaCopia = new CompetenciaCopia();
-            daoCompetencia.saveCompetenciaCopia(competenciaCopia);
 
             //SE RECUPERAN LAS PONDERACIONES DE LAS COMPETENCIAS DESDE LA BD
             //guardo el id de competenciaOriginal para buscar las ponderaciones en la tabla de union
@@ -149,6 +154,7 @@ public class GestorCopia {
 
                     //creo una preguntaCopia
                     PreguntaCopia preguntaCopia = new PreguntaCopia();
+                    daoPregunta.savePreguntaCopia(preguntaCopia);
 
                     //seteo la pregunta copia:
                     //seteo nombre
@@ -161,6 +167,35 @@ public class GestorCopia {
                     preguntaCopia.setFactorCopia(factorCopia);
                     //seteo la opcRta
                     preguntaCopia.setOpcionRespuestaCopia(opcRtaCopia);
+
+                    //***********************************************
+                    //seteo el atributo ponderas de la pregunta
+                    //obtengo el set de ponderas original y lo convierto a list
+                    Set ponderasSet = pregOriginal.getPonderas();
+                    List<Pondera> ponderasOriginales = new ArrayList();
+                    ponderasOriginales.addAll(ponderasSet);
+
+                    List<PonderaCopia> ponderasCopia = new ArrayList();
+                    for (Pondera pondOriginal : ponderasOriginales) {
+                        
+                        PonderaCopia ponderaCopia = new PonderaCopia();
+                        ponderaCopia.setIdPreguntaCopia(preguntaCopia.getIdPreguntaCopia());
+                        ponderaCopia.setPreguntaCopia(preguntaCopia);
+                        RespuestaCopia respuestaCopia = new RespuestaCopia();
+                        respuestaCopia.setOpcionRespuestaCopia(opcRtaCopia);
+                        daoRespuesta.saveRespuestaCopia(respuestaCopia);
+                        ponderaCopia.setIdRespuestaCopia(respuestaCopia.getIdRespuestaCopia());
+                        respuestaCopia.setRespuesta(pondOriginal.getRespuesta().getRespuesta());
+                        ponderaCopia.setRespuestaCopia(respuestaCopia);
+                        ponderaCopia.setPonderacion(pondOriginal.getPonderacion());
+
+                        ponderasCopia.add(ponderaCopia);
+                    }
+                    //conversion de list a set
+                    Set ponderasCopiaSet = new HashSet();
+                    ponderasCopiaSet.addAll(ponderasCopia);
+                    preguntaCopia.setPonderaCopias(ponderasCopiaSet);
+                    //***********************************************
 
                     //agrego a la lista de preguntasCopia la preguntaCopia recien seteada
                     preguntasCopia.add(preguntaCopia);

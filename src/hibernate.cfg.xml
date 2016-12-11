@@ -28,5 +28,6 @@
     <mapping resource="Entidades/RespuestaCopia.hbm.xml"/>
     <mapping resource="Entidades/CuestionarioRespuestaCopia.hbm.xml"/>
     <mapping resource="Entidades/OpcionRespuestaCopia.hbm.xml"/>
+    <mapping resource="Entidades/Configuracion.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

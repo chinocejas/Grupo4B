@@ -440,7 +440,7 @@ public class GestorPuesto {
             
             for(Competencia comp: competenciasInvalidas){
                 s=s.concat(comp.getNombreCompetencia());
-                s=s.concat(", ");
+                s=s.concat("\n");
                 //
             }
             //Arreglar popup y sacar la linea de arriba

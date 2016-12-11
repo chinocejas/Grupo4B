@@ -6,9 +6,11 @@
     <class name="Entidades.RespuestaCopia" table="respuesta_copia" schema="public" optimistic-lock="version">
         <id name="idRespuestaCopia" type="int">
             <column name="id_respuesta_copia" />
-            <generator class="assigned" />
+            <generator class="sequence">
+                <param name="sequence">respuesta_copia_id_seq</param>
+            </generator>
         </id>
-        <many-to-one name="opcionRespuestaCopia" class="Entidades.OpcionRespuestaCopia" fetch="select">
+        <many-to-one name="opcionRespuestaCopia" class="Entidades.OpcionRespuestaCopia" cascade="save-update" fetch="select">
             <column name="id_opcion_respuesta_copia" />
         </many-to-one>
         <property name="respuesta" type="string">

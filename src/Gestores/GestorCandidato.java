@@ -77,6 +77,7 @@ public class GestorCandidato {
         Candidato retorno=null;
         if(!numeroDocumento.equals("")){
         int numeroDoc= Integer.parseInt(numeroDocumento);
+        
       Candidato candidato=daoCandidato.buscarCandidato(tipoDocumento, numeroDoc);
       if(candidato!=null){
           Set<Cuestionario> cuestionariosSet= candidato.getCuestionarios();
