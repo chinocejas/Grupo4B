@@ -327,7 +327,6 @@ public class EvaluarCandidatoDatos extends javax.swing.JFrame {
         
         //Si apreta SI, genera xls y vuelve a pantalla principal de gestion
         if(resp == JOptionPane.YES_OPTION){
-            System.out.println("Apreta si");
             gestorSalida.generarXls(cuestionariosGlobal);
             
             Gestion obj = new Gestion();
