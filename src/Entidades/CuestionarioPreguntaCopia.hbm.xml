@@ -15,7 +15,7 @@
         <many-to-one name="cuestionario" class="Entidades.Cuestionario" update="false" insert="false" fetch="select">
             <column name="id_cuestionario" not-null="true" />
         </many-to-one>
-        <many-to-one name="preguntaCopia" class="Entidades.PreguntaCopia" update="false" insert="false" fetch="select">
+        <many-to-one name="preguntaCopia" class="Entidades.PreguntaCopia" update="false" insert="false" lazy ="false" fetch="select">
             <column name="id_pregunta_copia" not-null="true" />
         </many-to-one>
         <property name="orden" type="java.lang.Integer">

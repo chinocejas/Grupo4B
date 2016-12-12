@@ -19,7 +19,7 @@ public class GestorCuestionario {
     
     DaoCuestionario daoCuestionario = new DaoCuestionario();
     DaoCandidato daoCandidato = new DaoCandidato();
-    
+    DaoCuestionarioPreguntaCopia daoCuestionarioPreguntaCopia = new DaoCuestionarioPreguntaCopia();
     
             
     
@@ -101,13 +101,13 @@ public class GestorCuestionario {
         return cadenaAleatoria;
     }       
         
-  
-        
-        
-
-        
-
-        
     
+    // este es el metodo que si tiene que llamar en la pantalla
+    public List traerPreguntas(Cuestionario cuestionario){
+        
+        List lista = daoCuestionarioPreguntaCopia.buscarPreguntaCopia(cuestionario.getIdCuestionario());
+        
+        return lista;
+    }
     
 }

@@ -359,6 +359,15 @@ public class ModificarPuesto extends javax.swing.JFrame {
         ));
         tabla.setColumnSelectionAllowed(true);
         tabla.getTableHeader().setReorderingAllowed(false);
+        tabla.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                tablaAncestorAdded(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
         tabla.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tablaMouseClicked(evt);
@@ -725,6 +734,10 @@ public class ModificarPuesto extends javax.swing.JFrame {
             btnRemoveAllActionPerformed(null);
         }
     }//GEN-LAST:event_btnRemoveAllKeyPressed
+
+    private void tablaAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_tablaAncestorAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tablaAncestorAdded
 
     /**
      * @param args the command line arguments

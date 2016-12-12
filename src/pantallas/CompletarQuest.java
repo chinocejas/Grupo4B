@@ -256,6 +256,9 @@ public class CompletarQuest extends javax.swing.JFrame {
     // Carga Candidato
     
     private void aceptarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarBtnActionPerformed
+       Completar1 obj= new Completar1();
+        obj.setVisible(true);
+        dispose();    
         
         
     }//GEN-LAST:event_aceptarBtnActionPerformed
