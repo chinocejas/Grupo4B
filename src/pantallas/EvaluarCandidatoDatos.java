@@ -318,7 +318,9 @@ public class EvaluarCandidatoDatos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-
+        GestionDeEvaluarCandidato obj = new GestionDeEvaluarCandidato();
+        obj.setVisible(true);
+        dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarActionPerformed

@@ -11,6 +11,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -53,9 +55,14 @@ public class GestorSalida {
         //analizamos la respuesta
         switch (seleccion) {
             case JFileChooser.APPROVE_OPTION:
-                //Aca saco la ruta donde guardo el archivo
-                String auxiliar = fch.getSelectedFile()+ ".xls";
+                Calendar calendario = new GregorianCalendar();
+                String auxiliar = fch.getCurrentDirectory().toString();
+                auxiliar += "\\" +calendario.get(Calendar.YEAR)+"-"+calendario.get(Calendar.MONTH)+"-"+calendario.get(Calendar.DAY_OF_MONTH)+"-"+calendario.get(Calendar.HOUR_OF_DAY)+"-"+calendario.get(Calendar.MINUTE)+"-"+cuest.get(0).getPuestoCopia().getNombrePuesto()+ ".xls";
+                System.out.println(auxiliar);
+                //Aca saco la ruta donde guardo el archivo, y el nombre con el cual guardarlo
+                //String auxiliar = fch.getSelectedFile()+ ".xls";
                 File archivoXLS = new File(auxiliar);
+                System.out.println(archivoXLS.toString());
                 
                 try {
                     archivoXLS.createNewFile();
