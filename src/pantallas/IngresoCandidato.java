@@ -363,11 +363,11 @@ public class IngresoCandidato extends javax.swing.JFrame {
         String numeroDocumento = new String(numDoc.getText());
         String tipoDocumento= (String) tipoDoc.getSelectedItem();
 
-        Candidato validacion = gestorCandidato.validarCandidato(tipoDocumento, numeroDocumento, password);
+        Candidato candidato = gestorCandidato.validarCandidato(tipoDocumento, numeroDocumento, password);
        
-        if (validacion!=null) {
-            if(gestorCandidato.getEstadoQuest(validacion)==1){//Si nunca entro a responder el cuestionario
-            CompletarQuest obj= new CompletarQuest(validacion);
+        if (candidato!=null) {
+            if(gestorCandidato.getEstadoQuest(candidato)==1){//Si nunca entro a responder el cuestionario
+            CompletarQuest obj= new CompletarQuest(candidato);
             obj.setVisible(true);
             dispose();
             } 

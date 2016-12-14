@@ -22,7 +22,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import javax.swing.JOptionPane;
-import pantallas.CopiarPuesto;
 import pantallas.GestionDePuestos;
 import pantallas.ModificarPuesto;
 
@@ -96,32 +95,6 @@ public class GestorPuesto {
         List listaPuestos = null;
 
         listaPuestos = daoPuesto.findPorCodigoAndPuestoAndEmpresa();
-
-        for (int a = 0; a < listaPuestos.size(); a++) {
-            Puesto puesto2 = (Puesto) listaPuestos.get(a);
-            modeloTabla.addPuesto(puesto2);
-        }
-    }
-    
-     //borraRRR
-    public void buscarPuestosTemporal(CopiarPuesto.CustomTableModel modeloTabla) {
-
-        List listaPuestos = null;
-
-        listaPuestos = daoPuesto.findPorCodigoAndPuestoAndEmpresa();
-
-        for (int a = 0; a < listaPuestos.size(); a++) {
-            Puesto puesto2 = (Puesto) listaPuestos.get(a);
-            modeloTabla.addPuesto(puesto2);
-        }
-    }
-    
-    //borrarrr
-    public void buscarPuestosTemporal(CopiarPuesto.CustomTableModel modeloTabla, String codigo, String puesto, String empresa) {
-
-        List listaPuestos = null;
-
-        listaPuestos = daoPuesto.findPorCodigoAndPuestoAndEmpresa(codigo, puesto, empresa);
 
         for (int a = 0; a < listaPuestos.size(); a++) {
             Puesto puesto2 = (Puesto) listaPuestos.get(a);
