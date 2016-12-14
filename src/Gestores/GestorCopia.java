@@ -144,7 +144,7 @@ public class GestorCopia {
                 if (!preguntasOriginales.isEmpty()) {
                     //pido la opcRta original
                     OpcionRespuesta opcRtaOriginal = preguntasOriginales.get(0).getOpcionRespuesta();
-
+                    //seteo el nombre
                     opcRtaCopia.setNombreOpcionRespuesta(opcRtaOriginal.getNombreOpcionRespuesta());
                     //seteo la descripcion de la opcRtaCopia
                     opcRtaCopia.setDescripcion(opcRtaOriginal.getDescripcion());
