@@ -10,6 +10,13 @@ import Entidades.*;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.Set;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
+
 
 
 /**
@@ -33,7 +40,8 @@ public class CompletarQuest extends javax.swing.JFrame {
         initComponents();
         setSize(1024, 768);
         setLocationRelativeTo(null);
-         cargaCuestionario(candidato);
+        cargaCuestionario(candidato);
+         inicializarCuestionario(candidato);
         
     }
     
@@ -256,10 +264,14 @@ public class CompletarQuest extends javax.swing.JFrame {
     // Carga Candidato
     
     private void aceptarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarBtnActionPerformed
-       Completar1 obj= new Completar1();
+        //Esto deveria hacer la pantalla
+        /* Completar1 obj= new Completar1();
         obj.setVisible(true);
         dispose();    
+        */
         
+        // ESTO ES PARA PROBAR
+       
         
     }//GEN-LAST:event_aceptarBtnActionPerformed
 
@@ -269,6 +281,70 @@ public class CompletarQuest extends javax.swing.JFrame {
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_volverBtnActionPerformed
+    private void inicializarCuestionario (Candidato candidato){
+        
+        // PARAPROBAR ESCRIBIR DEBAJO
+        Document doc= instrucciones.getDocument();
+
+        // ESTO VA EN OTRA PANTALLA
+        GestorCuestionario gestorCuestionario = GestorCuestionario.getInstance();
+        Cuestionario cuestionarioactivo = gestorCuestionario.getCuestActivo(candidato);
+        if(cuestionarioactivo.getEstado()== 1){
+           PuestoCopia puestoAevaluar = cuestionarioactivo.getPuestoCopia();
+           //Le pido y casteo competenciasCopia
+           Set<CompetenciaCopia> competenciasSet= puestoAevaluar.getCompetencias();
+            // castea set to list
+           List<CompetenciaCopia> competencias= new ArrayList<CompetenciaCopia>(competenciasSet);
+           // PARAPROBAR
+            for (CompetenciaCopia competencia : competencias) {
+                //instrucciones.setText("COMPETENCIA:"+competencia.getNombreCompetencia()+"/n");
+                // VA ESCRIBI
+                try {
+                    doc.insertString(doc.getLength(),"\n COMPETENCIA:"+competencia.getNombreCompetencia()+"\n", null);
+   }                catch(BadLocationException exc) {
+                    exc.printStackTrace();
+   }             /////////////////////
+                
+                                
+                //Le pido y casteo FactoresCopia a cada Competencia
+                 Set<FactorCopia> factoresSet= competencia.getFactorCopias();
+                // castea set to list
+                 List<FactorCopia> factores= new ArrayList<FactorCopia>(factoresSet);
+                 for (FactorCopia factor : factores){
+                    // VA ESCRIBI
+                    try {
+                    doc.insertString(doc.getLength(),"FACTOR:"+factor.getNombre()+"\n", null);
+   }                catch(BadLocationException exc) {
+                    exc.printStackTrace();
+                    }                
+                    /////////////////////
+                    //Le pido y casteo PreguntasCopia a cada FACTOR
+                    Set<PreguntaCopia> preguntasSet= factor.getPreguntaCopias();
+                    // castea set to list
+                    List<PreguntaCopia> preguntas = new LinkedList<PreguntaCopia>(preguntasSet);
+                    
+                    // ESTO VA EN UN METODO 
+                    Collections.shuffle(preguntas);
+                    for(PreguntaCopia pregunta: preguntas){
+                        // VA ESCRIBI
+                        try {
+                        doc.insertString(doc.getLength(),"PREGUNTA:"+pregunta.getNombrePregunta()+"\n", null);
+   }                    catch(BadLocationException exc) {
+                        exc.printStackTrace();
+                        }
+                    }
+                    
+                    
+                    
+                    
+                }
+            }
+        }
+        else System.out.println("NO HAY CUESTIONARIO ACTIVO");
+        
+    }// FIN InicializarCuestionario
+    
+        
     public void cargaCuestionario(Candidato candidato){
        //LLENA LOS DATOS DE LAS PANTALLAS    
         candidatoName.setText("Candidato: " + candidato.getNombreApellido());

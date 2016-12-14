@@ -109,5 +109,23 @@ public class GestorCuestionario {
         
         return lista;
     }
+    public Cuestionario getCuestionarioActivoEnProceso(List<Cuestionario> cuestionarios) {
+        Cuestionario cuestionario = null;
+        for (Cuestionario cuest : cuestionarios) {
+            if (cuest.getEstado()==5 || cuest.getEstado()==1) {
+                cuestionario= cuest;
+            }
+        }
+        return cuestionario;
+    }
+     public Cuestionario getCuestActivo(Candidato candidato){
+          Set<Cuestionario> cuestionariosSet= candidato.getCuestionarios();
+          // castea set to list
+          List<Cuestionario> cuestionarios= new ArrayList<Cuestionario>(cuestionariosSet);
+          Cuestionario cuestionarioValido= getCuestionarioActivoEnProceso(cuestionarios);
+          
+           return cuestionarioValido;
+    
+    }
     
 }
