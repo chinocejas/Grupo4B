@@ -487,24 +487,26 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
             /*COLOREAR ELEMENTOS QUE TIENEN CUEST ACTIVO O EN PROCESO*/
         //};
         
-         
-        
-        //Lista de cand con cuestionarios activos o en proceso
-        List<Candidato> conCuestionarioActPro = new ArrayList<Candidato>();
-        conCuestionarioActPro = gestorCandidato.findCuestionariosActPro(modeloTablaSeleccionados.getListaCandidatos());
-        
-        if(conCuestionarioActPro.isEmpty()){
-            List<Puesto> puestos = gestorPuesto.buscarTodosPuestos();
-            EvaluarCandidatoFunciones obj = new EvaluarCandidatoFunciones(puestos, modeloTablaSeleccionados.getListaCandidatos());
-            obj.setVisible(true);
-            dispose();
-        }else {
-            campoTexto.setText("Los candidatos resaltados poseen cuestionarios activos o en proceso y no pueden ser evaluados nuevamente");
-            FormatoTabla ft = new FormatoTabla(conCuestionarioActPro);
-            tablaSeleccionados.setDefaultRenderer (Object.class, ft);
-            modeloTablaSeleccionados.fireTableDataChanged();
-        };
-        
+        if (!modeloTablaSeleccionados.getListaCandidatos().isEmpty()) {
+
+            //Lista de cand con cuestionarios activos o en proceso
+            List<Candidato> conCuestionarioActPro = new ArrayList<Candidato>();
+            conCuestionarioActPro = gestorCandidato.findCuestionariosActPro(modeloTablaSeleccionados.getListaCandidatos());
+
+            if (conCuestionarioActPro.isEmpty()) {
+                List<Puesto> puestos = gestorPuesto.buscarTodosPuestos();
+                EvaluarCandidatoFunciones obj = new EvaluarCandidatoFunciones(puestos, modeloTablaSeleccionados.getListaCandidatos());
+                obj.setVisible(true);
+                dispose();
+            } else {
+                campoTexto.setText("Los candidatos resaltados poseen cuestionarios activos o en proceso y no pueden ser evaluados nuevamente");
+                FormatoTabla ft = new FormatoTabla(conCuestionarioActPro);
+                tablaSeleccionados.setDefaultRenderer(Object.class, ft);
+                modeloTablaSeleccionados.fireTableDataChanged();
+            }
+        } else {
+            campoTexto.setText("Debe haber al menos un candidato seleccionado para continuar");
+        }
         
     }//GEN-LAST:event_btnSiguienteActionPerformed
 
@@ -525,7 +527,8 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
     }//GEN-LAST:event_txtApellidoKeyReleased
 
     private void btnRemoveAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveAllActionPerformed
-       
+        campoTexto.setText("");
+        
         while (modeloTablaSeleccionados.getRowCount() != 0) { //se va a ejecutar mientras haya alguna fila en la tabla
             modeloTabla.addCandidato(modeloTablaSeleccionados.getCandidato(0));
             modeloTablaSeleccionados.eliminarCandidato(0);
@@ -533,7 +536,8 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRemoveAllActionPerformed
 
     private void btnAddAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddAllActionPerformed
-
+        campoTexto.setText("");
+        
         while (modeloTabla.getRowCount() != 0) {
             Candidato cand = modeloTabla.getCandidato(0);
             modeloTablaSeleccionados.addCandidato(cand);
@@ -543,6 +547,7 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAddAllActionPerformed
 
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
+            campoTexto.setText("");
         
             if ((tablaSeleccionados.getSelectedRow() == -1)) {
                 campoTexto.setText("Seleccione un elemento antes de presionar el boton");
@@ -558,7 +563,8 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRemoveActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-    
+        campoTexto.setText("");
+        
         if (tablaBusqueda.getSelectedRow() != -1 || tablaBusqueda.getComponentCount() == 0) {
             campoTexto.setText("");
             Candidato candidato = modeloTabla.getCandidato(tablaBusqueda.getSelectedRow());
