@@ -14,6 +14,7 @@ public class OpcionRespuestaCopia  implements java.io.Serializable {
      private int idOpcionRespuestaCopia;
      private String nombreOpcionRespuesta;
      private String descripcion;
+     private int seleccion;
      private Set<PreguntaCopia> preguntaCopias = new HashSet<PreguntaCopia>(0);
      private Set<RespuestaCopia> respuestaCopias = new HashSet<RespuestaCopia>(0);
 
@@ -67,8 +68,14 @@ public class OpcionRespuestaCopia  implements java.io.Serializable {
     public void setRespuestaCopias(Set<RespuestaCopia> respuestaCopias) {
         this.respuestaCopias = respuestaCopias;
     }
-
-
+    
+    public void setSeleccion(int seleccion) {
+        this.seleccion = seleccion;
+    }
+    
+    public int getSeleccion() {
+        return this.seleccion;
+    }
 
 
 }
