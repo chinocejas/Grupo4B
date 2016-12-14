@@ -110,4 +110,14 @@ public class GestorCuestionario {
         return lista;
     }
     
+    public Date getFecha(){
+        //Devuelve año, mes, dia, hora, minutos
+        
+        Date ret = new Date();
+        Calendar calendario = new GregorianCalendar();
+        ret = calendario.getTime();
+        
+        return ret;
+    }
+    
 }
