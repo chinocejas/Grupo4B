@@ -35,20 +35,21 @@ public class CompletarQuest extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         
     }
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Imagenes/BS_ultimate2.png"));
+        return retValue;
+    }
     
      public CompletarQuest(Candidato candidato) {
         initComponents();
         setSize(1024, 768);
         setLocationRelativeTo(null);
         cargaCuestionario(candidato);
-         inicializarCuestionario(candidato);
+        inicializarCuestionario(candidato);
         
     }
     
-    public Image getIconImage() {
-        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Imagenes/BS_ultimate2.png"));
-        return retValue;
-    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -284,67 +285,22 @@ public class CompletarQuest extends javax.swing.JFrame {
     private void inicializarCuestionario (Candidato candidato){
         
         // PARAPROBAR ESCRIBIR DEBAJO
-        Document doc= instrucciones.getDocument();
-
+        //Document doc= instrucciones.getDocument();
+        
         // ESTO VA EN OTRA PANTALLA
         GestorCuestionario gestorCuestionario = GestorCuestionario.getInstance();
         Cuestionario cuestionarioactivo = gestorCuestionario.getCuestActivo(candidato);
-        if(cuestionarioactivo.getEstado()== 1){
-           PuestoCopia puestoAevaluar = cuestionarioactivo.getPuestoCopia();
-           //Le pido y casteo competenciasCopia
-           Set<CompetenciaCopia> competenciasSet= puestoAevaluar.getCompetencias();
-            // castea set to list
-           List<CompetenciaCopia> competencias= new ArrayList<CompetenciaCopia>(competenciasSet);
-           // PARAPROBAR
-            for (CompetenciaCopia competencia : competencias) {
-                //instrucciones.setText("COMPETENCIA:"+competencia.getNombreCompetencia()+"/n");
-                // VA ESCRIBI
-                try {
-                    doc.insertString(doc.getLength(),"\n COMPETENCIA:"+competencia.getNombreCompetencia()+"\n", null);
-   }                catch(BadLocationException exc) {
-                    exc.printStackTrace();
-   }             /////////////////////
-                
-                                
-                //Le pido y casteo FactoresCopia a cada Competencia
-                 Set<FactorCopia> factoresSet= competencia.getFactorCopias();
-                // castea set to list
-                 List<FactorCopia> factores= new ArrayList<FactorCopia>(factoresSet);
-                 for (FactorCopia factor : factores){
-                    // VA ESCRIBI
-                    try {
-                    doc.insertString(doc.getLength(),"FACTOR:"+factor.getNombre()+"\n", null);
-   }                catch(BadLocationException exc) {
-                    exc.printStackTrace();
-                    }                
-                    /////////////////////
-                    //Le pido y casteo PreguntasCopia a cada FACTOR
-                    Set<PreguntaCopia> preguntasSet= factor.getPreguntaCopias();
-                    // castea set to list
-                    List<PreguntaCopia> preguntas = new LinkedList<PreguntaCopia>(preguntasSet);
-                    
-                    // ESTO VA EN UN METODO 
-                    Collections.shuffle(preguntas);
-                    for(PreguntaCopia pregunta: preguntas){
-                        // VA ESCRIBI
-                        try {
-                        doc.insertString(doc.getLength(),"PREGUNTA:"+pregunta.getNombrePregunta()+"\n", null);
-   }                    catch(BadLocationException exc) {
-                        exc.printStackTrace();
-                        }
-                    }
-                    
-                    
-                    
-                    
-                }
-            }
+        
+        gestorCuestionario.iniciaCuestionario(cuestionarioactivo);
+        switch (cuestionarioactivo.getEstado()){
+            case 1: 
+                gestorCuestionario.iniciaCuestionario(cuestionarioactivo);
+            case 5:
+                System.out.println("AHORA DEFINE LOS DEMAS");
+        }// FIN SWITCH
+        
         }
-        else System.out.println("NO HAY CUESTIONARIO ACTIVO");
-        
-    }// FIN InicializarCuestionario
     
-        
     public void cargaCuestionario(Candidato candidato){
        //LLENA LOS DATOS DE LAS PANTALLAS    
         candidatoName.setText("Candidato: " + candidato.getNombreApellido());
