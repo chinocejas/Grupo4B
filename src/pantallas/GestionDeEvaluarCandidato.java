@@ -528,9 +528,16 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
 
     private void btnRemoveAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveAllActionPerformed
         campoTexto.setText("");
-        
+        /*
+        if(!modeloTablaSeleccionados.getListaIdCandidatos().contains(cand.getIdCandidato())){
+                modeloTablaSeleccionados.addCandidato(cand);
+                campoTexto.setText("Candidatos que ya estaban seleccionados no se agregaron de vuelta");
+            }*/
         while (modeloTablaSeleccionados.getRowCount() != 0) { //se va a ejecutar mientras haya alguna fila en la tabla
-            modeloTabla.addCandidato(modeloTablaSeleccionados.getCandidato(0));
+            Candidato cand = modeloTablaSeleccionados.getCandidato(0);
+            if(!modeloTabla.getListaIdCandidatos().contains(cand.getIdCandidato())){
+                modeloTabla.addCandidato(modeloTablaSeleccionados.getCandidato(0));
+            }
             modeloTablaSeleccionados.eliminarCandidato(0);
         }
     }//GEN-LAST:event_btnRemoveAllActionPerformed
@@ -540,7 +547,9 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
         
         while (modeloTabla.getRowCount() != 0) {
             Candidato cand = modeloTabla.getCandidato(0);
-            modeloTablaSeleccionados.addCandidato(cand);
+            if(!modeloTablaSeleccionados.getListaIdCandidatos().contains(cand.getIdCandidato())){
+                modeloTablaSeleccionados.addCandidato(cand);
+            }
             modeloTabla.eliminarCandidato(0);
         }
 
@@ -556,7 +565,9 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
                 
                 int row = tablaSeleccionados.getSelectedRow();
                 Candidato cand = modeloTablaSeleccionados.getCandidato(row);
-                modeloTabla.addCandidato(cand);
+                if(!modeloTabla.getListaIdCandidatos().contains(cand.getIdCandidato())){
+                    modeloTabla.addCandidato(cand);
+                }
                 modeloTablaSeleccionados.eliminarCandidato(row);
             }
 
@@ -565,15 +576,25 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         campoTexto.setText("");
         
-        if (tablaBusqueda.getSelectedRow() != -1 || tablaBusqueda.getComponentCount() == 0) {
+        if (tablaBusqueda.getSelectedRow() != -1 || tablaBusqueda.getComponentCount() == 0  ) {
+            if(!modeloTablaSeleccionados.getListaIdCandidatos().contains(modeloTabla.getCandidato(tablaBusqueda.getSelectedRow()).getIdCandidato())){
             campoTexto.setText("");
             Candidato candidato = modeloTabla.getCandidato(tablaBusqueda.getSelectedRow());
             modeloTablaSeleccionados.addCandidato(candidato);
             modeloTabla.eliminarCandidato(tablaBusqueda.getSelectedRow());
+            }else{
+                campoTexto.setText("El candidato ya esta seleccionado");
+            }
+            
         } else {
+            
             campoTexto.setText("Seleccione un elemento antes de presionar el boton");
+                     
+            
         }
-
+        
+        
+        
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void txtIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdKeyTyped
@@ -767,6 +788,18 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
             data.remove(row);
             fireTableDataChanged();
         }
+        
+        private List<Integer> getListaIdCandidatos(){
+            List<Integer> ret = new ArrayList();
+            List<Candidato> lista = this.getListaCandidatos();
+            
+            for(Candidato cand: lista){
+                ret.add(cand.getIdCandidato());
+            }
+            
+            return ret;
+        }
+
 
     }
     
@@ -805,6 +838,19 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
 
     }
 
+    public boolean yaEsta(Candidato candidato, List<Candidato> lista){
+            boolean ret = false;
+            System.out.println("entro a yaesta");
+            //Se fija si el candidato ya esta en la lista de la tabla
+            for(Candidato cand: lista){
+                if(cand.getIdCandidato() == candidato.getIdCandidato()){
+                    ret = true;
+                    
+                }
+            }
+            return ret;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel apellido;
     private javax.swing.JButton btnAdd;

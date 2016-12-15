@@ -155,6 +155,18 @@ public class GestorValidacionesPantalla {
         jTextAreaS.setCaretPosition(pos);
     }
     
+    public String eliminarEspaciosExtra(String str){
+        //Elimina espacios al principio y final
+        str = str.trim();
+        String aux ="";
+        //Elimina un espacio si hay 2 espacios seguidos
+        while(str.indexOf("  ") != -1){
+            aux = str.replaceFirst("  ", " ");
+            str = aux;
+        }
+        return str;
+    }
+    
     //--------------------------------------------------------------------------
     
 }
