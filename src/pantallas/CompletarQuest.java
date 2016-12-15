@@ -29,6 +29,7 @@ public class CompletarQuest extends javax.swing.JFrame {
      * Creates new form Pantallak
      * @param candidato
      */
+    Candidato candidatoglobal = new Candidato();
     public CompletarQuest() {
         initComponents();
         setSize(1024, 768);
@@ -42,10 +43,11 @@ public class CompletarQuest extends javax.swing.JFrame {
     
      public CompletarQuest(Candidato candidato) {
         initComponents();
+        candidatoglobal = candidato;
         setSize(1024, 768);
         setLocationRelativeTo(null);
         cargaCuestionario(candidato);
-        inicializarCuestionario(candidato);
+        
         
     }
     
@@ -265,7 +267,10 @@ public class CompletarQuest extends javax.swing.JFrame {
     // Carga Candidato
     
     private void aceptarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarBtnActionPerformed
-        //Esto deveria hacer la pantalla
+        
+        inicializarCuestionario(candidatoglobal);
+        
+        
         /* Completar1 obj= new Completar1();
         obj.setVisible(true);
         dispose();    
