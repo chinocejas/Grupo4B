@@ -419,7 +419,7 @@ public class AltaPuesto extends javax.swing.JFrame {
         }
         }
         */
-        int resultado = gestorPuesto.crearPuesto(txtNombre.getText(), txtEmpresa.getText(), txtDescripcion.getText(), modeloTabla.getListaCompetencias(), modeloTabla.getListaPonderacion());
+        int resultado = gestorPuesto.crearPuesto(gestorValidacionesPantalla.eliminarEspaciosExtra(txtNombre.getText()), gestorValidacionesPantalla.eliminarEspaciosExtra(txtEmpresa.getText()), gestorValidacionesPantalla.eliminarEspaciosExtra(txtDescripcion.getText()), modeloTabla.getListaCompetencias(), modeloTabla.getListaPonderacion());
 
          /* 1: todo correcto
            2: ponderaciones vacias
@@ -437,7 +437,7 @@ public class AltaPuesto extends javax.swing.JFrame {
                 sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/exito4.wav"));
                 sonido.play();
                 int codigo=gestorPuesto.buscarIdNuevoPuesto();              //CHINO ARREGLA ESE POP UP!!
-                int reply = JOptionPane.showConfirmDialog(null, "El puesto <" + txtNombre.getText() + "> con ID: " + codigo +" se ha creado correctamente.\n ¿Desea cargar otro?", "HOLA", YES_NO_OPTION);
+                int reply = JOptionPane.showConfirmDialog(null, "El puesto <" + gestorValidacionesPantalla.eliminarEspaciosExtra(txtNombre.getText()) + "> con ID: " + codigo +" se ha creado correctamente.\n ¿Desea cargar otro?", "HOLA", YES_NO_OPTION);
                if (reply == JOptionPane.YES_OPTION)        
                 {
                     AltaPuesto obj = new AltaPuesto();
@@ -453,21 +453,21 @@ public class AltaPuesto extends javax.swing.JFrame {
 
             //hay ponderaciones sin completar
             case 2:
-                sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error.wav"));
+                sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error2.wav"));
                 sonido.play();
                 campoTexto.setText("Algunas competencias no tienen una ponderación definida");
                 break;
 
             //hay ponderaciones que no estan entre 0 y 10
             case 3:
-                sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error.wav"));
+                sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error2.wav"));
                 sonido.play();
                 campoTexto.setText("Las ponderaciones deben ser valores entre 0 y 10");
                 break;
                 
            //nombre o empresa estan vacios
             case 4:
-                sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error.wav"));
+                sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error2.wav"));
                 sonido.play();
                 campoTexto.setText("Algunos campos se encuentran en blanco");
                 if (txtEmpresa.getText().equals("")){
@@ -486,7 +486,7 @@ public class AltaPuesto extends javax.swing.JFrame {
                 
             //sin al menos una competencia seleccionada
             case 5:
-                sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error.wav"));
+                sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error2.wav"));
                 sonido.play();
                 campoTexto.setText("Seleccione al menos una competencia");
                 lista.setForeground(java.awt.Color.red);
@@ -494,7 +494,7 @@ public class AltaPuesto extends javax.swing.JFrame {
             
              //sin al menos una competencia seleccionada
             case 6:
-                sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error.wav"));
+                sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error2.wav"));
                 sonido.play();
                 campoTexto.setText("El nombre del puesto ya esta en uso");
                 break; 
@@ -538,7 +538,7 @@ public class AltaPuesto extends javax.swing.JFrame {
         //original para lista: if ((l2.getSelectedValue() == null) || (l2.getSelectedValue().equals("-1")) || l1.getComponentCount()==0) 
         if ((tabla.getSelectedRow() == -1)) {
             AudioClip sonido;
-            sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error.wav"));
+            sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error2.wav"));
             sonido.play();
             campoTexto.setText("Seleccione un elemento antes de presionar el boton");
         } else {
@@ -565,7 +565,7 @@ public class AltaPuesto extends javax.swing.JFrame {
             modeloLista.eliminarCompetencia(lista.getSelectedIndex());
         } else {
             AudioClip sonido;
-            sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error.wav"));
+            sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error2.wav"));
             sonido.play();
             campoTexto.setText("Seleccione un elemento antes de presionar el boton");
         }

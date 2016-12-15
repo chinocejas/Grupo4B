@@ -378,7 +378,7 @@ public class IngresoCandidato extends javax.swing.JFrame {
            
         } else {
              AudioClip sonido;
-                sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error.wav"));
+                sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error2.wav"));
                 sonido.play();
             JOptionPane.showMessageDialog(null, "Los datos ingresados no son válidos o no existe un cuestionario para el Candidato", "Error de autenticación", JOptionPane.ERROR_MESSAGE);
             numDoc.setText("");

@@ -30,6 +30,64 @@ public class GestorCuestionario {
     public static GestorCuestionario getInstance() {
         return GestorCuestionarioHolder.INSTANCE;
     }
+
+    public void iniciaCuestionario(Cuestionario cuestionarioactivo) {
+           
+           List<PreguntaCopia> preguntasAsignadas = new LinkedList<PreguntaCopia>(); 
+           PuestoCopia puestoAevaluar = cuestionarioactivo.getPuestoCopia();
+           //Le pido y casteo competenciasCopia
+           Set<CompetenciaCopia> competenciasSet= puestoAevaluar.getCompetencias();
+            // castea set to list
+           List<CompetenciaCopia> competencias= new ArrayList<CompetenciaCopia>(competenciasSet);
+           // PARAPROBAR
+            for (CompetenciaCopia competencia : competencias) {
+                
+                /* PARA ESCRIBIR EN EL PANEL DE INSTRUCCIONES
+                try {
+                    doc.insertString(doc.getLength(),"\n COMPETENCIA:"+competencia.getNombreCompetencia()+"\n", null);
+                }                
+                catch(BadLocationException exc) {
+                    exc.printStackTrace();
+                }   */          
+                
+                                
+                //Le pido y casteo FactoresCopia a cada Competencia
+                 Set<FactorCopia> factoresSet= competencia.getFactorCopias();
+                // castea set to list
+                 List<FactorCopia> factores= new ArrayList<FactorCopia>(factoresSet);
+                 for (FactorCopia factor : factores){
+                    //Le pido y casteo PreguntasCopia a cada FACTOR
+                    Set<PreguntaCopia> preguntasSet= factor.getPreguntaCopias();
+                    // castea set to list
+                    List<PreguntaCopia> preguntas = new LinkedList<PreguntaCopia>(preguntasSet);
+                    
+                    // ESTO VA EN UN METODO 
+                    Collections.shuffle(preguntas);
+                    
+                    //Guardo las dos primeras posiciones de la lista desordenada
+                    preguntasAsignadas.add(preguntas.get(0));
+                    preguntasAsignadas.add(preguntas.get(1));
+                                        
+                }
+            }
+            // Desordeno nuevamente la lista de preguntasAsignadas
+            Collections.shuffle(preguntasAsignadas);
+            // PA PROBA
+                    for(PreguntaCopia pregunta: preguntasAsignadas){
+                        // GUARDANDO LAS PREGUNTA
+                        CuestionarioPreguntaCopiaId cuestionarioPreguntaCopiaId = new CuestionarioPreguntaCopiaId(cuestionarioactivo.getIdCuestionario(), pregunta.getIdPreguntaCopia());
+                        CuestionarioPreguntaCopia guardando = new CuestionarioPreguntaCopia(cuestionarioPreguntaCopiaId, cuestionarioactivo, pregunta);
+                        savePreguntaCopiaAsignada(guardando);
+                    }
+            // CAMBIO DE ESTADO DE CUESTIONARIO
+            cuestionarioactivo.setEstado(5);
+            cuestionarioactivo.setFechaCreacion(getFecha());
+            cuestionarioactivo.setPreguntasContestadas(0);
+            update(cuestionarioactivo);
+                    
+             
+        
+    }
     
     private static class GestorCuestionarioHolder {
 
@@ -108,6 +166,42 @@ public class GestorCuestionario {
         List lista = daoRespuesta.buscarPreguntaCopia(cuestionario.getIdCuestionario());
         
         return lista;
+    }
+    public Cuestionario getCuestionarioActivoEnProceso(List<Cuestionario> cuestionarios) {
+        Cuestionario cuestionario = null;
+        for (Cuestionario cuest : cuestionarios) {
+            if (cuest.getEstado()==5 || cuest.getEstado()==1) {
+                cuestionario= cuest;
+            }
+        }
+        return cuestionario;
+    }
+     public Cuestionario getCuestActivo(Candidato candidato){
+          Set<Cuestionario> cuestionariosSet= candidato.getCuestionarios();
+          // castea set to list
+          List<Cuestionario> cuestionarios= new ArrayList<Cuestionario>(cuestionariosSet);
+          Cuestionario cuestionarioValido= getCuestionarioActivoEnProceso(cuestionarios);
+          
+           return cuestionarioValido;
+    
+    }
+    
+    public Date getFecha(){
+        //Devuelve año, mes, dia, hora, minutos
+        
+        Date ret = new Date();
+        Calendar calendario = new GregorianCalendar();
+        ret = calendario.getTime();
+        
+        return ret;
+    }
+    
+    public void savePreguntaCopiaAsignada(CuestionarioPreguntaCopia dato){
+        daoCuestionarioPreguntaCopia.save(dato);
+    }
+    
+    public void update(Cuestionario cuestionario){
+    daoCuestionario.update(cuestionario);
     }
     
 }

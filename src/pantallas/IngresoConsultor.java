@@ -345,7 +345,7 @@ public class IngresoConsultor extends javax.swing.JFrame {
             dispose();
         } else {
              AudioClip sonido;
-                sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error.wav"));
+                sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error2.wav"));
                 sonido.play();
             JOptionPane.showMessageDialog(null, "El usuario o la contraseña no son válidos", "Error de autenticación", JOptionPane.ERROR_MESSAGE);
             user.setText("");
