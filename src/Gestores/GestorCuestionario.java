@@ -78,11 +78,12 @@ public class GestorCuestionario {
             //update Candidato
             //daoCandidato.update(cand);
             
-            daoCuestionario.save(cuest);
+            
             //debo devolverlo con las id ascociadas
             ret.add(cuest);
         }
-
+        daoCuestionario.saveCuestionarios(ret);
+        
         return ret;
     }
         
