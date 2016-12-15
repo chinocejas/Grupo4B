@@ -528,9 +528,16 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
 
     private void btnRemoveAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveAllActionPerformed
         campoTexto.setText("");
-        
+        /*
+        if(!modeloTablaSeleccionados.getListaIdCandidatos().contains(cand.getIdCandidato())){
+                modeloTablaSeleccionados.addCandidato(cand);
+                campoTexto.setText("Candidatos que ya estaban seleccionados no se agregaron de vuelta");
+            }*/
         while (modeloTablaSeleccionados.getRowCount() != 0) { //se va a ejecutar mientras haya alguna fila en la tabla
-            modeloTabla.addCandidato(modeloTablaSeleccionados.getCandidato(0));
+            Candidato cand = modeloTablaSeleccionados.getCandidato(0);
+            if(!modeloTabla.getListaIdCandidatos().contains(cand.getIdCandidato())){
+                modeloTabla.addCandidato(modeloTablaSeleccionados.getCandidato(0));
+            }
             modeloTablaSeleccionados.eliminarCandidato(0);
         }
     }//GEN-LAST:event_btnRemoveAllActionPerformed
@@ -542,7 +549,6 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
             Candidato cand = modeloTabla.getCandidato(0);
             if(!modeloTablaSeleccionados.getListaIdCandidatos().contains(cand.getIdCandidato())){
                 modeloTablaSeleccionados.addCandidato(cand);
-                campoTexto.setText("Candidatos que ya estaban seleccionados no se agregaron de vuelta");
             }
             modeloTabla.eliminarCandidato(0);
         }
@@ -559,7 +565,9 @@ public class GestionDeEvaluarCandidato extends javax.swing.JFrame {
                 
                 int row = tablaSeleccionados.getSelectedRow();
                 Candidato cand = modeloTablaSeleccionados.getCandidato(row);
-                modeloTabla.addCandidato(cand);
+                if(!modeloTabla.getListaIdCandidatos().contains(cand.getIdCandidato())){
+                    modeloTabla.addCandidato(cand);
+                }
                 modeloTablaSeleccionados.eliminarCandidato(row);
             }
 
