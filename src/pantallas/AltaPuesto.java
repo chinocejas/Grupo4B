@@ -419,7 +419,7 @@ public class AltaPuesto extends javax.swing.JFrame {
         }
         }
         */
-        int resultado = gestorPuesto.crearPuesto(txtNombre.getText(), txtEmpresa.getText(), txtDescripcion.getText(), modeloTabla.getListaCompetencias(), modeloTabla.getListaPonderacion());
+        int resultado = gestorPuesto.crearPuesto(gestorValidacionesPantalla.eliminarEspaciosExtra(txtNombre.getText()), gestorValidacionesPantalla.eliminarEspaciosExtra(txtEmpresa.getText()), gestorValidacionesPantalla.eliminarEspaciosExtra(txtDescripcion.getText()), modeloTabla.getListaCompetencias(), modeloTabla.getListaPonderacion());
 
          /* 1: todo correcto
            2: ponderaciones vacias
@@ -437,7 +437,7 @@ public class AltaPuesto extends javax.swing.JFrame {
                 sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/exito4.wav"));
                 sonido.play();
                 int codigo=gestorPuesto.buscarIdNuevoPuesto();              //CHINO ARREGLA ESE POP UP!!
-                int reply = JOptionPane.showConfirmDialog(null, "El puesto <" + txtNombre.getText() + "> con ID: " + codigo +" se ha creado correctamente.\n ¿Desea cargar otro?", "HOLA", YES_NO_OPTION);
+                int reply = JOptionPane.showConfirmDialog(null, "El puesto <" + gestorValidacionesPantalla.eliminarEspaciosExtra(txtNombre.getText()) + "> con ID: " + codigo +" se ha creado correctamente.\n ¿Desea cargar otro?", "HOLA", YES_NO_OPTION);
                if (reply == JOptionPane.YES_OPTION)        
                 {
                     AltaPuesto obj = new AltaPuesto();
