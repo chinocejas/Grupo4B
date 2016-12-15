@@ -1,5 +1,10 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package ParaPantallaCompletar;
 
-package pantallas;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.DefaultCellEditor;
@@ -7,9 +12,10 @@ import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
+
 /**
  *
- * @author JEN
+ * @author Usuario
  */
 public class EditorCelda extends DefaultCellEditor implements TableCellRenderer{
     private final JComponent component = new JCheckBox();    

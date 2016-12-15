@@ -49,11 +49,13 @@ public class DaoPregunta extends AbstractDao {
         super.delete(preguntaCopia);
     }
 
-    public PreguntaCopia findPreguntaCopia(Long id) throws DataAccessLayerException {
-        return (PreguntaCopia) super.find(PreguntaCopia.class, id);
+    public PreguntaCopia findPreguntaCopia(Integer id) throws DataAccessLayerException {
+        return (PreguntaCopia) super.find(PreguntaCopia.class, id.longValue());
     }
     
     public List findAllPreguntaCopia() throws DataAccessLayerException {
         return super.findAll(PreguntaCopia.class);
     }
+    
+    
 }
