@@ -20,6 +20,7 @@ public class GestorCuestionario {
     DaoCuestionario daoCuestionario = new DaoCuestionario();
     DaoCandidato daoCandidato = new DaoCandidato();
     DaoRespuesta daoRespuesta = new DaoRespuesta();
+    DaoCuestionarioPreguntaCopia daoCuestionarioPreguntaCopia = new DaoCuestionarioPreguntaCopia();
     
             
     
