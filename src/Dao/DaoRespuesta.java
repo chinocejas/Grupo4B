@@ -7,6 +7,8 @@ package Dao;
 import Entidades.Respuesta;
 import Entidades.RespuestaCopia;
 import java.util.List;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
 
 
 public class DaoRespuesta extends AbstractDao {
@@ -56,4 +58,23 @@ public class DaoRespuesta extends AbstractDao {
     public List findAllRespuestaCopia() throws DataAccessLayerException {
         return super.findAll(RespuestaCopia.class);
     }
+    
+    
+     public List buscarPreguntaCopia(int id_cuestionario){
+         List objects = null;
+        try {
+            startOperation();
+            Query query;
+            query = session.createQuery("from CuestionarioPreguntaCopia WHERE id_cuestionario = :id_cuestionario");     
+            query.setParameter("id_cuestionario", id_cuestionario);
+            objects = query.list();
+            tx.commit();
+        } catch (HibernateException e) {
+            handleException(e);
+        } finally {
+            HibernateFactory.close(session);
+        }
+        return objects;
+    }
+    
 }

@@ -33,7 +33,7 @@ public class CompletarQuest extends javax.swing.JFrame {
         initComponents();
         setSize(1024, 768);
         setLocationRelativeTo(null);
-         cargaCuestionario(candidato);
+        cargaCuestionario(candidato);
         
     }
     

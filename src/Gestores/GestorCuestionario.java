@@ -19,12 +19,12 @@ public class GestorCuestionario {
     
     DaoCuestionario daoCuestionario = new DaoCuestionario();
     DaoCandidato daoCandidato = new DaoCandidato();
-    DaoCuestionarioPreguntaCopia daoCuestionarioPreguntaCopia = new DaoCuestionarioPreguntaCopia();
+    DaoRespuesta daoRespuesta = new DaoRespuesta();
     
             
     
     
-    private GestorCuestionario() {
+    public GestorCuestionario() {
     }
     
     public static GestorCuestionario getInstance() {
@@ -105,7 +105,7 @@ public class GestorCuestionario {
     // este es el metodo que si tiene que llamar en la pantalla
     public List traerPreguntas(Cuestionario cuestionario){
         
-        List lista = daoCuestionarioPreguntaCopia.buscarPreguntaCopia(cuestionario.getIdCuestionario());
+        List lista = daoRespuesta.buscarPreguntaCopia(cuestionario.getIdCuestionario());
         
         return lista;
     }

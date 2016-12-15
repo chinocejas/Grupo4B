@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pantallas;
+package ParaPantallaCompletar;
+
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
-
 
 /**
  *
