@@ -525,21 +525,21 @@ public class ModificarPuesto extends javax.swing.JFrame {
 
             //hay ponderaciones sin completar
             case 2:
-                sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error.wav"));
+                sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error2.wav"));
                 sonido.play();
                 campoTexto.setText("Algunas competencias no tienen una ponderación definida");
                 break;
 
             //hay ponderaciones que no estan entre 0 y 10
             case 3:
-                sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error.wav"));
+                sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error2.wav"));
                 sonido.play();
                 campoTexto.setText("Las ponderaciones deben ser valores entre 0 y 10");
                 break;
 
             //nombre o empresa estan vacios
             case 4:
-                sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error.wav"));
+                sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error2.wav"));
                 sonido.play();
                 campoTexto.setText("Algunos campos se encuentran en blanco");
                 if (txtEmpresa.getText().equals("")) {
@@ -558,7 +558,7 @@ public class ModificarPuesto extends javax.swing.JFrame {
 
             //sin al menos una competencia seleccionada
             case 5:
-                sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error.wav"));
+                sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error2.wav"));
                 sonido.play();
                 campoTexto.setText("Seleccione al menos una competencia");
                 lista.setForeground(java.awt.Color.red);
@@ -566,7 +566,7 @@ public class ModificarPuesto extends javax.swing.JFrame {
 
             //sin al menos una competencia seleccionada
             case 6:
-                sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error.wav"));
+                sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error2.wav"));
                 sonido.play();
                 campoTexto.setText("El nombre del puesto ya esta en uso");
                 txtNombre.requestFocus();
@@ -598,7 +598,7 @@ public class ModificarPuesto extends javax.swing.JFrame {
             }
         } else {
             AudioClip sonido;
-            sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error.wav"));
+            sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error2.wav"));
             sonido.play();
             campoTexto.setText("No es posible quitar competencias debido a que hay cuestionarios generados para este puesto");
         }
@@ -613,7 +613,7 @@ public class ModificarPuesto extends javax.swing.JFrame {
             }
         } else {
             AudioClip sonido;
-            sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error.wav"));
+            sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error2.wav"));
             sonido.play();
             campoTexto.setText("No es posible agregar competencias debido a que hay cuestionarios generados para este puesto");
         }
@@ -623,7 +623,7 @@ public class ModificarPuesto extends javax.swing.JFrame {
         if (!puestoEnUso) { //significa que se pueden agregar/quitar competencias porq el puesto no esta en uso
             if ((tabla.getSelectedRow() == -1)) {
                 AudioClip sonido;
-                sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error.wav"));
+                sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error2.wav"));
                 sonido.play();
                 campoTexto.setText("Seleccione un elemento antes de presionar el boton");
             } else {
@@ -635,7 +635,7 @@ public class ModificarPuesto extends javax.swing.JFrame {
             }
         } else {
             AudioClip sonido;
-            sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error.wav"));
+            sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error2.wav"));
             sonido.play();
             campoTexto.setText("No es posible quitar competencias debido a que hay cuestionarios generados para este puesto");
         }
@@ -651,13 +651,13 @@ public class ModificarPuesto extends javax.swing.JFrame {
                 modeloLista.eliminarCompetencia(lista.getSelectedIndex());
             } else {
                 AudioClip sonido;
-                sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error.wav"));
+                sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error2.wav"));
                 sonido.play();
                 campoTexto.setText("Seleccione un elemento antes de presionar el boton");
             }
         } else {
             AudioClip sonido;
-            sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error.wav"));
+            sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error2.wav"));
             sonido.play();
             campoTexto.setText("No es posible agregar competencias debido a que hay cuestionarios generados para este puesto");
         }
