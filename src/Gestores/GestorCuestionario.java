@@ -301,4 +301,10 @@ public class GestorCuestionario {
         return cuestionario;
     }
     
+    public void setEstadoFinalizado(Cuestionario cuestionario){
+        cuestionario.setEstado(3);
+        cuestionario.setFechaFinalizacion(getFecha());
+        daoCuestionario.update(cuestionario);
+    }
+    
 }

@@ -1,8 +1,10 @@
 
 package pantallas;
 
+import Dao.DaoOpcionRespuestaCopia;
 import Entidades.Cuestionario;
 import Entidades.CuestionarioPreguntaCopia;
+import Entidades.OpcionRespuestaCopia;
 import Entidades.PreguntaCopia;
 import Entidades.RespuestaCopia;
 import Gestores.GestorCuestionario;
@@ -11,6 +13,8 @@ import ParaPantallaCompletar.Renderizador;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.YES_NO_OPTION;
 import javax.swing.table.AbstractTableModel;
 
 
@@ -19,6 +23,14 @@ import javax.swing.table.AbstractTableModel;
      * 
      */
 public class Completar1 extends javax.swing.JFrame {
+    
+    //pido la instancia de gestor de cuestionario
+    //GestorCuestionario gestorCuestionario = GestorCuestionario.getInstance();
+    Cuestionario cuestionarioGlobal;
+    List<PreguntaCopia> preguntasGlobal = new ArrayList();
+    
+    GestorCuestionario gestorCuestionario = GestorCuestionario.getInstance();
+    
      public Completar1() {
         initComponents();
         setSize(1024, 768);
@@ -34,34 +46,32 @@ public class Completar1 extends javax.swing.JFrame {
         //Cuestionario aux = cuestionario;
         //cuestionario = gestorCuestionario.nuevoIntento(aux);
         
-        int longitudLista= buscarPregunta(cuestionario).size();
+        cuestionarioGlobal=cuestionario;
+        preguntasGlobal.addAll(preguntas);
         
-        switch(cuestionario.getPreguntasContestadas() -longitudLista){
+        int longitudLista= preguntas.size();
+        mostrarPreguntas(cuestionario, preguntas);
+        
+        switch(longitudLista){
             
             case 0:{
-                
                 
             }
                 
            
             case 1:{
                 
-                ModeloPersonalizado modeloTabla1 = new ModeloPersonalizado(buscarPregunta(cuestionario).get(cuestionario.getPreguntasContestadas()).getPreguntaCopia());
-                ModeloPersonalizado modeloTabla2 = new ModeloPersonalizado(buscarPregunta(cuestionario).get(cuestionario.getPreguntasContestadas() + 1).getPreguntaCopia());
-                ModeloPersonalizado modeloTabla3 = new ModeloPersonalizado(buscarPregunta(cuestionario).get(cuestionario.getPreguntasContestadas() + 2).getPreguntaCopia());
                 
+                ModeloPersonalizado modeloTabla1 = new ModeloPersonalizado(preguntas.get(0));
 
                 jTablePregunta0.setModel(modeloTabla1); //Aca seteo un modelo personalizado de jtable para que pueda cargar cosas dinamicamente
                 jTablePregunta0.getColumnModel().getColumn(0).setCellRenderer(new Renderizador());
                 jTablePregunta0.getColumnModel().getColumn(0).setCellEditor(new EditorCelda()); //Aca estoy setenado en la columna 0 con los modelos personalizados del jcheckbox
 
-                jTablePregunta1.setModel(modeloTabla2);
-                jTablePregunta1.getColumnModel().getColumn(0).setCellRenderer(new Renderizador());
-                jTablePregunta1.getColumnModel().getColumn(0).setCellEditor(new EditorCelda());
-
-                jTablePregunta2.setModel(modeloTabla3);
-                jTablePregunta2.getColumnModel().getColumn(0).setCellRenderer(new Renderizador());
-                jTablePregunta2.getColumnModel().getColumn(0).setCellEditor(new EditorCelda());
+                jTablePregunta1.setVisible(false);
+                jTablePregunta2.setVisible(false);
+                jTablePregunta3.setVisible(false);
+                
                 
                 jTablePregunta3.setVisible(false);
                 
@@ -69,8 +79,8 @@ public class Completar1 extends javax.swing.JFrame {
             
             case 2:{
                 
-                ModeloPersonalizado modeloTabla1 = new ModeloPersonalizado(buscarPregunta(cuestionario).get(cuestionario.getPreguntasContestadas()).getPreguntaCopia());
-                ModeloPersonalizado modeloTabla2 = new ModeloPersonalizado(buscarPregunta(cuestionario).get(cuestionario.getPreguntasContestadas() + 1).getPreguntaCopia());
+                ModeloPersonalizado modeloTabla1 = new ModeloPersonalizado(preguntas.get(0));
+                ModeloPersonalizado modeloTabla2 = new ModeloPersonalizado(preguntas.get(1));
                
                 
 
@@ -88,24 +98,31 @@ public class Completar1 extends javax.swing.JFrame {
             }
             
             case 3:{
+                ModeloPersonalizado modeloTabla1 = new ModeloPersonalizado(preguntas.get(0));
+                ModeloPersonalizado modeloTabla2 = new ModeloPersonalizado(preguntas.get(1));
+                ModeloPersonalizado modeloTabla3 = new ModeloPersonalizado(preguntas.get(2));
                 
-                 ModeloPersonalizado modeloTabla1 = new ModeloPersonalizado(buscarPregunta(cuestionario).get(cuestionario.getPreguntasContestadas()).getPreguntaCopia());
 
                 jTablePregunta0.setModel(modeloTabla1); //Aca seteo un modelo personalizado de jtable para que pueda cargar cosas dinamicamente
                 jTablePregunta0.getColumnModel().getColumn(0).setCellRenderer(new Renderizador());
                 jTablePregunta0.getColumnModel().getColumn(0).setCellEditor(new EditorCelda()); //Aca estoy setenado en la columna 0 con los modelos personalizados del jcheckbox
 
-                jTablePregunta1.setVisible(false);
-                jTablePregunta2.setVisible(false);
-                jTablePregunta3.setVisible(false);
+                jTablePregunta1.setModel(modeloTabla2);
+                jTablePregunta1.getColumnModel().getColumn(0).setCellRenderer(new Renderizador());
+                jTablePregunta1.getColumnModel().getColumn(0).setCellEditor(new EditorCelda());
+
+                jTablePregunta2.setModel(modeloTabla3);
+                jTablePregunta2.getColumnModel().getColumn(0).setCellRenderer(new Renderizador());
+                jTablePregunta2.getColumnModel().getColumn(0).setCellEditor(new EditorCelda());
+                 
 
             }
             
             default: {
-                ModeloPersonalizado modeloTabla1 = new ModeloPersonalizado(buscarPregunta(cuestionario).get(cuestionario.getPreguntasContestadas()).getPreguntaCopia());
-                ModeloPersonalizado modeloTabla2 = new ModeloPersonalizado(buscarPregunta(cuestionario).get(cuestionario.getPreguntasContestadas() + 1).getPreguntaCopia());
-                ModeloPersonalizado modeloTabla3 = new ModeloPersonalizado(buscarPregunta(cuestionario).get(cuestionario.getPreguntasContestadas() + 2).getPreguntaCopia());
-                ModeloPersonalizado modeloTabla4 = new ModeloPersonalizado(buscarPregunta(cuestionario).get(cuestionario.getPreguntasContestadas() + 3).getPreguntaCopia());
+                ModeloPersonalizado modeloTabla1 = new ModeloPersonalizado(preguntas.get(0));
+                ModeloPersonalizado modeloTabla2 = new ModeloPersonalizado(preguntas.get(1));
+                ModeloPersonalizado modeloTabla3 = new ModeloPersonalizado(preguntas.get(2));
+                ModeloPersonalizado modeloTabla4 = new ModeloPersonalizado(preguntas.get(3));
 
                 jTablePregunta0.setModel(modeloTabla1); //Aca seteo un modelo personalizado de jtable para que pueda cargar cosas dinamicamente
                 jTablePregunta0.getColumnModel().getColumn(0).setCellRenderer(new Renderizador());
@@ -141,19 +158,20 @@ public class Completar1 extends javax.swing.JFrame {
         return  listaDePreguntas;
     }
     
-    public void mostrarPreguntas(Cuestionario cuestionario){
+    public void mostrarPreguntas(Cuestionario cuestionario, List<PreguntaCopia> preguntas){
         
-        int longitudLista= buscarPregunta(cuestionario).size();
+        int longitudLista= preguntas.size();
         
-        switch(cuestionario.getPreguntasContestadas() -longitudLista){
+        switch(longitudLista){
             
             case 1:{
                 
                 nombrePregunta0.setText(buscarPregunta(cuestionario).get(cuestionario.getPreguntasContestadas()).getPreguntaCopia().getPregunta());
-                nombrePregunta1.setText(buscarPregunta(cuestionario).get(cuestionario.getPreguntasContestadas() + 1).getPreguntaCopia().getPregunta());
-                nombrePregunta2.setText(buscarPregunta(cuestionario).get(cuestionario.getPreguntasContestadas() + 2).getPreguntaCopia().getPregunta());
-                
+                nombrePregunta1.setVisible(false);
+                nombrePregunta2.setVisible(false);
                 nombrePregunta3.setVisible(false);
+                
+                
             }
             
             case 2:{
@@ -166,22 +184,138 @@ public class Completar1 extends javax.swing.JFrame {
             
             case 3:{
                 nombrePregunta0.setText(buscarPregunta(cuestionario).get(cuestionario.getPreguntasContestadas()).getPreguntaCopia().getPregunta());
-                nombrePregunta1.setVisible(false);
-                nombrePregunta2.setVisible(false);
+                nombrePregunta1.setText(buscarPregunta(cuestionario).get(cuestionario.getPreguntasContestadas() + 1).getPreguntaCopia().getPregunta());
+                nombrePregunta2.setText(buscarPregunta(cuestionario).get(cuestionario.getPreguntasContestadas() + 2).getPreguntaCopia().getPregunta());
+                
                 nombrePregunta3.setVisible(false);
             }
             
             default: {
-                nombrePregunta0.setText(buscarPregunta(cuestionario).get(cuestionario.getPreguntasContestadas()).getPreguntaCopia().getPregunta());
-                nombrePregunta1.setText(buscarPregunta(cuestionario).get(cuestionario.getPreguntasContestadas() + 1).getPreguntaCopia().getPregunta());
-                nombrePregunta2.setText(buscarPregunta(cuestionario).get(cuestionario.getPreguntasContestadas() + 2).getPreguntaCopia().getPregunta());
-                nombrePregunta3.setText(buscarPregunta(cuestionario).get(cuestionario.getPreguntasContestadas() + 3).getPreguntaCopia().getPregunta());
+                nombrePregunta0.setText(preguntas.get(0).getPregunta());
+                nombrePregunta1.setText(preguntas.get(1).getPregunta());
+                nombrePregunta2.setText(preguntas.get(2).getPregunta());
+                nombrePregunta3.setText(preguntas.get(3).getPregunta());
             }
         }
         
          
     }
     
+    public boolean cargarDatos(Cuestionario cuestionario,List<PreguntaCopia> preguntas){
+        int longitud = preguntas.size();
+        boolean ret = false;
+        DaoOpcionRespuestaCopia daoORC = new DaoOpcionRespuestaCopia();
+        List <OpcionRespuestaCopia> listaORC= null;
+        if( jTablePregunta0.getSelectedRow()== -1 || jTablePregunta1.getSelectedRow()== -1 ||jTablePregunta2.getSelectedRow()== -1 || jTablePregunta3.getSelectedRow()== -1 ){
+            JOptionPane.showConfirmDialog(null, "Debe contestar todas las preguntas antes de pasar al siguiente bloque", "Error", JOptionPane.ERROR_MESSAGE);
+            ret = false;
+        }
+        else{
+            switch(longitud){
+                case 2:{
+                    
+                    for (int i = 0; i < 2; i++) {
+
+                        List<RespuestaCopia> listaDeRespuestas = null;
+                        Set<RespuestaCopia> respuestasSet = preguntas.get(i).getOpcionRespuestaCopia().getRespuestaCopias();
+                        listaDeRespuestas = new ArrayList<RespuestaCopia>(respuestasSet);
+
+                        switch (i) {
+                            case 0: {
+                                String respuesta = (String) jTablePregunta0.getValueAt(jTablePregunta0.getSelectedRow(), 1);
+
+                                int idRespuestaSeleccionada = getIdRespuesta(respuesta, listaDeRespuestas);
+                                
+                                preguntas.get(i).getOpcionRespuestaCopia().setSeleccion(idRespuestaSeleccionada);
+                                
+                                listaORC.add(preguntas.get(i).getOpcionRespuestaCopia());
+                                break;
+                            }
+                            case 1: {
+                                String respuesta = (String) jTablePregunta1.getValueAt(jTablePregunta1.getSelectedRow(), 1);
+
+                                int idRespuestaSeleccionada = getIdRespuesta(respuesta, listaDeRespuestas);
+
+                                preguntas.get(i).getOpcionRespuestaCopia().setSeleccion(idRespuestaSeleccionada);
+                                listaORC.add(preguntas.get(i).getOpcionRespuestaCopia());
+                                break;
+                            }
+                        }    
+                    }
+                    daoORC.updateListaOpcionRespuestaCopia(listaORC);
+                    
+                }
+                
+                default: {
+                    for (int i = 0; i < 4; i++) {
+
+                        List<RespuestaCopia> listaDeRespuestas = null;
+                        Set<RespuestaCopia> respuestasSet = preguntas.get(i).getOpcionRespuestaCopia().getRespuestaCopias();
+                        listaDeRespuestas = new ArrayList<RespuestaCopia>(respuestasSet);
+
+                        switch (i) {
+                            case 0: {
+                                String respuesta = (String) jTablePregunta0.getValueAt(jTablePregunta0.getSelectedRow(), 1);
+
+                                int idRespuestaSeleccionada = getIdRespuesta(respuesta, listaDeRespuestas);
+
+                                preguntas.get(i).getOpcionRespuestaCopia().setSeleccion(idRespuestaSeleccionada);
+                                listaORC.add(preguntas.get(i).getOpcionRespuestaCopia());
+                                break;
+                            }
+                            case 1: {
+                                String respuesta = (String) jTablePregunta1.getValueAt(jTablePregunta1.getSelectedRow(), 1);
+
+                                int idRespuestaSeleccionada = getIdRespuesta(respuesta, listaDeRespuestas);
+
+                                preguntas.get(i).getOpcionRespuestaCopia().setSeleccion(idRespuestaSeleccionada);
+                                listaORC.add(preguntas.get(i).getOpcionRespuestaCopia());
+                                break;
+                            }
+
+                            case 2: {
+                                String respuesta = (String) jTablePregunta2.getValueAt(jTablePregunta2.getSelectedRow(), 1);
+
+                                int idRespuestaSeleccionada = getIdRespuesta(respuesta, listaDeRespuestas);
+
+                                preguntas.get(i).getOpcionRespuestaCopia().setSeleccion(idRespuestaSeleccionada);
+                                listaORC.add(preguntas.get(i).getOpcionRespuestaCopia());
+                                break;
+                            }
+
+                            case 3: {
+                                String respuesta = (String) jTablePregunta3.getValueAt(jTablePregunta3.getSelectedRow(), 1);
+
+                                int idRespuestaSeleccionada = getIdRespuesta(respuesta, listaDeRespuestas);
+
+                                preguntas.get(i).getOpcionRespuestaCopia().setSeleccion(idRespuestaSeleccionada);
+                                listaORC.add(preguntas.get(i).getOpcionRespuestaCopia());
+                                break;
+                            }
+
+                        }
+
+                    }
+                    daoORC.updateListaOpcionRespuestaCopia(listaORC);
+                    ret = true;
+                }
+            }
+        }
+        return ret;
+    }
+            
+    public int getIdRespuesta(String string, List<RespuestaCopia> listaRespuestaCopia){
+        int ret=-1;
+        for(RespuestaCopia rc: listaRespuestaCopia){
+            if(string.equals(rc.getRespuesta())){
+                ret = rc.getIdRespuestaCopia();
+                
+                break;
+            }
+            
+        }
+        return ret;
+    }        
     
     public class ModeloPersonalizado extends AbstractTableModel{
        
@@ -196,7 +330,12 @@ public class Completar1 extends javax.swing.JFrame {
             
             Set<RespuestaCopia> respuestasSet=pregunta.getOpcionRespuestaCopia().getRespuestaCopias();
             
-            listaDeRespuestas =  new ArrayList<RespuestaCopia>(respuestasSet);         
+            listaDeRespuestas =  new ArrayList<RespuestaCopia>(respuestasSet);
+            System.out.println(pregunta.getIdPreguntaCopia() + " "+ pregunta.getPregunta());
+            for(RespuestaCopia rc: listaDeRespuestas){
+                System.out.println(rc.getIdRespuestaCopia() + " " +rc.getRespuesta());
+            }
+            
             
         }
 
@@ -494,7 +633,26 @@ public class Completar1 extends javax.swing.JFrame {
     }//GEN-LAST:event_siguienteMouseClicked
 
     private void siguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_siguienteActionPerformed
-        // TODO add your handling code here:
+        if(cargarDatos(cuestionarioGlobal, preguntasGlobal)){
+            
+            if(gestorCuestionario.preguntasSinContestar(cuestionarioGlobal).isEmpty()){//Contesto todo
+                
+                gestorCuestionario.setEstadoFinalizado(cuestionarioGlobal);
+                JOptionPane.showMessageDialog (null, "El cuestionario se ha completado con éxito", "Cuestionario completo", JOptionPane.INFORMATION_MESSAGE);
+                
+                //Vuelve al inicio
+                Inicio obj = new Inicio();
+                obj.setVisible(true);
+                dispose();
+                
+            }else{//Tiene preguntas sin contestar
+                //Nuevo bloque
+                Completar1 obj = new Completar1(cuestionarioGlobal, gestorCuestionario.preguntasSinContestar(cuestionarioGlobal));
+                obj.setVisible(true);
+                dispose();
+            }
+            
+        }
 
     }//GEN-LAST:event_siguienteActionPerformed
 
