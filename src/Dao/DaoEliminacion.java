@@ -101,9 +101,9 @@ public class DaoEliminacion extends AbstractDao {
         return super.findAll(RaEliminacion.class);
     }
 
-    public void deleteLogicPuesto(Puesto puesto) {
-        puesto.setEliminado(TRUE);
+    public void deleteLogicPuesto(Puesto puesto, RaEliminacion raEliminacion) {
         update(puesto);
+        saveRaEliminacion(raEliminacion);
         
     }
 }
