@@ -241,6 +241,11 @@ public class CompletarQuest extends javax.swing.JFrame {
         cancelarBtn.setForeground(new java.awt.Color(255, 255, 255));
         cancelarBtn.setText("Cancelar");
         cancelarBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cancelarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelarBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout abajoInteriorLayout = new javax.swing.GroupLayout(abajoInterior);
         abajoInterior.setLayout(abajoInteriorLayout);
@@ -309,6 +314,12 @@ public class CompletarQuest extends javax.swing.JFrame {
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_volverBtnActionPerformed
+
+    private void cancelarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarBtnActionPerformed
+        Inicio obj= new Inicio();
+        obj.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_cancelarBtnActionPerformed
     private void inicializarCuestionario (Candidato candidato){
         
         // PARAPROBAR ESCRIBIR DEBAJO
