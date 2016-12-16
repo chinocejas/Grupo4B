@@ -55,7 +55,8 @@ public class Completar1 extends javax.swing.JFrame {
         switch(longitudLista){
             
             case 0:{
-                
+                System.out.println("Entro al Case 0 - NO TIENE QUE ENTRAR ACA");
+                break;
             }
                 
            
@@ -74,7 +75,7 @@ public class Completar1 extends javax.swing.JFrame {
                 
                 
                 jTablePregunta3.setVisible(false);
-                
+                break;                
             }
             
             case 2:{
@@ -94,7 +95,7 @@ public class Completar1 extends javax.swing.JFrame {
                 
                 jTablePregunta2.setVisible(false);
                 jTablePregunta3.setVisible(false);
-
+                break;
             }
             
             case 3:{
@@ -114,8 +115,7 @@ public class Completar1 extends javax.swing.JFrame {
                 jTablePregunta2.setModel(modeloTabla3);
                 jTablePregunta2.getColumnModel().getColumn(0).setCellRenderer(new Renderizador());
                 jTablePregunta2.getColumnModel().getColumn(0).setCellEditor(new EditorCelda());
-                 
-
+                break;
             }
             
             default: {
@@ -138,9 +138,7 @@ public class Completar1 extends javax.swing.JFrame {
 
                 jTablePregunta3.setModel(modeloTabla4);
                 jTablePregunta3.getColumnModel().getColumn(0).setCellRenderer(new Renderizador());
-                jTablePregunta3.getColumnModel().getColumn(0).setCellEditor(new EditorCelda());
-                
-                
+                jTablePregunta3.getColumnModel().getColumn(0).setCellEditor(new EditorCelda()); 
             }
             
         }
@@ -164,32 +162,27 @@ public class Completar1 extends javax.swing.JFrame {
         
         switch(longitudLista){
             
-            case 1:{
-                
+            case 1:{   
                 nombrePregunta0.setText(buscarPregunta(cuestionario).get(cuestionario.getPreguntasContestadas()).getPreguntaCopia().getPregunta());
                 nombrePregunta1.setVisible(false);
                 nombrePregunta2.setVisible(false);
                 nombrePregunta3.setVisible(false);
-                
-                
+                break;
             }
-            
             case 2:{
                 nombrePregunta0.setText(buscarPregunta(cuestionario).get(cuestionario.getPreguntasContestadas()).getPreguntaCopia().getPregunta());
                 nombrePregunta1.setText(buscarPregunta(cuestionario).get(cuestionario.getPreguntasContestadas() + 1).getPreguntaCopia().getPregunta());
                 nombrePregunta2.setVisible(false);
                 nombrePregunta3.setVisible(false);
+                break;
             }
-            
-            
             case 3:{
                 nombrePregunta0.setText(buscarPregunta(cuestionario).get(cuestionario.getPreguntasContestadas()).getPreguntaCopia().getPregunta());
                 nombrePregunta1.setText(buscarPregunta(cuestionario).get(cuestionario.getPreguntasContestadas() + 1).getPreguntaCopia().getPregunta());
                 nombrePregunta2.setText(buscarPregunta(cuestionario).get(cuestionario.getPreguntasContestadas() + 2).getPreguntaCopia().getPregunta());
-                
                 nombrePregunta3.setVisible(false);
-            }
-            
+                break;
+            } 
             default: {
                 nombrePregunta0.setText(preguntas.get(0).getPregunta());
                 nombrePregunta1.setText(preguntas.get(1).getPregunta());
@@ -205,7 +198,8 @@ public class Completar1 extends javax.swing.JFrame {
         int longitud = preguntas.size();
         boolean ret = false;
         DaoOpcionRespuestaCopia daoORC = new DaoOpcionRespuestaCopia();
-        List <OpcionRespuestaCopia> listaORC= null;
+        List <OpcionRespuestaCopia> listaORC = new ArrayList();
+        
         if( jTablePregunta0.getSelectedRow()== -1 || jTablePregunta1.getSelectedRow()== -1 ||jTablePregunta2.getSelectedRow()== -1 || jTablePregunta3.getSelectedRow()== -1 ){
             JOptionPane.showConfirmDialog(null, "Debe contestar todas las preguntas antes de pasar al siguiente bloque", "Error", JOptionPane.ERROR_MESSAGE);
             ret = false;
@@ -216,14 +210,14 @@ public class Completar1 extends javax.swing.JFrame {
                     
                     for (int i = 0; i < 2; i++) {
 
-                        List<RespuestaCopia> listaDeRespuestas = null;
+                        List<RespuestaCopia> listaDeRespuestas = new ArrayList();
                         Set<RespuestaCopia> respuestasSet = preguntas.get(i).getOpcionRespuestaCopia().getRespuestaCopias();
-                        listaDeRespuestas = new ArrayList<RespuestaCopia>(respuestasSet);
+                        listaDeRespuestas.addAll(respuestasSet);
 
                         switch (i) {
                             case 0: {
                                 String respuesta = (String) jTablePregunta0.getValueAt(jTablePregunta0.getSelectedRow(), 1);
-
+                                
                                 int idRespuestaSeleccionada = getIdRespuesta(respuesta, listaDeRespuestas);
                                 
                                 preguntas.get(i).getOpcionRespuestaCopia().setSeleccion(idRespuestaSeleccionada);
@@ -243,22 +237,26 @@ public class Completar1 extends javax.swing.JFrame {
                         }    
                     }
                     daoORC.updateListaOpcionRespuestaCopia(listaORC);
+                    cuestionarioGlobal = gestorCuestionario.bloqueContestado(cuestionario, longitud);
+                    ret=true;
                     
                 }
                 
                 default: {
                     for (int i = 0; i < 4; i++) {
 
-                        List<RespuestaCopia> listaDeRespuestas = null;
+                        List<RespuestaCopia> listaDeRespuestas = new ArrayList();
                         Set<RespuestaCopia> respuestasSet = preguntas.get(i).getOpcionRespuestaCopia().getRespuestaCopias();
-                        listaDeRespuestas = new ArrayList<RespuestaCopia>(respuestasSet);
+                        listaDeRespuestas.addAll(respuestasSet);
 
                         switch (i) {
                             case 0: {
                                 String respuesta = (String) jTablePregunta0.getValueAt(jTablePregunta0.getSelectedRow(), 1);
+                                System.out.println("Respuesta seleccionada: "+respuesta);
 
+                                        
                                 int idRespuestaSeleccionada = getIdRespuesta(respuesta, listaDeRespuestas);
-
+                                
                                 preguntas.get(i).getOpcionRespuestaCopia().setSeleccion(idRespuestaSeleccionada);
                                 listaORC.add(preguntas.get(i).getOpcionRespuestaCopia());
                                 break;
@@ -297,6 +295,7 @@ public class Completar1 extends javax.swing.JFrame {
 
                     }
                     daoORC.updateListaOpcionRespuestaCopia(listaORC);
+                    cuestionarioGlobal = gestorCuestionario.bloqueContestado(cuestionario, longitud);
                     ret = true;
                 }
             }
@@ -305,14 +304,13 @@ public class Completar1 extends javax.swing.JFrame {
     }
             
     public int getIdRespuesta(String string, List<RespuestaCopia> listaRespuestaCopia){
+        
         int ret=-1;
         for(RespuestaCopia rc: listaRespuestaCopia){
             if(string.equals(rc.getRespuesta())){
                 ret = rc.getIdRespuestaCopia();
-                
                 break;
             }
-            
         }
         return ret;
     }        

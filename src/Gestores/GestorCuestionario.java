@@ -311,6 +311,9 @@ public class GestorCuestionario {
         int intentos = cuestionario.getCantidadAccesos();
         intentos++;
         cuestionario.setCantidadAccesos(intentos);
+        //Actualiza tambien la fecha de ultimo ingreso
+        Date fecha = getFecha();
+        cuestionario.setFechaUltimoIngreso(fecha);
         
         daoCuestionario.update(cuestionario);
         return cuestionario;
@@ -331,5 +334,14 @@ public class GestorCuestionario {
         daoCuestionario.update(cuestionario);
     }
     
+    //Añade preguntas contestadas a la cantidad de pregutnas contestadas del cuestionario
+    public Cuestionario bloqueContestado(Cuestionario cuestionario, int cantidadPreguntasContestadas){
+        int aux = cuestionario.getPreguntasContestadas();
+        aux += cantidadPreguntasContestadas;
+        cuestionario.setPreguntasContestadas(aux);
+        daoCuestionario.update(cuestionario);
+        
+        return cuestionario;
+    }
     
 }

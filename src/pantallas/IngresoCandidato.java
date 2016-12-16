@@ -389,7 +389,7 @@ public class IngresoCandidato extends javax.swing.JFrame {
                 //Verifica si hay accesos permitidos
                 if(cantidadAccesos < gestorRepositorio.configuracion().getCantidadMaximaAccesos()){
                     
-                    //Aumento un intento
+                    //Aumento un intento y actualizo la fechaUltimoIngreso
                     Cuestionario cuest = enProceso;
                     enProceso = gestorCuestionario.nuevoIntento(cuest);
                     //Vuelvo al cuestionario
