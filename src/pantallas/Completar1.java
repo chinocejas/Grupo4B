@@ -23,7 +23,7 @@ public class Completar1 extends javax.swing.JFrame {
         setLocationRelativeTo(null);
      }    
     
-    public Completar1(Cuestionario cuestionario) {
+    public Completar1(Cuestionario cuestionario, List<PreguntaCopia> preguntas) {
         initComponents();
         setSize(1024, 768);
         setLocationRelativeTo(null);

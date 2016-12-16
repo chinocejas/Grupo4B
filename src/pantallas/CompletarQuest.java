@@ -29,7 +29,10 @@ public class CompletarQuest extends javax.swing.JFrame {
      * Creates new form Pantallak
      * @param candidato
      */
+    //pido la instancia de gestor de cuestionario
+    GestorCuestionario gestorCuestionario = GestorCuestionario.getInstance();
     Candidato candidatoglobal = new Candidato();
+    
     public CompletarQuest() {
         initComponents();
         setSize(1024, 768);
@@ -42,11 +45,28 @@ public class CompletarQuest extends javax.swing.JFrame {
     }
     
      public CompletarQuest(Candidato candidato) {
-        initComponents();
+        
         candidatoglobal = candidato;
-        setSize(1024, 768);
-        setLocationRelativeTo(null);
-        cargaCuestionario(candidato);
+        Object retorno = gestorCuestionario.verificarAcceso(gestorCuestionario.getCuestActivo(candidato));
+        String aux="";
+        
+        //Si devuelve el string de instrucciones
+        if(retorno.getClass() == aux.getClass()){
+            initComponents();
+            setSize(1024, 768);
+            setLocationRelativeTo(null);
+            String ret = (String) retorno;
+            
+            cargaCuestionario(candidato, ret);
+        }else {//Si devuelve Cuestionario
+            Cuestionario ret = (Cuestionario) retorno;
+            Completar1 obj = new Completar1(ret, ret.getListaPreguntasContestadas());
+            obj.setVisible(true);
+            dispose();
+            
+        }
+        
+        
         
         
     }
@@ -306,12 +326,13 @@ public class CompletarQuest extends javax.swing.JFrame {
         
         }
     
-    public void cargaCuestionario(Candidato candidato){
+    public void cargaCuestionario(Candidato candidato, String inst){
        //LLENA LOS DATOS DE LAS PANTALLAS    
         candidatoName.setText("Candidato: " + candidato.getNombreApellido());
         candidatoDNI.setText(candidato.getTipoDocumento()+": "+ candidato.getNumeroDocumento().toString());
         
-        instrucciones.setText(Gestores.GestorRepositorio.getInstance().getInstrucciones());
+        //instrucciones.setText(Gestores.GestorRepositorio.getInstance().getInstrucciones());
+        instrucciones.setText(inst);
     }
     /**
      * @param args the command line arguments
