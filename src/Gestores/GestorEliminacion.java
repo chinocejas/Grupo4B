@@ -9,6 +9,7 @@ import Dao.DaoEliminacion;
 import Entidades.Consultor;
 import Entidades.Puesto;
 import Entidades.RaEliminacion;
+import static java.lang.Boolean.TRUE;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -51,13 +52,15 @@ public class GestorEliminacion {
     }
 
     public void eliminarPuestoOriginal(Puesto puesto) {
-        daoEliminacion.deleteLogicPuesto(puesto);
+        
         Consultor consultor = GestorConsultor.getInstance().getConsultor();
         Date fechaActual = new Date();
         DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
         hourdateFormat.format(fechaActual);
         RaEliminacion raEliminacion = crearRegistroAuditoria(puesto, consultor, fechaActual);
-        daoEliminacion.saveRaEliminacion(raEliminacion);
+        puesto.setEliminado(TRUE);
+        daoEliminacion.deleteLogicPuesto(puesto,raEliminacion);
+        
     }
     
     private static class GestorEliminacionHolder {
