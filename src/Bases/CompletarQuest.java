@@ -5,6 +5,12 @@
  */
 package Bases;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 
 /**
  *
@@ -19,6 +25,8 @@ public class CompletarQuest extends javax.swing.JFrame {
         initComponents();
         setSize(1024, 768);
         setLocationRelativeTo(null);
+        escribepruebas();
+        
         
     }
 
@@ -42,6 +50,8 @@ public class CompletarQuest extends javax.swing.JFrame {
         izquierda = new javax.swing.JPanel();
         derecha = new javax.swing.JPanel();
         abajoInterior = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -154,6 +164,12 @@ public class CompletarQuest extends javax.swing.JFrame {
 
         centroInterior.add(abajoInterior, java.awt.BorderLayout.PAGE_END);
 
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
+
+        centroInterior.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
         centro.add(centroInterior, java.awt.BorderLayout.CENTER);
 
         fondo.add(centro, java.awt.BorderLayout.CENTER);
@@ -162,7 +178,47 @@ public class CompletarQuest extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    public void escribepruebas(){
+        Date fecha = getFecha();
+        
+        jTextArea1.setText("Resultado:  " + fechasDiferenciaEnDias(fecha, getFecha()));
+        
+    }
+    public Date getFecha(){
+        //Devuelve año, mes, dia, hora, minutos
+        
+        Date ret = new Date();
+        Calendar calendario = new GregorianCalendar();
+        ret = calendario.getTime();
+        
+        return ret;
+    }
+    public static int fechasDiferenciaEnDias(Date fechaInicial, Date fechaFinal) {
 
+        DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
+        String fechaInicioString = df.format(fechaInicial);
+        try {
+            fechaInicial = df.parse(fechaInicioString);
+        } catch (ParseException ex) {
+        }
+
+        String fechaFinalString = df.format(fechaFinal);
+        try {
+            fechaFinal = df.parse(fechaFinalString);
+        } catch (ParseException ex) {
+        }
+
+        long fechaInicialMs = fechaInicial.getTime();
+        long fechaFinalMs = fechaFinal.getTime();
+        long diferencia = fechaFinalMs - fechaInicialMs;
+        double dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+        return ((int) dias);
+    }
+    public static int diferenciaEnDias2(Date fechaMayor, Date fechaMenor) {
+        Long diferencia = fechaMayor.getTime() - fechaMenor.getTime();
+        long dias = diferencia / (1000 * 60 * 60 * 24);
+        return (int) dias;
+    }
     /**
      * @param args the command line arguments
      */
@@ -216,6 +272,8 @@ public class CompletarQuest extends javax.swing.JFrame {
     private javax.swing.JPanel fondo;
     private javax.swing.JPanel izquierda;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JButton volverBtn1;
     // End of variables declaration//GEN-END:variables
 }

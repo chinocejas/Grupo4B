@@ -95,7 +95,7 @@ public class GestorCandidato {
         }
       return retorno;
     }
-    
+        
     private Cuestionario getCuestionarioActivoEnProceso(List<Cuestionario> cuestionarios) {
         Cuestionario cuestionario = null;
         for (Cuestionario cuest : cuestionarios) {

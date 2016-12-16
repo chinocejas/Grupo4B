@@ -73,11 +73,12 @@ public class GestorCuestionario {
             }
             // Desordeno nuevamente la lista de preguntasAsignadas
             Collections.shuffle(preguntasAsignadas);
-            // PA PROBA
-                    for(PreguntaCopia pregunta: preguntasAsignadas){
+            
+            
+                    for(int i = 0 ; i < preguntasAsignadas.size(); i++){
                         // GUARDANDO LAS PREGUNTA
-                        CuestionarioPreguntaCopiaId cuestionarioPreguntaCopiaId = new CuestionarioPreguntaCopiaId(cuestionarioactivo.getIdCuestionario(), pregunta.getIdPreguntaCopia());
-                        CuestionarioPreguntaCopia guardando = new CuestionarioPreguntaCopia(cuestionarioPreguntaCopiaId, cuestionarioactivo, pregunta);
+                        CuestionarioPreguntaCopiaId cuestionarioPreguntaCopiaId = new CuestionarioPreguntaCopiaId(cuestionarioactivo.getIdCuestionario(), preguntasAsignadas.get(i).getIdPreguntaCopia());
+                        CuestionarioPreguntaCopia guardando = new CuestionarioPreguntaCopia(cuestionarioPreguntaCopiaId, cuestionarioactivo, preguntasAsignadas.get(i),i);
                         savePreguntaCopiaAsignada(guardando);
                     }
             // CAMBIO DE ESTADO DE CUESTIONARIO
@@ -204,6 +205,61 @@ public class GestorCuestionario {
     
     public void update(Cuestionario cuestionario){
     daoCuestionario.update(cuestionario);
+    }
+    public Object verificarAcceso(Cuestionario cuestionario){
+        Object objeto = new Object();
+        List<PreguntaCopia> preguntasAMostrar = new ArrayList<PreguntaCopia>();
+        switch(cuestionario.getEstado()){
+            case 1:
+                if (superaTimeActivoMax(cuestionario)){
+                    // set cuestionario SIN CONTESTAR
+                    cuestionario.setEstado(4);
+                    cuestionario.setFechaFinalizacion(getFecha());
+                    update(cuestionario);
+                }
+                else // RETORNA INSTRUCCIONES
+                    objeto = Gestores.GestorRepositorio.getInstance().getInstrucciones();
+                break;
+            case 5:
+                if (superaTimePaCompletarMax(cuestionario)){
+                    // set cuestionario INCOMPLETO
+                    cuestionario.setEstado(2);
+                    cuestionario.setFechaFinalizacion(getFecha());
+                    update(cuestionario);
+                }
+                else // Retorna Lista de Preguntas 
+                    preguntasAMostrar = preguntasSinContestar(cuestionario);
+                    
+                break;
+                
+              
+        }
+     return objeto;
+    }
+    
+    public boolean superaTimeActivoMax(Cuestionario cuestionario){
+        Date fechacreachion = cuestionario.getFechaCreacion();
+        Date fechaActual = getFecha();
+        //RESTAR LAS DOS FECHAS
+        
+    return Boolean.FALSE;
+    }
+    public  boolean  superaTimePaCompletarMax(Cuestionario cuestionario){
+        Date fechaUltimoIngreso = cuestionario.getFechaUltimoIngreso();
+        Date fechaActual = getFecha();
+        //RESTAR LAS DOS FECHAS
+        return Boolean.FALSE;
+    }
+    public List<PreguntaCopia> preguntasSinContestar(Cuestionario cuestionario){
+        List<PreguntaCopia> preguntasAmostrar = new ArrayList<PreguntaCopia>();
+        List<PreguntaCopia> preguntasDelCuestionario = daoCuestionarioPreguntaCopia.buscarPreguntaCopia(cuestionario.getIdCuestionario());
+        int preguntasContestadas = cuestionario.getPreguntasContestadas();
+        
+        for (int i = preguntasContestadas; i< preguntasDelCuestionario.size();i++){
+            preguntasAmostrar.add(preguntasDelCuestionario.get(i)); 
+        }
+        
+        return preguntasAmostrar;
     }
     
 }
