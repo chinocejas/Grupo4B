@@ -35,62 +35,62 @@ public class GestorCuestionario {
     }
 
     public void iniciaCuestionario(Cuestionario cuestionarioactivo) {
-           
-           List<PreguntaCopia> preguntasAsignadas = new LinkedList<PreguntaCopia>(); 
-           PuestoCopia puestoAevaluar = cuestionarioactivo.getPuestoCopia();
-           //Le pido y casteo competenciasCopia
-           Set<CompetenciaCopia> competenciasSet= puestoAevaluar.getCompetencias();
-            // castea set to list
-           List<CompetenciaCopia> competencias= new ArrayList<CompetenciaCopia>(competenciasSet);
-           // PARAPROBAR
-            for (CompetenciaCopia competencia : competencias) {
-                
-                /* PARA ESCRIBIR EN EL PANEL DE INSTRUCCIONES
+        
+        // CAMBIO DE ESTADO DE CUESTIONARIO
+        cuestionarioactivo.setEstado(5);
+        Date fecha = getFecha();
+        cuestionarioactivo.setFechaInicio(fecha);
+        cuestionarioactivo.setFechaUltimoIngreso(fecha);
+        cuestionarioactivo.setPreguntasContestadas(0);
+        cuestionarioactivo.setCantidadAccesos(1);
+        
+        List<PreguntaCopia> preguntasAsignadas = new LinkedList<PreguntaCopia>();
+        PuestoCopia puestoAevaluar = cuestionarioactivo.getPuestoCopia();
+        //Le pido y casteo competenciasCopia
+        Set<CompetenciaCopia> competenciasSet = puestoAevaluar.getCompetencias();
+        // castea set to list
+        List<CompetenciaCopia> competencias = new ArrayList<CompetenciaCopia>(competenciasSet);
+        // PARAPROBAR
+        for (CompetenciaCopia competencia : competencias) {
+
+            /* PARA ESCRIBIR EN EL PANEL DE INSTRUCCIONES
                 try {
                     doc.insertString(doc.getLength(),"\n COMPETENCIA:"+competencia.getNombreCompetencia()+"\n", null);
                 }                
                 catch(BadLocationException exc) {
                     exc.printStackTrace();
-                }   */          
-                
-                                
-                //Le pido y casteo FactoresCopia a cada Competencia
-                 Set<FactorCopia> factoresSet= competencia.getFactorCopias();
+                }   */
+            //Le pido y casteo FactoresCopia a cada Competencia
+            Set<FactorCopia> factoresSet = competencia.getFactorCopias();
+            // castea set to list
+            List<FactorCopia> factores = new ArrayList<FactorCopia>(factoresSet);
+            for (FactorCopia factor : factores) {
+                //Le pido y casteo PreguntasCopia a cada FACTOR
+                Set<PreguntaCopia> preguntasSet = factor.getPreguntaCopias();
                 // castea set to list
-                 List<FactorCopia> factores= new ArrayList<FactorCopia>(factoresSet);
-                 for (FactorCopia factor : factores){
-                    //Le pido y casteo PreguntasCopia a cada FACTOR
-                    Set<PreguntaCopia> preguntasSet= factor.getPreguntaCopias();
-                    // castea set to list
-                    List<PreguntaCopia> preguntas = new LinkedList<PreguntaCopia>(preguntasSet);
-                    
-                    // ESTO VA EN UN METODO 
-                    Collections.shuffle(preguntas);
-                    
-                    //Guardo las dos primeras posiciones de la lista desordenada
-                    preguntasAsignadas.add(preguntas.get(0));
-                    preguntasAsignadas.add(preguntas.get(1));
-                                        
-                }
+                List<PreguntaCopia> preguntas = new LinkedList<PreguntaCopia>(preguntasSet);
+
+                // ESTO VA EN UN METODO 
+                Collections.shuffle(preguntas);
+
+                //Guardo las dos primeras posiciones de la lista desordenada
+                preguntasAsignadas.add(preguntas.get(0));
+                preguntasAsignadas.add(preguntas.get(1));
+
             }
-            // Desordeno nuevamente la lista de preguntasAsignadas
-            Collections.shuffle(preguntasAsignadas);
-            
-            
-                    for(int i = 0 ; i < preguntasAsignadas.size(); i++){
-                        // GUARDANDO LAS PREGUNTA
-                        CuestionarioPreguntaCopiaId cuestionarioPreguntaCopiaId = new CuestionarioPreguntaCopiaId(cuestionarioactivo.getIdCuestionario(), preguntasAsignadas.get(i).getIdPreguntaCopia());
-                        CuestionarioPreguntaCopia guardando = new CuestionarioPreguntaCopia(cuestionarioPreguntaCopiaId, cuestionarioactivo, preguntasAsignadas.get(i),i);
-                        savePreguntaCopiaAsignada(guardando);
-                    }
-            // CAMBIO DE ESTADO DE CUESTIONARIO
-            cuestionarioactivo.setEstado(5);
-            cuestionarioactivo.setFechaCreacion(getFecha());
-            cuestionarioactivo.setPreguntasContestadas(0);
-            update(cuestionarioactivo);
-                    
-             
-        
+        }
+        // Desordeno nuevamente la lista de preguntasAsignadas
+        Collections.shuffle(preguntasAsignadas);
+
+        for (int i = 0; i < preguntasAsignadas.size(); i++) {
+            // GUARDANDO LAS PREGUNTA
+            CuestionarioPreguntaCopiaId cuestionarioPreguntaCopiaId = new CuestionarioPreguntaCopiaId(cuestionarioactivo.getIdCuestionario(), preguntasAsignadas.get(i).getIdPreguntaCopia());
+            CuestionarioPreguntaCopia guardando = new CuestionarioPreguntaCopia(cuestionarioPreguntaCopiaId, cuestionarioactivo, preguntasAsignadas.get(i), i);
+            savePreguntaCopiaAsignada(guardando);
+        }
+
+        update(cuestionarioactivo);
+
     }
     
     private static class GestorCuestionarioHolder {
@@ -172,6 +172,7 @@ public class GestorCuestionario {
         
         return lista;
     }
+    
     public Cuestionario getCuestionarioActivoEnProceso(List<Cuestionario> cuestionarios) {
         Cuestionario cuestionario = null;
         for (Cuestionario cuest : cuestionarios) {
@@ -181,7 +182,8 @@ public class GestorCuestionario {
         }
         return cuestionario;
     }
-     public Cuestionario getCuestActivo(Candidato candidato){
+    
+    public Cuestionario getCuestActivo(Candidato candidato){
           Set<Cuestionario> cuestionariosSet= candidato.getCuestionarios();
           // castea set to list
           List<Cuestionario> cuestionarios= new ArrayList<Cuestionario>(cuestionariosSet);
@@ -191,14 +193,27 @@ public class GestorCuestionario {
     
     }
     
+    public Cuestionario getCuestionarioEnProceso(Candidato candidato){
+        Set<Cuestionario> cuestionariosSet = candidato.getCuestionarios();
+        // castea set to list
+        Cuestionario cuestionario = null;
+        for (Cuestionario cuest : cuestionariosSet) {
+            if (cuest.getEstado() == 5 ) {
+                cuestionario = cuest;
+            }
+        }
+        
+        return cuestionario;
+    }
+    
     public Date getFecha(){
         //Devuelve año, mes, dia, hora, minutos
         
-        Date ret = new Date();
-        Calendar calendario = new GregorianCalendar();
-        ret = calendario.getTime();
+        Date fechaCopia = new Date();
+        DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
+        hourdateFormat.format(fechaCopia);
         
-        return ret;
+        return fechaCopia;
     }
     
     public void savePreguntaCopiaAsignada(CuestionarioPreguntaCopia dato){
@@ -206,7 +221,7 @@ public class GestorCuestionario {
     }
     
     public void update(Cuestionario cuestionario){
-    daoCuestionario.update(cuestionario);
+        daoCuestionario.update(cuestionario);
     }
     
     public Object verificarAcceso(Cuestionario cuestionario){
@@ -299,6 +314,16 @@ public class GestorCuestionario {
         
         daoCuestionario.update(cuestionario);
         return cuestionario;
+    }
+    
+    public int minutosDeDiferenciaHoras(Date vieja, Date actual){
+        
+        return 1;
+    }
+    
+    public void setCuestionarioIncompleto(Cuestionario cuestionario){
+        cuestionario.setEstado(2);
+        daoCuestionario.update(cuestionario);
     }
     
 }

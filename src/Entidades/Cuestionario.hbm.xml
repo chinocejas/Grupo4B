@@ -22,16 +22,16 @@
         <property name="cantidadAccesos" type="java.lang.Integer">
             <column name="cantidad_accesos" />
         </property>
-        <property name="fechaCreacion" type="date">
+        <property name="fechaCreacion" type="timestamp">
             <column name="fecha_creacion" length="13" />
         </property>
-        <property name="fechaInicio" type="date">
+        <property name="fechaInicio" type="timestamp">
             <column name="fecha_inicio" length="13" />
         </property>
-        <property name="fechaUltimoIngreso" type="date">
+        <property name="fechaUltimoIngreso" type="timestamp">
             <column name="fecha_ultimo_ingreso" length="13" />
         </property>
-        <property name="fechaFinalizacion" type="date">
+        <property name="fechaFinalizacion" type="timestamp">
             <column name="fecha_finalizacion" length="13" />
         </property>
         <property name="clave" type="string">

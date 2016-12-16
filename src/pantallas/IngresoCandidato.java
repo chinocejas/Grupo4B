@@ -18,6 +18,7 @@ import java.applet.AudioClip;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import javax.swing.JOptionPane;
@@ -378,17 +379,30 @@ public class IngresoCandidato extends javax.swing.JFrame {
                 dispose();
             } 
             else {// Si entra aca es porque esl cuestionario esta en_proceso
-                //cuestionario
-                Cuestionario enProceso = gestorCandidato.getCuestionarioEnProceso((List)candidato.getCuestionarios());
+                
+                List<Cuestionario> listaCuestionarios = new ArrayList();
+                listaCuestionarios.addAll(candidato.getCuestionarios());
+                Cuestionario enProceso = gestorCandidato.getCuestionarioEnProceso(listaCuestionarios);
+                
                 int cantidadAccesos = enProceso.getCantidadAccesos();
+                
                 //Verifica si hay accesos permitidos
                 if(cantidadAccesos < gestorRepositorio.configuracion().getCantidadMaximaAccesos()){
+                    
+                    //Aumento un intento
+                    Cuestionario cuest = enProceso;
+                    enProceso = gestorCuestionario.nuevoIntento(cuest);
+                    //Vuelvo al cuestionario
                     Completar1 obj= new Completar1(enProceso, gestorCuestionario.preguntasSinContestar(enProceso));
                     obj.setVisible(true);
                     dispose();
                 }else{
                     JOptionPane.showMessageDialog(null, "Ha superado la cantidad de accesos permitidos para completar un cuestionario", "No puede completar el cuestionario", JOptionPane.ERROR_MESSAGE);
-
+                    //Cambiar estado de cuestionario a finalizado
+                    gestorCuestionario.setCuestionarioIncompleto(enProceso);
+                    IngresoCandidato obj= new IngresoCandidato();
+                    obj.setVisible(true);
+                    dispose();
                 }    
             }
            

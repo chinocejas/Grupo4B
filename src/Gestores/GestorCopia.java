@@ -181,9 +181,11 @@ public class GestorCopia {
                         PonderaCopia ponderaCopia = new PonderaCopia();
                         ponderaCopia.setIdPreguntaCopia(preguntaCopia.getIdPreguntaCopia());
                         ponderaCopia.setPreguntaCopia(preguntaCopia);
+                        
                         RespuestaCopia respuestaCopia = new RespuestaCopia();
                         respuestaCopia.setOpcionRespuestaCopia(opcRtaCopia);
                         daoRespuesta.saveRespuestaCopia(respuestaCopia);
+                        
                         ponderaCopia.setIdRespuestaCopia(respuestaCopia.getIdRespuestaCopia());
                         respuestaCopia.setRespuesta(pondOriginal.getRespuesta().getRespuesta());
                         ponderaCopia.setRespuestaCopia(respuestaCopia);
