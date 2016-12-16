@@ -292,7 +292,6 @@ public class CompletarQuest extends javax.swing.JFrame {
         GestorCuestionario gestorCuestionario = GestorCuestionario.getInstance();
         Cuestionario cuestionario = gestorCuestionario.getCuestionarioEnProceso(candidatoglobal);
         List<PreguntaCopia> listaPreguntas = gestorCuestionario.preguntasSinContestar(cuestionario);
-        System.out.println("Tamaño listaPreguntaCopia: "+listaPreguntas.size());
         
         Completar1 obj= new Completar1(cuestionario, listaPreguntas);
         obj.setVisible(true);
