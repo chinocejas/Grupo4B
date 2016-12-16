@@ -274,7 +274,15 @@ public class GestorCuestionario {
     
     public List<PreguntaCopia> preguntasSinContestar(Cuestionario cuestionario){
         List<PreguntaCopia> preguntasAmostrar = new ArrayList<PreguntaCopia>();
-        List<PreguntaCopia> preguntasDelCuestionario = daoCuestionarioPreguntaCopia.buscarPreguntaCopia(cuestionario.getIdCuestionario());
+        //tabla intermedia de cuestionarioPreguntaCopia de este cuestionario
+        List<CuestionarioPreguntaCopia> cuestionarioPreguntaCopia = daoCuestionarioPreguntaCopia.buscarPreguntaCopia(cuestionario.getIdCuestionario());
+        //Preguntas Copia
+        List<PreguntaCopia> preguntasDelCuestionario = new ArrayList();
+        for(CuestionarioPreguntaCopia cpc: cuestionarioPreguntaCopia){
+            preguntasDelCuestionario.add(cpc.getPreguntaCopia());
+        }
+        
+        
         int preguntasContestadas = cuestionario.getPreguntasContestadas();
         
         for (int i = preguntasContestadas; i< preguntasDelCuestionario.size();i++){

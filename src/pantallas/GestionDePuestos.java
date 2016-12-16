@@ -534,7 +534,7 @@ public class GestionDePuestos extends javax.swing.JFrame {
             boolean puestoEnUso = gestorPuesto.verificarPuestoEnUso(puesto.getIdPuesto());
         if(puestoEnUso){
             AudioClip sonido;
-            sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error.wav"));
+            sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error2.wav"));
             sonido.play();
             JOptionPane.showMessageDialog(null, "El puesto " + puesto.getNombrePuesto() +" está siendo usado en la base de datos y no puede eliminarse");
         }
@@ -586,7 +586,7 @@ public class GestionDePuestos extends javax.swing.JFrame {
        }
         else{
             AudioClip sonido;
-            sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error.wav"));
+            sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/error2.wav"));
             sonido.play();
            txtMensaje.setText("Seleccione el puesto que desea modificar"); 
         }
