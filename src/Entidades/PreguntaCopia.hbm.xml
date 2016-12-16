@@ -13,7 +13,7 @@
         <many-to-one name="factorCopia" class="Entidades.FactorCopia" fetch="select">
             <column name="id_factor_copia" />
         </many-to-one>
-        <many-to-one name="opcionRespuestaCopia" class="Entidades.OpcionRespuestaCopia" cascade="save-update" fetch="select">
+        <many-to-one name="opcionRespuestaCopia" class="Entidades.OpcionRespuestaCopia" cascade="save-update" fetch="select" lazy="false">
             <column name="id_opcion_respuesta_copia" />
         </many-to-one>
         <property name="nombrePregunta" type="string">
@@ -25,7 +25,7 @@
         <property name="descripcion" type="string">
             <column name="descripcion" length="500" />
         </property>
-        <set name="cuestionarioPreguntaCopias" table="cuestionario_pregunta_copia" inverse="true" lazy="true" fetch="select">
+        <set name="cuestionarioPreguntaCopias" table="cuestionario_pregunta_copia" inverse="true" lazy="false" fetch="select">
             <key>
                 <column name="id_pregunta_copia" not-null="true" />
             </key>

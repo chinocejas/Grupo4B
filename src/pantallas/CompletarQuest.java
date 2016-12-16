@@ -289,12 +289,12 @@ public class CompletarQuest extends javax.swing.JFrame {
     private void aceptarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarBtnActionPerformed
         
         inicializarCuestionario(candidatoglobal);
+        GestorCuestionario gestorCuestionario = GestorCuestionario.getInstance();
         
-        
-        /* Completar1 obj= new Completar1();
+        Completar1 obj= new Completar1(gestorCuestionario.getCuestActivo(candidatoglobal),gestorCuestionario.preguntasSinContestar(gestorCuestionario.getCuestActivo(candidatoglobal)));
         obj.setVisible(true);
         dispose();    
-        */
+        
         
         // ESTO ES PARA PROBAR
        

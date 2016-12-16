@@ -264,5 +264,14 @@ public class GestorCuestionario {
         
         return preguntasAmostrar;
     }
+    //Aumenta en 1 la cantidad de accesos
+    public Cuestionario nuevoIntento(Cuestionario cuestionario){
+        int intentos = cuestionario.getCantidadAccesos();
+        intentos++;
+        cuestionario.setCantidadAccesos(intentos);
+        
+        daoCuestionario.update(cuestionario);
+        return cuestionario;
+    }
     
 }

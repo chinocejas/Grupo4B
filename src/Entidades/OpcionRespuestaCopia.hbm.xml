@@ -19,13 +19,13 @@
         <property name="seleccion" type="integer">
             <column name="seleccion" />
         </property>
-        <set name="preguntaCopias" table="pregunta_copia" inverse="true" lazy="true" fetch="select">
+        <set name="preguntaCopias" table="pregunta_copia" inverse="true" lazy="false" fetch="select">
             <key>
                 <column name="id_opcion_respuesta_copia" />
             </key>
             <one-to-many class="Entidades.PreguntaCopia" />
         </set>
-        <set name="respuestaCopias" table="respuesta_copia" inverse="true" lazy="true" fetch="select">
+        <set name="respuestaCopias" table="respuesta_copia" inverse="true" lazy="false" fetch="select">
             <key>
                 <column name="id_opcion_respuesta_copia" />
             </key>
