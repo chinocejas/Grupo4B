@@ -55,8 +55,20 @@ public class DaoRespuesta extends AbstractDao {
         return (RespuestaCopia) super.find(RespuestaCopia.class, id);
     }
     
-    public List findAllRespuestaCopia() throws DataAccessLayerException {
-        return super.findAll(RespuestaCopia.class);
+    public List findAllRespuestaCopia(int idOpcRtaCopia) throws DataAccessLayerException {
+        List objects = null;
+        try {
+            startOperation();
+            Query query = session.createQuery("from RespuestaCopia where id_opcion_respuesta_copia= :id " );
+            query.setParameter("id", idOpcRtaCopia);
+            objects = query.list();
+            tx.commit();
+        } catch (HibernateException e) {
+            handleException(e);
+        } finally {
+            HibernateFactory.close(session);
+        }
+        return objects;
     }
     
     
