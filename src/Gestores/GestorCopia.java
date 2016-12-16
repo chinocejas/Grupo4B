@@ -22,6 +22,7 @@ import Entidades.PreguntaCopia;
 import Entidades.Puesto;
 import Entidades.PuestoCompetencia;
 import Entidades.PuestoCopia;
+import Entidades.Respuesta;
 import Entidades.RespuestaCopia;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -177,18 +178,36 @@ public class GestorCopia {
 
                     List<PonderaCopia> ponderasCopia = new ArrayList();
                     for (Pondera pondOriginal : ponderasOriginales) {
-                        
+
                         PonderaCopia ponderaCopia = new PonderaCopia();
                         ponderaCopia.setIdPreguntaCopia(preguntaCopia.getIdPreguntaCopia());
                         ponderaCopia.setPreguntaCopia(preguntaCopia);
-                        
                         RespuestaCopia respuestaCopia = new RespuestaCopia();
+                       // respuestaCopia.setIdRespuestaCopia(pondOriginal.getIdRespuesta());
+                        respuestaCopia.setRespuesta(pondOriginal.getRespuesta().getRespuesta());
                         respuestaCopia.setOpcionRespuestaCopia(opcRtaCopia);
-                        daoRespuesta.saveRespuestaCopia(respuestaCopia);
+
+                        
+                        List<RespuestaCopia> todasRespuestasCopias = daoRespuesta.findAllRespuestaCopia(opcRtaCopia.getIdOpcionRespuestaCopia());
+                        boolean respuestaEnBdEncontrada = false;
+                        for (RespuestaCopia resp : todasRespuestasCopias) {
+                            if (resp.getRespuesta().equals(respuestaCopia.getRespuesta())) {
+                                respuestaEnBdEncontrada = true;
+                                respuestaCopia=resp;
+                            }
+
+                        }
+                       
+                        if (!respuestaEnBdEncontrada){
+                            daoRespuesta.saveRespuestaCopia(respuestaCopia);
+                      
+                        }
+                        //else
+                            //daoRespuesta.updateRespuestaCopia(respuestaCopia);
                         
                         ponderaCopia.setIdRespuestaCopia(respuestaCopia.getIdRespuestaCopia());
-                        respuestaCopia.setRespuesta(pondOriginal.getRespuesta().getRespuesta());
-                        ponderaCopia.setRespuestaCopia(respuestaCopia);
+                       
+                        //ponderaCopia.setRespuestaCopia(respuestaCopia);
                         ponderaCopia.setPonderacion(pondOriginal.getPonderacion());
 
                         ponderasCopia.add(ponderaCopia);
