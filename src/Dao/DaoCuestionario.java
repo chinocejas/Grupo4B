@@ -56,4 +56,13 @@ public class DaoCuestionario extends AbstractDao{
         
         return objects;
     }
+    
+    public void saveCuestionarios(List<Cuestionario> cuestionarios){
+        
+        for(Cuestionario cuest: cuestionarios){
+            save(cuest);
+        }
+        
+
+    }
 }
