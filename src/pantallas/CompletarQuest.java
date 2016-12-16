@@ -60,7 +60,7 @@ public class CompletarQuest extends javax.swing.JFrame {
             cargaCuestionario(candidato, ret);
         }else {//Si devuelve Cuestionario
             Cuestionario ret = (Cuestionario) retorno;
-            Completar1 obj = new Completar1(ret, ret.getListaPreguntasContestadas());
+            Completar1 obj = new Completar1(ret, gestorCuestionario.preguntasSinContestar(ret));
             obj.setVisible(true);
             dispose();
             

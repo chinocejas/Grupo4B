@@ -206,6 +206,7 @@ public class GestorCuestionario {
     public void update(Cuestionario cuestionario){
     daoCuestionario.update(cuestionario);
     }
+    
     public Object verificarAcceso(Cuestionario cuestionario){
         Object objeto = new Object();
         List<PreguntaCopia> preguntasAMostrar = new ArrayList<PreguntaCopia>();
@@ -244,12 +245,14 @@ public class GestorCuestionario {
         
     return Boolean.FALSE;
     }
+    
     public  boolean  superaTimePaCompletarMax(Cuestionario cuestionario){
         Date fechaUltimoIngreso = cuestionario.getFechaUltimoIngreso();
         Date fechaActual = getFecha();
         //RESTAR LAS DOS FECHAS
         return Boolean.FALSE;
     }
+    
     public List<PreguntaCopia> preguntasSinContestar(Cuestionario cuestionario){
         List<PreguntaCopia> preguntasAmostrar = new ArrayList<PreguntaCopia>();
         List<PreguntaCopia> preguntasDelCuestionario = daoCuestionarioPreguntaCopia.buscarPreguntaCopia(cuestionario.getIdCuestionario());
