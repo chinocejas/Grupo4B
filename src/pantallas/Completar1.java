@@ -66,6 +66,8 @@ public class Completar1 extends javax.swing.JFrame {
                 ModeloPersonalizado modeloTabla1 = new ModeloPersonalizado(preguntas.get(0));
 
                 jTablePregunta0.setModel(modeloTabla1); //Aca seteo un modelo personalizado de jtable para que pueda cargar cosas dinamicamente
+                jTablePregunta0.getTableHeader().setReorderingAllowed(false) ;
+                
                 jTablePregunta0.getColumnModel().getColumn(0).setCellRenderer(new Renderizador());
                 jTablePregunta0.getColumnModel().getColumn(0).setCellEditor(new EditorCelda()); //Aca estoy setenado en la columna 0 con los modelos personalizados del jcheckbox
 
@@ -88,10 +90,12 @@ public class Completar1 extends javax.swing.JFrame {
                 jTablePregunta0.setModel(modeloTabla1); //Aca seteo un modelo personalizado de jtable para que pueda cargar cosas dinamicamente
                 jTablePregunta0.getColumnModel().getColumn(0).setCellRenderer(new Renderizador());
                 jTablePregunta0.getColumnModel().getColumn(0).setCellEditor(new EditorCelda()); //Aca estoy setenado en la columna 0 con los modelos personalizados del jcheckbox
-
+                jTablePregunta0.getTableHeader().setReorderingAllowed(false) ;
+                
                 jTablePregunta1.setModel(modeloTabla2);
                 jTablePregunta1.getColumnModel().getColumn(0).setCellRenderer(new Renderizador());
                 jTablePregunta1.getColumnModel().getColumn(0).setCellEditor(new EditorCelda());
+                jTablePregunta1.getTableHeader().setReorderingAllowed(false) ;
                 
                 jTablePregunta2.setVisible(false);
                 jTablePregunta3.setVisible(false);
@@ -107,14 +111,18 @@ public class Completar1 extends javax.swing.JFrame {
                 jTablePregunta0.setModel(modeloTabla1); //Aca seteo un modelo personalizado de jtable para que pueda cargar cosas dinamicamente
                 jTablePregunta0.getColumnModel().getColumn(0).setCellRenderer(new Renderizador());
                 jTablePregunta0.getColumnModel().getColumn(0).setCellEditor(new EditorCelda()); //Aca estoy setenado en la columna 0 con los modelos personalizados del jcheckbox
-
+                jTablePregunta0.getTableHeader().setReorderingAllowed(false) ;
+                
                 jTablePregunta1.setModel(modeloTabla2);
                 jTablePregunta1.getColumnModel().getColumn(0).setCellRenderer(new Renderizador());
                 jTablePregunta1.getColumnModel().getColumn(0).setCellEditor(new EditorCelda());
-
+                jTablePregunta1.getTableHeader().setReorderingAllowed(false) ;
+                
                 jTablePregunta2.setModel(modeloTabla3);
                 jTablePregunta2.getColumnModel().getColumn(0).setCellRenderer(new Renderizador());
                 jTablePregunta2.getColumnModel().getColumn(0).setCellEditor(new EditorCelda());
+                jTablePregunta2.getTableHeader().setReorderingAllowed(false) ;
+                
                 break;
             }
             
@@ -127,18 +135,22 @@ public class Completar1 extends javax.swing.JFrame {
                 jTablePregunta0.setModel(modeloTabla1); //Aca seteo un modelo personalizado de jtable para que pueda cargar cosas dinamicamente
                 jTablePregunta0.getColumnModel().getColumn(0).setCellRenderer(new Renderizador());
                 jTablePregunta0.getColumnModel().getColumn(0).setCellEditor(new EditorCelda()); //Aca estoy setenado en la columna 0 con los modelos personalizados del jcheckbox
-
+                jTablePregunta0.getTableHeader().setReorderingAllowed(false) ;
+                
                 jTablePregunta1.setModel(modeloTabla2);
                 jTablePregunta1.getColumnModel().getColumn(0).setCellRenderer(new Renderizador());
                 jTablePregunta1.getColumnModel().getColumn(0).setCellEditor(new EditorCelda());
-
+                jTablePregunta1.getTableHeader().setReorderingAllowed(false) ;
+                
                 jTablePregunta2.setModel(modeloTabla3);
                 jTablePregunta2.getColumnModel().getColumn(0).setCellRenderer(new Renderizador());
                 jTablePregunta2.getColumnModel().getColumn(0).setCellEditor(new EditorCelda());
-
+                jTablePregunta2.getTableHeader().setReorderingAllowed(false) ;
+                
                 jTablePregunta3.setModel(modeloTabla4);
                 jTablePregunta3.getColumnModel().getColumn(0).setCellRenderer(new Renderizador());
                 jTablePregunta3.getColumnModel().getColumn(0).setCellEditor(new EditorCelda()); 
+                jTablePregunta3.getTableHeader().setReorderingAllowed(false) ;
             }
             
         }
@@ -497,6 +509,8 @@ public class Completar1 extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTablePregunta0.setColumnSelectionAllowed(false);
+        jTablePregunta0.setMaximumSize(new java.awt.Dimension(50, 100));
         jScrollPane3.setViewportView(jTablePregunta0);
 
         jTablePregunta1.setModel(new javax.swing.table.DefaultTableModel(

@@ -29,6 +29,7 @@ public class EvaluarCandidatoDatos extends javax.swing.JFrame {
         initComponents();
         setSize(1024, 768);
         setLocationRelativeTo(null);
+        
         tabla.setModel(modeloTabla);
         tabla.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         
