@@ -23,10 +23,10 @@ public class GestorRepositorio {
             + "aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum \n"
             + "dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia\n"
             + "deserunt mollit anim id est laborum \n " 
-            + "Lorem ipsum dolor sit amet, consectetur  adipiscing elit, sed do eiusmod tempor incididunt ut \n "
+            + "DLorem ipsum dolor sit amet, consectetur  adipiscing elit, sed do eiusmod tempor incididunt ut \n "
             + "labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut \n"
             + "aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum \n";
-    String inst2 = "<html><h1>INSTRUCCIONES</h1><b><u>T</u>wo</b><br>lines</html>";
+    String inst2 = "";
     DaoConfiguracion daoConfiguracion = new DaoConfiguracion();
     Configuracion configuracion = daoConfiguracion.getConfiguracion(1);//El entero que se le pasa es el id de configuracion
 
@@ -43,11 +43,12 @@ public class GestorRepositorio {
     }
     
     public String getInstrucciones(){
-        
-        return inst2;
+        String ret = daoConfiguracion.getConfiguracion(1).getInstrucciones();
+        return ret;
     }
     
     public Configuracion configuracion(){
         return this.configuracion;
     }
+    
 }

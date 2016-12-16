@@ -21,6 +21,8 @@ public class GestorCuestionario {
     DaoCandidato daoCandidato = new DaoCandidato();
     DaoRespuesta daoRespuesta = new DaoRespuesta();
     DaoCuestionarioPreguntaCopia daoCuestionarioPreguntaCopia = new DaoCuestionarioPreguntaCopia();
+    //pido la instancia de gestor de reposiorio
+    GestorRepositorio gestorRepositorio = GestorRepositorio.getInstance();
     
             
     
@@ -219,7 +221,7 @@ public class GestorCuestionario {
                     update(cuestionario);
                 }
                 else // RETORNA INSTRUCCIONES
-                    objeto = Gestores.GestorRepositorio.getInstance().getInstrucciones();
+                    objeto = gestorRepositorio.getInstrucciones();
                 break;
             case 5:
                 if (superaTimePaCompletarMax(cuestionario)){
@@ -239,17 +241,34 @@ public class GestorCuestionario {
     }
     
     public boolean superaTimeActivoMax(Cuestionario cuestionario){
-        Date fechacreachion = cuestionario.getFechaCreacion();
+        Date fechaCreacion = cuestionario.getFechaCreacion();
         Date fechaActual = getFecha();
-        //RESTAR LAS DOS FECHAS
         
-    return Boolean.FALSE;
+        int tiempoMaximoActivo = gestorRepositorio.configuracion().getTiempoMaximoCuestionarioActivo();
+        //RESTAR LAS DOS FECHAS
+        /*
+        if(resta > tiempoMaximoActivo)
+            ret = false;
+        else ret = true;
+        */
+        
+        return Boolean.FALSE;
     }
     
     public  boolean  superaTimePaCompletarMax(Cuestionario cuestionario){
         Date fechaUltimoIngreso = cuestionario.getFechaUltimoIngreso();
         Date fechaActual = getFecha();
+        
+        int tiempoMaximoCuestionario = gestorRepositorio.configuracion().getTiempoMaximoCuestionario();
+      
         //RESTAR LAS DOS FECHAS
+        /*
+        if(resta > tiempoMaximoCuestionario)
+            ret = false;
+        else ret = true;
+        */
+        
+        //return ret;
         return Boolean.FALSE;
     }
     

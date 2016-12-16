@@ -115,4 +115,14 @@ public class GestorCandidato {
                                
     }
     
+    public Cuestionario getCuestionarioEnProceso(List<Cuestionario> cuestionarios) {
+        Cuestionario cuestionario = null;
+        for (Cuestionario cuest : cuestionarios) {
+            if (cuest.getEstado()==5) {
+                cuestionario= cuest;
+            }
+        }
+        return cuestionario;
+    }
+    
 }

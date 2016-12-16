@@ -9,12 +9,16 @@ import Gestores.GestorConsultor;
 import Bases.*;
 import Entidades.Candidato;
 import Entidades.Consultor;
+import Entidades.Cuestionario;
 import Gestores.GestorCandidato;
+import Gestores.GestorCuestionario;
+import Gestores.GestorRepositorio;
 import Gestores.GestorValidacionesPantalla;
 import java.applet.AudioClip;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.util.List;
 import java.util.logging.Level;
 import javax.swing.JOptionPane;
 
@@ -29,6 +33,8 @@ public class IngresoCandidato extends javax.swing.JFrame {
 
    //pido la instancia de gestor de validaciones de pantalla
     GestorValidacionesPantalla gestorValidacionesPantalla = GestorValidacionesPantalla.getInstance();
+    GestorRepositorio gestorRepositorio = GestorRepositorio.getInstance();
+    GestorCuestionario gestorCuestionario = GestorCuestionario.getInstance();
     
     public IngresoCandidato() {
         initComponents();
@@ -364,17 +370,27 @@ public class IngresoCandidato extends javax.swing.JFrame {
         String tipoDocumento= (String) tipoDoc.getSelectedItem();
 
         Candidato candidato = gestorCandidato.validarCandidato(tipoDocumento, numeroDocumento, password);
-       
+        
         if (candidato!=null) {
             if(gestorCandidato.getEstadoQuest(candidato)==1){//Si nunca entro a responder el cuestionario
-            CompletarQuest obj= new CompletarQuest(candidato);
-            obj.setVisible(true);
-            dispose();
+                CompletarQuest obj= new CompletarQuest(candidato);
+                obj.setVisible(true);
+                dispose();
             } 
-            else // Si entra aca es porque esl cuestionario esta en_proceso
-                JOptionPane.showMessageDialog(null, "TENES QUE HACER LA PANTALLA QUE PARA COMPLETAR QUEST", "FALTA PANTALLA", JOptionPane.ERROR_MESSAGE);
-            //obj.cargaCuestionario();
-           
+            else {// Si entra aca es porque esl cuestionario esta en_proceso
+                //cuestionario
+                Cuestionario enProceso = gestorCandidato.getCuestionarioEnProceso((List)candidato.getCuestionarios());
+                int cantidadAccesos = enProceso.getCantidadAccesos();
+                //Verifica si hay accesos permitidos
+                if(cantidadAccesos < gestorRepositorio.configuracion().getCantidadMaximaAccesos()){
+                    Completar1 obj= new Completar1(enProceso, gestorCuestionario.preguntasSinContestar(enProceso));
+                    obj.setVisible(true);
+                    dispose();
+                }else{
+                    JOptionPane.showMessageDialog(null, "Ha superado la cantidad de accesos permitidos para completar un cuestionario", "No puede completar el cuestionario", JOptionPane.ERROR_MESSAGE);
+
+                }    
+            }
            
         } else {
              AudioClip sonido;
