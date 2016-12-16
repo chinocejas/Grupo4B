@@ -290,8 +290,11 @@ public class CompletarQuest extends javax.swing.JFrame {
         
         inicializarCuestionario(candidatoglobal);
         GestorCuestionario gestorCuestionario = GestorCuestionario.getInstance();
+        Cuestionario cuestionario = gestorCuestionario.getCuestionarioEnProceso(candidatoglobal);
+        List<PreguntaCopia> listaPreguntas = gestorCuestionario.preguntasSinContestar(cuestionario);
+        System.out.println("Tamaño listaPreguntaCopia: "+listaPreguntas.size());
         
-        Completar1 obj= new Completar1(gestorCuestionario.getCuestActivo(candidatoglobal),gestorCuestionario.preguntasSinContestar(gestorCuestionario.getCuestActivo(candidatoglobal)));
+        Completar1 obj= new Completar1(cuestionario, listaPreguntas);
         obj.setVisible(true);
         dispose();    
         
@@ -314,15 +317,18 @@ public class CompletarQuest extends javax.swing.JFrame {
         
         // ESTO VA EN OTRA PANTALLA
         GestorCuestionario gestorCuestionario = GestorCuestionario.getInstance();
-        Cuestionario cuestionarioactivo = gestorCuestionario.getCuestActivo(candidato);
+        //Cuestionario cuestionarioactivo = gestorCuestionario.getCuestActivo(candidato);
+        List<Cuestionario> lista = new ArrayList();
+        lista.addAll(candidato.getCuestionarios());
+        Cuestionario cuestionarioactivo = gestorCuestionario.getCuestionarioActivoEnProceso(lista);
         
         gestorCuestionario.iniciaCuestionario(cuestionarioactivo);
-        switch (cuestionarioactivo.getEstado()){
+        /*switch (cuestionarioactivo.getEstado()){
             case 1: 
                 gestorCuestionario.iniciaCuestionario(cuestionarioactivo);
             case 5:
                 System.out.println("AHORA DEFINE LOS DEMAS");
-        }// FIN SWITCH
+        }// FIN SWITCH*/
         
         }
     
